@@ -1,0 +1,32 @@
+{
+  "assignments": [
+    {
+      "title": "Short Accurate No Rubric DOCX",
+      "assignmentId": "1082",
+      "courseName": "Powergrader qa test",
+      "submissionType": ".docx",
+      "createdAt": "2026-01-22T14:54:31.608Z"
+    },
+    {
+      "title": "Long Accurate Existing Rubric PDF",
+      "assignmentId": "1081",
+      "courseName": "Powergrader qa test",
+      "submissionType": ".pdf",
+      "createdAt": "2026-01-22T14:55:43.189Z"
+    },
+    {
+      "title": "Short Inaccurate New Rubric TXT",
+      "assignmentId": "1083",
+      "courseName": "Powergrader qa test",
+      "submissionType": ".txt",
+      "createdAt": "2026-01-22T14:58:50.157Z"
+    },
+    {
+      "title": "Short Inaccurate Existing Rubric Text Entry",
+      "assignmentId": "1080",
+      "courseName": "Powergrader qa test",
+      "submissionType": "Text Entry",
+      "createdAt": "2026-01-22T15:00:43.505Z"
+    }
+  ]
+}
