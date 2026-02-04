@@ -1,6 +1,6 @@
 export type UserRoleTypes = 'teacher' | 'student';
 
-export type LMSType = 'canvas';
+export type LMSType = 'canvas' | 'd2l';
 
 export type FormatType = 
   | '.docx' 
@@ -10,6 +10,7 @@ export type FormatType =
 
 export type RubricType = 'existing' | 'new' | 'no';
 
+// Canvas-specific rubric types
 export type ExistingRubricConfig = {
   type: 'existing';
   groupName: string;
@@ -38,7 +39,53 @@ export type NewRubricConfig = {
     criteria: RubricCriterion[];
 };
 
-export type AssignmentRubricConfig = ExistingRubricConfig | NoRubricConfig | NewRubricConfig;
+// D2L-specific rubric types
+export type D2LExistingRubricConfig = {
+  type: 'existing';
+  groupName: string;
+  rubricName: string;
+};
+
+export type D2LNoRubricConfig = { type: 'no' };
+
+// D2L rubric level - applies to all criteria
+export type D2LRubricLevel = {
+    name: string;
+    points: number;
+};
+
+// D2L overall level - for overall rubric scoring
+export type D2LOverallLevel = {
+    levelName: string;
+    score: number;
+};
+
+// D2L criterion level item - one per level, each with its own description and initialFeedback
+export type D2LRubricCriterionLevelItem = {
+    description: string;
+    initialFeedback: string;
+};
+
+// D2L criterion - has a name and an array of level items (one per level)
+export type D2LRubricCriterion = {
+    name: string;  // Criterion name
+    levelItems: D2LRubricCriterionLevelItem[];  // Array length must equal levels.length, one item per level
+};
+
+export type D2LNewRubricConfig = {
+  type: 'new';
+  title: string;
+  levels: D2LRubricLevel[];  // Fixed levels that apply to all criteria [{name, points}]
+  criterion: D2LRubricCriterion[];  // Criteria with description and initialFeedback array
+  overallLevels: D2LOverallLevel[];  // Overall levels for rubric scoring [{levelName, score}]
+};
+
+// Union types for rubric configs
+export type CanvasRubricConfig = ExistingRubricConfig | NoRubricConfig | NewRubricConfig;
+export type D2LRubricConfig = D2LExistingRubricConfig | D2LNoRubricConfig | D2LNewRubricConfig;
+
+// Legacy type for backward compatibility
+export type AssignmentRubricConfig = CanvasRubricConfig | D2LRubricConfig;
 
 export interface UserCredentials {
   username: string;
@@ -59,6 +106,30 @@ export interface CanvasAssignmentData {
     until?: string;
 }
 
+// Canvas-specific assignment config
+export interface CanvasAssignmentConfig {
+  title: string;
+  description?: string;
+  points?: number;
+  assignmentGroup?: string;
+  submissionType?: FormatType;
+  courseName?: string;
+  assignAccess?: CanvasAssignmentData;
+  rubric?: CanvasRubricConfig;
+}
+
+// D2L-specific assignment config
+export interface D2LAssignmentConfig {
+  title: string;
+  description?: string;
+  points?: number;
+  submissionType?: FormatType;
+  courseName?: string;
+  assignAccess?: CanvasAssignmentData;  // Reuse CanvasAssignmentData for date/student assignment
+  rubric?: D2LRubricConfig;
+}
+
+// Legacy type for backward compatibility
 export interface AssignmentConfig {
   title: string;
   description?: string;

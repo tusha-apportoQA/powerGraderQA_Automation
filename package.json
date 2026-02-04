@@ -13,7 +13,6 @@
     "test:canvas": "playwright test --grep @canvas",
     "test:moodle": "playwright test --grep @moodle",
     "test:d2l": "playwright test --grep @d2l",
-    "setup": "npx tsx e2e/run-global-setup.ts",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",
     "allure:serve": "allure serve allure-results"
