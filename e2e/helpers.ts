@@ -3,6 +3,7 @@ import { Page, Browser } from '@playwright/test';
 import testUsers from './test_users';
 import { CanvasLoginPage } from './components/lms/canvas/pages/CanvasLoginPage';
 import { D2LLoginPage } from './components/lms/d2l/pages/D2LLoginPage';
+import { MoodleLoginPage } from './components/lms/moodle/pages/MoodleLoginPage';
 
 class E2ETestHelpers {
   baseURL?: string;
@@ -52,11 +53,20 @@ class E2ETestHelpers {
     }
   }
 
+  async checkAndAuthenticateMoodleUser(user: UserCredentials, page: Page) {
+    const loginPage = new MoodleLoginPage(page);
+    const baseURL = this.baseURL || process.env.MOODLE_BASE_URL || '';
+    
+    await loginPage.goto(baseURL);
+    await loginPage.login(user.username, user.password);
+    await loginPage.expectLoginSuccess();
+  }
+
   /**
    * Create a new browser context, authenticate the user, and return an authenticated page.
    * This is used for test-level authentication where each test gets a fresh session.
    * 
-   * @param lms - LMS type ('canvas' or 'd2l')
+   * @param lms - LMS type ('canvas', 'd2l', or 'moodle')
    * @param role - User role ('teacher' or 'student')
    * @param browser - Playwright browser instance
    * @param baseURL - Base URL for the LMS
@@ -83,6 +93,8 @@ class E2ETestHelpers {
       await helper.checkAndAuthenticateCanvasUser(user, page);
     } else if (lms === 'd2l') {
       await helper.checkAndAuthenticateD2LUser(user, page);
+    } else if (lms === 'moodle') {
+      await helper.checkAndAuthenticateMoodleUser(user, page);
     } else {
       throw new Error(`Unsupported LMS: ${lms}`);
     }
@@ -98,6 +110,10 @@ class E2ETestHelpers {
     return process.env.D2L_BASE_URL || '';
   }
 
+  public static getMoodleBaseURL(): string {
+    return process.env.MOODLE_BASE_URL || '';
+  }
+
   /**
    * Get base URL for a specific LMS
    */
@@ -107,6 +123,8 @@ class E2ETestHelpers {
         return process.env.CANVAS_BASE_URL || 'https://apporto.instructure.com';
       case 'd2l':
         return process.env.D2L_BASE_URL || '';
+      case 'moodle':
+        return process.env.MOODLE_BASE_URL || '';
       default:
         throw new Error(`Unsupported LMS: ${lms}`);
     }

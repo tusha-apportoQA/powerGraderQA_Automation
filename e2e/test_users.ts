@@ -1,6 +1,7 @@
 import { UserCredentials } from './types';
 import { getCanvasConfig } from './config/canvas.config';
 import { getD2LConfig } from './config/d2l.config';
+import { getMoodleConfig } from './config/moodle.config';
 
 function getTestUsers(): UserCredentials[] {
     const users: UserCredentials[] = [];
@@ -45,6 +46,27 @@ function getTestUsers(): UserCredentials[] {
         );
     } catch (error) {
         console.warn('D2L config not available:', error);
+    }
+    
+    // Add Moodle users
+    try {
+        const { credentials } = getMoodleConfig();
+        users.push(
+            {
+                username: credentials.teacherUsername,
+                password: credentials.teacherPassword,
+                role: 'teacher',
+                lms: 'moodle'
+            },
+            {
+                username: credentials.studentUsername,
+                password: credentials.studentPassword,
+                role: 'student',
+                lms: 'moodle'
+            }
+        );
+    } catch (error) {
+        console.warn('Moodle config not available:', error);
     }
     
     return users;

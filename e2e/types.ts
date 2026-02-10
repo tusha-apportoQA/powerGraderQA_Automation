@@ -1,6 +1,6 @@
 export type UserRoleTypes = 'teacher' | 'student';
 
-export type LMSType = 'canvas' | 'd2l';
+export type LMSType = 'canvas' | 'd2l' | 'moodle';
 
 export type FormatType = 
   | '.docx' 
@@ -80,12 +80,41 @@ export type D2LNewRubricConfig = {
   overallLevels: D2LOverallLevel[];  // Overall levels for rubric scoring [{levelName, score}]
 };
 
+// Moodle-specific rubric types
+export type MoodleExistingRubricConfig = {
+  type: 'existing';
+  rubricName: string;
+};
+
+export type MoodleNoRubricConfig = { type: 'no' };
+
+/** Same as Canvas RubricRating but without longDescription. */
+export type MoodleRubricRating = {
+  description: string;
+  points: number;
+};
+
+/** Same as Canvas RubricCriterion but without maxPoints and longDescription. */
+export type MoodleRubricCriterion = {
+  description: string;
+  ratings: MoodleRubricRating[];
+};
+
+export type MoodleNewRubricConfig = {
+  type: 'new';
+  title: string;
+  description?: string;
+  criteria: MoodleRubricCriterion[];
+};
+
+export type MoodleRubricConfig = MoodleExistingRubricConfig | MoodleNoRubricConfig | MoodleNewRubricConfig;
+
 // Union types for rubric configs
 export type CanvasRubricConfig = ExistingRubricConfig | NoRubricConfig | NewRubricConfig;
 export type D2LRubricConfig = D2LExistingRubricConfig | D2LNoRubricConfig | D2LNewRubricConfig;
 
 // Legacy type for backward compatibility
-export type AssignmentRubricConfig = CanvasRubricConfig | D2LRubricConfig;
+export type AssignmentRubricConfig = CanvasRubricConfig | D2LRubricConfig | MoodleRubricConfig;
 
 export interface UserCredentials {
   username: string;
@@ -127,6 +156,17 @@ export interface D2LAssignmentConfig {
   courseName?: string;
   assignAccess?: CanvasAssignmentData;  // Reuse CanvasAssignmentData for date/student assignment
   rubric?: D2LRubricConfig;
+}
+
+// Moodle-specific assignment config
+export interface MoodleAssignmentConfig {
+  title: string;
+  description?: string;
+  points?: number;
+  submissionType?: FormatType;
+  courseName?: string;
+  assignAccess?: CanvasAssignmentData;  // Reuse CanvasAssignmentData for date/student assignment
+  rubric?: MoodleRubricConfig;
 }
 
 // Legacy type for backward compatibility
