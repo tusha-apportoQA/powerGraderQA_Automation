@@ -76,8 +76,8 @@ const config: PlaywrightTestConfig = {
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   outputDir: 'test-results/',
 
-  /* Global setup - runs once before all tests */
-  globalSetup: './e2e/global-setup.ts',
+  /* Global setup - removed, using local setup per LMS folder instead */
+  // globalSetup: './e2e/global-setup.ts',
 
   /* Run your local dev server before starting the tests */
   // webServer: {

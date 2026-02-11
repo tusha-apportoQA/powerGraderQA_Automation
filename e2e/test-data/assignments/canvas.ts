@@ -1,5 +1,10 @@
-import { AssignmentConfig } from '../../types';
-import { getExistingRubric, getNewRubric } from '../constants';
+/**
+ * Canvas LMS assignment configurations
+ * Combined configs for both orchestration and component tests
+ */
+
+import { CanvasAssignmentConfig } from '../../types';
+import { CANVAS_EXISTING_RUBRICS, CANVAS_NEW_RUBRICS } from '../rubrics/canvas';
 import { getCanvasConfig } from '../../config/canvas.config';
 
 function formatDate(date: Date): string {
@@ -35,11 +40,69 @@ function getAssignmentDates() {
     };
 }
 
-export function getSampleAssignmentConfigs(): AssignmentConfig[] {
+/**
+ * Get Canvas assignment configurations
+ * Combined array used for both orchestration and component tests
+ */
+export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
     const dates = getAssignmentDates();
     const { defaultPoints, studentNames } = getCanvasConfig();
     
     return [
+        // Orchestration test configs
+        {
+            title: 'Short Accurate No Rubric DOCX',
+            description: 'Write a brief essay about technology impact. Focus on accuracy and precision.',
+            points: defaultPoints,
+            submissionType: '.docx',
+            assignAccess: {
+                students: studentNames,
+                availableFrom: dates.availableFrom,
+                dueDate: dates.dueDate,
+                until: dates.until
+            },
+            rubric: { type: 'no' }
+        },
+        {
+            title: 'Long Accurate Existing Rubric PDF',
+            description: 'Write a comprehensive essay about the impact of technology in daily life. Discuss both positive and negative aspects in detail, provide multiple examples from personal experience, analyze long-term implications, and consider various perspectives including social, economic, and environmental factors. Ensure all information is accurate and well-researched.',
+            points: defaultPoints,
+            submissionType: '.pdf',
+            assignAccess: {
+                students: studentNames,
+                availableFrom: dates.availableFrom,
+                dueDate: dates.dueDate,
+                until: dates.until
+            },
+            rubric: CANVAS_EXISTING_RUBRICS[0]
+        },
+        {
+            title: 'Short Inaccurate New Rubric TXT',
+            description: 'Write about tech. Keep it short.',
+            points: defaultPoints,
+            submissionType: '.txt',
+            assignAccess: {
+                students: studentNames,
+                availableFrom: dates.availableFrom,
+                dueDate: dates.dueDate,
+                until: dates.until
+            },
+            rubric: CANVAS_NEW_RUBRICS[0]
+        },
+        {
+            title: 'Short Inaccurate Existing Rubric Text Entry',
+            description: 'Tech essay. Brief.',
+            points: defaultPoints,
+            submissionType: 'Text Entry',
+            assignAccess: {
+                students: studentNames,
+                availableFrom: dates.availableFrom,
+                dueDate: dates.dueDate,
+                until: dates.until
+            },
+            rubric: CANVAS_EXISTING_RUBRICS[0]
+        },
+        // Component test configs
         {
             title: 'Sample DOCX No Rubric',
             description: 'Write a brief essay about technology impact. Focus on accuracy and precision.',
@@ -64,7 +127,7 @@ export function getSampleAssignmentConfigs(): AssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: getExistingRubric(0)
+            rubric: CANVAS_EXISTING_RUBRICS[1]
         },
         {
             title: 'Sample DOCX New Rubric',
@@ -77,7 +140,7 @@ export function getSampleAssignmentConfigs(): AssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: getNewRubric(0)
+            rubric: CANVAS_NEW_RUBRICS[0]
         },
         {
             title: 'Sample PDF No Rubric',
@@ -103,7 +166,7 @@ export function getSampleAssignmentConfigs(): AssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: getExistingRubric(0)
+            rubric: CANVAS_EXISTING_RUBRICS[0]
         },
         {
             title: 'Sample PDF New Rubric',
@@ -116,7 +179,7 @@ export function getSampleAssignmentConfigs(): AssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: getNewRubric(0)
+            rubric: CANVAS_NEW_RUBRICS[0]
         },
         {
             title: 'Sample TXT No Rubric',
@@ -142,7 +205,7 @@ export function getSampleAssignmentConfigs(): AssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: getExistingRubric(0)
+            rubric: CANVAS_EXISTING_RUBRICS[0]
         },
         {
             title: 'Sample TXT New Rubric',
@@ -155,7 +218,7 @@ export function getSampleAssignmentConfigs(): AssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: getNewRubric(0)
+            rubric: CANVAS_NEW_RUBRICS[0]
         },
         {
             title: 'Sample Text Entry No Rubric',
@@ -181,7 +244,7 @@ export function getSampleAssignmentConfigs(): AssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: getExistingRubric(0)
+            rubric: CANVAS_EXISTING_RUBRICS[0]
         },
         {
             title: 'Sample Text Entry New Rubric',
@@ -194,7 +257,8 @@ export function getSampleAssignmentConfigs(): AssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: getNewRubric(0)
+            rubric: CANVAS_NEW_RUBRICS[0]
         }
     ];
 }
+

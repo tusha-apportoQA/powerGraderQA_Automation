@@ -3,7 +3,7 @@ import { CanvasLMS } from '../../../components/lms/canvas/CanvasLMS';
 import { PowerGraderCoursePage } from '../../../components/powergrader/pages/PowerGraderCoursePage';
 import { PowerGraderAssignmentDetailsPage } from '../../../components/powergrader/pages/PowerGraderAssignmentDetailsPage';
 import { PowerGraderGradingPage } from '../../../components/powergrader/pages/PowerGraderGradingPage';
-import { getSampleAssignmentConfigs } from '../../../test-data/sample/assignmentConfigs';
+import { getCanvasAssignmentConfigs } from '../../../test-data/assignments/canvas';
 import testUsers from '../../../test_users';
 
 type TestFixtures = { canvasTeacherPage: CanvasTeacherPage };
@@ -11,7 +11,9 @@ type TestFixtures = { canvasTeacherPage: CanvasTeacherPage };
 test.use({ headless: false });
 
 test.describe('Component Test: Grading and Publishing', () => {
-    const sampleConfigs = getSampleAssignmentConfigs();
+    // Use configs starting from index 4 (component test configs)
+    const allConfigs = getCanvasAssignmentConfigs();
+    const sampleConfigs = allConfigs.slice(4);
     const studentUser = testUsers.find(user => user.role === 'student');
     if (!studentUser) {
         throw new Error('Student user not found in test users configuration');

@@ -1,14 +1,16 @@
 import { test, CanvasTeacherPage } from '../../../fixtures';
 import { CanvasLMS } from '../../../components/lms/canvas/CanvasLMS';
-import { getSampleAssignmentConfigs } from '../../../test-data/sample/assignmentConfigs';
+import { getCanvasAssignmentConfigs } from '../../../test-data/assignments/canvas';
 
 type TestFixtures = { canvasTeacherPage: CanvasTeacherPage };
 
 test.use({ headless: false });
 
 test.describe('Component Test: Rubric Setup', () => {
-    const sampleConfigs = getSampleAssignmentConfigs();
-    const assignmentIndex = 5;
+    // Use configs starting from index 4 (component test configs)
+    const allConfigs = getCanvasAssignmentConfigs();
+    const sampleConfigs = allConfigs.slice(4);
+    const assignmentIndex = 1;
 
     test('Setup rubric for assignment from sample configs', async ({ canvasTeacherPage }: TestFixtures) => {
         test.setTimeout(300000);

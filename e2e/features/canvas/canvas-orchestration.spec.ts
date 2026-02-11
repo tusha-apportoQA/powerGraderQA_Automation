@@ -5,9 +5,9 @@ import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { PowerGraderCoursePage } from '../../components/powergrader/pages/PowerGraderCoursePage';
 import { PowerGraderAssignmentDetailsPage } from '../../components/powergrader/pages/PowerGraderAssignmentDetailsPage';
 import { PowerGraderGradingPage } from '../../components/powergrader/pages/PowerGraderGradingPage';
-import { getOrchestrationAssignmentConfigs } from '../../test-data/orchestration/assignmentConfigs';
+import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
 import { loadAssignments, saveAssignment } from '../../utils/assignmentStorage';
-import { getSubmissionFilePath, getSubmissionText } from '../../test-data/constants';
+import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getCanvasConfig } from '../../config/canvas.config';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -15,7 +15,9 @@ import { AllureHelper } from '../../utils/allureHelper';
 test.use({ headless: false });
 
 test.describe('Canvas Orchestration @canvas', () => {
-    const ASSIGNMENT_CONFIGS = getOrchestrationAssignmentConfigs();
+    // Use first 4 configs for orchestration (orchestration test configs)
+    const allConfigs = getCanvasAssignmentConfigs();
+    const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
 
     test.describe('Canvas LMS Teacher Orchestration [POW-413]', () => {
         test.describe.configure({ mode: 'parallel' });

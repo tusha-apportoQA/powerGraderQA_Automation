@@ -1,7 +1,7 @@
 import { test, CanvasStudentPage } from '../../../fixtures';
 import { CanvasLMSStudent } from '../../../components/lms/canvas/CanvasLMSStudent';
-import { getSampleAssignmentConfigs } from '../../../test-data/sample/assignmentConfigs';
-import { getSubmissionFilePath, getSubmissionText } from '../../../test-data/constants';
+import { getCanvasAssignmentConfigs } from '../../../test-data/assignments/canvas';
+import { getSubmissionFilePath, getSubmissionText } from '../../../test-data/submissions';
 import { getCanvasConfig } from '../../../config/canvas.config';
 
 type TestFixtures = { 
@@ -11,8 +11,10 @@ type TestFixtures = {
 test.use({ headless: false });
 
 test.describe('Component Test: Assignment Submission', () => {
-    const sampleConfigs = getSampleAssignmentConfigs();
-    const assignmentIndex = 9;
+    // Use configs starting from index 4 (component test configs)
+    const allConfigs = getCanvasAssignmentConfigs();
+    const sampleConfigs = allConfigs.slice(4);
+    const assignmentIndex = 0;
 
     test('Submit assignment from sample configs', async ({ canvasStudentPage }: TestFixtures) => {
         test.setTimeout(300000);
