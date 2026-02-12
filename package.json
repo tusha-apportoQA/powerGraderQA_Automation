@@ -4,15 +4,15 @@
   "private": true,
   "description": "PowerGrader E2E Automation Framework for LMS Integration Testing",
   "scripts": {
-    "test": "playwright test",
+    "test": "playwright test --grep @orchestration",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:report": "playwright show-report",
     "test:codegen": "playwright codegen",
-    "test:canvas": "playwright test --grep @canvas",
+    "test:canvas": "playwright test --grep '@canvas.*@orchestration'",
     "test:moodle": "playwright test --grep @moodle",
-    "test:d2l": "playwright test --grep @d2l",
+    "test:d2l": "playwright test --grep '@d2l.*@orchestration'",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",
     "allure:serve": "allure serve allure-results"

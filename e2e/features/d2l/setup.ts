@@ -2,7 +2,7 @@
  * D2L LMS Setup
  * 
  * Simplified setup - no beforeAll hook needed.
- * Authentication happens on-demand in fixtures with 15-minute expiration check.
+ * Authentication happens on-demand in fixtures with test-level scope.
  * 
  * Usage: Import test and fixtures from this file instead of '../../fixtures'
  * Example: import { test, D2LTeacherPage } from '../setup';

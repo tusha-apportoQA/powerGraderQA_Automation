@@ -54,3 +54,7 @@ export function loadAssignments(): StoredAssignment[] {
     return storage.assignments;
 }
 
+export function clearAssignments(): void {
+    writeStorage({ assignments: [] });
+}
+
