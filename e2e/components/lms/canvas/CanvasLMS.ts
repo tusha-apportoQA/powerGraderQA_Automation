@@ -32,7 +32,7 @@ export class CanvasLMS {
         await this.dashboardPage.goto(this.baseURL);
         await this.dashboardPage.expectDashboardLoaded();
         
-        const { courseName, defaultPoints, assignmentGroup } = getCanvasConfig();
+        const { courseName, defaultPoints } = getCanvasConfig();
         await this.dashboardPage.selectCourse(courseName);
 
         await this.coursePage.expectCoursePageLoaded();
@@ -54,7 +54,7 @@ export class CanvasLMS {
             await this.createAssignmentPage.fillPoints(defaultPoints);
         }
         
-        await this.createAssignmentPage.selectAssignmentGroup(assignmentGroup);
+       // await this.createAssignmentPage.selectAssignmentGroup(assignmentGroup);
         
         if (config.submissionType) {
             await this.createAssignmentPage.setSubmissionType(config.submissionType);

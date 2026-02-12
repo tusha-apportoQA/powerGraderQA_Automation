@@ -44,7 +44,7 @@ export function getCanvasConfig(): CanvasConfig {
     if (!courseName) {
         throw new Error('CANVAS_COURSE_NAME environment variable is required. Please set it in your .env file.');
     }
-    if (!assignmentGroup) {
+   if (!assignmentGroup) {
         throw new Error('CANVAS_ASSIGNMENT_GROUP environment variable is required. Please set it in your .env file.');
     }
     if (!studentName) {
