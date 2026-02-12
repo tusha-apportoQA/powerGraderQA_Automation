@@ -8,7 +8,7 @@ import { AllureHelper } from '../../utils/allureHelper';
 
 test.use({ headless: false });
 
-test.describe('D2L LMS Teacher Student Orchestration [POW-471] @d2l', () => {
+test.describe('D2L LMS Teacher Student Orchestration [POW-471] @d2l @orchestration', () => {
     // Get all assignment configs
     const allConfigs = getD2LAssignmentConfigs();
     const ASSIGNMENT_CONFIGS = allConfigs;

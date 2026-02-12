@@ -14,7 +14,7 @@ test.describe('Component Test: Assignment Submission', () => {
     // Use configs starting from index 4 (component test configs)
     const allConfigs = getCanvasAssignmentConfigs();
     const sampleConfigs = allConfigs.slice(4);
-    const assignmentIndex = 0;
+    const assignmentIndex = 2;
 
     test('Submit assignment from sample configs', async ({ canvasStudentPage }: TestFixtures) => {
         test.setTimeout(300000);

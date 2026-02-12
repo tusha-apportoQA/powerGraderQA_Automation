@@ -13,7 +13,8 @@ function formatDate(date: Date): string {
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${month}/${day}/${year} ${hours}:${minutes}`;
+    // Canvas expects DD/MM/YYYY format (interprets MM/DD/YYYY as DD/MM/YYYY)
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 
 function getAssignmentDates() {
