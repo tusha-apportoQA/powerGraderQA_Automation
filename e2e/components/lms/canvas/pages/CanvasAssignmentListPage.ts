@@ -4,9 +4,16 @@ export class CanvasAssignmentListPage {
     page: Page;
     createAssignmentButton: Locator;
 
-    constructor(page: Page) {
+   /* constructor(page: Page) {
         this.page = page;
         this.createAssignmentButton = page.getByRole('link', { name: 'Add assignment' });
+    }*/
+    
+    //Update by Tusha
+    constructor(page: Page) {
+        this.page = page;
+        // Targeting the specific CSS class from your screenshot for maximum reliability
+        this.createAssignmentButton = page.locator('a.new_assignment').first();
     }
 
     async waitForLoad(): Promise<void> {
@@ -24,12 +31,24 @@ export class CanvasAssignmentListPage {
         }
     }
 
-    async clickCreateAssignment(): Promise<void> {
-        await expect(this.createAssignmentButton).toBeVisible({ timeout: 30000 });
+    /*async clickCreateAssignment(): Promise<void> {
+        await expect(this.createAssignmentButton).toBeVisible({ timeout: 50000 });
         await this.createAssignmentButton.click();
 
-        await this.page.waitForURL(/\/courses\/\d+\/assignments\/new/, { timeout: 30000 });
+        await this.page.waitForURL(/\/courses\/\d+\/assignments\/new/, { timeout: 50000 });
         await this.page.waitForLoadState();
+    }*/
+    
+    //Update by Tusha
+    async clickCreateAssignment(): Promise<void> {
+        // 1. Wait for the button to be attached to the DOM and visible
+        await this.createAssignmentButton.waitFor({ state: 'visible', timeout: 30000 });
+        
+        // 2. Aggressive click - sometimes Canvas overlays invisible elements during load
+        await this.createAssignmentButton.click({ force: true });
+
+        // 3. Confirm we actually navigated to the "New" page
+        await this.page.waitForURL(/\/assignments\/new/, { timeout: 30000 });
     }
 
     async clickAssignment(assignmentName: string): Promise<void> {

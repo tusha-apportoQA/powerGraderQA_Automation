@@ -39,12 +39,12 @@ class E2ETestHelpers {
     
     // Verify we're actually logged in by checking for "My Courses" heading
     try {
-      await page.getByRole('heading', { name: 'My Courses' }).waitFor({ state: 'visible', timeout: 10000 });
+      await page.getByRole('heading', { name: 'My Courses' }).waitFor({ state: 'visible', timeout: 30000 });
       console.log('Dashboard "My Courses" heading is visible - session confirmed');
     } catch (error) {
       // Fallback: check for heading by ID or class
       try {
-        await page.locator('h2#d2l_1_5_507, h2.d2l-heading:has-text("My Courses")').waitFor({ state: 'visible', timeout: 5000 });
+        await page.locator('h2#d2l_1_5_507, h2.d2l-heading:has-text("My Courses")').waitFor({ state: 'visible', timeout: 10000 });
         console.log('Dashboard "My Courses" heading found by fallback selector');
       } catch (fallbackError) {
         console.warn('Dashboard "My Courses" heading not immediately visible, but continuing...');

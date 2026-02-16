@@ -20,7 +20,9 @@ class BasePage {
   static async create(browser: Browser, lms: LMSType, role: UserRoleTypes, baseURL?: string) {
     const lmsBaseURL = baseURL || E2ETestHelpers.getBaseURLForLMS(lms);
     
-    console.log(`[Test-level Auth] Creating ${lms} ${role} page...`);
+    
+    //console.log(`[Test-level Auth] ${lms} ${role} assignment creation/publish...`);
+    console.log(`[Test-level Auth] ${lms} ${role} assignment ${role.toLowerCase() === 'teacher' ? 'creation/publish' : 'submission'}...`);
     
     // Authenticate fresh for each test - creates new context and authenticates
     const page = await E2ETestHelpers.authenticateAndGetPage(lms, role, browser, lmsBaseURL);

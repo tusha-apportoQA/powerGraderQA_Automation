@@ -28,7 +28,7 @@ export class CanvasLMS {
         this.assignmentDetailsPage = new CanvasAssignmentDetailsPage(page);
     }
 
-    async createAssignment(config: AssignmentConfig): Promise<void> {
+    /*async createAssignment(config: AssignmentConfig): Promise<void> {
         await this.dashboardPage.goto(this.baseURL);
         await this.dashboardPage.expectDashboardLoaded();
         
@@ -65,6 +65,16 @@ export class CanvasLMS {
         }
         
         await this.createAssignmentPage.clickSaveAndPublish();
+
+        //Update by Tusha
+        await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
+
+            if (config.rubric && config.rubric.type !== 'no') {
+                // Only call this if we actually want a rubric in Canvas
+                await this.assignmentDetailsPage.setRubric(config.rubric);
+            } else {
+                console.log(`[CanvasLMS] No rubric requested for ${config.title}. Proceeding with clean assignment.`);
+        }
         
         await this.assignmentDetailsPage.waitForLoad();
         await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
@@ -73,7 +83,55 @@ export class CanvasLMS {
         if (config.rubric) {
             await this.assignmentDetailsPage.setRubric(config.rubric);
         }
-    }
+    }*/
+
+    // ... inside the CanvasLMS class ...
+
+        async createAssignment(config: AssignmentConfig): Promise<void> {
+            await this.dashboardPage.goto(this.baseURL);
+            await this.dashboardPage.expectDashboardLoaded();
+            
+            const { courseName, defaultPoints } = getCanvasConfig();
+            await this.dashboardPage.selectCourse(courseName);
+
+            await this.coursePage.expectCoursePageLoaded();
+            await this.coursePage.clickAssignments();
+            
+            await this.assignmentListPage.expectAssignmentsListLoaded();
+            await this.assignmentListPage.clickCreateAssignment();
+            
+            await this.createAssignmentPage.expectCreateAssignmentPageLoaded();
+            await this.createAssignmentPage.fillTitle(config.title);
+            
+            if (config.description) {
+                await this.createAssignmentPage.fillDescription(config.description);
+            }
+            
+            await this.createAssignmentPage.fillPoints(config.points || defaultPoints);
+            
+            if (config.submissionType) {
+                await this.createAssignmentPage.setSubmissionType(config.submissionType);
+            }
+            
+            if (config.assignAccess) {
+                await this.createAssignmentPage.setAssignmentAccess(config.assignAccess);
+            }
+            
+            await this.createAssignmentPage.clickSaveAndPublish();
+            
+            await this.assignmentDetailsPage.waitForLoad();
+            await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
+            await this.assignmentDetailsPage.verifyAssignmentTitle(config.title);
+
+            // --- STEP-BY-STEP FIX START ---
+            // Only attempt to set a rubric if config exists AND type is NOT 'no'
+            if (config.rubric && config.rubric.type !== 'no') {
+                console.log(`[CanvasLMS] Setting up ${config.rubric.type} rubric...`);
+                await this.assignmentDetailsPage.setRubric(config.rubric);
+            } else {
+                console.log(`[CanvasLMS] "No Rubric" detected in config. Skipping Canvas rubric setup.`);
+            }
+        }
 
     /**
      * Extract assignment ID from the current URL
