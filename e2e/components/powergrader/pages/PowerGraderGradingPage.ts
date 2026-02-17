@@ -22,6 +22,7 @@ export class PowerGraderGradingPage {
         }
     }
   
+    //Update by Tusha
     async verifyGradesAndFeedbackPopulated(): Promise<void> {
         console.log("[Grading Page] Verifying AI Grades data is present...");
         // Just verify the element is visible and populated without logging it here
@@ -31,7 +32,8 @@ export class PowerGraderGradingPage {
         const criteriaContent = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[2]');
         await expect(criteriaContent).toBeVisible({ timeout: 20000 });
     }
- 
+    
+    //Update by Tusha
     async getTotalScore(): Promise<string> {
         console.log(`[Grading Page] Target XPath: /html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2`);
         const totalGradeHeader = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2');
@@ -45,7 +47,6 @@ export class PowerGraderGradingPage {
         return text.split('/')[0].trim(); 
     }
 
-    // 2. Get the "5" from the custom score box
     async getIndividualScore(): Promise<string> {
         const scoreInput = this.page.locator('input[placeholder="Enter score"]').first();
         return await scoreInput.inputValue();
@@ -65,7 +66,7 @@ export class PowerGraderGradingPage {
         await this.page.waitForTimeout(1000);
     }*/
     /**
-     * Clicks publish and handles the potential confirmation modal.
+     * Clicks publish and handles the potential confirmation modal. Update by Tusha
      */
     async clickPublishButton(): Promise<void> {
         const publishButton = this.page.getByRole('button', { name: 'Publish' }).first();

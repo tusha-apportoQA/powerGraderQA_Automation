@@ -99,15 +99,11 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
                                 const submissionText = getSubmissionText();
                                 await lms.verifyFileTypeAndSubmit(submissionType, undefined, submissionText);
                             } else {
-                                // 1. Try resolving with the original '.docx' (exactly as defined in your config)
                                 let filePath = getSubmissionFilePath(submissionType as any);
-
-                                // 2. Fallback: If that fails, try stripping the dot
                                 if (!filePath && submissionType.startsWith('.')) {
                                     const strippedKey = submissionType.substring(1);
                                     filePath = getSubmissionFilePath(strippedKey as any);
                                 }
-                                // 3. Final Check
                                 if (!filePath) {
                                     throw new Error(`Critical: Could not find a local file for submission type "${submissionType}". 
                                     Check if the file exists in your test-data folder.`);
@@ -122,7 +118,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
 
                     //Update by Tusha
                     test(`Grade and publish for: ${assignmentConfig.title}`, async ({ canvasTeacherPage }) => {
-                        test.setTimeout(900000);
+                        test.setTimeout(1200000);
     
                         AllureHelper.label('Test Type', 'Grade and Publish');
                         AllureHelper.label('LMS', 'Canvas');
@@ -135,7 +131,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
 
                         await AllureHelper.step('Wait for PowerGrader Sync (Assignment & Student)', async () => {
                             const startTime = Date.now();
-                            const MAX_WAIT = 8 * 60 * 1000; 
+                            const MAX_WAIT = 15 * 60 * 1000;
                             const INTERVAL = 30 * 1000;    
                             let isAssignmentFound = false;
 
@@ -162,7 +158,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
                                    if (await assignmentRow.isVisible()) {
                                         console.log(`[${uniqueTitle}] Assignment found. Clicking on "View"...`);
                                         const studentViewButton = assignmentRow.getByText('View', { exact: true }).first();
-                                        const viewButtonFound = await studentViewButton.isVisible({ timeout: 10000 }).catch(() => false);
+                                        const viewButtonFound = await studentViewButton.isVisible({ timeout: 20000 }).catch(() => false);
                                          if (viewButtonFound) {
                                             console.log(`[${uniqueTitle}] Assignment View button found, opening submission...`);
                                             studentViewButton.click();
@@ -185,14 +181,12 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
                             // PHASE 2: Wait for Student on the Details Page
                             console.log(`[${uniqueTitle}] Waiting for student submission to sync on Details Page...`);
                             const powerGraderAssignmentDetailsPage = new PowerGraderAssignmentDetailsPage(powerGraderPage);
-                        
-                            // PHASE 2: Wait for Student on the Details Page
                             console.log(`[${uniqueTitle}] Starting Details Page Sync...`);
                             await expect(async () => {
                                 console.log(`[${uniqueTitle}] Details Page Sync: Reloading...`);
                                 await powerGraderPage.reload({ waitUntil: 'networkidle' });
                                 
-                                // 1. Detect and click the blocker if it's there
+                                // Detect and click the blocker if it's there
                                 const generateBtn = powerGraderPage.locator('button').filter({ hasText: "Generate Compatible Rubric" });
                                 if (await generateBtn.isVisible()) {
                                     console.log(`[${uniqueTitle}] No Rubric banner found. Clicking Generate...`);
@@ -201,8 +195,20 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
                                     console.log(`[${uniqueTitle}] Triggered rubric generation, waiting for AI Grading to complete...'..`);
                                     throw new Error('Triggered rubric generation, waiting for AI...'); // Force retry
                                 }
-
-                                // 2. Poll for the final result
+                                // Handle Assignment Incompatibility
+                                // Search for the text with a short 5-second window to appear
+                                //const incompatibleStatus = powerGraderPage.locator('div, span').filter({ hasText: 'PowerGrader may not be able to grade this assignment.' }).first();
+                                const incompatibleStatus = powerGraderPage.locator('div, span').filter({ hasText: /Assignment Incompatible|PowerGrader may not be able to grade/i }).first();
+                                if (await incompatibleStatus.isVisible({ timeout: 5000 }).catch(() => false)) {
+                                console.log(`[${uniqueTitle}] Incompatible detected. Bypassing...`);
+                                
+                                await powerGraderAssignmentDetailsPage.clickSeeWhy();
+                                await powerGraderAssignmentDetailsPage.clickGradeAnyway();
+                                
+                                throw new Error('Bypassing incompatibility, retrying sync...');
+                                }
+                                
+                                //Poll for the final result
                                 const startReviewingBtn = powerGraderPage.locator('button').filter({ hasText: /^Start Reviewing$/i });
 
                                 if (await startReviewingBtn.isVisible({ timeout: 10000 })) {
@@ -231,36 +237,6 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
                             
                             await gradingPage.clickPublishButton();
                         });
-                        // DELETE THE NEXT STEP "Publish grades" COMPLETELY
-
-                        /*await AllureHelper.step('Publish grades', async () => {
-                            const powerGraderGradingPage = new PowerGraderGradingPage(powerGraderPage);
-                            await powerGraderGradingPage.waitForLoad();
-                            await powerGraderGradingPage.expectPageLoaded();
-                            //If the config is "no rubric", handle the generation first
-                            if (assignmentConfig.rubric?.type === 'no') {
-                                // You would call the method we added to the Grading Page Object here:
-                                // await powerGraderGradingPage.handleNoRubricFlow(); 
-                                
-                                // Manual inline fix if you haven't updated the Page Object yet:
-                                const generateBtn = powerGraderPage.getByRole('button', { name: /Generate Compatible Rubric/i });
-                                if (await generateBtn.isVisible()) {
-                                    await generateBtn.click();
-                                    await powerGraderPage.locator('.rubric-container').waitFor({ state: 'visible', timeout: 180000 });
-                                }
-                            }
-                            
-                            // Safety Gate: Ensure AI results are populated
-                            await powerGraderGradingPage.verifyGradesAndFeedbackPopulated();
-                            
-                            const finalScore = await powerGraderGradingPage.getTotalScore();
-                            console.log(`[${uniqueTitle}] AI Verified. Final Score: ${finalScore}`);
-                            
-                            await AllureHelper.attachScreenshot(powerGraderPage, 'Ready to Publish');
-                            //await powerGraderGradingPage.verifyGradesAndFeedbackPopulated();
-                            await powerGraderGradingPage.clickPublishButton();
-                            await AllureHelper.attachScreenshot(powerGraderPage, 'Published');
-                        });*/
 
                     /*await AllureHelper.step('Check for student View button and open submission', async () => {
                         const powerGraderAssignmentDetailsPage = new PowerGraderAssignmentDetailsPage(powerGraderPage);

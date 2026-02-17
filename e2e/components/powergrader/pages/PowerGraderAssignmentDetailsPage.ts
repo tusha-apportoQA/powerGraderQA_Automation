@@ -47,8 +47,7 @@ export class PowerGraderAssignmentDetailsPage {
                 
                 await generateBtn.click();
 
-                // Polling: We must reload and wait for the Halted badge to disappear
-                // because the AI needs time to create the rubric criteria.
+                // Polling
                 await expect(async () => {
                     console.log("[Details Page] Polling: Waiting for 'Grading Halted' to clear...");
                     await this.page.reload({ waitUntil: 'networkidle' });
@@ -67,20 +66,16 @@ export class PowerGraderAssignmentDetailsPage {
 
     //Update by Tusha
     async clickViewButtonForStudent(studentEmail: string): Promise<void> {
-        // 1. First, check and handle the No Rubric/Halted state if it exists
+        // First, check and handle the No Rubric/Halted state if it exists
         // This method now includes the internal polling we discussed
         await this.handleNoRubricStateIfPresent();
 
-        // 2. Locate the specific student row
+        // Locate the specific student row
         const studentRow = this.page.locator('div, tr').filter({ hasText: studentEmail }).last();
         await expect(studentRow).toBeVisible({ timeout: 30000 });
-
-        // 3. Find the action button/link. 
-        // UPDATED: Catch the <a> tag (blue eye icon) or <button> specifically using a flexible regex
         const actionButton = studentRow.locator('button, a').filter({ hasText: /View|Grade Now|Start Reviewing/i }).first();
 
-        // 4. Actionability check: Scroll and Click
-        // BUMPED: Increased timeout to 30s to allow for AI processing to fully clear
+        // Scroll and Click
         await expect(actionButton).toBeVisible({ timeout: 30000 });
         await actionButton.scrollIntoViewIfNeeded();
         
@@ -89,6 +84,32 @@ export class PowerGraderAssignmentDetailsPage {
         
         await actionButton.click();
         await this.page.waitForLoadState('networkidle');
+    }
+
+    //Update by Tusha
+    /**
+     * Clicks the 'See Why' button in the incompatibility banner.
+     */
+    async clickSeeWhy(): Promise<void> {
+        console.log("[Details Page] 'See Why' located.");
+        const seeWhyBtn = this.page.getByRole('button', { name: /See Why/i });
+        
+        // Ensure it's visible before clicking
+        //await expect(seeWhyBtn).toBeVisible({ timeout: 10000 });
+        await seeWhyBtn.click({ force: true });
+       
+        console.log("[Details Page] 'See Why' clicked successfully.");
+    }
+
+    /**
+     * Clicks 'Grade Anyway' inside the incompatibility modal. Update by Tusha
+     */
+    async clickGradeAnyway(): Promise<void> {
+        const gradeAnywayBtn = this.page.getByRole('button', { name: /Grade Anyway/i });
+        await gradeAnywayBtn.waitFor({ state: 'visible', timeout: 10000 });
+        //Perform the click
+        await gradeAnywayBtn.click({ force: true });
+        console.log("[Details Page] 'Grade Anyway' clicked successfully.");
     }
 }
 
