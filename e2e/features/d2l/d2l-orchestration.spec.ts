@@ -1,112 +1,99 @@
-import { test } from './setup';
+import { test, expect } from '../../fixtures';
+import { Page } from '@playwright/test';
+import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getD2LConfig } from '../../config/d2l.config';
+import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
 
 test.use({ headless: false });
 
-test.describe('D2L LMS Teacher Student Orchestration [POW-471] @d2l @orchestration', () => {
-    // Get all assignment configs
+test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
     const allConfigs = getD2LAssignmentConfigs();
-    const ASSIGNMENT_CONFIGS = allConfigs;
-    const BATCH_SIZE = 4;
+    // Matching Canvas: Slice to 4 or process all
+    const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
 
-    // Step 1: Create all assignments in batches of 4 (parallel execution within each batch)
-    test.describe('Step 1: LMS Orchestration - Create Assignments', () => {
-        // Process assignments in batches of 4
-        for (let i = 0; i < ASSIGNMENT_CONFIGS.length; i += BATCH_SIZE) {
-            const batch = ASSIGNMENT_CONFIGS.slice(i, i + BATCH_SIZE);
-            const batchNumber = Math.floor(i / BATCH_SIZE) + 1;
-            const totalBatches = Math.ceil(ASSIGNMENT_CONFIGS.length / BATCH_SIZE);
+    test.describe('D2L Teacher & Student Orchestration', () => {
+        test.describe.configure({ mode: 'parallel' });
 
-            test.describe(`Batch ${batchNumber}/${totalBatches} (${batch.length} assignments)`, () => {
-                test.describe.configure({ mode: 'parallel' });
+        const studentUser = testUsers.find(user => user.role === 'student' && user.lms === 'd2l');
+        if (!studentUser) {
+            throw new Error('D2L Student user not found in test users configuration');
+        }
+        const studentEmail = studentUser.username;
 
-                for (const assignmentConfig of batch) {
-                    test(`Create assignment and setup rubric: ${assignmentConfig.title}`, async ({ d2lTeacherPage }) => {
+        for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
+            test.describe(`Assignment: ${assignmentConfig.title}`, () => {
+                test.describe.configure({ mode: 'serial' });
+
+                // STABLE TITLE GENERATION (Matches Canvas logic)
+                const timestamp = Date.now();
+                const uniqueTitle = `${assignmentConfig.title} [${timestamp}]`;
+
+                // --- PHASE 1: CREATE ASSIGNMENT ---
+                test(`Create assignment and setup rubric: ${assignmentConfig.title}`, async ({ d2lTeacherPage }) => {
+                    test.setTimeout(300000);
+                    console.log(`\n🚀 [${uniqueTitle}] Starting Assignment Creation...`);
+                    
+                    const lms = new D2LLMS(d2lTeacherPage.page);
+                    
+                    await AllureHelper.step('Create assignment in D2L', async () => {
+                        if (assignmentConfig.rubric) {
+                            console.log(`[${uniqueTitle}] Setting up rubric: ${assignmentConfig.rubric.type}`);
+                        }
+                        await lms.createAssignment({ ...assignmentConfig, title: uniqueTitle });
+                        console.log(`✅ [${uniqueTitle}] Assignment Created.`);
+                    });
+                });
+
+                // --- PHASE 2: STUDENT SUBMISSION ---
+                if (assignmentConfig.submissionType) {
+                    test(`Submit ${assignmentConfig.submissionType} for: ${assignmentConfig.title}`, async ({ d2lStudentPage }) => {
                         test.setTimeout(300000);
+                        console.log(`📩 [${uniqueTitle}] Starting Student Submission...`);
                         
-                        AllureHelper.label('Test Type', 'Assignment Creation');
-                        AllureHelper.label('LMS', 'D2L');
-                        AllureHelper.label('Role', 'Teacher');
-                        AllureHelper.label('Assignment', assignmentConfig.title);
-                        AllureHelper.label('Submission Type', assignmentConfig.submissionType || 'N/A');
-                        AllureHelper.label('Rubric Type', assignmentConfig.rubric?.type || 'N/A');
-                        AllureHelper.label('Batch', `${batchNumber}/${totalBatches}`);
+                        const lms = new D2LLMSStudent(d2lStudentPage.page);
+                        const { courseName } = getD2LConfig();
 
-                        const lms = new D2LLMS(d2lTeacherPage.page);
-                        
-                        await AllureHelper.step('Create assignment in D2L', async () => {
-                            await lms.createAssignment(assignmentConfig);
-                            await AllureHelper.attachScreenshot(d2lTeacherPage.page, 'Assignment Created');
+                        await AllureHelper.step('Submit assignment', async () => {
+                            await lms.dashboardPage.goto(lms.baseURL);
+                            await lms.dashboardPage.selectCourse(courseName);
+                            await lms.coursePage.clickAssignments();
+                            await lms.assignmentListPage.clickAssignment(uniqueTitle);
+                            
+                            if (assignmentConfig.submissionType === 'Text Entry') {
+                                await lms.verifyFileTypeAndSubmit(uniqueTitle, 'Text Entry', undefined, getSubmissionText());
+                            } else {
+                                const filePath = getSubmissionFilePath(assignmentConfig.submissionType as any);
+                                await lms.verifyFileTypeAndSubmit(uniqueTitle, assignmentConfig.submissionType!, filePath);
+                            }
+                            console.log(`✅ [${uniqueTitle}] Submission Uploaded.`);
                         });
                     });
                 }
-            });
-        }
-    });
 
-    // Step 2: Student Submissions (runs after all assignments are created)
-    // Uses assignment configs directly, assuming all assignments are already created
-    // Set to serial mode to ensure Step 1 completes before Step 2 starts
-    test.describe('Step 2: Student Submissions', () => {
-        test.describe.configure({ mode: 'serial' });
+                // --- PHASE 3: GRADE AND PUBLISH ---
+                test(`Grade and publish for: ${assignmentConfig.title}`, async ({ d2lTeacherPage }) => {
+                    test.setTimeout(1200000);
+                    const lms = new D2LLMS(d2lTeacherPage.page);
+                    let powerGraderPage: Page;
 
-        for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
-            if (!assignmentConfig.submissionType) {
-                test(`Submit for: ${assignmentConfig.title}`, async () => {
-                    test.skip(true, `Submission type not defined for: ${assignmentConfig.title}`);
+                    await AllureHelper.step('Navigate to PowerGrader', async () => {
+                        await lms.navigateToCourse();
+                        console.log(`[${uniqueTitle}] Launching PowerGrader Tool...`);
+                        powerGraderPage = await lms.navigateToPowerGrader();
+                    });
+
+                    await AllureHelper.step('Run Universal Workflow', async () => {
+                        // This calls the shared workflow utility
+                        await executeUniversalPGWorkflow(powerGraderPage, uniqueTitle, studentEmail);
+                    });
                 });
-                continue;
-            }
-
-            test(`Submit ${assignmentConfig.submissionType} for: ${assignmentConfig.title}`, async ({ d2lStudentPage }) => {
-                test.setTimeout(300000);
-                
-                AllureHelper.label('Test Type', 'Student Submission');
-                AllureHelper.label('LMS', 'D2L');
-                AllureHelper.label('Role', 'Student');
-                AllureHelper.label('Assignment', assignmentConfig.title);
-                AllureHelper.label('Submission Type', assignmentConfig.submissionType || 'N/A');
-
-                const lms = new D2LLMSStudent(d2lStudentPage.page);
-                const { courseName } = getD2LConfig();
-
-                await AllureHelper.step('Navigate to D2L dashboard', async () => {
-                    await lms.dashboardPage.goto(lms.baseURL);
-                    await lms.dashboardPage.expectDashboardLoaded();
-                });
-
-                await AllureHelper.step('Select course and navigate to assignments', async () => {
-                    await lms.dashboardPage.selectCourse(courseName);
-                    await lms.coursePage.expectCoursePageLoaded();
-                    await lms.coursePage.clickAssignments();
-                    await lms.assignmentListPage.expectAssignmentListPageLoaded();
-                });
-
-                await AllureHelper.step('Open assignment and submit', async () => {
-                    await lms.assignmentListPage.clickAssignment(assignmentConfig.title);
-                    await AllureHelper.attachScreenshot(d2lStudentPage.page, 'Assignment Submission Page');
-                });
-
-                await AllureHelper.step('Submit assignment', async () => {
-                    const submissionType = assignmentConfig.submissionType;
-                    if (submissionType === 'Text Entry') {
-                        const submissionText = getSubmissionText();
-                        await lms.verifyFileTypeAndSubmit(assignmentConfig.title, submissionType, undefined, submissionText);
-                    } else if (submissionType) {
-                        const filePath = getSubmissionFilePath(submissionType);
-                        await lms.verifyFileTypeAndSubmit(assignmentConfig.title, submissionType, filePath);
-                    } else {
-                        throw new Error(`Submission type is required for assignment: ${assignmentConfig.title}`);
-                    }
-                    await AllureHelper.attachScreenshot(d2lStudentPage.page, 'Submission Complete');
-                });
-            });
-        }
+            }); 
+        } 
     });
 });
 

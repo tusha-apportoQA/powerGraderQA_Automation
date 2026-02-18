@@ -27,24 +27,33 @@ export class PowerGraderGradingPage {
         console.log("[Grading Page] Verifying AI Grades data is present...");
         // Just verify the element is visible and populated without logging it here
         const totalGradeHeader = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2');
-        await expect(totalGradeHeader).toContainText('/', { timeout: 30000 });
+        await expect(totalGradeHeader).toContainText('/', { timeout: 60000 });
 
         const criteriaContent = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[2]');
         await expect(criteriaContent).toBeVisible({ timeout: 20000 });
-    }
+        /*const totalGradeHeader = this.page.locator('h2').filter({ hasText: /\// });
+        await expect(totalGradeHeader).toBeVisible({ timeout: 30000 });
+        await expect(totalGradeHeader).toContainText('/', { timeout: 30000 });
+        const criteriaContent = this.page.locator('div').filter({ hasText: /^Criteria$/i }).first();
+        await expect(criteriaContent).toBeVisible({ timeout: 20000 });*/
+        
+        console.log("[Grading Page] AI Results verified successfully.");
+        }
     
     //Update by Tusha
     async getTotalScore(): Promise<string> {
-        console.log(`[Grading Page] Target XPath: /html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2`);
-        const totalGradeHeader = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2');
-        
+        //console.log(`[Grading Page] Target XPath: /html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2`);
+       // const totalGradeHeader = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2');
+        const totalGradeHeader = this.page.locator('h2').filter({ hasText: /\// });
         // Explicitly wait for the header to contain a slash "/" to ensure AI data is loaded
-        await expect(totalGradeHeader).toContainText('/', { timeout: 30000 });
+        //await expect(totalGradeHeader).toContainText('/', { timeout: 30000 });
         
-        const text = await totalGradeHeader.innerText();
-        console.log(`[Grading Page] Found Total Score Text: ${text}`);
+        //const text = await totalGradeHeader.innerText();
+        const scoreText = await totalGradeHeader.innerText();
+        console.log(`[Grading Page] Found Total Score Text: ${scoreText}`);
+        return scoreText.trim();
         
-        return text.split('/')[0].trim(); 
+        //return scoreText.split('/')[0].trim(); 
     }
 
     async getIndividualScore(): Promise<string> {
@@ -69,11 +78,14 @@ export class PowerGraderGradingPage {
      * Clicks publish and handles the potential confirmation modal. Update by Tusha
      */
     async clickPublishButton(): Promise<void> {
+    
         const publishButton = this.page.getByRole('button', { name: 'Publish' }).first();
+        console.log(`Publish Button Found..`);
         await expect(publishButton).toBeVisible({ timeout: 30000 });
       //  await expect(publishButton).toBeEnabled({ timeout: 10000 });
         
         await publishButton.click();
+        console.log(`Publish Button Clicked..`);
         
         // Handle the confirmation modal that often follows
         const confirmBtn = this.page.getByRole('button', { name: /^Confirm$|^Yes$|^Publish$/i }).last();

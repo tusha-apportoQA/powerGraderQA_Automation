@@ -109,10 +109,32 @@ export class D2LLMS {
         await this.coursePage.expectCoursePageLoaded();
     }
 
-    async navigateToPowerGrader(): Promise<Page> {
+    /*async navigateToPowerGrader(): Promise<Page> {
         await this.coursePage.expectCoursePageLoaded();
         await this.coursePage.clickContent();
         return await this.coursePage.clickPowerGraderQATool();
+    }*/
+
+    //Update by Tusha
+    async navigateToPowerGrader(): Promise<Page> {
+        // Ensure we are on the course page
+        await this.coursePage.expectCoursePageLoaded();
+        
+        // Click 'Content' to see the tool link
+        await this.coursePage.clickContent();
+
+        // CRITICAL CHANGE: Setup the listener BEFORE clicking
+        // D2L launches the tool in a new tab. We must 'catch' that tab.
+        const [pgPage] = await Promise.all([
+            this.page.context().waitForEvent('page'), // Listens for the new tab
+            this.coursePage.clickPowerGraderQATool()   // Triggers the launch
+        ]);
+
+        // Wait for the PowerGrader UI to actually load
+        await pgPage.waitForLoadState('networkidle');
+        
+        // Return the NEW page object
+        return pgPage; 
     }
 }
 

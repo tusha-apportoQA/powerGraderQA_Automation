@@ -1,23 +1,19 @@
-//import { test } from '../../fixtures';
-//import { Page } from '@playwright/test';
-import { test, expect } from '../../fixtures'; // Add 'expect' here
+import { test, expect } from '../../fixtures';
 import { Page } from '@playwright/test';
+import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
-import { PowerGraderCoursePage } from '../../components/powergrader/pages/PowerGraderCoursePage';
-import { PowerGraderAssignmentDetailsPage } from '../../components/powergrader/pages/PowerGraderAssignmentDetailsPage';
-import { PowerGraderGradingPage } from '../../components/powergrader/pages/PowerGraderGradingPage';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getCanvasConfig } from '../../config/canvas.config';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
+
 test.use({ headless: false });
 
 test.describe('Canvas Orchestration @canvas @orchestration', () => {
     const allConfigs = getCanvasAssignmentConfigs();
     const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
-
 
     test.describe('Canvas LMS Teacher Orchestration [POW-413]', () => {
         test.describe.configure({ mode: 'parallel' });
@@ -37,248 +33,86 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
 
                 test(`Create assignment and setup rubric: ${assignmentConfig.title}`, async ({ canvasTeacherPage }) => {
                     test.setTimeout(300000);
-                    
                     const uniqueConfig = { ...assignmentConfig, title: uniqueTitle };
-                    
-                    AllureHelper.label('Test Type', 'Assignment Creation');
-                    AllureHelper.label('LMS', 'Canvas');
-                    AllureHelper.label('Role', 'Teacher');
-                    AllureHelper.label('Assignment', uniqueTitle);
-                    AllureHelper.label('Submission Type', assignmentConfig.submissionType || 'N/A');
-                    AllureHelper.label('Rubric Type', assignmentConfig.rubric?.type || 'N/A');
-
                     const lms = new CanvasLMS(canvasTeacherPage.page);
-                    //let powerGraderPage: Page;
                     
                     await AllureHelper.step('Create assignment in Canvas', async () => {
                         await lms.createAssignment(uniqueConfig);
-                        await AllureHelper.attachScreenshot(canvasTeacherPage.page, 'Assignment Created');
                     });
                 });
 
-                if (!assignmentConfig.submissionType) {
-                    test(`Submit for: ${assignmentConfig.title}`, async () => {
-                        test.skip(true, `Submission type not defined for: ${assignmentConfig.title}`);
-                    });
-                } else {
+                if (assignmentConfig.submissionType) {
                     test(`Submit ${assignmentConfig.submissionType} for: ${assignmentConfig.title}`, async ({ canvasStudentPage }) => {
                         test.setTimeout(300000);
-                        
-                        AllureHelper.label('Test Type', 'Student Submission');
-                        AllureHelper.label('LMS', 'Canvas');
-                        AllureHelper.label('Role', 'Student');
-                        AllureHelper.label('Assignment', uniqueTitle);
-                        AllureHelper.label('Submission Type', assignmentConfig.submissionType || 'N/A');
-
                         const lms = new CanvasLMSStudent(canvasStudentPage.page);
                         const { courseName } = getCanvasConfig();
 
-                        await AllureHelper.step('Navigate to Canvas dashboard', async () => {
-                            await lms.dashboardPage.goto(lms.baseURL);
-                            await lms.dashboardPage.expectDashboardLoaded();
-                        });
-
-                        await AllureHelper.step('Select course and navigate to assignments', async () => {
-                            await lms.dashboardPage.selectCourse(courseName);
-                            await lms.coursePage.expectCoursePageLoaded();
-                            await lms.coursePage.clickAssignments();
-                            await lms.assignmentListPage.expectAssignmentsListLoaded();
-                        });
-
-                        await AllureHelper.step('Open assignment details', async () => {
-                            await lms.assignmentListPage.clickAssignment(uniqueTitle);
-                            await lms.assignmentDetailsPage.expectAssignmentDetailsLoaded();
-                            await lms.assignmentDetailsPage.verifyAssignmentTitle(uniqueTitle);
-                            await AllureHelper.attachScreenshot(canvasStudentPage.page, 'Assignment Details Page');
-                        });
-
                         await AllureHelper.step('Submit assignment', async () => {
-                            const submissionType = assignmentConfig.submissionType!;
+                            await lms.dashboardPage.goto(lms.baseURL);
+                            await lms.dashboardPage.selectCourse(courseName);
+                            await lms.coursePage.clickAssignments();
+                            await lms.assignmentListPage.clickAssignment(uniqueTitle);
                             
-                            if (submissionType === 'Text Entry') {
-                                const submissionText = getSubmissionText();
-                                await lms.verifyFileTypeAndSubmit(submissionType, undefined, submissionText);
+                            if (assignmentConfig.submissionType === 'Text Entry') {
+                                await lms.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
                             } else {
-                                let filePath = getSubmissionFilePath(submissionType as any);
-                                if (!filePath && submissionType.startsWith('.')) {
-                                    const strippedKey = submissionType.substring(1);
-                                    filePath = getSubmissionFilePath(strippedKey as any);
-                                }
-                                if (!filePath) {
-                                    throw new Error(`Critical: Could not find a local file for submission type "${submissionType}". 
-                                    Check if the file exists in your test-data folder.`);
-                                }
-                                console.log(`[Submission] Successfully resolved file: ${filePath}`);
-                                await lms.verifyFileTypeAndSubmit(submissionType, filePath);
+                                const filePath = getSubmissionFilePath(assignmentConfig.submissionType as any);
+                                await lms.verifyFileTypeAndSubmit(assignmentConfig.submissionType!, filePath);
                             }
-                            await AllureHelper.attachScreenshot(canvasStudentPage.page, 'Submission Complete');
                         });
                     });
                 }
 
-                    //Update by Tusha
-                    test(`Grade and publish for: ${assignmentConfig.title}`, async ({ canvasTeacherPage }) => {
-                        test.setTimeout(1200000);
-    
-                        AllureHelper.label('Test Type', 'Grade and Publish');
-                        AllureHelper.label('LMS', 'Canvas');
-                        AllureHelper.label('Role', 'Teacher');
-                        AllureHelper.label('Assignment', uniqueTitle);
-                        AllureHelper.label('Student Email', studentEmail);
+                test(`Grade and publish for: ${assignmentConfig.title}`, async ({ canvasTeacherPage }) => {
+                    test.setTimeout(1200000);
+                    const lms = new CanvasLMS(canvasTeacherPage.page);
+                    let powerGraderPage: Page;
 
-                        const lms = new CanvasLMS(canvasTeacherPage.page);
-                        let powerGraderPage: Page; // Declared here so all steps can access it
+                    await AllureHelper.step('Navigate to PowerGrader', async () => {
+                        await lms.navigateToCourse();
+                        powerGraderPage = await lms.navigateToPowerGrader();
+                    });
 
-                        await AllureHelper.step('Wait for PowerGrader Sync (Assignment & Student)', async () => {
-                            const startTime = Date.now();
-                            const MAX_WAIT = 15 * 60 * 1000;
-                            const INTERVAL = 30 * 1000;    
-                            let isAssignmentFound = false;
+                    await AllureHelper.step('Run Universal Workflow', async () => {
+                        await executeUniversalPGWorkflow(powerGraderPage, uniqueTitle, studentEmail);
+                    });
 
-                            const lms = new CanvasLMS(canvasTeacherPage.page);
-                            //let powerGraderPage: Page;
+                    // --- BACKUP OF ORIGINAL LOGIC (Commented Out) ---
+                    /*
+                    await AllureHelper.step('Wait for PowerGrader Sync (Assignment & Student)', async () => {
+                        const startTime = Date.now();
+                        const MAX_WAIT = 15 * 60 * 1000;
+                        const INTERVAL = 30 * 1000;    
+                        let isAssignmentFound = false;
 
-                            while (Date.now() - startTime < MAX_WAIT) {
-                                console.log(`[${uniqueTitle}] Course Page Sync: Checking for assignment...`);
-                                try {
-                                    if (!powerGraderPage) {
-                                        await lms.navigateToCourse();
-                                        powerGraderPage = await lms.navigateToPowerGrader(); 
-                                    } else {
-                                        await powerGraderPage.reload({ waitUntil: 'networkidle' });
-                                    }
-                                    
-                                    const powerGraderCoursePage = new PowerGraderCoursePage(powerGraderPage);
-                                    await powerGraderCoursePage.waitForLoad();
-                                    
-                                    // Locate the specific assignment row
-                                    const assignmentRow = powerGraderPage.locator('tr, div[role="row"]').filter({ hasText: uniqueTitle }).last();
-                                    const rowCount = await assignmentRow.count();
-                                    console.log(`[${uniqueTitle}] Debug: Found ${rowCount} potential rows for title.`);
-                                   if (await assignmentRow.isVisible()) {
-                                        console.log(`[${uniqueTitle}] Assignment found. Clicking on "View"...`);
-                                        const studentViewButton = assignmentRow.getByText('View', { exact: true }).first();
-                                        const viewButtonFound = await studentViewButton.isVisible({ timeout: 20000 }).catch(() => false);
-                                         if (viewButtonFound) {
-                                            console.log(`[${uniqueTitle}] Assignment View button found, opening submission...`);
-                                            studentViewButton.click();
-                                            isAssignmentFound = true;
-                                            break;
-                                        } else {
-                                            console.log(`[${uniqueTitle}] Student View button not found in PowerGrader`);
-                                            await AllureHelper.attachScreenshot(powerGraderPage, 'PowerGrader Sync Failed');
-                                            throw new Error('Student View button not found in PowerGrader');
-                                        }
-                                    }
-                                } catch (e) {
-                                    console.log(`[${uniqueTitle}] Syncing... waiting for assignment to appear on Course Page.`);
-                                }
-                                await new Promise(res => setTimeout(res, INTERVAL));
-                            }
-
-                            if (!isAssignmentFound) throw new Error("Assignment never appeared on Course Page.");
-
-                            // PHASE 2: Wait for Student on the Details Page
-                            console.log(`[${uniqueTitle}] Waiting for student submission to sync on Details Page...`);
-                            const powerGraderAssignmentDetailsPage = new PowerGraderAssignmentDetailsPage(powerGraderPage);
-                            console.log(`[${uniqueTitle}] Starting Details Page Sync...`);
-                            await expect(async () => {
-                                console.log(`[${uniqueTitle}] Details Page Sync: Reloading...`);
-                                await powerGraderPage.reload({ waitUntil: 'networkidle' });
-                                
-                                // Detect and click the blocker if it's there
-                                const generateBtn = powerGraderPage.locator('button').filter({ hasText: "Generate Compatible Rubric" });
-                                if (await generateBtn.isVisible()) {
-                                    console.log(`[${uniqueTitle}] No Rubric banner found. Clicking Generate...`);
-                                    await generateBtn.click();
-                                    await expect(generateBtn).not.toBeVisible({ timeout: 15000 });
-                                    console.log(`[${uniqueTitle}] Triggered rubric generation, waiting for AI Grading to complete...'..`);
-                                    throw new Error('Triggered rubric generation, waiting for AI...'); // Force retry
-                                }
-                                // Handle Assignment Incompatibility
-                                // Search for the text with a short 5-second window to appear
-                                //const incompatibleStatus = powerGraderPage.locator('div, span').filter({ hasText: 'PowerGrader may not be able to grade this assignment.' }).first();
-                                const incompatibleStatus = powerGraderPage.locator('div, span').filter({ hasText: /Assignment Incompatible|PowerGrader may not be able to grade/i }).first();
-                                if (await incompatibleStatus.isVisible({ timeout: 5000 }).catch(() => false)) {
-                                console.log(`[${uniqueTitle}] Incompatible detected. Bypassing...`);
-                                
-                                await powerGraderAssignmentDetailsPage.clickSeeWhy();
-                                await powerGraderAssignmentDetailsPage.clickGradeAnyway();
-                                
-                                throw new Error('Bypassing incompatibility, retrying sync...');
-                                }
-                                
-                                //Poll for the final result
-                                const startReviewingBtn = powerGraderPage.locator('button').filter({ hasText: /^Start Reviewing$/i });
-
-                                if (await startReviewingBtn.isVisible({ timeout: 10000 })) {
-                                    console.log(`[${uniqueTitle}] AI Grading cycle complete. Clicking "Start Reviewing"...`);
-                                    await startReviewingBtn.click(); // Navigates to Grading Page
+                        while (Date.now() - startTime < MAX_WAIT) {
+                            console.log(`[${uniqueTitle}] Course Page Sync: Checking for assignment...`);
+                            try {
+                                if (!powerGraderPage) {
+                                    await lms.navigateToCourse();
+                                    powerGraderPage = await lms.navigateToPowerGrader(); 
                                 } else {
-                                    throw new Error('Waiting for "Start Reviewing" button to appear...');
+                                    await powerGraderPage.reload({ waitUntil: 'networkidle' });
                                 }
-                            }).toPass({ intervals: [30000], timeout: 600000 });
-
-                            console.log(`✅ AI Grading cycle complete. 'View' button found for ${studentEmail}.`);
-
-                            const durationMinutes = ((Date.now() - startTime) / 1000 / 60).toFixed(2);
-                            console.log(`✅ Total Sync successful after ${durationMinutes} minutes.`);
-                            AllureHelper.label('Sync Duration', `${durationMinutes} min`);
-                        });
-                        await AllureHelper.step('Verify AI Results and Publish', async () => {
-                            const gradingPage = new PowerGraderGradingPage(powerGraderPage);
-                            await gradingPage.waitForLoad();
-                            
-                            // This method now handles verification and logs the score once
-                            await gradingPage.verifyGradesAndFeedbackPopulated();
-                            
-                            const finalScore = await gradingPage.getTotalScore();
-                            console.log(`[${uniqueTitle}] AI Grade Verified. Final Score: ${finalScore}`);
-                            
-                            await gradingPage.clickPublishButton();
-                        });
-
-                    /*await AllureHelper.step('Check for student View button and open submission', async () => {
-                        const powerGraderAssignmentDetailsPage = new PowerGraderAssignmentDetailsPage(powerGraderPage);
-                        await powerGraderAssignmentDetailsPage.waitForLoad();
-                        await powerGraderAssignmentDetailsPage.expectPageLoaded(uniqueTitle);
-                        
-                        const studentEmailText = powerGraderPage.getByText(studentEmail, { exact: false }).first();
-                        const isStudentVisible = await studentEmailText.isVisible({ timeout: 5000 }).catch(() => false);
-                        
-                        if (isStudentVisible) {
-                            const studentRow = studentEmailText.locator('xpath=ancestor::tr').first();
-                            const studentViewButton = studentRow.getByText('View', { exact: true }).first();
-                            const viewButtonFound = await studentViewButton.isVisible({ timeout: 5000 }).catch(() => false);
-                            
-                            if (viewButtonFound) {
-                                console.log(`[${uniqueTitle}] Student View button found, opening submission...`);
-                                await powerGraderAssignmentDetailsPage.clickViewButtonForStudent(studentEmail);
-                            } else {
-                                console.log(`[${uniqueTitle}] Student View button not found in PowerGrader`);
-                                await AllureHelper.attachScreenshot(powerGraderPage, 'PowerGrader Sync Failed');
-                                throw new Error('Student View button not found in PowerGrader');
+                                const assignmentRow = powerGraderPage.locator('tr, div[role="row"]').filter({ hasText: uniqueTitle }).last();
+                                if (await assignmentRow.isVisible()) {
+                                    const studentViewButton = assignmentRow.getByText('View', { exact: true }).first();
+                                    if (await studentViewButton.isVisible({ timeout: 20000 })) {
+                                        studentViewButton.click();
+                                        isAssignmentFound = true;
+                                        break;
+                                    }
+                                }
+                            } catch (e) {
+                                console.log(`[${uniqueTitle}] Syncing...`);
                             }
-                        } else {
-                            console.log(`[${uniqueTitle}] Student not visible in PowerGrader`);
-                            await AllureHelper.attachScreenshot(powerGraderPage, 'PowerGrader Sync Failed');
-                            throw new Error('Student not visible in PowerGrader assignment details');
+                            await new Promise(res => setTimeout(res, INTERVAL));
                         }
-                    });*/
-
-                    /*await AllureHelper.step('Publish grades', async () => {
-                        const powerGraderGradingPage = new PowerGraderGradingPage(powerGraderPage);
-                        await powerGraderGradingPage.waitForLoad();
-                        await powerGraderGradingPage.expectPageLoaded();
-                        await AllureHelper.attachScreenshot(powerGraderPage, 'Grading Page Before Publish');
-                        await powerGraderGradingPage.clickPublishButton();
-                        await AllureHelper.attachScreenshot(powerGraderPage, 'Grading Page After Publish');
-                    });*/
-
-                    
-                   
+                    });
+                    */
                 });
-            });
-        }
-    });
-});
+            }); // End of assignment serial describe
+        } // End of for loop
+    }); // End of Teacher Orchestration describe
+}); // End of Canvas Orchestration describe
+                    

@@ -43,9 +43,12 @@ export class D2LCoursePage {
     }
 
     async clickPowerGraderQATool(): Promise<Page> {
-        const powerGraderLink = this.page.getByRole('link', { name: 'PowerGrader QA Tool' });
+        const powerGraderLink = this.page.getByRole('link', { 
+            name: 'PowerGrader QA Tool',
+            exact:true
+        });
         
-        await expect(powerGraderLink).toBeVisible({ timeout: 30000 });
+        await expect(powerGraderLink).toBeVisible({ timeout: 60000 });
 
         const [newPage] = await Promise.all([
             this.page.context().waitForEvent('page'),

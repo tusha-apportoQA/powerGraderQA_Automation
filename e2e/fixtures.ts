@@ -22,7 +22,7 @@ class BasePage {
     
     
     //console.log(`[Test-level Auth] ${lms} ${role} assignment creation/publish...`);
-    console.log(`[Test-level Auth] ${lms} ${role} assignment ${role.toLowerCase() === 'teacher' ? 'creation/publish' : 'submission'}...`);
+    //console.log(`[Test-level Auth] ${lms} ${role} assignment ${role.toLowerCase() === 'teacher' ? 'creation/publish' : 'submission'}...`);
     
     // Authenticate fresh for each test - creates new context and authenticates
     const page = await E2ETestHelpers.authenticateAndGetPage(lms, role, browser, lmsBaseURL);
