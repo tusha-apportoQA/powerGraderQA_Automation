@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PowerGrader QA Hub</title>
+</head>
+<body class="bg-slate-900 text-white p-8 font-sans">
+    <header class="mb-10 text-center">
+        <h1 class="text-4xl font-extrabold text-blue-400">PowerGrader Automation Dashboard</h1>
+        <p class="text-slate-400 mt-2" id="sync-time">Last TestRail Sync: --</p>
+    </header>
+
+    <section class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
+        <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-blue-500 shadow-lg text-center">
+            <h3 class="text-slate-400 uppercase text-[10px] font-bold">Total Cases</h3>
+            <p id="total" class="text-2xl font-bold mt-1">--</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-green-500 shadow-lg text-center">
+            <h3 class="text-slate-400 uppercase text-[10px] font-bold">Automated</h3>
+            <p id="automated" class="text-2xl font-bold text-green-400 mt-1">--</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-orange-500 shadow-lg text-center">
+            <h3 class="text-slate-400 uppercase text-[10px] font-bold">In Progress</h3>
+            <p id="in_progress" class="text-2xl font-bold text-orange-400 mt-1">--</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-yellow-500 shadow-lg text-center">
+            <h3 class="text-slate-400 uppercase text-[10px] font-bold">Yet to Automate</h3>
+            <p id="yet_to_automate" class="text-2xl font-bold text-yellow-400 mt-1">--</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-red-500 shadow-lg text-center">
+            <h3 class="text-slate-400 uppercase text-[10px] font-bold">Not Automatable</h3>
+            <p id="not_automatable" class="text-2xl font-bold text-red-400 mt-1">--</p>
+        </div>
+    </section>
+
+    <section class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-2xl">
+        <iframe src="./allure-report/index.html" class="w-full h-[700px] border-none"></iframe>
+    </section>
+
+    <script>
+        fetch('./testrail-stats.json')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('total').innerText = data.total;
+                document.getElementById('automated').innerText = data.automated;
+                document.getElementById('in_progress').innerText = data.automation_in_progress;
+                document.getElementById('yet_to_automate').innerText = data.yet_to_automate;
+                document.getElementById('not_automatable').innerText = data.not_automatable;
+                document.getElementById('sync-time').innerText = "Last Sync: " + data.lastUpdated;
+            });
+    </script>
+</body>
+</html>

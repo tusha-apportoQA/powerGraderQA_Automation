@@ -8,6 +8,7 @@
  */
 
 import * as dotenv from 'dotenv';
+import { defineConfig } from '@playwright/test';
 
 dotenv.config();
 
@@ -17,6 +18,17 @@ export interface CanvasCredentials {
     studentUsername: string;
     studentPassword: string;
 }
+
+export default defineConfig({
+  reporter: [
+    ['line'],                             // Gives you clean terminal output
+    ['allure-playwright', {               // The Allure magic
+      detail: true,
+      outputFolder: 'allure-results',    // Where the raw data goes
+      suiteTitle: false,
+    }],
+  ],
+});
 
 export interface CanvasConfig {
     baseURL: string;
