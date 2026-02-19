@@ -1,9 +1,9 @@
 name: Morning QA Hub Sync
 on:
   schedule:
-    # Runs at 15:00 UTC (8:00 AM PST / Dublin, CA time)
-    - cron: '0 15 * * *' 
-  workflow_dispatch: # Allows you to trigger it manually via the GitHub UI
+    # 5:30 AM PST is 1:30 PM (13:30) UTC
+    - cron: '30 13 * * *' 
+  workflow_dispatch: # Keeps the "Run Now" button available for testing
 
 jobs:
   automation-hub:
