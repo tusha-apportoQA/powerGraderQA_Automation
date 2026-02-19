@@ -1,4 +1,4 @@
-name: Morning QA Hub Sync
+name: Adhoc QA Hub Sync
 on:
   schedule:
     # Triggers at 3:35 PM PST (23:35 UTC) today for testing
