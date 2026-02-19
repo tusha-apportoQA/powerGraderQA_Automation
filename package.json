@@ -18,7 +18,9 @@
     "allure:serve": "allure serve allure-results"
   },
   "scripts": {
-  "full-deploy": "npx playwright test && node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npx wrangler pages deploy . --project-name=powergrader-automation-qa-hub"
+  "test": "npx playwright test",
+  "deploy-hub": "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npx wrangler pages deploy . --project-name=powergrader-automation-qa-hub",
+  "full-deploy": "npm run test && npm run deploy-hub"
   },
   "dependencies": {
     "@faker-js/faker": "^7.5.0"
