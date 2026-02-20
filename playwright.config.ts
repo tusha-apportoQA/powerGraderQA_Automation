@@ -48,7 +48,7 @@ const config: PlaywrightTestConfig = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Magic line: If CI (GitHub) is true, run headless. Otherwise, run headed for you! */
-    headless: !!process.env.CI,
+    headless: process.env.CI === 'true' || !process.env.LOCAL_DEV,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 30000,
     
