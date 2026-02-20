@@ -16,7 +16,8 @@
     "full-deploy:canvas-quick": "npm run full-deploy -- canvas-quick"
   },
   "dependencies": {
-    "@faker-js/faker": "^7.5.0"
+    "@faker-js/faker": "^7.5.0",
+    "axios": "^1.13.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",
