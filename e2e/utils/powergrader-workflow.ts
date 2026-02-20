@@ -104,6 +104,9 @@ export async function executeUniversalPGWorkflow(
 
     const finalScore = await gradingPage.getTotalScore();
     console.log(`[${uniqueTitle}] ✅ AI Grade Verified. Final Score: ${finalScore}`);
+
+    console.log(`[${uniqueTitle}] Generating detailed grading report...`);
+    await gradingPage.logGradingReport();
     
     await gradingPage.clickPublishButton();
     console.log(`[${uniqueTitle}] Waiting for redirect to Assignment Details...`);
