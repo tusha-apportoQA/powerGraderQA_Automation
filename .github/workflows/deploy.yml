@@ -52,6 +52,8 @@ jobs:
         run: |
           env | grep -E 'PWDEBUG|HEADED|HEADLESS|PLAYWRIGHT|CI' || true
           npx playwright test --list -c playwright.config.ts
+      - name: Clean old results
+        run: rm -rf allure-results
       - name: Run Quick Test & Deploy
         # Points to your 3-test "quick" suite
         # run: npm run full-deploy:canvas-quick
