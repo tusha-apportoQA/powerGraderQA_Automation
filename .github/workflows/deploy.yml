@@ -27,6 +27,7 @@ jobs:
           HEADLESS: true
           CI: true
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}}
           TESTRAIL_USER: ${{ secrets.TESTRAIL_USER }}
           TESTRAIL_KEY: ${{ secrets.TESTRAIL_KEY }}
           CANVAS_BASE_URL: ${{ secrets.CANVAS_BASE_URL }}
