@@ -31,7 +31,8 @@ jobs:
           npx playwright test --list -c playwright.config.ts
       - name: Run Quick Test & Deploy
         # Points to your 3-test "quick" suite
-        run: npm run full-deploy:canvas-quick
+        # run: npm run full-deploy:canvas-quick
+        run: xvfb-run -a npm run full-deploy:canvas-quick
         env:
           HEADLESS: true
           CI: true
