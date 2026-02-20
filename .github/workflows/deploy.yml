@@ -27,6 +27,7 @@ jobs:
         # Points to your 3-test "quick" suite
         run: npm run full-deploy:canvas-quick
         env:
+          HEADLESS: true
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           TESTRAIL_USER: ${{ secrets.TESTRAIL_USER }}
           TESTRAIL_KEY: ${{ secrets.TESTRAIL_KEY }}
