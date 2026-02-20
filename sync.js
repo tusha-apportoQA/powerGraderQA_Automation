@@ -45,7 +45,7 @@ async function getRealStats() {
             automated: allCases.filter(c => c.custom_case_automation_status === 1).length,
             not_automatable: allCases.filter(c => c.custom_case_automation_status === 2).length,
             automation_in_progress: allCases.filter(c => c.custom_case_automation_status === 3).length,
-            yet_to_automate: allCases.filter(c => c.custom_case_automation_status === 4 || c.custom_case_automation_status === null).length,
+            yet_to_automate: allCases.filter(c => c.custom_case_automation_status === 4).length,
             lastUpdated: new Date().toLocaleString()
         };
 
