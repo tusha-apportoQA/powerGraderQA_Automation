@@ -20,8 +20,12 @@ async function getRealStats() {
         while (hasMore) {
             console.log(`📡 Fetching cases ${offset} to ${offset + limit}...`);
             
-            const response = await axios.get(
+            /*const response = await axios.get(
                 `${TR_URL}/index.php?/api/v2/get_cases/${PROJECT_ID}&limit=${limit}&offset=${offset}`, 
+                { headers: { 'Authorization': `Basic ${auth}` } }
+            );*/
+            const response = await axios.get(
+                `${TR_URL}/index.php?/api/v2/get_cases/${PROJECT_ID}&suite_id=220&section_id=6693&limit=${limit}&offset=${offset}`, 
                 { headers: { 'Authorization': `Basic ${auth}` } }
             );
 
