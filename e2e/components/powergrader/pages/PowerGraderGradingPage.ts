@@ -1,4 +1,6 @@
-import { expect, Page } from '@playwright/test';
+import { expect, Page, Locator } from '@playwright/test';
+import { CriterionScore, GradingSummary } from '../../../types';
+import { AllureHelper } from '../../../utils/allureHelper';
 
 export class PowerGraderGradingPage {
     page: Page;
@@ -89,11 +91,137 @@ export class PowerGraderGradingPage {
         
         // Handle the confirmation modal that often follows
         const confirmBtn = this.page.getByRole('button', { name: /^Confirm$|^Yes$|^Publish$/i }).last();
-        if (await confirmBtn.isVisible({ timeout: 3000 })) {
-            await confirmBtn.click();
-        }
+        try {
+            if (await confirmBtn.isVisible({ timeout: 3000 })) {
+                await confirmBtn.click({ timeout: 5000 }).catch(() => {});
+            }
+        } catch {}
         
         await this.page.waitForLoadState('networkidle');
+    }
+
+    /**
+     * Gets all criterion scores with their names, points, and feedback
+     * @returns Array of CriterionScore objects
+     */
+    async getAllCriteriaScores(): Promise<CriterionScore[]> {
+        console.log("[Grading Page] Extracting all criteria scores and feedback...");
+        
+        // Wait for score-selection container to be visible
+        const scoreSelectionContainer = this.page.locator('div.score-selection');
+        await expect(scoreSelectionContainer).toBeVisible({ timeout: 30000 });
+        
+        const criteriaScores: CriterionScore[] = [];
+        
+        // Directly find all p tags that have a Customize button in the same container
+        // XPath: Find p tags within div.flex-col containers that contain a Customize button
+        const criterionPTags = scoreSelectionContainer.locator('xpath=.//div[contains(@class, "flex-col")][.//button[contains(text(), "Customize")]]/p');
+        const criterionCount = await criterionPTags.count();
+        console.log(`[Grading Page] Found ${criterionCount} criterion p tags with Customize buttons...`);
+        
+        for (let i = 0; i < criterionCount; i++) {
+            const pTag = criterionPTags.nth(i);
+            const text = await pTag.innerText().catch(() => '');
+            
+            if (text && text.trim().length > 0) {
+                const criterionName = text.trim();
+                console.log(`[Grading Page] Processing criterion: "${criterionName}"`);
+                
+                // Find the 3rd parent div of the p tag (row container)
+                const rowContainer = pTag.locator('xpath=ancestor::div[3]');
+                
+                // Get score from custom score input - fail if not found
+                const scoreInput = rowContainer.locator('input[type="number"][placeholder="Enter score"]').first();
+                await expect(scoreInput).toBeVisible({ timeout: 10000 });
+                
+                const scoreValue = await scoreInput.inputValue();
+                if (!scoreValue || scoreValue.trim() === '') {
+                    throw new Error(`Score input found but value is empty for criterion: ${criterionName}`);
+                }
+                
+                const score = parseFloat(scoreValue);
+                if (isNaN(score)) {
+                    throw new Error(`Invalid score value "${scoreValue}" for criterion: ${criterionName}`);
+                }
+                
+                // Get feedback: 2nd child div of row container, then 2nd div of that, then get innerText
+                const feedbackContainer = rowContainer.locator('xpath=./div[2]/div[2]');
+                await expect(feedbackContainer).toBeVisible({ timeout: 10000 });
+                
+                const feedback = (await feedbackContainer.innerText()).trim();
+                if (!feedback || feedback === '') {
+                    throw new Error(`Feedback container found but feedback text is empty for criterion: ${criterionName}`);
+                }
+                
+                if (criterionName) {
+                    criteriaScores.push({
+                        name: criterionName,
+                        points: score,
+                        feedback: feedback
+                    });
+                }
+            }
+        }
+        
+        console.log(`[Grading Page] Successfully extracted ${criteriaScores.length} criteria scores`);
+        return criteriaScores;
+    }
+
+    /**
+     * Gets complete grading summary including total score and all criteria details
+     * @returns GradingSummary object with total score and all criteria
+     */
+    async getGradingSummary(): Promise<GradingSummary> {
+        console.log("[Grading Page] Generating complete grading summary...");
+        
+        // Get total score (reusing existing method)
+        const totalScore = await this.getTotalScore();
+        
+        // Get all criteria scores
+        const criteria = await this.getAllCriteriaScores();
+        
+        const summary: GradingSummary = {
+            totalScore,
+            criteria
+        };
+        
+        return summary;
+    }
+
+    /**
+     * Logs a formatted grading report to console and attaches to Allure
+     * @param summary Optional GradingSummary to log. If not provided, will fetch it.
+     */
+    async logGradingReport(summary?: GradingSummary): Promise<void> {
+        const gradingSummary = summary || await this.getGradingSummary();
+        
+        // Format report for console
+        const reportLines: string[] = [];
+        reportLines.push('='.repeat(80));
+        reportLines.push('📊 POWERGRADER GRADING REPORT');
+        reportLines.push('='.repeat(80));
+        reportLines.push(`\n🎯 Total Score: ${gradingSummary.totalScore}`);
+        reportLines.push(`\n📋 Criteria Breakdown (${gradingSummary.criteria.length} criteria):`);
+        reportLines.push('-'.repeat(80));
+        
+        gradingSummary.criteria.forEach((criterion: CriterionScore, index: number) => {
+            reportLines.push(`\n${index + 1}. ${criterion.name}`);
+            reportLines.push(`   Points: ${criterion.points}`);
+            reportLines.push(`   Feedback: ${criterion.feedback}`);
+        });
+        
+        reportLines.push('\n' + '='.repeat(80));
+        reportLines.push('✅ Grading Report Complete');
+        reportLines.push('='.repeat(80));
+        
+        // Log to console
+        console.log('\n' + reportLines.join('\n') + '\n');
+        
+        // Attach formatted text report to Allure
+        await AllureHelper.attachText('Grading Report', reportLines.join('\n'));
+        
+        // Also attach as JSON for structured data
+        await AllureHelper.attachJSON('Grading Report (JSON)', gradingSummary);
     }
 }
 

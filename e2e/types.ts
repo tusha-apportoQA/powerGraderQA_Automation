@@ -152,3 +152,15 @@ export interface StoredAssignment {
 export interface AssignmentStorage {
     assignments: StoredAssignment[];
 }
+
+// PowerGrader grading report types
+export interface CriterionScore {
+    name: string;              // e.g., "Content Quality"
+    points: number;            // AI-seeded score (e.g., 7)
+    feedback: string;          // AI-generated feedback text
+}
+
+export interface GradingSummary {
+    totalScore: string;         // e.g., "12/15"
+    criteria: CriterionScore[]; // Array of all criteria with scores and feedback
+}
