@@ -23,10 +23,13 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Debug runs
+        env:
+          CI: tru  e
+          CANVAS_BASE_URL: ${{ secrets.CANVAS_BASE_URL }}
+          CANVAS_COURSE_NAME: ${{ secrets.CANVAS_COURSE_NAME }}
+          D2L_BASE_URL: ${{ secrets.D2L_BASE_URL }}
+          D2L_COURSE_NAME: ${{ secrets.D2L_COURSE_NAME }}
         run: |
-          node -p "process.cwd()"
-          ls -la
-          ls -la playwright.config.*
           env | grep -E 'PWDEBUG|HEADED|HEADLESS|PLAYWRIGHT|CI' || true
           npx playwright test --list -c playwright.config.ts
       - name: Run Quick Test & Deploy
