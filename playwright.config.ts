@@ -14,7 +14,13 @@ const isCI = !!process.env.CI && process.env.CI !== 'false';
  */
 const config: PlaywrightTestConfig = {
   testDir: path.join(__dirname, 'e2e'),
-  
+
+  testIgnore: [
+    '**/features/powergrader/component-tests/**',
+    '**/features/canvas/component-tests/**',
+     '**/features/d2l/component-tests/**',
+    // '**/features/powergrader/component-tests/publishGradeTest.spec.ts',
+  ],
   /* Maximum time one test can run for. */
   timeout: 120000, // 2 minutes for assignment creation
   
