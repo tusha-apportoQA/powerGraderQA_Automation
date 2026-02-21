@@ -15,6 +15,7 @@
     "full-deploy:d2l": "npm run full-deploy -- d2l",
     "full-deploy:canvas-quick": "npm run full-deploy -- canvas-quick"
   },
+  "strip-large-allure": "node -e \"const fs=require('fs');const path=require('path');const LIMIT=24*1024*1024;function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);if(e.isDirectory())walk(p);else{const s=fs.statSync(p).size;if(s>LIMIT){console.log('Deleting',p,'size',Math.round(s/1024/1024*10)/10,'MiB');fs.rmSync(p,{force:true});}}}} if(fs.existsSync('allure-report')) walk('allure-report');\"",
   "dependencies": {
     "@faker-js/faker": "^7.5.0",
     "axios": "^1.13.5"

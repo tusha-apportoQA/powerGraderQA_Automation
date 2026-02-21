@@ -63,7 +63,7 @@ const config: PlaywrightTestConfig = {
     screenshot: 'only-on-failure',
     
     /* Video on failure */
-    video: 'retain-on-failure'
+    video: 'off'
   },
 
   /* Configure projects for major browsers */

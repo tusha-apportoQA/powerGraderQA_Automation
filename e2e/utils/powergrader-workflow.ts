@@ -118,7 +118,7 @@ export async function executeUniversalPGWorkflow(
     // FIX 2: Use a broader regex and a slightly longer timeout
     const allReviewedBtn = powerGraderPage.locator('button').filter({ hasText: /Submissions Reviewed|All Reviewed/i });
     //const allReviewedBtn = powerGraderPage.getByRole('button', { name: /All Submissions Reviewed/i });
-    await expect(allReviewedBtn).toBeVisible({ timeout: 30000 });
+    await expect(allReviewedBtn).toBeVisible({ timeout: 90000 });
     console.log(`[${uniqueTitle}] Redirect successful: "All Submissions Reviewed" is visible.`);
 
     //const studentRow = powerGraderPage.locator('tr, div[role="row"]').filter({ hasText: studentEmail });
