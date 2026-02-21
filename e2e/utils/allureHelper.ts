@@ -28,6 +28,15 @@ export class AllureHelper {
         return test.step(name, body);
     }
 
+      //timing / metrics parameter support
+    static parameter(name: string, value: string | number | boolean): void {
+        test.info().annotations.push({
+            type: name,
+            description: String(value)
+        });
+    }
+
+
     static label(name: string, value: string): void {
         test.info().annotations.push({ type: name, description: value });
     }

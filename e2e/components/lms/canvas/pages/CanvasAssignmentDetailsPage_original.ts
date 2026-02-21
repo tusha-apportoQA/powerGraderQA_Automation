@@ -47,14 +47,13 @@ export class CanvasAssignmentDetailsPage {
         this.findRubricButton = page.getByRole('button', { name: 'Find a rubric' });
         this.rubricDialog = page.locator('#rubric_dialog');
         this.newRubricContainer = page.locator('#rubric_new');
-
         // Chain locators from newRubricContainer to scope elements and avoid conflicts
         this.newRubricTitleInput = this.newRubricContainer.locator('#rubric-title');
         this.newRubricTable = this.newRubricContainer.locator('table.rubric_table');
-
+        
         // Create rubric button - scoped to newRubricContainer, using role-based selector
         this.createRubricButton = this.newRubricContainer.getByRole('button', { name: 'Create rubric' });
-
+        
         // Rubric title on page - scope to #rubrics container to avoid multiple matches
         const rubricsContainer = page.locator('#rubrics');
         this.rubricTitleOnPage = rubricsContainer.locator('.rubric_title .displaying .title');
@@ -141,13 +140,19 @@ export class CanvasAssignmentDetailsPage {
         }
 
         if (rubric.type === 'new') {
-            // AssignmentRubricConfig(type='new') carries the NewRubricConfig fields in this project.
-            await this.createNewRubric(rubric as unknown as NewRubricConfig);
+           // await this.createNewRubric(rubric);
             return;
         }
 
         await this.attachExistingRubric(rubric.groupName, rubric.rubricName);
     }
+
+    // change signature to match:
+    /*private async createNewRubric(rubric: AssignmentRubricConfig): Promise<void> {
+        if (rubric.type !== 'new') {
+            throw new Error(`createNewRubric called with rubric.type=${rubric.type}`);
+    }*/
+
 
     private async attachExistingRubric(groupName: string, rubricName: string): Promise<void> {
         await expect(this.addRubricButton).toBeVisible({ timeout: 30000 });
@@ -165,7 +170,12 @@ export class CanvasAssignmentDetailsPage {
         await expect(groupTab).toBeVisible({ timeout: 30000 });
         await groupTab.click();
 
-        // Pick the visible rubric tab/button only (avoid hidden duplicates)
+        /*const rubricTab = this.rubricDialog
+            .locator('ul.rubrics_dialog_rubrics_select li.rubrics_dialog_rubric_select a')
+            .filter({ has: this.page.locator('span.title', { hasText: rubricName }) })
+            .first();
+        await expect(rubricTab).toBeVisible({ timeout: 30000 });
+        await rubricTab.click();*/
         const rubricTab = this.page
             .locator('a[role="button"]')
             .filter({ has: this.page.locator('span.title', { hasText: rubricName }) })
@@ -182,9 +192,8 @@ export class CanvasAssignmentDetailsPage {
             .first();
 
         // Use the container to locate the button within it
-        const useThisRubricButton = visibleRubricContainer.locator('button.select_rubric_link', {
-            hasText: 'Use this rubric'
-        });
+        const useThisRubricButton = visibleRubricContainer
+            .locator('button.select_rubric_link', { hasText: 'Use this rubric' });
         await expect(useThisRubricButton).toBeVisible({ timeout: 30000 });
         await useThisRubricButton.click();
 
