@@ -1,9 +1,11 @@
 name: Morning QA Hub Sync
+
 on:
   schedule:
-    # 5:30 AM PST is 1:30 PM (13:30) UTC
-    - cron: '30 13 * * *' 
-  workflow_dispatch: # Keeps the "Run Now" button available for testing
+    # 5:30 AM Pacific.
+    # NOTE: GitHub cron is UTC; this is 13:30 UTC (standard time).
+    - cron: '30 13 * * *'
+  workflow_dispatch:
 
 jobs:
   automation-hub:
@@ -23,14 +25,14 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Full Test & Deploy
-        run: npm run full-deploy
+      # Optional but useful
+      - name: Debug runs
         env:
+          CI: true
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          # These ensure your sync.js can talk to TestRail from the cloud
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           TESTRAIL_USER: ${{ secrets.TESTRAIL_USER }}
           TESTRAIL_KEY: ${{ secrets.TESTRAIL_KEY }}
-          # Canvas
           CANVAS_BASE_URL: ${{ secrets.CANVAS_BASE_URL }}
           CANVAS_COURSE_NAME: ${{ secrets.CANVAS_COURSE_NAME }}
           CANVAS_ASSIGNMENT_GROUP: ${{ secrets.CANVAS_ASSIGNMENT_GROUP }}
@@ -40,7 +42,35 @@ jobs:
           CANVAS_STUDENT_PASSWORD: ${{ secrets.CANVAS_STUDENT_PASSWORD }}
           CANVAS_TEACHER_USERNAME: ${{ secrets.CANVAS_TEACHER_USERNAME }}
           CANVAS_TEACHER_PASSWORD: ${{ secrets.CANVAS_TEACHER_PASSWORD }}
-          # D2L
+          D2L_BASE_URL: ${{ secrets.D2L_BASE_URL }}
+          D2L_COURSE_NAME: ${{ secrets.D2L_COURSE_NAME }}
+          D2L_ASSIGNMENT_GROUP: ${{ secrets.D2L_ASSIGNMENT_GROUP }}
+          D2L_DEFAULT_POINTS: ${{ secrets.D2L_DEFAULT_POINTS }}
+          D2L_STUDENT_NAME: ${{ secrets.D2L_STUDENT_NAME }}
+          D2L_STUDENT_USERNAME: ${{ secrets.D2L_STUDENT_USERNAME }}
+          D2L_STUDENT_PASSWORD: ${{ secrets.D2L_STUDENT_PASSWORD }}
+          D2L_TEACHER_USERNAME: ${{ secrets.D2L_TEACHER_USERNAME }}
+          D2L_TEACHER_PASSWORD: ${{ secrets.D2L_TEACHER_PASSWORD }}
+        run: |
+          env | grep -E 'PWDEBUG|HEADED|HEADLESS|PLAYWRIGHT|CI|CLOUDFLARE' || true
+
+      - name: Run Full Test & Deploy
+        run: xvfb-run -a npm run full-deploy
+        env:
+          CI: true
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TESTRAIL_USER: ${{ secrets.TESTRAIL_USER }}
+          TESTRAIL_KEY: ${{ secrets.TESTRAIL_KEY }}
+          CANVAS_BASE_URL: ${{ secrets.CANVAS_BASE_URL }}
+          CANVAS_COURSE_NAME: ${{ secrets.CANVAS_COURSE_NAME }}
+          CANVAS_ASSIGNMENT_GROUP: ${{ secrets.CANVAS_ASSIGNMENT_GROUP }}
+          CANVAS_DEFAULT_POINTS: ${{ secrets.CANVAS_DEFAULT_POINTS }}
+          CANVAS_STUDENT_NAME: ${{ secrets.CANVAS_STUDENT_NAME }}
+          CANVAS_STUDENT_USERNAME: ${{ secrets.CANVAS_STUDENT_USERNAME }}
+          CANVAS_STUDENT_PASSWORD: ${{ secrets.CANVAS_STUDENT_PASSWORD }}
+          CANVAS_TEACHER_USERNAME: ${{ secrets.CANVAS_TEACHER_USERNAME }}
+          CANVAS_TEACHER_PASSWORD: ${{ secrets.CANVAS_TEACHER_PASSWORD }}
           D2L_BASE_URL: ${{ secrets.D2L_BASE_URL }}
           D2L_COURSE_NAME: ${{ secrets.D2L_COURSE_NAME }}
           D2L_ASSIGNMENT_GROUP: ${{ secrets.D2L_ASSIGNMENT_GROUP }}
