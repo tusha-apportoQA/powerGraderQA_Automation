@@ -1,5 +1,4 @@
-import { test, expect } from '../../fixtures';
-import { Page } from '@playwright/test';
+import { test } from '../../fixtures';
 import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
@@ -9,91 +8,156 @@ import { getD2LConfig } from '../../config/d2l.config';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
 
-test.use({ headless: false });
+/**
+ * Poll until the student can open the assignment details page.
+ * This prevents "race" failures where the assignment exists but hasn't appeared for the student yet.
+ */
+async function waitForStudentAssignmentToAppear(
+  student: D2LLMSStudent,
+  courseName: string,
+  assignmentTitle: string,
+  opts?: { maxWaitMs?: number; intervalMs?: number }
+): Promise<void> {
+  const maxWaitMs = opts?.maxWaitMs ?? 8 * 60 * 1000; // 8 min
+  const intervalMs = opts?.intervalMs ?? 15 * 1000; // 15 sec
+  const start = Date.now();
+  let attempt = 0;
+
+  while (Date.now() - start < maxWaitMs) {
+    attempt += 1;
+    const elapsedSec = ((Date.now() - start) / 1000).toFixed(0);
+
+    try {
+      console.log(`[${assignmentTitle}] Student Sync: attempt ${attempt} (elapsed ${elapsedSec}s) - navigating to assignments...`);
+
+      await student.dashboardPage.goto(student.baseURL);
+      await student.dashboardPage.selectCourse(courseName);
+      await student.coursePage.clickAssignments();
+      await student.assignmentListPage.clickAssignment(assignmentTitle);
+
+      // If your D2L student page object has a details-page "loaded" assertion, call it here.
+      // Otherwise clickAssignment succeeding is often good enough.
+      console.log(`[${assignmentTitle}] Student Sync: assignment is visible to student ✅`);
+      return;
+    } catch (e) {
+      console.log(`[${assignmentTitle}] Student Sync: not visible yet... retrying in ${Math.round(intervalMs / 1000)}s`);
+      await student.page.waitForTimeout(intervalMs);
+    }
+  }
+
+  throw new Error(`Timed out waiting for student to see assignment: "${assignmentTitle}"`);
+}
 
 test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
-    const allConfigs = getD2LAssignmentConfigs();
-    // Matching Canvas: Slice to 4 or process all
-    const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
+  const allConfigs = getD2LAssignmentConfigs();
 
-    test.describe('D2L Teacher & Student Orchestration', () => {
-        test.describe.configure({ mode: 'parallel' });
+  // keep small for deploy runs; bump in nightly runs
+  const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
 
-        const studentUser = testUsers.find(user => user.role === 'student' && user.lms === 'd2l');
-        if (!studentUser) {
-            throw new Error('D2L Student user not found in test users configuration');
+  // Sequential flow (matches Canvas approach)
+  test.describe.configure({ mode: 'serial' });
+
+  const studentUser = testUsers.find(u => u.role === 'student' && u.lms === 'd2l');
+  if (!studentUser) throw new Error('D2L Student user not found in test users configuration');
+  const studentEmail = studentUser.username;
+
+  for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
+    test(`D2L Orchestration: ${assignmentConfig.title}`, async ({ d2lTeacherPage, d2lStudentPage }) => {
+      test.setTimeout(1_200_000);
+
+      const runStart = Date.now();
+      const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
+      const submissionType = assignmentConfig.submissionType;
+
+      const teacher = new D2LLMS(d2lTeacherPage.page);
+      const student = new D2LLMSStudent(d2lStudentPage.page);
+
+      console.log(`\n===== START: ${uniqueTitle} =====`);
+      console.log(`[${uniqueTitle}] Config: rubric=${assignmentConfig.rubric?.type ?? 'unknown'} | submission=${submissionType ?? 'none'}`);
+
+      // ---------------- CREATE ----------------
+      const createStart = Date.now();
+      console.log(`🚀 [${uniqueTitle}] Starting Assignment Creation...`);
+
+      await AllureHelper.step('Create assignment in D2L', async () => {
+        if (assignmentConfig.rubric) {
+          console.log(`[${uniqueTitle}] Setting up rubric: ${assignmentConfig.rubric.type}`);
         }
-        const studentEmail = studentUser.username;
+        await teacher.createAssignment({ ...assignmentConfig, title: uniqueTitle });
+      });
 
-        for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
-            test.describe(`Assignment: ${assignmentConfig.title}`, () => {
-                test.describe.configure({ mode: 'serial' });
+      const createMs = Date.now() - createStart;
+      console.log(`✅ [${uniqueTitle}] Assignment Created. Create time: ${(createMs / 1000).toFixed(1)}s`);
 
-                // STABLE TITLE GENERATION (Matches Canvas logic)
-                const timestamp = Date.now();
-                const uniqueTitle = `${assignmentConfig.title} [${timestamp}]`;
+      // ---------------- SUBMIT ----------------
+      let submitMs = 0;
 
-                // --- PHASE 1: CREATE ASSIGNMENT ---
-                test(`Create assignment and setup rubric: ${assignmentConfig.title}`, async ({ d2lTeacherPage }) => {
-                    test.setTimeout(300000);
-                    console.log(`\n🚀 [${uniqueTitle}] Starting Assignment Creation...`);
-                    
-                    const lms = new D2LLMS(d2lTeacherPage.page);
-                    
-                    await AllureHelper.step('Create assignment in D2L', async () => {
-                        if (assignmentConfig.rubric) {
-                            console.log(`[${uniqueTitle}] Setting up rubric: ${assignmentConfig.rubric.type}`);
-                        }
-                        await lms.createAssignment({ ...assignmentConfig, title: uniqueTitle });
-                        console.log(`✅ [${uniqueTitle}] Assignment Created.`);
-                    });
-                });
+      if (submissionType) {
+        const { courseName } = getD2LConfig();
+        const submitStart = Date.now();
 
-                // --- PHASE 2: STUDENT SUBMISSION ---
-                if (assignmentConfig.submissionType) {
-                    test(`Submit ${assignmentConfig.submissionType} for: ${assignmentConfig.title}`, async ({ d2lStudentPage }) => {
-                        test.setTimeout(300000);
-                        console.log(`📩 [${uniqueTitle}] Starting Student Submission...`);
-                        
-                        const lms = new D2LLMSStudent(d2lStudentPage.page);
-                        const { courseName } = getD2LConfig();
+        console.log(`📩 [${uniqueTitle}] Starting Student Submission...`);
 
-                        await AllureHelper.step('Submit assignment', async () => {
-                            await lms.dashboardPage.goto(lms.baseURL);
-                            await lms.dashboardPage.selectCourse(courseName);
-                            await lms.coursePage.clickAssignments();
-                            await lms.assignmentListPage.clickAssignment(uniqueTitle);
-                            
-                            if (assignmentConfig.submissionType === 'Text Entry') {
-                                await lms.verifyFileTypeAndSubmit(uniqueTitle, 'Text Entry', undefined, getSubmissionText());
-                            } else {
-                                const filePath = getSubmissionFilePath(assignmentConfig.submissionType as any);
-                                await lms.verifyFileTypeAndSubmit(uniqueTitle, assignmentConfig.submissionType!, filePath);
-                            }
-                            console.log(`✅ [${uniqueTitle}] Submission Uploaded.`);
-                        });
-                    });
-                }
+        await AllureHelper.step('Wait for assignment to appear for student', async () => {
+          await waitForStudentAssignmentToAppear(student, courseName, uniqueTitle, {
+            maxWaitMs: 8 * 60 * 1000,
+            intervalMs: 15 * 1000
+          });
+        });
 
-                // --- PHASE 3: GRADE AND PUBLISH ---
-                test(`Grade and publish for: ${assignmentConfig.title}`, async ({ d2lTeacherPage }) => {
-                    test.setTimeout(1200000);
-                    const lms = new D2LLMS(d2lTeacherPage.page);
-                    let powerGraderPage: Page;
+        await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
+          if (submissionType === 'Text Entry') {
+            await student.verifyFileTypeAndSubmit(uniqueTitle, 'Text Entry', undefined, getSubmissionText());
+          } else {
+            const filePath = getSubmissionFilePath(submissionType as any);
+            await student.verifyFileTypeAndSubmit(uniqueTitle, submissionType, filePath);
+          }
+        });
 
-                    await AllureHelper.step('Navigate to PowerGrader', async () => {
-                        await lms.navigateToCourse();
-                        console.log(`[${uniqueTitle}] Launching PowerGrader Tool...`);
-                        powerGraderPage = await lms.navigateToPowerGrader();
-                    });
+        submitMs = Date.now() - submitStart;
+        console.log(`✅ [${uniqueTitle}] Submission Uploaded. Submit time: ${(submitMs / 1000).toFixed(1)}s`);
+      } else {
+        console.log(`[${uniqueTitle}] ℹ️ No submissionType; skipping submission step.`);
+      }
 
-                    await AllureHelper.step('Run Universal Workflow', async () => {
-                        // This calls the shared workflow utility
-                        await executeUniversalPGWorkflow(powerGraderPage, uniqueTitle, studentEmail);
-                    });
-                });
-            }); 
-        } 
+      // ---------------- GRADE + PUBLISH ----------------
+      const gradeStart = Date.now();
+      console.log(`[${uniqueTitle}] Launching PowerGrader Tool...`);
+
+      await AllureHelper.step('Navigate to course (teacher)', async () => {
+        await teacher.navigateToCourse();
+      });
+
+      await AllureHelper.step('Navigate to PowerGrader', async () => {
+        const pg = await teacher.navigateToPowerGrader();
+
+        await AllureHelper.step('Run Grade & Publish Workflow', async () => {
+          console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
+          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
+          console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);
+        });
+      });
+
+      const gradeMs = Date.now() - gradeStart;
+      const totalMs = Date.now() - runStart;
+
+      console.log(`[${uniqueTitle}] Grade time: ${(gradeMs / 1000).toFixed(1)}s`);
+      console.log(`[${uniqueTitle}] TOTAL time: ${(totalMs / 1000).toFixed(1)}s`);
+      console.log(`===== END: ${uniqueTitle} =====\n`);
+
+      // ---------------- ALLURE METRICS ----------------
+      AllureHelper.parameter('Create time', `${(createMs / 1000).toFixed(1)}s`);
+      if (submitMs) AllureHelper.parameter('Submit time', `${(submitMs / 1000).toFixed(1)}s`);
+      AllureHelper.parameter('Grade time', `${(gradeMs / 1000).toFixed(1)}s`);
+      AllureHelper.parameter('Total orchestration', `${(totalMs / 1000).toFixed(1)}s`);
+
+      await AllureHelper.attachText(
+        'Timing Summary',
+        `Create: ${(createMs / 1000).toFixed(1)}s
+Submit: ${(submitMs / 1000).toFixed(1)}s
+Grade: ${(gradeMs / 1000).toFixed(1)}s
+Total: ${(totalMs / 1000).toFixed(1)}s`
+      );
     });
+  }
 });
-
