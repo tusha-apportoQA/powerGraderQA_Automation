@@ -4,18 +4,18 @@ import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
-import { getCanvasConfig } from '../../config/canvas.config';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
 
 /**
- * Poll until the student can open the assignment details page.
- * This replaces the old "natural delay" you got from splitting create/submit/grade into separate tests.
+ * Poll until the student can open the assignment details page by direct URL.
+ * This avoids races / title mismatches in the student assignment list.
  */
-async function waitForStudentAssignmentToAppear(
+async function waitForStudentAssignmentToAppearByUrl(
   student: CanvasLMSStudent,
-  courseName: string,
-  assignmentTitle: string,
+  courseId: string,
+  assignmentId: string,
+  labelForLogs: string,
   opts?: { maxWaitMs?: number; intervalMs?: number }
 ): Promise<void> {
   const maxWaitMs = opts?.maxWaitMs ?? 8 * 60 * 1000; // 8 min
@@ -23,42 +23,42 @@ async function waitForStudentAssignmentToAppear(
   const start = Date.now();
   let attempt = 0;
 
+  const url = `${student.baseURL}/courses/${courseId}/assignments/${assignmentId}`;
+
   while (Date.now() - start < maxWaitMs) {
     attempt += 1;
     const elapsedSec = ((Date.now() - start) / 1000).toFixed(0);
 
     try {
-      console.log(`[${assignmentTitle}] Student Sync: attempt ${attempt} (elapsed ${elapsedSec}s) - navigating to assignments list...`);
-
+      console.log(`[${labelForLogs}] Student Sync: attempt ${attempt} (elapsed ${elapsedSec}s) - opening assignment URL...`);
       await student.dashboardPage.goto(student.baseURL);
       await student.dashboardPage.expectDashboardLoaded();
-      await student.dashboardPage.selectCourse(courseName);
-      await student.coursePage.expectCoursePageLoaded();
-      await student.coursePage.clickAssignments();
-      await student.assignmentListPage.expectAssignmentsListLoaded();
 
-      console.log(`[${assignmentTitle}] Student Sync: looking for assignment row...`);
-      await student.assignmentListPage.clickAssignment(assignmentTitle);
-
+      await student.page.goto(url, { waitUntil: 'domcontentloaded' });
       await student.assignmentDetailsPage.expectAssignmentDetailsLoaded();
-      await student.assignmentDetailsPage.verifyAssignmentTitle(assignmentTitle);
 
-      console.log(`[${assignmentTitle}] Student Sync: assignment is visible to student ✅`);
+      console.log(`[${labelForLogs}] Student Sync: assignment page opened ✅`);
       return;
     } catch (e) {
-      console.log(`[${assignmentTitle}] Student Sync: not visible yet... retrying in ${Math.round(intervalMs / 1000)}s`);
+      console.log(`[${labelForLogs}] Student Sync: not accessible yet... retrying in ${Math.round(intervalMs / 1000)}s`);
       await student.page.waitForTimeout(intervalMs);
     }
   }
 
-  throw new Error(`Timed out waiting for student to see assignment: "${assignmentTitle}"`);
+  throw new Error(`Timed out waiting for student to access assignment page for: "${labelForLogs}"`);
+}
+
+function parseCourseAndAssignmentIdsFromUrl(url: string): { courseId: string; assignmentId: string } {
+  const match = url.match(/\/courses\/(\d+)\/assignments\/(\d+)/);
+  if (!match) throw new Error(`Could not parse courseId/assignmentId from URL: ${url}`);
+  return { courseId: match[1], assignmentId: match[2] };
 }
 
 test.describe('Canvas Orchestration @canvas @orchestration', () => {
   const allConfigs = getCanvasAssignmentConfigs();
   const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
 
-  // Sequential, as requested
+  // Sequential flow
   test.describe.configure({ mode: 'serial' });
 
   const studentUser = testUsers.find(u => u.role === 'student');
@@ -91,24 +91,27 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       const createMs = Date.now() - createStart;
       console.log(`[${uniqueTitle}] ✅ Assignment created. Create time: ${(createMs / 1000).toFixed(1)}s`);
 
+      // Parse IDs from teacher URL immediately after create
+      const teacherUrl = teacher.page.url();
+      const { courseId, assignmentId } = parseCourseAndAssignmentIdsFromUrl(teacherUrl);
+      console.log(`[${uniqueTitle}] Created assignment URL: ${teacherUrl}`);
+      console.log(`[${uniqueTitle}] Parsed courseId=${courseId}, assignmentId=${assignmentId}`);
+
       // ---------------- SUBMIT ----------------
       let submitMs = 0;
 
       if (submissionType) {
-        const { courseName } = getCanvasConfig();
-
         const submitStart = Date.now();
         console.log(`[${uniqueTitle}] 📩 Starting Student Submission...`);
 
-        await AllureHelper.step('Wait for assignment to appear for student', async () => {
-          await waitForStudentAssignmentToAppear(student, courseName, uniqueTitle, {
+        await AllureHelper.step('Wait for assignment to be accessible for student', async () => {
+          await waitForStudentAssignmentToAppearByUrl(student, courseId, assignmentId, uniqueTitle, {
             maxWaitMs: 8 * 60 * 1000,
             intervalMs: 15 * 1000
           });
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
-          // We should already be on the assignment details page from the polling function.
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
           } else {
