@@ -1,5 +1,5 @@
 import { expect, Page, Locator } from '@playwright/test';
-import { CriterionScore, GradingSummary } from '../../../types';
+import { CriterionScore, CriterionEditEntry, GradingSummary } from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 
 export class PowerGraderGradingPage {
@@ -85,6 +85,55 @@ export class PowerGraderGradingPage {
         } catch {}
         
         await this.page.waitForLoadState('networkidle');
+    }
+
+    /**
+     * Sets score and feedback for a single criterion by 0-based index (teacher edit).
+     * Score and feedback are required so we always start from the score input; Tab then focuses the edit-feedback button.
+     */
+    async setCriterionResultByIndex(criterionIndex: number, score: number, feedback: string): Promise<void> {
+        const scoreInput = this.page.locator('div.score-selection').locator('input[placeholder="Enter score"]').nth(criterionIndex);
+        await expect(scoreInput).toBeVisible({ timeout: 10000 });
+
+        await scoreInput.clear();
+        await scoreInput.fill(String(score));
+        await this.page.waitForTimeout(300);
+
+        await scoreInput.click();
+        await this.page.waitForTimeout(200);
+        await this.page.keyboard.press('Tab');
+        await this.page.waitForTimeout(200);
+        await this.page.keyboard.press('Enter');
+        await this.page.waitForTimeout(300);
+
+        const editable = this.page.locator('div[contenteditable="true"][spellcheck="false"]').first();
+        await expect(editable).toBeVisible({ timeout: 10000 });
+        await editable.click();
+        await editable.fill(feedback);
+        await this.page.waitForTimeout(300);
+
+        const saveBtn = editable.locator('xpath=..').locator('button').nth(1);
+        await saveBtn.click();
+        await this.page.waitForTimeout(300);
+
+        await this.page.keyboard.press('Tab');
+        await this.page.waitForTimeout(200);
+        const feedbackContainer = this.page.locator(':focus').locator('xpath=..');
+        await expect(feedbackContainer).toContainText(feedback, { timeout: 5000 });
+        await expect(scoreInput).toHaveValue(String(score));
+    }
+
+    /**
+     * Applies teacher edits (score and/or feedback per criterion). Call after AI grades are visible, before publish.
+     * Edits should already be filtered to valid criterion indices by the caller.
+     */
+    async applyTeacherEdits(edits: CriterionEditEntry[]): Promise<void> {
+        if (!edits.length) return;
+        console.log(`[Grading Page] Applying ${edits.length} teacher edit(s)...`);
+        for (const edit of edits) {
+            await this.setCriterionResultByIndex(edit.criterionIndex, edit.score, edit.feedback);
+        }
+        console.log('[Grading Page] Teacher edits applied.');
     }
 
     /**

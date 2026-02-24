@@ -150,10 +150,13 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
 
       await AllureHelper.step('Navigate to PowerGrader', async () => {
         const pg = await teacher.navigateToPowerGrader();
+        const teacherEdits = assignmentConfig.teacherEdits?.length
+          ? { criteria: assignmentConfig.teacherEdits }
+          : undefined;
 
         /*await AllureHelper.step('Run Grade & Publish Workflow', async () => {
           console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
-          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
+          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, teacherEdits);
           console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
         });*/
         await AllureHelper.step('Run Grade & Publish Workflow', async () => {
@@ -161,7 +164,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
 
         await runPGOrSkipOnTimeout(async () => {
           //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
-          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey);
+          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey,teacherEdits);
         });
 
         console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
