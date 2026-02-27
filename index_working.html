@@ -11,7 +11,7 @@
         <p class="text-slate-400 mt-2" id="sync-time">Last TestRail Sync: --</p>
     </header>
 
-    <section class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
+    <section class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-10">
         <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-blue-500 shadow-lg text-center">
             <h3 class="text-slate-400 uppercase text-[10px] font-bold">Total Cases</h3>
             <p id="total" class="text-2xl font-bold mt-1">--</p>
@@ -20,6 +20,12 @@
             <h3 class="text-slate-400 uppercase text-[10px] font-bold">Automated</h3>
             <p id="automated" class="text-2xl font-bold text-green-400 mt-1">--</p>
         </div>
+        
+        <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-purple-500 shadow-lg text-center">
+            <h3 class="text-slate-400 uppercase text-[10px] font-bold">Coverage %</h3>
+            <p id="percentage" class="text-2xl font-bold text-purple-400 mt-1">--%</p>
+        </div>
+
         <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-orange-500 shadow-lg text-center">
             <h3 class="text-slate-400 uppercase text-[10px] font-bold">In Progress</h3>
             <p id="in_progress" class="text-2xl font-bold text-orange-400 mt-1">--</p>
@@ -42,13 +48,20 @@
         fetch('./testrail-stats.json')
             .then(res => res.json())
             .then(data => {
-                document.getElementById('total').innerText = data.total;
-                document.getElementById('automated').innerText = data.automated;
+                const total = data.total || 0;
+                const automated = data.automated || 0;
+                // Coverage calculation: (Automated / Total) * 100
+                const percent = total > 0 ? ((automated / total) * 100).toFixed(1) : 0;
+
+                document.getElementById('total').innerText = total;
+                document.getElementById('automated').innerText = automated;
+                document.getElementById('percentage').innerText = percent + "%";
                 document.getElementById('in_progress').innerText = data.automation_in_progress;
                 document.getElementById('yet_to_automate').innerText = data.yet_to_automate;
                 document.getElementById('not_automatable').innerText = data.not_automatable;
                 document.getElementById('sync-time').innerText = "Last Sync: " + data.lastUpdated;
-            });
+            })
+            .catch(err => console.error("Error loading stats:", err));
     </script>
 </body>
 </html>

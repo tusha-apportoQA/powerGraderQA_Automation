@@ -1,0 +1,13 @@
+{
+  "createdAt": "2026-02-26T22:02:05.923Z",
+  "snapshot": {
+    "totalScore": 5,
+    "criteria": [
+      {
+        "name": "Description of criterion",
+        "score": 5,
+        "feedback": "Your essay is concise, covers both positive and negative aspects of technology in daily life, and includes a thoughtful personal reflection, meeting all expectations for this technical prompt."
+      }
+    ]
+  }
+}

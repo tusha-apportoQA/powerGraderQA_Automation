@@ -23,9 +23,29 @@ export class CanvasLoginPage {
         this.failedLogin = page.locator('id=flash_message_holder');
     }
 
-    async goto(baseURL: string) {
+    /*async goto(baseURL: string) {
         await this.page.goto(`${baseURL}/login/canvas`, { waitUntil: 'domcontentloaded' });
         await this.page.waitForLoadState();
+    }*/
+    async goto(baseURL: string) {
+        const url = `${baseURL}/login/canvas`;
+
+        for (let attempt = 1; attempt <= 5; attempt++) {
+            try {
+            await this.page.goto(url, { waitUntil: 'domcontentloaded' });
+            await this.page.waitForLoadState();
+            return;
+            } catch (e: any) {
+            const msg = String(e?.message ?? e);
+
+            // only retry this specific transient error
+            if (!msg.includes('net::ERR_NETWORK_CHANGED')) throw e;
+
+            await this.page.waitForTimeout(1000 * attempt); // small backoff
+            }
+        }
+
+            throw new Error(`CanvasLoginPage.goto: net::ERR_NETWORK_CHANGED persisted after retries: ${url}`);
     }
 
     async login(email: string, password: string) {

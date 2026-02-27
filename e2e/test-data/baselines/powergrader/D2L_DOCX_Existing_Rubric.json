@@ -1,0 +1,33 @@
+{
+  "createdAt": "2026-02-27T04:27:12.894Z",
+  "snapshot": {
+    "totalScore": 56,
+    "criteria": [
+      {
+        "name": "Accuracy and Precision of Content",
+        "score": 17.5,
+        "feedback": "Your discussion of technology's impact is factually accurate but remains too general and lacks specific, precise examples—especially in biological contexts. To improve, provide detailed explanations and concrete examples of how technology affects biology or science."
+      },
+      {
+        "name": "Adherence to Assignment Instructions",
+        "score": 2.5,
+        "feedback": "Your submission mentions technology's impact in a general sense, but it is much too short and lacks the required detail and references to course concepts or accuracy and precision. To improve, ensure your essay meets the expected length and fully addresses all assignment requirements."
+      },
+      {
+        "name": "Language Use and Writing Mechanics",
+        "score": 15,
+        "feedback": "Your writing is clear, grammatically correct, and uses vocabulary suitable for an introductory-level assignment. Excellent attention to spelling, punctuation, and sentence structure—well done!"
+      },
+      {
+        "name": "Organization and Coherence",
+        "score": 3,
+        "feedback": "Your essay introduces the topic clearly but lacks body development, transitions, and a conclusion, which makes the organization and flow difficult to follow. For improved coherence and readability, organize your ideas into separate paragraphs, use transitions, and include a conclusion to wrap up your argument."
+      },
+      {
+        "name": "Relevance and Focus",
+        "score": 18,
+        "feedback": "Your essay stays generally focused on technology’s impact and avoids irrelevant content, but providing more specific examples or further discussion would keep your writing even more closely aligned with the prompt."
+      }
+    ]
+  }
+}

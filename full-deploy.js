@@ -33,6 +33,40 @@ try {
   console.log('Some tests failed - continuing to deploy...');
 }
 
+// ✅ Write SBERT environment summary for Allure overview
+ try {
+    const resultsDir = path.join(__dirname, 'allure-results');
+    const resultFiles = fs.readdirSync(resultsDir).filter(f => f.endsWith('-result.json'));
+    
+    let maxDrift = 0;
+    let worstField = 'none';
+    let scores = [];
+
+    for (const file of resultFiles) {
+      const data = JSON.parse(fs.readFileSync(path.join(resultsDir, file), 'utf-8'));
+      for (const attachment of data.attachments ?? []) {
+        if (attachment.name === 'SBERT Drift Report') {
+          const attachPath = path.join(resultsDir, attachment.source);
+          if (fs.existsSync(attachPath)) {
+            const sbert = JSON.parse(fs.readFileSync(attachPath, 'utf-8'));
+            if (sbert.summary.maxConfidencePct > maxDrift) {
+              maxDrift = sbert.summary.maxConfidencePct;
+              worstField = sbert.summary.worstField;
+            }
+          }
+        }
+      }
+    }
+
+    fs.writeFileSync(path.join(resultsDir, 'environment.properties'),
+  `Max.SBERT.Drift.Pct=${maxDrift.toFixed(1)}
+  Worst.Field=${worstField}
+  `);
+    console.log('✅ environment.properties written');
+  } catch (e) {
+    console.log('⚠️ Could not write environment.properties:', e.message);
+  }
+
 // ✅ sanity check before generating/deploying report
 const n = countAllureResults();
 console.log('Allure result.json count:', n);

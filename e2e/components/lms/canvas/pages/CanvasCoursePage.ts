@@ -8,7 +8,8 @@ export class CanvasCoursePage {
     constructor(page: Page) {
         this.page = page;
         this.assignmentsLink = page.locator('id=assignments-link');
-        this.powergraderQALink = page.locator('id=powergrader-qa-link');
+       // this.powergraderQALink = page.locator('id=powergrader-qa-link');
+        this.powergraderQALink = this.page.getByRole('link', { name: /Powergrader QA/i });
     }
 
     async waitForLoad(): Promise<void> {

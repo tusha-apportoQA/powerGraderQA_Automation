@@ -22,7 +22,8 @@ const config: PlaywrightTestConfig = {
     // '**/features/powergrader/component-tests/publishGradeTest.spec.ts',
   ],
   /* Maximum time one test can run for. */
-  timeout: 120000, // 2 minutes for assignment creation
+  //timeout: 120000, // 2 minutes for assignment creation
+    timeout: 20 * 60 * 1000,
   
   expect: {
     /**

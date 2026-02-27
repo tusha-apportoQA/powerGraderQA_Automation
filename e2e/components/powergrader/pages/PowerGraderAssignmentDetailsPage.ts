@@ -17,25 +17,6 @@ export class PowerGraderAssignmentDetailsPage {
         const assignmentHeading = this.page.locator('h1').filter({ hasText: assignmentTitle }).first();
         await expect(assignmentHeading).toBeVisible({ timeout: 30000 });
     }
-
-    /*async clickViewButtonForStudent(studentEmail: string): Promise<void> {
-        const studentEmailText = this.page.getByText(studentEmail, { exact: false }).first();
-        await expect(studentEmailText).toBeVisible({ timeout: 30000 });
-        
-        const studentRow = studentEmailText.locator('xpath=ancestor::tr').first();
-        const viewButton = studentRow.getByText('View', { exact: true }).first();
-        
-        await expect(viewButton).toBeVisible({ timeout: 10000 });
-        await viewButton.click();
-        
-        await this.page.waitForTimeout(1000);
-    }*/
-
-    //Upate by Tusha
-        /**
-     * Handles the "No Rubric" banner by clicking Generate and polling for the 
-     * Halted status to clear.
-     */
     async handleNoRubricStateIfPresent(): Promise<void> {
         // Locator based on your screenshot's HTML structure
             const generateBtn = this.page.locator('button').filter({ hasText: 'Generate Compatible Rubric' });
@@ -91,25 +72,38 @@ export class PowerGraderAssignmentDetailsPage {
      * Clicks the 'See Why' button in the incompatibility banner.
      */
     async clickSeeWhy(): Promise<void> {
-        console.log("[Details Page] 'See Why' located.");
+        //console.log("[Details Page] 'See Why' clicked successfully.");
         const seeWhyBtn = this.page.getByRole('button', { name: /See Why/i });
-        
-        // Ensure it's visible before clicking
-        //await expect(seeWhyBtn).toBeVisible({ timeout: 10000 });
-        await seeWhyBtn.click({ force: true });
-       
+        await expect(seeWhyBtn).toBeVisible({ timeout: 10000 });
+        console.log("[Details Page] 'See Why' located.");
+        await seeWhyBtn.click();
         console.log("[Details Page] 'See Why' clicked successfully.");
     }
 
-    /**
-     * Clicks 'Grade Anyway' inside the incompatibility modal. Update by Tusha
-     */
     async clickGradeAnyway(): Promise<void> {
-        const gradeAnywayBtn = this.page.getByRole('button', { name: /Grade Anyway/i });
-        await gradeAnywayBtn.waitFor({ state: 'visible', timeout: 10000 });
-        //Perform the click
-        await gradeAnywayBtn.click({ force: true });
-        console.log("[Details Page] 'Grade Anyway' clicked successfully.");
+    const pageBtn = this.page.getByRole('button', { name: /^Grade Anyway$/i }).first();
+
+    // 1) Prefer the page banner button (your screenshot)
+    if (await pageBtn.isVisible({ timeout: 1500 }).catch(() => false)) {
+        await expect(pageBtn).toBeVisible({ timeout: 30000 });
+        await pageBtn.scrollIntoViewIfNeeded();
+        await pageBtn.click({ force: true, timeout: 30000 });
+        console.log("[Details Page] 'Grade Anyway' clicked (page).");
+        return;
+    }
+
+    // 2) Fallback: modal/dialog button if UI uses a dialog
+    const dialog = this.page.getByRole('dialog').first();
+    if (await dialog.isVisible({ timeout: 1500 }).catch(() => false)) {
+        const modalBtn = dialog.getByRole('button', { name: /^Grade Anyway$/i }).first();
+        await expect(modalBtn).toBeVisible({ timeout: 30000 });
+        await modalBtn.scrollIntoViewIfNeeded();
+        await modalBtn.click({ force: true, timeout: 30000 });
+        console.log("[Details Page] 'Grade Anyway' clicked (modal).");
+        return;
+    }
+
+    throw new Error("Grade Anyway button not found (page or modal).");
     }
 }
 

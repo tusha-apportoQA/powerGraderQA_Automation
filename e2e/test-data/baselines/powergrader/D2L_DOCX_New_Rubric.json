@@ -1,0 +1,28 @@
+{
+  "createdAt": "2026-02-27T04:31:56.149Z",
+  "snapshot": {
+    "totalScore": 12.5,
+    "criteria": [
+      {
+        "name": "Content Quality",
+        "score": 1.5,
+        "feedback": "Your submission accurately notes that technology is important in daily life, but it remains too general and lacks specific examples or analysis—especially in a biology context. To improve, try including concrete examples and discuss in more detail how technology impacts biology."
+      },
+      {
+        "name": "Writing Mechanics",
+        "score": 4,
+        "feedback": "Your writing is clear, grammatically correct, and professional throughout, demonstrating excellent mastery of mechanics."
+      },
+      {
+        "name": "Organization",
+        "score": 3,
+        "feedback": "Your essay introduces the topic and provides some body content, but it lacks a conclusion, clear separation into paragraphs, and effective transitions, resulting in poor organization. To improve your structure, consider adding a concluding statement, separating your ideas into multiple paragraphs, and avoiding repeating the title as your first line."
+      },
+      {
+        "name": "Research and Citations",
+        "score": 4,
+        "feedback": "Your submission did not include any outside research or citations, which are required for this assignment; be sure to integrate and properly cite sources in future essays to improve your score."
+      }
+    ]
+  }
+}

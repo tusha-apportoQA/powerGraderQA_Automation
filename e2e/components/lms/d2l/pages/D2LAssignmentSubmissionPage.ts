@@ -139,7 +139,7 @@ export class D2LAssignmentSubmissionPage {
             await this.page.waitForTimeout(1000);
         }
     }
-
+    
     async submitAssignment(): Promise<void> {
         await expect(this.submitButton).toBeVisible({ timeout: 30000 });
         await expect(this.submitButton).toBeEnabled({ timeout: 10000 });
@@ -147,7 +147,9 @@ export class D2LAssignmentSubmissionPage {
         await this.submitButton.scrollIntoViewIfNeeded();
         await this.submitButton.click();
         
-        await this.page.waitForTimeout(2000);
+        // CRITICAL: This 2-second wait ensures the LTI handshake 
+        // with PowerGrader is registered before the browser session potentially ends.
+        await this.page.waitForTimeout(2000); 
     }
 
     async verifySubmissionSuccess(): Promise<void> {

@@ -1,0 +1,28 @@
+{
+  "createdAt": "2026-02-27T05:32:31.582Z",
+  "snapshot": {
+    "totalScore": 49,
+    "criteria": [
+      {
+        "name": "Adherence to Assignment Format and Length",
+        "score": 2,
+        "feedback": "Your submission was much shorter than what is expected for a brief essay; to achieve full credit, please expand your discussion to meet the typical length and formatting requirements for a brief essay."
+      },
+      {
+        "name": "Clarity and Precision of Expression",
+        "score": 26,
+        "feedback": "Your writing is clear, direct, and easy to understand, but using more varied sentences and precise vocabulary could make your expression even stronger."
+      },
+      {
+        "name": "Content Accuracy and Relevance",
+        "score": 17,
+        "feedback": "Your submission accurately discusses technology's influence on daily life but does not address its impact on biology, which is required by the assignment. To improve your score, be sure to include specific examples of how technology affects biological sciences or health."
+      },
+      {
+        "name": "Organization and Essay Structure",
+        "score": 4,
+        "feedback": "Your submission is missing the necessary essay structure with an introduction, body, and conclusion; organizing your ideas into separate paragraphs and sections will help your writing flow and make it easier to follow."
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "createdAt": "2026-02-27T06:03:36.907Z",
+  "snapshot": {
+    "totalScore": 42,
+    "criteria": [
+      {
+        "name": "Content Relevance and Depth of Analysis",
+        "score": 0,
+        "feedback": "Your essay does not address the prompt about technology's impact on daily life and instead discusses apples as a fruit. To receive credit, be sure to write directly about how technology influences daily life, including specific and relevant examples."
+      },
+      {
+        "name": "Critical Thinking and Insight",
+        "score": 0,
+        "feedback": "Your submission describes apples but does not address technology or the assignment prompt, and includes no analysis or insight. To improve, focus on analyzing how technology impacts daily life and demonstrate original thinking next time."
+      },
+      {
+        "name": "Grammar, Mechanics, and Formatting",
+        "score": 10,
+        "feedback": "Your essay demonstrates clear, correct grammar, excellent punctuation and spelling, and consistently professional formatting throughout. No errors were found, resulting in a polished and professional presentation."
+      },
+      {
+        "name": "Organization and Coherence",
+        "score": 22,
+        "feedback": "Your essay is well-structured with a clear introduction, focused paragraphs, and a strong conclusion, but smoother transitions between sections will further enhance its coherence and readability."
+      },
+      {
+        "name": "Writing Quality and Clarity",
+        "score": 10,
+        "feedback": "Your writing is consistently clear, uses appropriate and varied vocabulary, and demonstrates effective sentence variety; each idea is communicated simply and directly, fully meeting expectations for clarity and writing quality."
+      }
+    ]
+  }
+}

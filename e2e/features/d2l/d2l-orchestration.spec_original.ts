@@ -27,7 +27,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
 
         for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
             test.describe(`Assignment: ${assignmentConfig.title}`, () => {
-                test.describe.configure({ mode: 'serial' });
+                
 
                 // STABLE TITLE GENERATION (Matches Canvas logic)
                 const timestamp = Date.now();

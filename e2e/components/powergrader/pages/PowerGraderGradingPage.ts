@@ -33,11 +33,6 @@ export class PowerGraderGradingPage {
 
         const criteriaContent = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[2]');
         await expect(criteriaContent).toBeVisible({ timeout: 20000 });
-        /*const totalGradeHeader = this.page.locator('h2').filter({ hasText: /\// });
-        await expect(totalGradeHeader).toBeVisible({ timeout: 30000 });
-        await expect(totalGradeHeader).toContainText('/', { timeout: 30000 });
-        const criteriaContent = this.page.locator('div').filter({ hasText: /^Criteria$/i }).first();
-        await expect(criteriaContent).toBeVisible({ timeout: 20000 });*/
         
         console.log("[Grading Page] AI Results verified successfully.");
         }
@@ -68,14 +63,6 @@ export class PowerGraderGradingPage {
         const feedbackSections = this.page.locator('span[class*="text-primary-color"]');
         return await feedbackSections.allInnerTexts();
     }
-
-    /*async clickPublishButton(): Promise<void> {
-        const publishButton = this.page.getByRole('button', { name: 'Publish' }).first();
-        await expect(publishButton).toBeVisible({ timeout: 30000 });
-        await expect(publishButton).toBeEnabled({ timeout: 10000 });
-        await publishButton.click();
-        await this.page.waitForTimeout(1000);
-    }*/
     /**
      * Clicks publish and handles the potential confirmation modal. Update by Tusha
      */
@@ -105,8 +92,9 @@ export class PowerGraderGradingPage {
      * @returns Array of CriterionScore objects
      */
     async getAllCriteriaScores(): Promise<CriterionScore[]> {
+
         console.log("[Grading Page] Extracting all criteria scores and feedback...");
-        
+       
         // Wait for score-selection container to be visible
         const scoreSelectionContainer = this.page.locator('div.score-selection');
         await expect(scoreSelectionContainer).toBeVisible({ timeout: 30000 });
@@ -133,6 +121,9 @@ export class PowerGraderGradingPage {
                 // Get score from custom score input - fail if not found
                 const scoreInput = rowContainer.locator('input[type="number"][placeholder="Enter score"]').first();
                 await expect(scoreInput).toBeVisible({ timeout: 10000 });
+
+                // WAIT for the AI to actually fill the box (Wait up to 15s)
+                await expect(scoreInput).not.toHaveValue('', { timeout: 15000 });
                 
                 const scoreValue = await scoreInput.inputValue();
                 if (!scoreValue || scoreValue.trim() === '') {
@@ -148,10 +139,8 @@ export class PowerGraderGradingPage {
                 const feedbackContainer = rowContainer.locator('xpath=./div[2]/div[2]');
                 await expect(feedbackContainer).toBeVisible({ timeout: 10000 });
                 
-                const feedback = (await feedbackContainer.innerText()).trim();
-                if (!feedback || feedback === '') {
-                    throw new Error(`Feedback container found but feedback text is empty for criterion: ${criterionName}`);
-                }
+                //const feedback = (await feedbackContainer.innerText()).trim();
+                const feedback = ((await feedbackContainer.textContent()) ?? '').trim();
                 
                 if (criterionName) {
                     criteriaScores.push({

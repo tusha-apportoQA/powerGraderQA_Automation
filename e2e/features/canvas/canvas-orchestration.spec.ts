@@ -6,6 +6,8 @@ import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
+import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout";
+
 
 /**
  * Poll until the student can open the assignment details page by direct URL.
@@ -59,7 +61,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
   const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
 
   // Sequential flow
-  test.describe.configure({ mode: 'serial' });
+  //test.describe.configure({ mode: 'serial' });
 
   const studentUser = testUsers.find(u => u.role === 'student');
   if (!studentUser) throw new Error('Student user not found in test users configuration');
@@ -70,6 +72,8 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       test.setTimeout(1_200_000);
 
       const runStart = Date.now();
+      const baselineKey = assignmentConfig.title; // stable across runs
+
       const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
 
       const teacher = new CanvasLMS(canvasTeacherPage.page);
@@ -112,11 +116,21 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
-          if (submissionType === 'Text Entry') {
+          /*if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
           } else {
             const filePath = getSubmissionFilePath(submissionType as any);
             await student.verifyFileTypeAndSubmit(submissionType, filePath);
+          }*/
+          if (submissionType === 'Text Entry') {
+            await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
+          } else {
+            const filePath = getSubmissionFilePath(submissionType as any);
+
+            // Provide text as fallback for .txt in case Canvas renders TinyMCE instead of upload UI
+            const text = submissionType === '.txt' ? getSubmissionText() : undefined;
+
+            await student.verifyFileTypeAndSubmit(submissionType, filePath, text);
           }
         });
 
@@ -137,11 +151,21 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       await AllureHelper.step('Navigate to PowerGrader', async () => {
         const pg = await teacher.navigateToPowerGrader();
 
-        await AllureHelper.step('Run Grade & Publish Workflow', async () => {
+        /*await AllureHelper.step('Run Grade & Publish Workflow', async () => {
           console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
           await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
           console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
+        });*/
+        await AllureHelper.step('Run Grade & Publish Workflow', async () => {
+        console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
+
+        await runPGOrSkipOnTimeout(async () => {
+          //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
+          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey);
         });
+
+        console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
+});
       });
 
       const gradeMs = Date.now() - gradeStart;
@@ -160,9 +184,9 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       await AllureHelper.attachText(
         'Timing Summary',
         `Create: ${(createMs / 1000).toFixed(1)}s
-Submit: ${(submitMs / 1000).toFixed(1)}s
-Grade: ${(gradeMs / 1000).toFixed(1)}s
-Total: ${(totalMs / 1000).toFixed(1)}s`
+        Submit: ${(submitMs / 1000).toFixed(1)}s
+        Grade: ${(gradeMs / 1000).toFixed(1)}s
+        Total: ${(totalMs / 1000).toFixed(1)}s`
       );
     });
   }

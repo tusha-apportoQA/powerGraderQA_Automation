@@ -28,65 +28,6 @@ export class CanvasLMS {
         this.assignmentDetailsPage = new CanvasAssignmentDetailsPage(page);
     }
 
-    /*async createAssignment(config: AssignmentConfig): Promise<void> {
-        await this.dashboardPage.goto(this.baseURL);
-        await this.dashboardPage.expectDashboardLoaded();
-        
-        const { courseName, defaultPoints } = getCanvasConfig();
-        await this.dashboardPage.selectCourse(courseName);
-
-        await this.coursePage.expectCoursePageLoaded();
-        await this.coursePage.clickAssignments();
-        
-        await this.assignmentListPage.expectAssignmentsListLoaded();
-        await this.assignmentListPage.clickCreateAssignment();
-        
-        await this.createAssignmentPage.expectCreateAssignmentPageLoaded();
-        await this.createAssignmentPage.fillTitle(config.title);
-        
-        if (config.description) {
-            await this.createAssignmentPage.fillDescription(config.description);
-        }
-        
-        if (config.points) {
-            await this.createAssignmentPage.fillPoints(config.points);
-        } else {
-            await this.createAssignmentPage.fillPoints(defaultPoints);
-        }
-        
-       // await this.createAssignmentPage.selectAssignmentGroup(assignmentGroup);
-        
-        if (config.submissionType) {
-            await this.createAssignmentPage.setSubmissionType(config.submissionType);
-        }
-        
-        if (config.assignAccess) {
-            await this.createAssignmentPage.setAssignmentAccess(config.assignAccess);
-        }
-        
-        await this.createAssignmentPage.clickSaveAndPublish();
-
-        //Update by Tusha
-        await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
-
-            if (config.rubric && config.rubric.type !== 'no') {
-                // Only call this if we actually want a rubric in Canvas
-                await this.assignmentDetailsPage.setRubric(config.rubric);
-            } else {
-                console.log(`[CanvasLMS] No rubric requested for ${config.title}. Proceeding with clean assignment.`);
-        }
-        
-        await this.assignmentDetailsPage.waitForLoad();
-        await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
-        await this.assignmentDetailsPage.verifyAssignmentTitle(config.title);
-
-        if (config.rubric) {
-            await this.assignmentDetailsPage.setRubric(config.rubric);
-        }
-    }*/
-
-    // ... inside the CanvasLMS class ...
-
         async createAssignment(config: AssignmentConfig): Promise<void> {
             await this.dashboardPage.goto(this.baseURL);
             await this.dashboardPage.expectDashboardLoaded();
@@ -118,19 +59,21 @@ export class CanvasLMS {
             }
             
             await this.createAssignmentPage.clickSaveAndPublish();
-            
-            await this.assignmentDetailsPage.waitForLoad();
-            await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
-            await this.assignmentDetailsPage.verifyAssignmentTitle(config.title);
 
-            // --- STEP-BY-STEP FIX START ---
-            // Only attempt to set a rubric if config exists AND type is NOT 'no'
+            await this.assignmentDetailsPage.waitForLoad();
+            
+            // Set rubric BEFORE final verification to ensure page state is settled
             if (config.rubric && config.rubric.type !== 'no') {
                 console.log(`[CanvasLMS] Setting up ${config.rubric.type} rubric...`);
                 await this.assignmentDetailsPage.setRubric(config.rubric);
+                // Give Canvas a moment to save the rubric association
+                await this.page.waitForTimeout(1000); 
             } else {
                 console.log(`[CanvasLMS] "No Rubric" detected in config. Skipping Canvas rubric setup.`);
             }
+
+            await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
+            await this.assignmentDetailsPage.verifyAssignmentTitle(config.title);
         }
 
     /**
@@ -167,7 +110,8 @@ export class CanvasLMS {
      * @returns {Promise<Page>} The PowerGrader page that opens in a new tab
      */
     async navigateToPowerGrader(): Promise<Page> {
-        const powergraderQALink = this.page.locator('id=powergrader-qa-link');
+        //const powergraderQALink = this.page.locator('id=powergrader-qa-link');
+        const powergraderQALink = this.page.getByRole('link', { name: /Powergrader QA/i });
         
         await powergraderQALink.waitFor({ state: 'visible', timeout: 30000 });
         

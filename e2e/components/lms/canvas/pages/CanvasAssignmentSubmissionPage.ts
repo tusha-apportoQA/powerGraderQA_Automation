@@ -1,7 +1,7 @@
-import { expect, Page, Locator } from '@playwright/test';
-import { FormatType } from '../../../../types';
+    import { expect, Page, Locator } from '@playwright/test';
+    import { FormatType } from '../../../../types';
 
-export class CanvasAssignmentSubmissionPage {
+    export class CanvasAssignmentSubmissionPage {
     page: Page;
     fileUploadInput: Locator;
     submissionForm: Locator;
@@ -13,68 +13,87 @@ export class CanvasAssignmentSubmissionPage {
 
     constructor(page: Page) {
         this.page = page;
-        // Use first() to handle cases where both elements exist (text entry has both container and form)
-        this.submissionForm = page.locator('div#submit_assignment, form#submit_online_text_entry_form').first();
+
+        this.submissionForm = page.locator('#submit_assignment');
+        //this.submissionForm = page.locator('#submit_assignment:visible');
+        //this.fileUploadInput = page.locator('input[data-testid="file-upload-0"]:visible');
         this.fileUploadInput = page.locator('input[data-testid="file-upload-0"]');
         this.submissionCommentTextarea = page.locator('textarea#submission_comment');
         this.submitButton = page.getByRole('button', { name: 'Submit assignment' });
         this.cancelButton = page.locator('button.cancel_button');
-        
-        // Submission verification locators - scoped to sidebar
+
         this.submissionSidebar = page.locator('#sidebar_content');
         this.submittedText = this.submissionSidebar.getByText('Submitted!');
     }
 
     async waitForLoad(): Promise<void> {
-        // Wait for either file upload form or text entry form (using first() to avoid strict mode violation)
-        await expect(this.submissionForm).toBeVisible({ timeout: 30000 });
-        await this.page.waitForTimeout(500);
-    }
+            // Don't hard-require a URL change; Canvas sometimes stays on /assignments/<id>
+            await Promise.race([
+                this.page.waitForURL(/\/submissions/, { timeout: 15000 }).catch(() => {}),
+                this.page.waitForSelector('#submit_assignment', { state: 'visible', timeout: 30000 })
+            ]);
 
-    /**
-     * Upload a file for file-based submission types (.pdf, .docx, .txt)
-     * @param filePath - Path to the file to upload (relative to project root)
-     */
+            await Promise.race([
+            this.page
+                .waitForSelector('form#submit_online_text_entry_form', { state: 'visible', timeout: 30000 })
+                .then(() => true)
+                //.catch(() => null),
+                 .catch(() => new Promise(() => {})),
+
+            this.page
+                .waitForSelector('iframe#submission_body_ifr', { state: 'attached', timeout: 30000 })
+                .then(() => true)
+                //.catch(() => null),
+                 .catch(() => new Promise(() => {})),
+
+            this.page
+                .waitForSelector('input[data-testid="file-upload-0"]', { state: 'attached', timeout: 30000 })
+                .then(() => true)
+                //.catch(() => null),
+                 .catch(() => new Promise(() => {})),
+            ]);
+
+            await this.page.waitForTimeout(300);
+        }
+
     async uploadFile(filePath: string): Promise<void> {
         await this.waitForLoad();
-        await expect(this.fileUploadInput).toBeVisible({ timeout: 30000 });
+
+        const fileUploadTab = this.page.getByRole('tab', { name: /File Upload/i });
+        if (await fileUploadTab.isVisible().catch(() => false)) {
+        await fileUploadTab.click();
+        }
+
+        //await expect(this.fileUploadInput).toBeVisible({ timeout: 30000 });
+        //await this.fileUploadInput.setInputFiles(filePath);
+        await this.fileUploadInput.waitFor({ state: 'attached', timeout: 30000 });
         await this.fileUploadInput.setInputFiles(filePath);
         await this.page.waitForTimeout(1000);
     }
 
-    /**
-     * Fill text entry for Text Entry submission type
-     * @param text - Text content to enter
-     */
     async fillTextEntry(text: string): Promise<void> {
         await this.waitForLoad();
 
-        const iframe = this.page.locator('iframe[title*="Rich Text Area"]').first();
-
-        try {
-            const iframeCount = await iframe.count();
-
-            if (iframeCount > 0 && await iframe.isVisible().catch(() => false)) {
-                const iframeLocator = this.page.frameLocator('iframe[title*="Rich Text Area"]').first();
-                const iframeBody = iframeLocator.locator('body');
-                await expect(iframeBody).toBeVisible({ timeout: 10000 });
-                await iframeBody.click({ timeout: 5000 });
-                await this.page.waitForTimeout(300);
-                await iframeBody.fill(text);
-                // Wait for the editor to process the content
-                await this.page.waitForTimeout(1000);
-            } else {
-                const textarea = this.page.locator('textarea').filter({ hasNotText: 'Comments...' }).first();
-                await expect(textarea).toBeVisible({ timeout: 10000 });
-                await textarea.fill(text);
-                await this.page.waitForTimeout(500);
-            }
-        } catch (error) {
-            const textarea = this.page.locator('textarea').filter({ hasNotText: 'Comments...' }).first();
-            await expect(textarea).toBeVisible({ timeout: 10000 });
-            await textarea.fill(text);
-            await this.page.waitForTimeout(500);
+        const textEntryTab = this.page.getByRole('tab', { name: /Text Entry/i });
+        if (await textEntryTab.isVisible().catch(() => false)) {
+            await textEntryTab.click();
+            await this.page.waitForTimeout(500); // Wait for tab transition
         }
+
+        const iframe = this.page.frameLocator('iframe[title*="Rich Text Area"]').first();
+        const plainTextArea = this.page.locator('textarea#submission_body'); // Specific ID for Canvas Text Entry
+
+        // Try Rich Text Editor first
+        if (await this.page.locator('iframe[title*="Rich Text Area"]').first().isVisible().catch(() => false)) {
+            const iframeBody = iframe.locator('body');
+            await expect(iframeBody).toBeVisible({ timeout: 10000 });
+            await iframeBody.fill(text);
+        } else {
+            // Fallback to plain textarea (ID #submission_body)
+            await expect(plainTextArea).toBeVisible({ timeout: 10000 });
+            await plainTextArea.fill(text);
+        }
+        await this.page.waitForTimeout(500);
     }
 
     async fillComment(comment: string): Promise<void> {
@@ -82,97 +101,96 @@ export class CanvasAssignmentSubmissionPage {
         await this.submissionCommentTextarea.fill(comment);
     }
 
-    /**
-     * Handle submission based on submission type
-     * @param submissionType - Type of submission (.pdf, .docx, .txt, or 'Text Entry')
-     * @param filePath - Path to file (required for file types)
-     * @param text - Text content (required for Text Entry)
-     */
     async prepareSubmission(
         submissionType: FormatType,
         filePath?: string,
         text?: string
     ): Promise<void> {
         switch (submissionType) {
-            case '.pdf':
-            case '.docx':
-            case '.txt':
-                if (!filePath) {
-                    throw new Error(`File path is required for ${submissionType} submission type`);
-                }
+        case '.pdf':
+        case '.docx': {
+            if (!filePath) {
+            throw new Error(`File path is required for ${submissionType} submission type`);
+            }
+            await this.uploadFile(filePath);
+            break;
+        }
+
+        case '.txt': {
+            if (!filePath) {
+                throw new Error(`File path is required for ${submissionType} submission type`);
+            }
+
+            const fileUploadTab = this.page.getByRole('tab', { name: /File Upload/i });
+            if (await fileUploadTab.isVisible().catch(() => false)) {
+                await fileUploadTab.click();
+                await this.page.waitForTimeout(500); // Critical: Wait for UI to switch tabs
+            }
+
+            // If File Upload is an option and the input appeared, use it
+            if (await this.fileUploadInput.isVisible().catch(() => false)) {
                 await this.uploadFile(filePath);
-                break;
-
-            case 'Text Entry':
-                if (!text) {
-                    throw new Error('Text content is required for Text Entry submission type');
-                }
+            } else if (text) {
+                // Otherwise, use Text Entry if text content was provided
                 await this.fillTextEntry(text);
-                break;
+            } else {
+                throw new Error('Canvas does not show File Upload for .txt, and no fallback text was provided.');
+            }
+            break;
+        }
 
-            default:
-                throw new Error(`Unsupported submission type: ${submissionType}`);
+        case 'Text Entry': {
+            if (!text) {
+            throw new Error('Text content is required for Text Entry submission type');
+            }
+            await this.fillTextEntry(text);
+            break;
+        }
+
+        default:
+            throw new Error(`Unsupported submission type: ${submissionType}`);
         }
     }
 
     async verifySubmissionReady(submissionType: FormatType): Promise<void> {
-        if (submissionType === 'Text Entry') {
-            // For text entry, verify the rich text editor iframe has content
-            const iframe = this.page.locator('iframe[title*="Rich Text Area"]').first();
-            const iframeCount = await iframe.count();
-            
-            if (iframeCount > 0 && await iframe.isVisible().catch(() => false)) {
-                const iframeLocator = this.page.frameLocator('iframe[title*="Rich Text Area"]').first();
-                const iframeBody = iframeLocator.locator('body');
-                await expect(iframeBody).toBeVisible({ timeout: 10000 });
-                // Check if body has content (not empty)
-                const bodyText = await iframeBody.textContent();
-                if (!bodyText || bodyText.trim() === '') {
-                    throw new Error('Text entry content is empty');
-                }
+        const uploadVisible = await this.fileUploadInput.isVisible().catch(() => false);
+        const treatAsTextEntry = submissionType === 'Text Entry' || (submissionType === '.txt' && !uploadVisible);
+
+        if (treatAsTextEntry) {
+            const iframe = this.page.frameLocator('iframe[title*="Rich Text Area"]').first();
+            const plainTextArea = this.page.locator('textarea#submission_body');
+
+            if (await this.page.locator('iframe[title*="Rich Text Area"]').first().isVisible().catch(() => false)) {
+                const bodyText = await iframe.locator('body').textContent();
+                if (!bodyText || bodyText.trim() === '') throw new Error('Text entry content is empty');
             } else {
-                // Fallback to textarea check
-                const textarea = this.page.locator('textarea').filter({ hasNotText: 'Comments...' }).first();
-                await expect(textarea).toBeVisible({ timeout: 10000 });
-                await expect(textarea).not.toHaveValue('');
+                await expect(plainTextArea).toBeVisible({ timeout: 10000 });
+                await expect(plainTextArea).not.toHaveValue('');
             }
-            // Wait a bit for the editor to be ready
-            await this.page.waitForTimeout(1000);
-        } else {
-            await expect(this.fileUploadInput).toBeVisible({ timeout: 10000 });
-            await this.page.waitForTimeout(1000);
+            return;
         }
+
+        await expect(this.fileUploadInput).toBeVisible({ timeout: 10000 });
     }
 
-    /**
-     * Submit the assignment by clicking the submit button
-     */
     async submitAssignment(): Promise<void> {
-        // Wait for submit button to be visible and enabled
         await expect(this.submitButton).toBeVisible({ timeout: 30000 });
         await expect(this.submitButton).toBeEnabled({ timeout: 10000 });
-        
-        // Scroll into view if needed
+
         await this.submitButton.scrollIntoViewIfNeeded();
-        
         await this.submitButton.click();
-        
-        // Wait for submission to process - wait for navigation or sidebar update
+
         await this.page.waitForTimeout(2000);
-        
-        // Wait for either navigation or sidebar to appear
+
         try {
-            await this.page.waitForURL(/.*\/submissions.*/, { timeout: 5000 }).catch(() => {});
-        } catch (e) {
-            // URL might not change, continue
+        await this.page.waitForURL(/.*\/submissions.*/, { timeout: 5000 }).catch(() => {});
+        } catch {
+        // URL might not change, continue
         }
     }
 
-    /**
-     * Verify that the assignment was successfully submitted
-     */
     async verifySubmissionSuccess(): Promise<void> {
         await expect(this.submissionSidebar).toBeVisible({ timeout: 30000 });
         await expect(this.submittedText).toBeVisible({ timeout: 30000 });
     }
-}
+    }

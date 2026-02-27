@@ -55,7 +55,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
   const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
 
   // Sequential flow (matches Canvas approach)
-  test.describe.configure({ mode: 'serial' });
+ // 
 
   const studentUser = testUsers.find(u => u.role === 'student' && u.lms === 'd2l');
   if (!studentUser) throw new Error('D2L Student user not found in test users configuration');
@@ -66,6 +66,8 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       test.setTimeout(1_200_000);
 
       const runStart = Date.now();
+      const baselineKey = assignmentConfig.title; // stable across runs
+
       const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
       const submissionType = assignmentConfig.submissionType;
 
@@ -133,7 +135,8 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
 
         await AllureHelper.step('Run Grade & Publish Workflow', async () => {
           console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
-          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
+          //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
+          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey);
           console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);
         });
       });
@@ -154,9 +157,9 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       await AllureHelper.attachText(
         'Timing Summary',
         `Create: ${(createMs / 1000).toFixed(1)}s
-Submit: ${(submitMs / 1000).toFixed(1)}s
-Grade: ${(gradeMs / 1000).toFixed(1)}s
-Total: ${(totalMs / 1000).toFixed(1)}s`
+        Submit: ${(submitMs / 1000).toFixed(1)}s
+        Grade: ${(gradeMs / 1000).toFixed(1)}s
+        Total: ${(totalMs / 1000).toFixed(1)}s`
       );
     });
   }
