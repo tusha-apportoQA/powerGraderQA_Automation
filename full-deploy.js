@@ -120,5 +120,7 @@ try {
 if (detailedPattern) {
     fs.writeFileSync(path.join(resultsDir, 'latest-run.json'), JSON.stringify(detailedPattern, null, 2));
     console.log('📦 latest-run.json saved. Deploying...');
-    execSync('npm run deploy-hub', { stdio: 'inherit' });
+    const deployCmd = "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";  
+    execSync(deployCmd, { stdio: 'inherit' });
+    //execSync('npm run deploy-hub', { stdio: 'inherit' });
 }

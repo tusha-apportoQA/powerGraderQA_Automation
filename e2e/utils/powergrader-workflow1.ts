@@ -7,6 +7,7 @@ import { Page, expect } from '@playwright/test';
     import { compareRubricSnapshots, normCriterionName } from './sbert-compare';
     import fs from "fs";
     import path from "path";
+import { CriterionEditEntry } from '../types';
 
     function writeLatestRunJson(params: {
         uniqueTitle: string;
@@ -39,11 +40,7 @@ import { Page, expect } from '@playwright/test';
     }
 
     export async function executeUniversalPGWorkflow(
-        powerGraderPage: Page, 
-        uniqueTitle: string, 
-        studentEmail: string,
-        baselineKey: string
-    ) {
+powerGraderPage: Page, uniqueTitle: string, studentEmail: string, baselineKey: string, teacherEdits: { criteria: CriterionEditEntry[]; } | undefined    ) {
         const assignmentKey = uniqueTitle.replace(/\s*\[\d+\]\s*$/, "").trim();
         console.log("BASELINE KEY:", assignmentKey);
         const startTime = Date.now();

@@ -148,5 +148,20 @@
       "total_score": 5,
       "criterion_feedback": "N/A"
     }
+  },
+  {
+    "run_date": "2026-03-05T03:10:12.905Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772679461506]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
   }
 ]
