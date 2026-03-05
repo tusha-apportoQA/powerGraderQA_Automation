@@ -1,6 +1,6 @@
 export type UserRoleTypes = 'teacher' | 'student';
 
-export type LMSType = 'canvas' | 'd2l';
+export type LMSType = 'canvas' | 'd2l' | 'moodle';
 
 export type FormatType = 
   | '.docx' 
@@ -80,12 +80,41 @@ export type D2LNewRubricConfig = {
   overallLevels: D2LOverallLevel[];  // Overall levels for rubric scoring [{levelName, score}]
 };
 
+// Moodle-specific rubric types
+export type MoodleExistingRubricConfig = {
+  type: 'existing';
+  rubricName: string;
+};
+
+export type MoodleNoRubricConfig = { type: 'no' };
+
+/** Same as Canvas RubricRating but without longDescription. */
+export type MoodleRubricRating = {
+  description: string;
+  points: number;
+};
+
+/** Same as Canvas RubricCriterion but without maxPoints and longDescription. */
+export type MoodleRubricCriterion = {
+  description: string;
+  ratings: MoodleRubricRating[];
+};
+
+export type MoodleNewRubricConfig = {
+  type: 'new';
+  title: string;
+  description?: string;
+  criteria: MoodleRubricCriterion[];
+};
+
+export type MoodleRubricConfig = MoodleExistingRubricConfig | MoodleNoRubricConfig | MoodleNewRubricConfig;
+
 // Union types for rubric configs
 export type CanvasRubricConfig = ExistingRubricConfig | NoRubricConfig | NewRubricConfig;
 export type D2LRubricConfig = D2LExistingRubricConfig | D2LNoRubricConfig | D2LNewRubricConfig;
 
 // Legacy type for backward compatibility
-export type AssignmentRubricConfig = CanvasRubricConfig | D2LRubricConfig;
+export type AssignmentRubricConfig = CanvasRubricConfig | D2LRubricConfig | MoodleRubricConfig;
 
 export interface UserCredentials {
   username: string;
@@ -116,6 +145,8 @@ export interface CanvasAssignmentConfig {
   courseName?: string;
   assignAccess?: CanvasAssignmentData;
   rubric?: CanvasRubricConfig;
+  /** Optional pre-defined teacher edit (criterion index, score, feedback). When workflow runs with teacherEdit arg, uses this if present. */
+  teacherEdits?: CriterionEditEntry[];
 }
 
 // D2L-specific assignment config
@@ -127,6 +158,17 @@ export interface D2LAssignmentConfig {
   courseName?: string;
   assignAccess?: CanvasAssignmentData;  // Reuse CanvasAssignmentData for date/student assignment
   rubric?: D2LRubricConfig;
+}
+
+// Moodle-specific assignment config
+export interface MoodleAssignmentConfig {
+  title: string;
+  description?: string;
+  points?: number;
+  submissionType?: FormatType;
+  courseName?: string;
+  assignAccess?: CanvasAssignmentData;  // Reuse CanvasAssignmentData for date/student assignment
+  rubric?: MoodleRubricConfig;
 }
 
 // Legacy type for backward compatibility
@@ -164,4 +206,16 @@ export interface GradingSummary {
     totalScore: string;         // e.g., "12/15"
     criteria: CriterionScore[]; // Array of all criteria with scores and feedback
     overallFeedback?: string;
+}
+
+/** Per-criterion edit for teacher calibration. All three are required so the flow always starts from the score input (Tab then focuses the edit-feedback button). criterionIndex is 0-based, same order as getAllCriteriaScores. */
+export interface CriterionEditEntry {
+    criterionIndex: number;
+    score: number;
+    feedback: string;
+}
+
+/** Optional teacher edit to apply on the grading page before publish. When present, workflow will apply edits then publish (for calibration / adaptive flow). */
+export interface TeacherEditConfig {
+    criteria: CriterionEditEntry[];
 }

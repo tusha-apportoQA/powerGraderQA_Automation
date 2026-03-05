@@ -1,0 +1,31 @@
+/**
+ * Moodle LMS rubric configurations
+ * Same structure as Canvas new rubrics, but without maxPoints and longDescription on criteria and ratings.
+ */
+
+import type { MoodleNewRubricConfig } from '../../types';
+
+/**
+ * Predefined new rubric configurations for Moodle
+ * Different criteria can have different numbers of levels (ratings).
+ */
+export const MOODLE_NEW_RUBRICS: MoodleNewRubricConfig[] = [
+    {
+        type: 'new',
+        title: 'Essay Grading Rubric',
+        criteria: [
+            { description: 'Content Quality', ratings: [{ points: 10, description: 'Excellent' }, { points: 7, description: 'Good' }, { points: 4, description: 'Fair' }, { points: 0, description: 'Poor' }] },  // 4 levels
+            { description: 'Grammar and Style', ratings: [{ points: 5, description: 'Perfect' }, { points: 3, description: 'Good' }, { points: 0, description: 'Needs improvement' }] },  // 3 levels
+            { description: 'Organization', ratings: [{ points: 5, description: 'Clear structure' }, { points: 0, description: 'Weak structure' }] }  // 2 levels
+        ]
+    },
+    {
+        type: 'new',
+        title: 'Technology Impact Assessment Rubric',
+        criteria: [
+            { description: 'Analysis Depth', ratings: [{ points: 15, description: 'Excellent' }, { points: 10, description: 'Good' }, { points: 5, description: 'Fair' }, { points: 0, description: 'Poor' }] },  // 4 levels
+            { description: 'Personal Examples', ratings: [{ points: 10, description: 'Excellent' }, { points: 6, description: 'Good' }, { points: 0, description: 'Poor' }] },  // 3 levels
+            { description: 'Writing Quality', ratings: [{ points: 5, description: 'Excellent' }, { points: 4, description: 'Good' }, { points: 2, description: 'Fair' }, { points: 1, description: 'Weak' }, { points: 0, description: 'Poor' }] }  // 5 levels
+        ]
+    }
+];

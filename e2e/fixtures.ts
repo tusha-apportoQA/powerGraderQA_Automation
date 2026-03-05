@@ -60,11 +60,19 @@ export class D2LTeacherPage extends BasePage {
 export class D2LStudentPage extends BasePage {
 }
 
+export class MoodleTeacherPage extends BasePage {
+}
+
+export class MoodleStudentPage extends BasePage {
+}
+
 type AppFixtures = {
   canvasTeacherPage: CanvasTeacherPage;
   canvasStudentPage: CanvasStudentPage;
   d2lTeacherPage: D2LTeacherPage;
   d2lStudentPage: D2LStudentPage;
+  moodleTeacherPage: MoodleTeacherPage;
+  moodleStudentPage: MoodleStudentPage;
 };
 
 export const test = base.extend<{}, AppFixtures>({
@@ -108,6 +116,27 @@ export const test = base.extend<{}, AppFixtures>({
     async ({ browser }, use) => {
       const d2lBaseURL = E2ETestHelpers.getD2LBaseURL() || process.env.D2L_BASE_URL || '';
       const page = await D2LStudentPage.create(browser, 'd2l', 'student', d2lBaseURL);
+      
+      await use(page);
+      await page.close();
+    },
+    { scope: 'worker' }
+  ],
+  moodleTeacherPage: [
+    async ({ browser }, use) => {
+      const moodleBaseURL = E2ETestHelpers.getMoodleBaseURL() || process.env.MOODLE_BASE_URL || '';
+      const page = await MoodleTeacherPage.create(browser, 'moodle', 'teacher', moodleBaseURL);
+      
+      await use(page);
+      await page.close();
+    },
+    // @ts-expect-error - Playwright supports 'test' scope, but types may be strict in v1.40
+    { scope: 'test' } // Test-scoped: each test gets fresh auth and cleanup
+  ],
+  moodleStudentPage: [
+    async ({ browser }, use) => {
+      const moodleBaseURL = E2ETestHelpers.getMoodleBaseURL() || process.env.MOODLE_BASE_URL || '';
+      const page = await MoodleStudentPage.create(browser, 'moodle', 'student', moodleBaseURL);
       
       await use(page);
       await page.close();

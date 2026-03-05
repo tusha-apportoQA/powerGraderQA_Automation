@@ -1,104 +1,26 @@
 import { Page, expect } from '@playwright/test';
-import { PowerGraderCoursePage } from '../components/powergrader/pages/PowerGraderCoursePage';
-import { PowerGraderAssignmentDetailsPage } from '../components/powergrader/pages/PowerGraderAssignmentDetailsPage';
-import { PowerGraderGradingPage } from '../components/powergrader/pages/PowerGraderGradingPage';
-import { AllureHelper } from './allureHelper';
-import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
-import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
-import fs from "fs";
-import path from "path";
+    import { PowerGraderCoursePage } from '../components/powergrader/pages/PowerGraderCoursePage';
+    import { PowerGraderAssignmentDetailsPage } from '../components/powergrader/pages/PowerGraderAssignmentDetailsPage';
+    import { PowerGraderGradingPage } from '../components/powergrader/pages/PowerGraderGradingPage';
+    import { AllureHelper } from './allureHelper';
+    import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
+    import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
 
-/**
- * Writes the latest test result to a JSON file for the dashboard.
- * Preserves criteria and feedback arrays.
- */
-/*function writeLatestRunJson(params: {
-    uniqueTitle: string;
-    assignmentKey: string;
-    baselineSnapshot: any;
-    currentSnapshot: any;
-    sbertSimilarity?: number;
-}) {
-    const out = {
-        run_date: new Date().toISOString(),
-        student_file: params.uniqueTitle || params.assignmentKey,
-        baseline: {
-            instruction: params.baselineSnapshot?.instruction || "N/A",
-            totalScore: params.baselineSnapshot?.totalScore ?? 0,
-            total_score: params.baselineSnapshot?.totalScore ?? 0,
-            overallFeedback: params.baselineSnapshot?.overallFeedback || "N/A",
-            criterion_feedback: params.baselineSnapshot?.overallFeedback || "N/A",
-            criteria: params.baselineSnapshot?.criteria || []
-        },
-        current: {
-            instruction: params.currentSnapshot?.instruction || "N/A",
-            totalScore: params.currentSnapshot?.totalScore ?? 0,
-            total_score: params.currentSnapshot?.totalScore ?? 0,
-            overallFeedback: params.currentSnapshot?.overallFeedback || "N/A",
-            criterion_feedback: params.currentSnapshot?.overallFeedback || "N/A",
-            criteria: params.currentSnapshot?.criteria || []
-        },
-        drift: {
-            sbert_similarity: params.sbertSimilarity ?? 0,
-            score_delta: (params.currentSnapshot?.totalScore ?? 0) - (params.baselineSnapshot?.totalScore ?? 0),
-        },
-    };
+import { TeacherEditConfig } from '../types';
 
-    const outPath = path.join(process.cwd(), "allure-results", "latest-run.json");
-    if (!fs.existsSync(path.dirname(outPath))) fs.mkdirSync(path.dirname(outPath), { recursive: true });
-    fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
-}*/
-
-function writeLatestRunJson(params: {
-  uniqueTitle: string;
-  assignmentKey: string;
-  baselineSnapshot: any;
-  currentSnapshot: any;
-  sbertSimilarity?: number;
-}) {
-  const out = {
-    run_date: new Date().toISOString(),
-    student_file: params.uniqueTitle || params.assignmentKey,
-    baseline: {
-      instruction: params.baselineSnapshot?.instruction || "N/A",
-      total_score: params.baselineSnapshot?.totalScore ?? 0,
-      criterion_feedback: params.baselineSnapshot?.overallFeedback || "N/A",
-      criteria: params.baselineSnapshot?.criteria || []
-    },
-    current: {
-      instruction: params.currentSnapshot?.instruction || "N/A",
-      total_score: params.currentSnapshot?.totalScore ?? 0,
-      criterion_feedback: params.currentSnapshot?.overallFeedback || "N/A",
-      criteria: params.currentSnapshot?.criteria || []
-    },
-    drift: {
-      sbert_similarity: params.sbertSimilarity ?? 0,
-      score_delta:
-        (params.currentSnapshot?.totalScore ?? 0) -
-        (params.baselineSnapshot?.totalScore ?? 0),
-    },
-  };
-
-  const outPath = path.join(process.cwd(), "allure-results", "latest-run.json");
-  if (!fs.existsSync(path.dirname(outPath))) {
-    fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  }
-  fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
-}
-
-
-export async function executeUniversalPGWorkflow(
-    powerGraderPage: Page, 
-    uniqueTitle: string, 
-    studentEmail: string,
-    baselineKey: string
-) {
-    const assignmentKey = uniqueTitle.replace(/\s*\[\d+\]\s*$/, "").trim();
-    console.log("BASELINE KEY:", assignmentKey);
-    const startTime = Date.now();
-    const INTERVAL = 30000;
-    const NO_VALID_SUBMISSIONS_FAIL_MS = 10 * 60 * 1000;
-    let noValidSeenAt: number | null = null;
+    export async function executeUniversalPGWorkflow(
+        powerGraderPage: Page, 
+        uniqueTitle: string, 
+        studentEmail: string,
+        baselineKey: string,
+        teacherEdits?: TeacherEditConfig
+    ) {
+        const assignmentKey = uniqueTitle.replace(/\s*\[\d+\]\s*$/, "").trim();
+        console.log("BASELINE KEY:", assignmentKey);
+        const startTime = Date.now();
+        const INTERVAL = 30000; // 30 seconds
+        const NO_VALID_SUBMISSIONS_FAIL_MS = 10 * 60 * 1000; // 10 minutes
+        let noValidSeenAt: number | null = null;
 
     // PHASE 1: Course Page Sync
     console.log(`\n🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
@@ -280,16 +202,38 @@ export async function executeUniversalPGWorkflow(
         sbertSimilarity: result?.overallFeedback?.similarity ?? 0,
     });
 
-    const DRIFT_THRESHOLD = 85; 
-    if (result.summary.maxConfidencePct > DRIFT_THRESHOLD) {
-        throw new Error(`❌ DRIFT DETECTED: ${result.summary.worstField} has exceeded threshold.`); 
-    }
+        const DRIFT_THRESHOLD = 85; 
+        if (result.summary.maxConfidencePct > DRIFT_THRESHOLD) {
+            const driftMsg = `❌ DRIFT DETECTED: ${result.summary.worstField} has ${result.summary.maxConfidencePct.toFixed(1)}% drift.`;
+            await AllureHelper.attachText("SBERT Drift Failure", driftMsg);
+            throw new Error(driftMsg); 
+        }
 
-    await gradingPage.clickPublishButton();
-    await powerGraderPage.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 30000 });
-    const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(2);
-    console.log(`✅ [FINISH] Workflow successful after ${duration} minutes.`);
-}
+        console.log(`[${uniqueTitle}] ✅ VERIFIED: Scores match exactly and drift is within ${DRIFT_THRESHOLD}%.`);
+
+        if (teacherEdits?.criteria?.length) {
+            const criteriaCount = gradingSummary.criteria.length;
+            const validEdits = teacherEdits.criteria.filter(
+                (e) => e.criterionIndex >= 0 && e.criterionIndex < criteriaCount
+            );
+            if (validEdits.length > 0) {
+                console.log(`[${uniqueTitle}] Teacher edit: applying ${validEdits.length} edit(s) (${criteriaCount} criteria on page)...`);
+                await gradingPage.applyTeacherEdits(validEdits);
+            }
+        }
+        
+        await gradingPage.clickPublishButton();
+        console.log(`[${uniqueTitle}] Waiting for redirect to Assignment Details...`);
+
+        // PHASE 4: Final Confirmation
+        await powerGraderPage.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 30000 });
+        const allReviewedBtn = powerGraderPage.locator('button').filter({ hasText: /Submissions Reviewed|All Reviewed/i });
+        await expect(allReviewedBtn).toBeVisible({ timeout: 90000 });
+        console.log(`[${uniqueTitle}] Redirect successful.`);
+
+        const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(2);
+        console.log(`✅ [FINISH] Total Sync successful after ${duration} minutes.`);
+    }
 
 async function pollForStartReviewing(page: Page, uniqueTitle: string) {
     const startBtn = page.locator('button').filter({ hasText: /^Start Reviewing$/i });

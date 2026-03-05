@@ -1,8 +1,5 @@
 name: Adhoc QA Hub Sync
 on:
-  schedule:
-    # Triggers at 3:35 PM PST (23:35 UTC) today for testing
-    - cron: '35 23 * * *' 
   workflow_dispatch: # Allows you to trigger it manually via the Actions tab
 
 jobs:
