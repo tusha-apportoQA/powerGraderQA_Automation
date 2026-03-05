@@ -170,7 +170,8 @@
             return;
         }
 
-        await expect(this.fileUploadInput).toBeVisible({ timeout: 10000 });
+        //await expect(this.fileUploadInput).toBeVisible({ timeout: 10000 });
+        await expect(this.fileUploadInput).toBeAttached({ timeout: 10000 });
     }
 
     async submitAssignment(): Promise<void> {

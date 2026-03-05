@@ -1,5 +1,5 @@
 import { test } from '../../fixtures';
-import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
+import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow1';
 import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
@@ -149,24 +149,45 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       });
 
       await AllureHelper.step('Navigate to PowerGrader', async () => {
-        const pg = await teacher.navigateToPowerGrader();
+          const pg = await teacher.navigateToPowerGrader();
 
-        /*await AllureHelper.step('Run Grade & Publish Workflow', async () => {
+          /*await AllureHelper.step('Run Grade & Publish Workflow', async () => {
+            console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
+            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
+            console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
+          });*/
+          await AllureHelper.step('Run Grade & Publish Workflow', async () => {
           console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
-          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
+
+          await runPGOrSkipOnTimeout(async () => {
+            //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
+            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey);
+              console.log(`\n🔍 DEBUG: Workflow finished. Attempting to scrape feedback...`);
+                try {
+                  await pg.locator('div.pl-2.pt-2.pb-2.min-h-16').first().waitFor({ state: 'visible', timeout: 5000 });
+
+                  // Scrape the Criterion Name and Feedback using the classes from your Inspect screenshot
+                  const criterionName = await pg.locator('div[style*="Description of criterion"]').first().innerText();
+                  const feedbackText = await pg.locator('div.pl-2.pt-2.pb-2.min-h-16').first().innerText();
+
+                  console.log(`✅ [SCRAPE SUCCESS] Criterion Found: "${criterionName}"`);
+                  console.log(`✅ [SCRAPE SUCCESS] Feedback: "${feedbackText.substring(0, 100)}..."`);
+
+                  await AllureHelper.attachText(
+                      'student-feedback', 
+                      JSON.stringify({ 
+                          criterion_name: criterionName, 
+                          criterion_feedback: feedbackText 
+                      })
+                  );
+                } catch (e: any) {
+                    console.log(`❌ [SCRAPE FAILED]: Could not find feedback elements. Error: ${e.message}`);
+                }
+            });
+
           console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
-        });*/
-        await AllureHelper.step('Run Grade & Publish Workflow', async () => {
-        console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
-
-        await runPGOrSkipOnTimeout(async () => {
-          //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
-          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey);
-        });
-
-        console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
-});
       });
+    });
 
       const gradeMs = Date.now() - gradeStart;
       const totalMs = Date.now() - runStart;

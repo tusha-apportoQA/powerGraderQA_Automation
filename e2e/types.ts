@@ -163,4 +163,5 @@ export interface CriterionScore {
 export interface GradingSummary {
     totalScore: string;         // e.g., "12/15"
     criteria: CriterionScore[]; // Array of all criteria with scores and feedback
+    overallFeedback?: string;
 }

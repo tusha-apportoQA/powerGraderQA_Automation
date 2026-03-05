@@ -1,32 +1,32 @@
 {
-  "createdAt": "2026-02-27T06:03:36.907Z",
+  "createdAt": "2026-03-03T00:26:49.797Z",
   "snapshot": {
-    "totalScore": 42,
+    "totalScore": 65.5,
     "criteria": [
       {
-        "name": "Content Relevance and Depth of Analysis",
-        "score": 0,
-        "feedback": "Your essay does not address the prompt about technology's impact on daily life and instead discusses apples as a fruit. To receive credit, be sure to write directly about how technology influences daily life, including specific and relevant examples."
+        "name": "Clarity of Expression and Writing Style",
+        "score": 17.5,
+        "feedback": "Your writing is clear and uses appropriate tone and vocabulary, but to reach the highest level, work on using more varied sentence structures and engaging phrasing to make your essay even more interesting to read."
       },
       {
-        "name": "Critical Thinking and Insight",
-        "score": 0,
-        "feedback": "Your submission describes apples but does not address technology or the assignment prompt, and includes no analysis or insight. To improve, focus on analyzing how technology impacts daily life and demonstrate original thinking next time."
-      },
-      {
-        "name": "Grammar, Mechanics, and Formatting",
+        "name": "Content Accuracy and Relevance",
         "score": 10,
-        "feedback": "Your essay demonstrates clear, correct grammar, excellent punctuation and spelling, and consistently professional formatting throughout. No errors were found, resulting in a polished and professional presentation."
+        "feedback": "While your essay contains accurate information about apples, it does not address the assignment topic of technology’s impact in daily life; ensure that your content is both accurate and relevant to the prompt for a higher score."
       },
       {
-        "name": "Organization and Coherence",
+        "name": "Critical Thinking and Analysis",
+        "score": 6,
+        "feedback": "Your submission provides only factual descriptions about apples and does not engage in analysis, interpretation, or connect ideas as required by the assignment prompt on technology's impact in daily life. For a higher score, focus on addressing the assigned topic and demonstrating thoughtful evaluation and reasoning in your essay."
+      },
+      {
+        "name": "Language Mechanics and Grammar",
+        "score": 10,
+        "feedback": "Your writing displays flawless grammar, punctuation, and spelling, maintaining a professional tone throughout, which meets the highest expectations for language mechanics."
+      },
+      {
+        "name": "Organization and Cohesion",
         "score": 22,
-        "feedback": "Your essay is well-structured with a clear introduction, focused paragraphs, and a strong conclusion, but smoother transitions between sections will further enhance its coherence and readability."
-      },
-      {
-        "name": "Writing Quality and Clarity",
-        "score": 10,
-        "feedback": "Your writing is consistently clear, uses appropriate and varied vocabulary, and demonstrates effective sentence variety; each idea is communicated simply and directly, fully meeting expectations for clarity and writing quality."
+        "feedback": "Your essay is clearly organized with distinct sections and a logical progression from introduction to conclusion, but smoother, sentence-level transitions between sections would enhance the overall flow and cohesion."
       }
     ]
   }

@@ -1,32 +1,32 @@
 {
-  "createdAt": "2026-02-27T04:47:07.211Z",
+  "createdAt": "2026-03-02T23:34:41.431Z",
   "snapshot": {
-    "totalScore": 77.5,
+    "totalScore": 89,
     "criteria": [
       {
         "name": "Accuracy of Information",
-        "score": 35,
-        "feedback": "Your submission is factually accurate and reliably describes technology's impact, but to earn full credit, provide specific examples or evidence to fully support your claims next time."
+        "score": 40,
+        "feedback": "All your statements about technology's impact are accurate, well-supported, and free from factual errors or misleading claims, fully satisfying the accuracy requirement for this assignment."
       },
       {
-        "name": "Coherence and Logical Flow",
+        "name": "Adherence to Essay Conventions",
         "score": 5,
-        "feedback": "Your essay presents two related statements that show a basic logical connection, but coherence is weakened by the absence of smooth transitions or a developed argument. To improve, focus on linking your points with transitions and elaborating on the connections between your ideas."
+        "feedback": "Your essay is formatted appropriately and is free of distracting grammar, spelling, or punctuation errors, which makes it smooth and professional to read. Great work maintaining strong writing conventions throughout!"
       },
       {
-        "name": "Conciseness and Focus",
-        "score": 7.5,
-        "feedback": "Your essay is generally clear and concise, with focused points throughout, though there is minor repetition between the title and your first sentence; aim to avoid this in such brief formats to achieve full marks."
-      },
-      {
-        "name": "Grammar and Mechanics",
-        "score": 10,
-        "feedback": "Your writing is clear, polished, and free of grammar, punctuation, or spelling errors, fully meeting college-level expectations for mechanics."
+        "name": "Organization and Coherence",
+        "score": 4,
+        "feedback": "Your essay lacks a clear introduction, body, and conclusion, making ideas feel disconnected and difficult to follow. For higher scores, organize your thoughts into structured paragraphs with a beginning, middle, and end."
       },
       {
         "name": "Precision and Clarity of Language",
-        "score": 20,
-        "feedback": "Your language is mostly clear and unambiguous, but phrases like 'many areas' and 'digital tools' are a bit broad; adding more specific examples or naming particular technologies would make your writing even sharper."
+        "score": 30,
+        "feedback": "Your writing is consistently clear, concise, and precise, expressing ideas unambiguously without any vague or awkward phrasing. Excellent job meeting the expectations for clarity and precision in your language."
+      },
+      {
+        "name": "Relevance to Prompt",
+        "score": 10,
+        "feedback": "Your essay stays directly focused on technology's impact throughout, discussing its role in daily life without digressions. Excellent job maintaining relevance to the prompt."
       }
     ]
   }

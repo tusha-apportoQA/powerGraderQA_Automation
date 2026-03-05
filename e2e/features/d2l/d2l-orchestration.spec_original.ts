@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures';
 import { Page } from '@playwright/test';
-import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
+import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow1';
 import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';

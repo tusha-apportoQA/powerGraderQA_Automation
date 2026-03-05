@@ -87,14 +87,30 @@ function cosineSimilarity(a: number[], b: number[]) {
   return dot / (Math.sqrt(na) * Math.sqrt(nb));
 }
 
-async function embed(text: string): Promise<number[]> {
+/*async function embed(text: string): Promise<number[]> {
   const extractor = await getExtractor();
   // returns [1, tokens, dims]; we mean-pool tokens
   const out: any = await extractor(text);
   // Xenova returns a typed array sometimes; convert safely
   const data = out?.data ?? out;
   return Array.from(data as Iterable<number>);
-}
+}*/
+  async function embed(text: string): Promise<number[]> {
+    const extractor = await getExtractor();
+    
+    // We MUST specify pooling and normalization for sentence similarity
+    const out = await extractor(text, { 
+      pooling: 'mean', 
+      normalize: true 
+    });
+
+    // Access the raw data from the Tensor
+    // If 'out' is a Tensor, it has a .data property (Float32Array)
+    const data = out.data; 
+    
+    return Array.from(data);
+  }
+
 
 async function similarityText(a?: string, b?: string): Promise<number | undefined> {
   const ta = (a ?? '').trim();

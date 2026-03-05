@@ -1,27 +1,32 @@
 {
-  "createdAt": "2026-02-27T05:32:31.582Z",
+  "createdAt": "2026-03-03T00:08:31.788Z",
   "snapshot": {
-    "totalScore": 49,
+    "totalScore": 67.5,
     "criteria": [
       {
-        "name": "Adherence to Assignment Format and Length",
-        "score": 2,
-        "feedback": "Your submission was much shorter than what is expected for a brief essay; to achieve full credit, please expand your discussion to meet the typical length and formatting requirements for a brief essay."
+        "name": "Adherence to Assignment Guidelines and Focus",
+        "score": 10,
+        "feedback": "Your essay clearly addresses the impact of technology and stays on topic, but it is shorter than a typical brief essay. To receive full points in the future, try to expand your ideas and include more details or examples."
       },
       {
-        "name": "Clarity and Precision of Expression",
-        "score": 26,
-        "feedback": "Your writing is clear, direct, and easy to understand, but using more varied sentences and precise vocabulary could make your expression even stronger."
+        "name": "Clarity and Precision of Writing",
+        "score": 24,
+        "feedback": "Your writing is generally clear and concise, but some phrases—like \"many areas\" and \"everyday tasks\"—could be more specific for greater precision. To improve, try adding more concrete details or examples."
       },
       {
         "name": "Content Accuracy and Relevance",
-        "score": 17,
-        "feedback": "Your submission accurately discusses technology's influence on daily life but does not address its impact on biology, which is required by the assignment. To improve your score, be sure to include specific examples of how technology affects biological sciences or health."
+        "score": 21,
+        "feedback": "Your essay accurately identifies major areas impacted by technology, but lacks specific examples or precise explanations, making the content too general. For a higher score, include more detailed and precise analysis of technology's impact in each area you discuss."
       },
       {
-        "name": "Organization and Essay Structure",
-        "score": 4,
-        "feedback": "Your submission is missing the necessary essay structure with an introduction, body, and conclusion; organizing your ideas into separate paragraphs and sections will help your writing flow and make it easier to follow."
+        "name": "Grammar, Punctuation, and Mechanics",
+        "score": 10,
+        "feedback": "Your writing demonstrates excellent grammar, punctuation, and spelling, resulting in clear and highly readable sentences. Great job maintaining strong mechanics throughout your essay!"
+      },
+      {
+        "name": "Organization and Coherence",
+        "score": 2.5,
+        "feedback": "Your essay shows some basic structure with a title and opening idea, but is limited to a single paragraph with no clear transitions or conclusion. To improve organization and coherence, try developing separate paragraphs for each section and adding transitions and a summary ending."
       }
     ]
   }

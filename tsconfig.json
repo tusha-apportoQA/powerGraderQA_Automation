@@ -14,7 +14,7 @@
     "allowSyntheticDefaultImports": true,
     "types": ["node", "@playwright/test"]
   },
-  "include": ["e2e/**/*", "sync.js"],
+  "include": ["e2e/**/*", "sync-now.js"],
   "exclude": ["node_modules", "dist", "test-results", "html-results"]
 }
 

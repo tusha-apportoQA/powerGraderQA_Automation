@@ -1,9 +1,8 @@
 {
-  "total": 173,
-  "automated": 7,
-  "not_automatable": 11,
-  "automation_in_progress": 16,
-  "yet_to_automate": 138,
-  "lastUpdated": "2/26/2026, 10:03:55 PM",
-  "aiReliability": 42
+  "total": 164,
+  "automated": 20,
+  "not_automatable": 14,
+  "automation_in_progress": 11,
+  "yet_to_automate": 118,
+  "lastUpdated": "3/4/2026, 5:04:19 PM"
 }
