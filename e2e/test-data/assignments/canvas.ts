@@ -75,7 +75,24 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: { type: 'no' }
+            rubric: { type: 'no' },
+            teacherEdits: [
+                {
+                    criterionIndex: 0,
+                    score: 35,
+                    feedback: "Your submission accurately identifies technology's core impacts in daily life, but including more specific details or examples would deepen your demonstration of understanding."
+                },
+                {
+                    criterionIndex: 1,
+                    score: 30,
+                    feedback: "Your writing is generally clear and precise with strong, readable sentences, but repeating your title within the essay slightly reduced the overall polish. To reach an even higher score, aim to eliminate minor redundancies."
+                },
+                {
+                    criterionIndex: 3,
+                    score: 5,
+                    feedback: "Your submission accurately describes technology's importance but stays at a general, surface level without offering original insight or analysis. To earn higher scores in this category, try including your personal perspective, deeper analysis, or specific examples."
+                }
+            ]
         },
         {
             title: 'Long Accurate Existing Rubric PDF',
@@ -88,7 +105,14 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: CANVAS_EXISTING_RUBRICS[0]
+            rubric: CANVAS_EXISTING_RUBRICS[0],
+            teacherEdits: [
+                {
+                    criterionIndex: 0,
+                    score: 0,
+                    feedback: "Your submission did not address the required topic of technology's impact in daily life. Be sure to read the assignment instructions carefully and focus your analysis on the assigned topic to earn full credit."
+                }
+            ]
         },
         {
             title: 'Short Inaccurate New Rubric TXT',
@@ -101,7 +125,19 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: CANVAS_NEW_RUBRICS[0]
+            rubric: CANVAS_NEW_RUBRICS[0],
+            teacherEdits: [
+                {
+                    criterionIndex: 0,
+                    score: 7,
+                    feedback: "Your submission clearly identifies technology's role in daily life and provides relevant examples, showing a good understanding, but covering mainly the benefits without deeper analysis. To reach a higher score, consider discussing challenges or long-term effects as well."
+                },
+                {
+                    criterionIndex: 1,
+                    score: 6,
+                    feedback: "Your writing is clear, grammatically correct, and easy to read, with appropriate style and sentence structure for a concise academic response. Your strong command of language mechanics meets the expectations for this assignment."
+                }
+            ]
         },
         {
             title: 'Short Inaccurate Existing Rubric Text Entry',
@@ -114,7 +150,14 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: CANVAS_EXISTING_RUBRICS[0]
+            rubric: CANVAS_EXISTING_RUBRICS[0],
+            teacherEdits: [
+                {
+                    criterionIndex: 0,
+                    score: 5,
+                    feedback: "Your essay is brief, clearly focused on technology, introduces the topic well, provides organized points, and finishes with a thoughtful conclusion, and meets all the assignment requirements."
+                }
+            ]
         },
         // Component test configs
         {

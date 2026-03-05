@@ -145,6 +145,8 @@ export interface CanvasAssignmentConfig {
   courseName?: string;
   assignAccess?: CanvasAssignmentData;
   rubric?: CanvasRubricConfig;
+  /** Optional pre-defined teacher edit (criterion index, score, feedback). When workflow runs with teacherEdit arg, uses this if present. */
+  teacherEdits?: CriterionEditEntry[];
 }
 
 // D2L-specific assignment config
@@ -203,4 +205,16 @@ export interface CriterionScore {
 export interface GradingSummary {
     totalScore: string;         // e.g., "12/15"
     criteria: CriterionScore[]; // Array of all criteria with scores and feedback
+}
+
+/** Per-criterion edit for teacher calibration. All three are required so the flow always starts from the score input (Tab then focuses the edit-feedback button). criterionIndex is 0-based, same order as getAllCriteriaScores. */
+export interface CriterionEditEntry {
+    criterionIndex: number;
+    score: number;
+    feedback: string;
+}
+
+/** Optional teacher edit to apply on the grading page before publish. When present, workflow will apply edits then publish (for calibration / adaptive flow). */
+export interface TeacherEditConfig {
+    criteria: CriterionEditEntry[];
 }

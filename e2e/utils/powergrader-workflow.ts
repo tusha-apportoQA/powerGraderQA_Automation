@@ -6,12 +6,14 @@ import { Page, expect } from '@playwright/test';
     import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
     import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
 
+import { TeacherEditConfig } from '../types';
 
     export async function executeUniversalPGWorkflow(
         powerGraderPage: Page, 
         uniqueTitle: string, 
         studentEmail: string,
-        baselineKey: string
+        baselineKey: string,
+        teacherEdits?: TeacherEditConfig
     ) {
         const assignmentKey = uniqueTitle.replace(/\s*\[\d+\]\s*$/, "").trim();
         console.log("BASELINE KEY:", assignmentKey);
@@ -212,6 +214,17 @@ import { Page, expect } from '@playwright/test';
         }
 
         console.log(`[${uniqueTitle}] ✅ VERIFIED: Scores match exactly and drift is within ${DRIFT_THRESHOLD}%.`);
+
+        if (teacherEdits?.criteria?.length) {
+            const criteriaCount = gradingSummary.criteria.length;
+            const validEdits = teacherEdits.criteria.filter(
+                (e) => e.criterionIndex >= 0 && e.criterionIndex < criteriaCount
+            );
+            if (validEdits.length > 0) {
+                console.log(`[${uniqueTitle}] Teacher edit: applying ${validEdits.length} edit(s) (${criteriaCount} criteria on page)...`);
+                await gradingPage.applyTeacherEdits(validEdits);
+            }
+        }
         
         await gradingPage.clickPublishButton();
         console.log(`[${uniqueTitle}] Waiting for redirect to Assignment Details...`);
