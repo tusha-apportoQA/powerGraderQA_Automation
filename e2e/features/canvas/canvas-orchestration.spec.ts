@@ -196,7 +196,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
 });*/
 
 import { test } from '../../fixtures';
-import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow1';
+import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';

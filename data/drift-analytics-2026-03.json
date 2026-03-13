@@ -163,5 +163,214 @@
       "total_score": 5,
       "criterion_feedback": "N/A"
     }
+  },
+  {
+    "run_date": "2026-03-05T18:31:34.585Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772734678142]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T18:49:38.490Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772735802868]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T19:12:08.034Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772737148193]",
+    "sbert_similarity": 0,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 4.25,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T19:13:33.877Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772737148193]",
+    "sbert_similarity": 0,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 4.25,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T19:35:23.172Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772738516825]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T19:51:55.066Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772739677370]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T21:08:47.832Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772739677370]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T19:51:30.393Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772739677370]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T19:51:30.393Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772739677370]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T19:51:30.393Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772739677370]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-05T19:51:30.393Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1772739677370]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-10T22:31:25.742Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1773181271858]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "N/A"
+    }
+  },
+  {
+    "run_date": "2026-03-13T04:32:14.769Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1773375751250]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Description of criterion",
+          "score": 5,
+          "feedback": "Your essay clearly introduces the topic, covers both positive and negative aspects with relevant technical examples, and is concise and well-organized, fully meeting assignment expectations."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Description of criterion",
+          "score": 5,
+          "feedback": "Your essay clearly introduces the topic, covers both positive and negative aspects with relevant technical examples, and is concise and well-organized, fully meeting assignment expectations."
+        }
+      ]
+    }
   }
 ]

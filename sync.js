@@ -94,13 +94,29 @@ async function getRealStats() {
             criterion_feedback: latest.current?.overallFeedback || latest.current?.criterion_feedback || "N/A"
         };*/
 
-        const newEntry = {
+        /*const newEntry = {
             run_date: new Date().toISOString(),
             student_file: latest.student_file,
             sbert_similarity: latest.drift.sbert_similarity, // 🔥 Fixed for Graph
             baseline: latest.baseline, // 🔥 Fixed for Modal
             current: latest.current    // 🔥 Fixed for Modal
+        };*/
+
+        // 🎯 FIX: Added defensive checks so the sync doesn't fail if drift is missing
+        const sbertValue = (latest.drift && latest.drift.sbert_similarity !== undefined) 
+            ? latest.drift.sbert_similarity 
+            : (latest.sbertSimilarity ?? 0);
+
+        const newEntry = {
+            run_date: latest.run_date || new Date().toISOString(),
+            student_file: latest.student_file || latest.uniqueTitle || "Unknown File",
+            sbert_similarity: sbertValue, // Ensures Graph line always draws
+            baseline: latest.baseline || {}, // Ensures Modal Base Score populates
+            current: latest.current || {}    // Ensures Modal Curr Score populates
         };
+
+        const MAX_HISTORY = 50; 
+
 
         let history = fs.existsSync(dataFile) ? JSON.parse(fs.readFileSync(dataFile)) : [];
         console.log(`\n📊 [SYNC CHECK] Student File: ${latest.student_file}`);
@@ -112,7 +128,13 @@ async function getRealStats() {
         } else {
             console.log(`⚠️ [SYNC WARNING] No feedback found in latest-run.json for the Deep-Dive modal.`);
         }
+        // 🎯 Set your retention limit (e.g., last 50 runs or last 30 days)
+        
         history.push(newEntry);
+        // 🎯 Keep only the most recent entries
+        if (history.length > MAX_HISTORY) {
+            history = history.slice(-MAX_HISTORY);
+        }
         fs.writeFileSync(dataFile, JSON.stringify(history, null, 2));
         console.log(`✅ Consolidated data saved to ${path.basename(dataFile)} with Graph compatibility.`);
 

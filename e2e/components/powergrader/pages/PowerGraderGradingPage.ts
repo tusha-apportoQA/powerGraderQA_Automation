@@ -164,83 +164,15 @@ export class PowerGraderGradingPage {
         const criteriaScores: CriterionScore[] = [];
         
         // Directly find all p tags that have a Customize button in the same container
-        // XPath: Find p tags within div.flex-col containers that contain a Customize button
         //const criterionPTags = scoreSelectionContainer.locator('xpath=.//div[contains(@class, "flex-col")][.//button[contains(text(), "Customize")]]/p');
         const criterionPTags = scoreSelectionContainer.locator('div.flex-col').filter({ 
             has: this.page.getByRole('button', { name: 'Customize' }) 
         }).locator('p');
         const criterionCount = await criterionPTags.count();
         console.log(`[Grading Page] Found ${criterionCount} criterion p tags with Customize buttons...`);
-        
-        /*for (let i = 0; i < criterionCount; i++) {
-            const pTag = criterionPTags.nth(i);
-            const text = await pTag.innerText().catch(() => '');
-            
-            if (text && text.trim().length > 0) {
-                const criterionName = text.trim();
-                console.log(`[Grading Page] Processing criterion: "${criterionName}"`);
-                
-                // Find the 3rd parent div of the p tag (row container)
-               // const rowContainer = pTag.locator('xpath=ancestor::div[3]');
-               const rowContainer = this.page.locator('div').filter({ has: pTag }).filter({ has: this.page.locator('input[type="number"]') }).last();
-                
-                // Get score from custom score input - fail if not found
-                const scoreInput = rowContainer.locator('input[type="number"][placeholder="Enter score"]').first();
-                await expect(scoreInput).toBeVisible({ timeout: 10000 });
 
-                // WAIT for the AI to actually fill the box (Wait up to 15s)
-                await expect(scoreInput).not.toHaveValue('', { timeout: 15000 });
-                
-                const scoreValue = await scoreInput.inputValue();
-                if (!scoreValue || scoreValue.trim() === '') {
-                    throw new Error(`Score input found but value is empty for criterion: ${criterionName}`);
-                }
-                
-                const score = parseFloat(scoreValue);
-                if (isNaN(score)) {
-                    throw new Error(`Invalid score value "${scoreValue}" for criterion: ${criterionName}`);
-                }
-                
-                // Get feedback: 2nd child div of row container, then 2nd div of that, then get innerText
-                const feedbackContainer = rowContainer.locator('xpath=./div[2]/div[2]');
-                await expect(feedbackContainer).toBeVisible({ timeout: 10000 });
-                
-                //const feedback = (await feedbackContainer.innerText()).trim();
-                const feedback = await rowContainer.locator('div').filter({ hasText: /[a-zA-Z]/ }).last().textContent();                
-                /*if (criterionName) {
-                    criteriaScores.push({
-                        name: criterionName,
-                        points: score,
-                        feedback: feedback
-                    });*/
-               /* }
-            }
-        }*/
 
        /* for (let i = 0; i < criterionCount; i++) {
-            const pTag = criterionPTags.nth(i);
-            const criterionName = (await pTag.innerText()).trim();
-
-            // ✅ FIX: Find the closest container that actually contains the input box
-            const rowContainer = this.page.locator('div').filter({ has: pTag }).filter({ has: this.page.locator('input[type="number"]') }).last();
-            
-            // Get score
-            const scoreInput = rowContainer.locator('input[type="number"]');
-            await expect(scoreInput).not.toHaveValue('', { timeout: 15000 });
-            const score = parseFloat(await scoreInput.inputValue());
-
-            // ✅ FIX: Find feedback by looking for the box that is NOT the header/label
-            // Most PowerGrader rows put feedback in a specific descriptive class or a sibling div
-            const feedback = await rowContainer.locator('div').filter({ hasText: /[a-zA-Z]/ }).last().textContent();
-
-            criteriaScores.push({
-                name: criterionName,
-                points: score,
-                feedback: (feedback ?? '').trim()
-            });
-        }*/
-
-        for (let i = 0; i < criterionCount; i++) {
             const pTag = criterionPTags.nth(i);
             const criterionName = (await pTag.innerText()).trim();
 
@@ -249,8 +181,6 @@ export class PowerGraderGradingPage {
             
             // Get the score
             const scoreInput = rowContainer.locator('input[type="number"]');
-
-            //await expect(scoreInput).not.toHaveValue('', { timeout: 15000 });
             try {
                 await expect(scoreInput).not.toHaveValue('', { timeout: 30000 });
             } catch (e) {
@@ -258,8 +188,8 @@ export class PowerGraderGradingPage {
             }
             const score = parseFloat(await scoreInput.inputValue());
 
-            // 🎯 THE FIX: Target the specific feedback class from your Inspect window
-            // We use .first() in case the AI renders multiple blocks, and .waitFor to ensure it's typed out.
+            console.log(`[DEBUG] Criterion: "${criterionName}" | Scraped Score: ${score}`);
+
             const feedbackLocator = rowContainer.locator('div.pl-2.pt-2.pb-2.min-h-16').first();
             //console.log(`Feedback Locator: ${feedbackLocator}`);
             const feedbackText = await feedbackLocator.innerText();
@@ -279,32 +209,48 @@ export class PowerGraderGradingPage {
                 points: score,
                 feedback: feedback.trim()
             });
+        }*/
+
+        for (let i = 0; i < criterionCount; i++) {
+            const pTag = criterionPTags.nth(i);
+            const criterionName = (await pTag.innerText()).trim();
+
+            const rowContainer = this.page.locator('div').filter({ has: pTag }).filter({ has: this.page.locator('input[type="number"]') }).last();
+            const scoreInput = rowContainer.locator('input[type="number"]');
+
+            // Wait for Score
+            try {
+                await expect(scoreInput).not.toHaveValue('', { timeout: 30000 });
+            } catch (e) {
+                console.log(`⚠️ Warning: Score not populated by AI in time for ${criterionName}.`);
+            }
+            const score = parseFloat(await scoreInput.inputValue());
+
+            // 🎯 THE FIX: Wait for actual text content to appear in the feedback box
+            const feedbackLocator = rowContainer.locator('div.pl-2.pt-2.pb-2.min-h-16').first();
+            
+            // This ensures we don't grab "N/A" or empty strings while the AI is thinking
+            await expect(feedbackLocator).not.toHaveText('', { timeout: 20000 }); 
+            
+            const feedbackText = await feedbackLocator.innerText();
+            console.log(`[DEBUG] Criterion: "${criterionName}" | Score: ${score} | Feedback length: ${feedbackText.length}`);
+
+            // Attach to Allure (ensure this key matches your Modal logic)
+            await AllureHelper.attachText('student-feedback', JSON.stringify({
+                criterion_name: criterionName,
+                criterion_feedback: feedbackText
+            }));
+
+            criteriaScores.push({
+                name: criterionName,
+                points: score,
+                feedback: feedbackText.trim()
+            });
         }
         
         console.log(`[Grading Page] Successfully extracted ${criteriaScores.length} criteria scores`);
         return criteriaScores;
     }
-
-    /**
-     * Gets complete grading summary including total score and all criteria details
-     * @returns GradingSummary object with total score and all criteria
-     */
-    /*async getGradingSummary(): Promise<GradingSummary> {
-        console.log("[Grading Page] Generating complete grading summary...");
-        
-        // Get total score (reusing existing method)
-        const totalScore = await this.getTotalScore();
-        
-        // Get all criteria scores
-        const criteria = await this.getAllCriteriaScores();
-        
-        const summary: GradingSummary = {
-            totalScore,
-            criteria
-        };
-        
-        return summary;
-    }*/
 
     async getGradingSummary(): Promise<GradingSummary> {
         console.log("[Grading Page] Generating complete grading summary...");
@@ -315,7 +261,7 @@ export class PowerGraderGradingPage {
         // 2. Get all criteria scores
         const criteria = await this.getAllCriteriaScores();
 
-        // 3. ADDED: Get Overall Feedback text
+        // 3. Get Overall Feedback text
         // Adjust this selector if your overall feedback isn't inside a span with text-primary-color
         const feedbackSections = await this.getAllFeedback();
         const overallFeedback = feedbackSections.length > 0 
@@ -325,7 +271,7 @@ export class PowerGraderGradingPage {
         const summary: GradingSummary = {
             totalScore,
             criteria,
-            overallFeedback // ✅ Ensure your GradingSummary type supports this key
+            overallFeedback 
         };
         
         return summary;

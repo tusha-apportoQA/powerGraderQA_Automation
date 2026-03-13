@@ -86,6 +86,7 @@
         <div class="bg-slate-800 p-4 rounded-xl border-b-4 border-red-500 shadow-lg text-center">
             <h3 class="text-slate-400 uppercase text-[10px] font-bold">Not Automatable</h3>
             <p id="not_automatable" class="text-2xl font-bold text-red-400 mt-1">--</p>
+            <p class="text-[9px] text-slate-500 italic mt-1">Manual Testing</p>
         </div>
     </section>
 
@@ -97,6 +98,17 @@
 
         <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
             <h3 class="text-blue-400 font-bold mb-4">🔍 Pattern Detail (Click Row to Expand)</h3>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                <div class="flex items-center gap-3 w-full md:w-auto">
+                    <input type="text" id="pattern-search" oninput="renderTable()" placeholder="Search files..." 
+                        class="bg-slate-900 border border-slate-700 rounded px-3 py-1 text-[11px] text-slate-300 focus:outline-none focus:border-blue-500 w-full md:w-48">
+                    
+                    <button id="toggle-history" onclick="toggleView()" 
+                            class="text-[10px] bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded text-slate-300 transition-colors whitespace-nowrap">
+                        Show All History
+                    </button>
+                </div>
+            </div>
             <div class="overflow-x-auto max-h-[300px] overflow-y-auto">
                 <table class="w-full text-left text-[11px] border-collapse">
                     <thead class="bg-slate-900 sticky top-0">
@@ -124,14 +136,20 @@
 
     <script>
         let monthlyData = [];
+        let showAll = false; // 🎯 Tracks toggle state
 
         // 1. Fetch TestRail Stats
         fetch('./testrail-stats.json')
             .then(res => res.json())
             .then(data => {
-                document.getElementById('total').innerText = data.total || 0;
+                //document.getElementById('total').innerText = data.total || 0;
+                document.getElementById('total').innerText = (data.total - data.not_automatable) || 0;
                 document.getElementById('automated').innerText = data.automated || 0;
-                document.getElementById('percentage').innerText = data.total > 0 ? ((data.automated/data.total)*100).toFixed(1) + "%" : "0%";
+                //document.getElementById('percentage').innerText = data.total > 0 ? ((data.automated/data.total)*100).toFixed(1) + "%" : "0%";
+                // 🎯 Use the pre-calculated adjusted coverage from your JSON
+               // document.getElementById('percentage').innerText = data.coveragePercent || "0%";
+                const adjustedTotal = data.total - data.not_automatable;
+                document.getElementById('percentage').innerText = data.coveragePercent || (adjustedTotal > 0 ? ((data.automated / adjustedTotal) * 100).toFixed(1) + "%" : "0%");
                 document.getElementById('in_progress').innerText = data.automation_in_progress || 0;
                 document.getElementById('yet_to_automate').innerText = data.yet_to_automate || 0;
                 document.getElementById('not_automatable').innerText = data.not_automatable || 0;
@@ -170,30 +188,70 @@
                     options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, grid: { color: '#1e293b' } }, x: { grid: { display: false } } } }
                 });
 
-                // Render Table
-                const tbody = document.getElementById('pattern-body');
-                tbody.innerHTML = '';
-                monthlyData.forEach((entry, index) => {
-                    const row = document.createElement('tr');
-                   // const sim = (entry.drift?.sbert_similarity || 0) * 100;
-                   const sim = (entry.sbert_similarity ?? 0) * 100;
-                    row.className = "hover:bg-slate-700 transition-colors cursor-pointer border-b border-slate-800";
-                    row.onclick = () => openModal(index);
-                    row.innerHTML = `
-                        <td class="p-2">${new Date(entry.run_date).toLocaleDateString()}</td>
-                        <td class="p-2 text-slate-400 truncate max-w-[120px]">${entry.student_file || "file.pdf"}</td>
-                        <td class="p-2 text-blue-300 font-bold text-center">${entry.baseline?.totalScore ?? entry.baseline?.total_score ?? '--'}</td>
-                        <td class="p-2 text-yellow-300 font-bold text-center">${entry.current?.totalScore ?? entry.current?.total_score ?? '--'}</td>
-                        <td class="p-2 font-bold ${sim < 90 ? 'text-red-400' : 'text-green-400'}">${sim.toFixed(1)}%</td>
-                    `;
-                    tbody.appendChild(row);
-                });
+                renderTable(); 
 
                 updateAIHealth(monthlyData);
             } catch (err) {
                 console.warn(err.message);
                 updateAIHealth([]);
             }
+        }
+
+        // 🎯 ADD THIS: Handles the Toggle button click
+        function toggleView() {
+            showAll = !showAll;
+            document.getElementById('toggle-history').innerText = showAll ? "Show Latest Only" : "Show All History";
+            renderTable();
+        }
+
+        function renderTable() {
+            const searchTerm = document.getElementById('pattern-search').value.toLowerCase();
+            let displayData = [];
+
+            if (showAll) {
+                // Show every single run for the audit trail
+                displayData = monthlyData.map((entry, index) => ({ ...entry, originalIndex: index }));
+            } else {
+                // 🎯 FIX: Strip unique IDs from filename so the Map groups them as one file
+                const uniqueFilesMap = new Map();
+                monthlyData.forEach((entry, index) => {
+                    // Removes [12345] from the end so grouping works
+                    const baseName = entry.student_file.replace(/\s*\[\d+\]\s*$/, "").trim();
+                    uniqueFilesMap.set(baseName, { ...entry, originalIndex: index });
+                });
+                displayData = Array.from(uniqueFilesMap.values());
+            }
+
+            // Apply Search Filter
+            if (searchTerm) {
+                displayData = displayData.filter(entry => 
+                    entry.student_file.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Sort by Date (Newest First)
+            displayData.sort((a, b) => new Date(b.run_date) - new Date(a.run_date));
+
+            const tbody = document.getElementById('pattern-body');
+            tbody.innerHTML = '';
+            
+            displayData.forEach((entry) => {
+                const row = document.createElement('tr');
+                const sim = (entry.sbert_similarity ?? 0) * 100;
+                row.className = "hover:bg-slate-700 transition-colors cursor-pointer border-b border-slate-800";
+                
+                // 🎯 DRILL DOWN: originalIndex ensures the modal opens the correct 4.25 score data
+                row.onclick = () => openModal(entry.originalIndex); 
+                
+                row.innerHTML = `
+                    <td class="p-2">${new Date(entry.run_date).toLocaleDateString()}</td>
+                    <td class="p-2 text-slate-400 truncate max-w-[150px]">${entry.student_file || "file.pdf"}</td>
+                    <td class="p-2 text-blue-300 font-bold text-center">${entry.baseline?.totalScore ?? entry.baseline?.total_score ?? '--'}</td>
+                    <td class="p-2 text-yellow-300 font-bold text-center">${entry.current?.totalScore ?? entry.current?.total_score ?? '--'}</td>
+                    <td class="p-2 font-bold ${sim < 90 ? 'text-red-400' : 'text-green-400'}">${sim.toFixed(1)}%</td>
+                `;
+                tbody.appendChild(row);
+            });
         }
 
         function updateAIHealth(driftData) {
@@ -216,123 +274,6 @@
         }
 
         /*function openModal(index) {
-            const entry = monthlyData[index];
-            const tbody = document.getElementById('modal-criteria-body');
-            tbody.innerHTML = ''; 
-
-            document.getElementById('modal-filename').innerText = entry.student_file || "Unknown Run";
-            document.getElementById('modal-base-feed').innerText = entry.baseline?.overallFeedback || entry.baseline?.criterion_feedback || "No overall feedback recorded.";
-            document.getElementById('modal-curr-feed').innerText = entry.current?.overallFeedback || entry.current?.criterion_feedback || "No overall feedback recorded.";
-
-            const currentCriteria = entry.current?.criteria || [];
-            const baselineCriteria = entry.baseline?.criteria || [];
-
-            currentCriteria.forEach((item, i) => {
-                const baseItem = baselineCriteria[i] || {};
-                const row = document.createElement('tr');
-                row.className = "border-b border-slate-800 hover:bg-slate-800/40 transition-colors";
-                row.innerHTML = `
-                    <td class="p-4 font-semibold text-slate-200 border-r border-slate-800">${item.name}</td>
-                    <td class="p-4 text-center text-blue-400 font-mono bg-blue-900/5">${baseItem.score ?? baseItem.points ?? '--'}</td>
-                    <td class="p-4 text-[10px] italic text-slate-500 bg-blue-900/5 border-r border-slate-800">${baseItem.feedback || 'N/A'}</td>
-                    <td class="p-4 text-center text-yellow-400 font-mono bg-yellow-900/5">${item.score ?? item.points ?? '--'}</td>
-                    <td class="p-4 text-[10px] italic text-slate-300 bg-yellow-900/5">${item.feedback || 'N/A'}</td>
-                `;
-                tbody.appendChild(row);
-            });
-
-            document.getElementById('drift-modal').classList.remove('hidden');
-        }*/
-
-        /*function openModal(index) {
-            const entry = monthlyData[index];
-            const tbody = document.getElementById('modal-criteria-body');
-            tbody.innerHTML = ''; 
-
-            // ✅ Map data regardless of whether it's nested or flat
-            const base = entry.baseline || {};
-            const curr = entry.current || {};
-
-            document.getElementById('modal-filename').innerText = entry.student_file || "Unknown Run";
-            
-            // ✅ Handle feedback with fallbacks for multiple possible key names
-            document.getElementById('modal-base-feed').innerText = base.overallFeedback || base.criterion_feedback || "No feedback found.";
-            document.getElementById('modal-curr-feed').innerText = curr.overallFeedback || curr.criterion_feedback || "No feedback found.";
-
-            // ✅ Safely extract criteria arrays
-            const currentCriteria = curr.criteria || [];
-            const baselineCriteria = base.criteria || [];
-
-            // ✅ If the criteria array is empty, show a single "No Data" row
-            if (currentCriteria.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-slate-500">No criterion-level data available for this run.</td></tr>';
-            }
-
-            currentCriteria.forEach((item, i) => {
-                const baseItem = baselineCriteria[i] || {};
-                const row = document.createElement('tr');
-                row.className = "border-b border-slate-800 hover:bg-slate-800/40 transition-colors";
-                
-                // Use ?? to allow 0 scores to show up (rather than defaulting to '--')
-                row.innerHTML = `
-                    <td class="p-4 font-semibold text-slate-200 border-r border-slate-800">${item.name || 'N/A'}</td>
-                    <td class="p-4 text-center text-blue-400 font-mono bg-blue-900/5">${baseItem.score ?? baseItem.points ?? '--'}</td>
-                    <td class="p-4 text-[10px] italic text-slate-500 bg-blue-900/5 border-r border-slate-800">${baseItem.feedback || 'N/A'}</td>
-                    <td class="p-4 text-center text-yellow-400 font-mono bg-yellow-900/5">${item.score ?? item.points ?? '--'}</td>
-                    <td class="p-4 text-[10px] italic text-slate-300 bg-yellow-900/5">${item.feedback || 'N/A'}</td>
-                `;
-                tbody.appendChild(row);
-            });
-
-            document.getElementById('drift-modal').classList.remove('hidden');
-        }*/
-
-        /*function openModal(index) {
-            const entry = monthlyData[index];
-            if (!entry) return; // Prevent crash if index is wrong
-
-            const tbody = document.getElementById('modal-criteria-body');
-            tbody.innerHTML = ''; 
-
-            // ✅ This handles BOTH your reverted flat data and the new nested data
-            const base = entry.baseline || {
-                instruction: entry.instruction,
-                totalScore: entry.total_score,
-                overallFeedback: entry.criterion_feedback,
-                criteria: []
-            };
-            const curr = entry.current || {
-                instruction: entry.instruction,
-                totalScore: entry.total_score,
-                overallFeedback: entry.criterion_feedback,
-                criteria: []
-            };
-
-            document.getElementById('modal-filename').innerText = entry.student_file || "Run Details";
-            document.getElementById('modal-base-feed').innerText = base.overallFeedback || "N/A";
-            document.getElementById('modal-curr-feed').innerText = curr.overallFeedback || "N/A";
-
-            const currentCriteria = curr.criteria || [];
-            const baselineCriteria = base.criteria || [];
-
-            currentCriteria.forEach((item, i) => {
-                const baseItem = baselineCriteria[i] || {};
-                const row = document.createElement('tr');
-                row.className = "border-b border-slate-800 hover:bg-slate-800/40";
-                row.innerHTML = `
-                    <td class="p-4 font-semibold text-slate-200">${item.name || 'N/A'}</td>
-                    <td class="p-4 text-center text-blue-400 font-mono">${baseItem.score ?? '--'}</td>
-                    <td class="p-4 text-[10px] italic text-slate-500">${baseItem.feedback || 'N/A'}</td>
-                    <td class="p-4 text-center text-yellow-400 font-mono">${item.score ?? '--'}</td>
-                    <td class="p-4 text-[10px] italic text-slate-300">${item.feedback || 'N/A'}</td>
-                `;
-                tbody.appendChild(row);
-            });
-
-            document.getElementById('drift-modal').classList.remove('hidden');
-        }*/
-
-        function openModal(index) {
             const entry = monthlyData[index];
             if (!entry) return;
 
@@ -369,6 +310,56 @@
                     tbody.appendChild(row);
                 });
             }
+            document.getElementById('drift-modal').classList.remove('hidden');
+        }*/
+
+        function openModal(index) {
+            const entry = monthlyData[index];
+            if (!entry) return;
+
+            const tbody = document.getElementById('modal-criteria-body');
+            tbody.innerHTML = ''; 
+
+            // Check both "criterion_feedback" AND "overallFeedback" keys
+            const baseFeedback = entry.baseline?.criterion_feedback || entry.baseline?.overallFeedback || "No feedback recorded.";
+            const currFeedback = entry.current?.criterion_feedback || entry.current?.overallFeedback || "No feedback recorded.";
+
+            document.getElementById('modal-filename').innerText = entry.student_file || "Run Details";
+            document.getElementById('modal-base-feed').innerText = baseFeedback;
+            document.getElementById('modal-curr-feed').innerText = currFeedback;
+
+            // Map Criteria Array
+            // If Detailed criteria are missing (common on failed runs), we build a fallback row from total scores
+            let currentCriteria = entry.current?.criteria || [];
+            let baselineCriteria = entry.baseline?.criteria || [];
+
+            if (currentCriteria.length === 0) {
+                currentCriteria = [{
+                    name: "Total Score",
+                    score: entry.current?.total_score ?? entry.current?.totalScore ?? 0,
+                    feedback: currFeedback
+                }];
+                baselineCriteria = [{
+                    score: entry.baseline?.total_score ?? entry.baseline?.totalScore ?? 0,
+                    feedback: baseFeedback
+                }];
+            }
+
+            currentCriteria.forEach((item, i) => {
+                const baseItem = baselineCriteria[i] || {};
+                const row = document.createElement('tr');
+                row.className = "border-b border-slate-800 hover:bg-slate-800/40 transition-colors";
+                
+                row.innerHTML = `
+                    <td class="p-4 font-semibold text-slate-200 border-r border-slate-800">${item.name || 'Criterion'}</td>
+                    <td class="p-4 text-center text-blue-400 font-mono bg-blue-900/5">${baseItem.score ?? baseItem.points ?? '--'}</td>
+                    <td class="p-4 text-[10px] italic text-slate-500 bg-blue-900/5 border-r border-slate-800">${baseItem.feedback || 'N/A'}</td>
+                    <td class="p-4 text-center text-yellow-400 font-mono bg-yellow-900/5">${item.score ?? item.points ?? '--'}</td>
+                    <td class="p-4 text-[10px] italic text-slate-300 bg-yellow-900/5">${item.feedback || 'N/A'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
             document.getElementById('drift-modal').classList.remove('hidden');
         }
 
