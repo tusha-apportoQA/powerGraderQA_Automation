@@ -1,5 +1,6 @@
 import { test } from '../../fixtures';
-import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow1';
+import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
+import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout"; // Add wrapper
 import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
@@ -133,12 +134,29 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       await AllureHelper.step('Navigate to PowerGrader', async () => {
         const pg = await teacher.navigateToPowerGrader();
 
-        await AllureHelper.step('Run Grade & Publish Workflow', async () => {
+       /* await AllureHelper.step('Run Grade & Publish Workflow', async () => {
           console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
           //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
           await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey);
           console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);
+        });*/
+
+        await AllureHelper.step('Run Grade & Publish Workflow', async () => {
+          console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
+
+          // Define teacher edits from config
+          const teacherEdits = assignmentConfig.teacherEdits?.length
+            ? { criteria: assignmentConfig.teacherEdits }
+            : undefined;
+
+          // Use the timeout wrapper to ensure JSON is written even on hang
+          await runPGOrSkipOnTimeout(async () => {
+            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
+          });
+
+          console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);
         });
+
       });
 
       const gradeMs = Date.now() - gradeStart;

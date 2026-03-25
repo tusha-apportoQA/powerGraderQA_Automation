@@ -216,10 +216,12 @@ export class PowerGraderGradingPage {
             const criterionName = (await pTag.innerText()).trim();
 
             const rowContainer = this.page.locator('div').filter({ has: pTag }).filter({ has: this.page.locator('input[type="number"]') }).last();
-            const scoreInput = rowContainer.locator('input[type="number"]');
+            //const scoreInput = rowContainer.locator('input[type="number"]');
+            const scoreInput = rowContainer.locator('input[type="number"]').first();
 
             // Wait for Score
             try {
+                await scoreInput.waitFor({ state: 'attached', timeout: 5000 });
                 await expect(scoreInput).not.toHaveValue('', { timeout: 30000 });
             } catch (e) {
                 console.log(`⚠️ Warning: Score not populated by AI in time for ${criterionName}.`);

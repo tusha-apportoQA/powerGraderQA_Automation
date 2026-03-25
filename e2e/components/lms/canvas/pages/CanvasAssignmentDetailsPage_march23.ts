@@ -1,6 +1,7 @@
 import { expect, Page, Locator } from '@playwright/test';
 import { AssignmentRubricConfig, NewRubricConfig } from '../../../../types';
 
+
 export class CanvasAssignmentDetailsPage {
     page: Page;
     assignmentTitle: Locator;
@@ -37,23 +38,28 @@ export class CanvasAssignmentDetailsPage {
 
     constructor(page: Page) {
         this.page = page;
+        //this.startAssignmentButton = page.getByRole('button', { name: /Start Assignment|Re-submit Assignment/i });
         this.assignmentTitle = page.locator('.assignment-title h1.title');
         this.startAssignmentButton = page.getByRole('button', { name: 'Start Assignment' });
         this.fileTypesValue = page.locator('ul.student-assignment-overview li').filter({
             has: page.locator('span.title', { hasText: 'File types' })
         }).locator('span.value');
 
-        this.addRubricButton = page.getByRole('link', { name: 'Add rubric' });
-        this.findRubricButton = page.getByRole('button', { name: 'Find a rubric' });
+        //this.addRubricButton = page.getByRole('link', { name: 'Add rubric' });
+        this.addRubricButton = page.getByRole('button', { name: 'Create Rubric' });
+        //this.findRubricButton = page.getByRole('button', { name: 'Find a rubric' });
+        //this.findRubricButton = page.getByRole('button', { name: 'Find Rubric' });
+        this.findRubricButton = page.getByTestId('find-assignment-rubric-button');
         this.rubricDialog = page.locator('#rubric_dialog');
         this.newRubricContainer = page.locator('#rubric_new');
+
         // Chain locators from newRubricContainer to scope elements and avoid conflicts
         this.newRubricTitleInput = this.newRubricContainer.locator('#rubric-title');
         this.newRubricTable = this.newRubricContainer.locator('table.rubric_table');
-        
+
         // Create rubric button - scoped to newRubricContainer, using role-based selector
         this.createRubricButton = this.newRubricContainer.getByRole('button', { name: 'Create rubric' });
-        
+
         // Rubric title on page - scope to #rubrics container to avoid multiple matches
         const rubricsContainer = page.locator('#rubrics');
         this.rubricTitleOnPage = rubricsContainer.locator('.rubric_title .displaying .title');
@@ -90,6 +96,62 @@ export class CanvasAssignmentDetailsPage {
         await expect(this.assignmentTitle).toBeVisible({ timeout: 30000 });
         await expect(this.assignmentTitle).toHaveText(expectedTitle);
     }
+
+    /*async clickStartAssignment(): Promise<void> {
+       // const btn = this.page.locator('button:has-text("Start Assignment"), button:has-text("Re-submit Assignment")').first();
+        await expect(this.startAssignmentButton).toBeVisible({ timeout: 30000 });
+        await expect(this.startAssignmentButton).toHaveText('Start Assignment');
+        await this.startAssignmentButton.click();
+       // await expect(btn).toBeVisible({ timeout: 30000 });
+      //  await btn.click({ force: true });
+       // await this.page.waitForSelector('#submit_assignment, .submit_assignment_form', { state: 'visible', timeout: 15000 });
+       // await this.page.waitForSelector('#submit_assignment:visible, .submit_assignment_form:visible', { state: 'visible', timeout: 15000 });
+        //await this.page.waitForTimeout(1000);
+        //await this.page.waitForSelector('#submit_assignment:visible, .submit_assignment_form:visible', { state: 'visible', timeout: 15000 });
+      //  await this.page.waitForTimeout(1000);
+        console.log("[DEBUG] clickStartAssignment: Locating button via .submit_assignment_link...");
+    
+    // 🎯 Using the specific class from your screenshot's highlighted line
+       // const btn = this.page.locator('.submit_assignment_link').filter({ visible: true }).first();
+
+        /*try {
+            await expect(btn).toBeVisible({ timeout: 15000 });
+            console.log("[DEBUG] clickStartAssignment: Button found. Clicking...");
+            
+            await btn.click({ force: true });
+            console.log("[DEBUG] clickStartAssignment: Click successful. Waiting for form...");
+
+            // After clicking, Canvas displays the #submit_assignment div (seen in your other screenshot)
+            await this.page.waitForSelector('#submit_assignment', { state: 'visible', timeout: 15000 });
+            console.log("[DEBUG] clickStartAssignment: Form loaded ✅");
+        } catch (e:any) {
+            console.error(`[ERROR] clickStartAssignment: Failed at stage. Error: ${e.message}`);
+            throw e;
+        }
+    }
+
+    async clickStartAssignment(): Promise<void> {
+        const startBtn = this.page.locator('.submit_assignment_link').filter({ visible: true }).first();
+
+        try {
+            await expect(startBtn).toBeVisible({ timeout: 15000 });
+            console.log("[DEBUG] clickStartAssignment: Clicking 'Start Assignment'...");
+            
+            await startBtn.click({ force: true });
+            console.log("[DEBUG] clickStartAssignment: Clicked. Waiting for the form area to show up...");
+
+            // This waits for the DIV container (#submit_assignment) to animate in.
+            // It does NOT click a second button.
+          // await this.page.waitForSelector('#submit_assignment', { state: 'visible' });
+         // await this.page.waitForSelector('#submit_assignment_form, .submit_assignment_form', { state: 'visible' });
+            //await this.page.waitForSelector('.submit_assignment_form', { state: 'attached' });
+          //  await expect(this.page.locator('#submit_file_button')).toBeAttached();
+            console.log("[DEBUG] clickStartAssignment: Form is now visible ✅");
+        } catch (e: any) {
+            console.error(`[ERROR] clickStartAssignment failed: ${e.message}`);
+            throw e;
+        }
+    }*/
 
     async clickStartAssignment(): Promise<void> {
         await expect(this.startAssignmentButton).toBeVisible({ timeout: 30000 });
@@ -140,19 +202,56 @@ export class CanvasAssignmentDetailsPage {
         }
 
         if (rubric.type === 'new') {
-           // await this.createNewRubric(rubric);
+            // AssignmentRubricConfig(type='new') carries the NewRubricConfig fields in this project.
+            await this.createNewRubric(rubric as unknown as NewRubricConfig);
             return;
         }
-
-       // await this.attachExistingRubric(rubric.groupName, rubric.rubricName);
+       // const canvasRubric = rubric as any;
+        if ('groupName' in rubric) {
+            await this.attachExistingRubric(rubric.groupName, rubric.rubricName);
+        }
     }
 
-    // change signature to match:
-    /*private async createNewRubric(rubric: AssignmentRubricConfig): Promise<void> {
-        if (rubric.type !== 'new') {
-            throw new Error(`createNewRubric called with rubric.type=${rubric.type}`);
-    }*/
+    /*private async attachExistingRubric(groupName: string, rubricName: string): Promise<void> {
+        await expect(this.addRubricButton).toBeVisible({ timeout: 30000 });
+        await this.addRubricButton.click();
 
+        await expect(this.findRubricButton).toBeVisible({ timeout: 30000 });
+        await this.findRubricButton.click();
+
+        // 1. Wait for the dialog to appear
+        await expect(this.rubricDialog).toBeVisible({ timeout: 30000 });
+
+        // 2. Click the Group/Course column
+        const groupTab = this.rubricDialog
+            .locator('li, a')
+            .filter({ hasText: groupName })
+            .first();
+        
+        await expect(groupTab).toBeVisible({ timeout: 30000 });
+        await groupTab.click();
+
+        // 3. Find the Rubric Link by Text (More robust than CSS classes)
+        const rubricTab = this.rubricDialog
+            .locator('a, .rubric_dialog_rubric_link')
+            .filter({ hasText: rubricName }) 
+            .first();
+
+        // Increased timeout to 30s to handle slow Canvas AJAX loading
+        await rubricTab.waitFor({ state: 'visible', timeout: 30000 });
+        await rubricTab.click();
+
+        // 4. Find and click "Use this rubric"
+        const useThisRubricButton = this.rubricDialog.getByRole('button', { name: /Use this rubric/i }).first();
+
+        await expect(useThisRubricButton).toBeVisible({ timeout: 15000 });
+        await useThisRubricButton.scrollIntoViewIfNeeded();
+        await useThisRubricButton.click();
+
+        // 5. Verify the dialog closed and rubric title is on page
+        await expect(this.rubricDialog).not.toBeVisible({ timeout: 15000 });
+        await expect(this.rubricTitleOnPage).toBeVisible({ timeout: 30000 });
+    }*/
 
     private async attachExistingRubric(groupName: string, rubricName: string): Promise<void> {
         await expect(this.addRubricButton).toBeVisible({ timeout: 30000 });
@@ -161,44 +260,86 @@ export class CanvasAssignmentDetailsPage {
         await expect(this.findRubricButton).toBeVisible({ timeout: 30000 });
         await this.findRubricButton.click();
 
-        await expect(this.rubricDialog).toBeVisible({ timeout: 30000 });
+        // 1. Wait for the dialog to be fully attached and visible
+        await this.rubricDialog.waitFor({ state: 'visible', timeout: 30000 });
 
+        // 2. Find the Group/Course column
+        /*const groupTab = this.rubricDialog
+            .locator('li, a')
+            .filter({ hasText: groupName })
+            .first();*/
         const groupTab = this.rubricDialog
             .locator('ul.rubrics_dialog_contexts_select li.rubrics_dialog_context_select a')
             .filter({ has: this.page.locator('span.name', { hasText: groupName }) })
             .first();
-        await expect(groupTab).toBeVisible({ timeout: 30000 });
-        await groupTab.click();
+                
+       // await groupTab.scrollIntoViewIfNeeded();
+       // await groupTab.click();
+       //await groupTab.click({ force: true });
+       await expect(groupTab).toBeVisible({ timeout: 30000 });
+       await groupTab.click();
 
-        /*const rubricTab = this.rubricDialog
-            .locator('ul.rubrics_dialog_rubrics_select li.rubrics_dialog_rubric_select a')
+
+        // 3. Find the Rubric Link - 🎯 FIXED: Use force click and scroll to handle "hidden" 
+        // states
+        /*const rubricLink = this.rubricDialog
+            .locator('a, .rubric_dialog_rubric_link')
+            .filter({ hasText: rubricName }) 
+            .first();*/
+        /*const rubricLink = this.rubricDialog
+            .locator('a[role="button"]')
             .filter({ has: this.page.locator('span.title', { hasText: rubricName }) })
-            .first();
-        await expect(rubricTab).toBeVisible({ timeout: 30000 });
-        await rubricTab.click();*/
-        const rubricTab = this.page
+            .first();*/
+        const rubricLink = this.rubricDialog
             .locator('a[role="button"]')
             .filter({ has: this.page.locator('span.title', { hasText: rubricName }) })
             .filter({ hasNot: this.page.locator('[aria-hidden="true"]') })
             .first();
 
-        await expect(rubricTab).toBeVisible({ timeout: 30000 });
-        await rubricTab.click();
+        // Explicitly wait for the specific link to be attached to the DOM
+       // await rubricLink.waitFor({ state: 'attached', timeout: 30000 });
+        //await rubricLink.scrollIntoViewIfNeeded();
+        
+        // Use force: true to bypass visibility checks if Canvas animations are lagging
+       // await rubricLink.click({ force: true });
 
-        // Locate the visible rubric container (not hidden with display: none) that contains the selected rubric
+       // await rubricLink.waitFor({ state: 'visible', timeout: 30000 });
+        await expect(rubricLink).toBeVisible({ timeout: 30000 });
+
+        //await rubricLink.scrollIntoViewIfNeeded();
+       // await rubricLink.click({ force: true });
+        await rubricLink.click();
+
+        // 4. Find and click "Use this rubric"
+        //const useThisRubricButton = this.rubricDialog.getByRole('button', { name: /Use this rubric/i }).first();
+
+        /*const visibleRubricContainer = this.rubricDialog
+            .locator('div.rubrics_dialog_rubric:not([style*="display: none"])')
+            .filter({ has: this.page.locator('b.title', { hasText: rubricName }) })
+            .first();*/
+        
         const visibleRubricContainer = this.rubricDialog
             .locator('div.rubrics_dialog_rubric:not([style*="display: none"])')
-            .filter({ has: this.page.locator(`b.title:has-text("${rubricName}")`) })
+            .filter({ has: this.page.locator('b.title', { hasText: rubricName }) })
             .first();
+        await expect(visibleRubricContainer).toBeVisible({ timeout: 30000 });
 
-        // Use the container to locate the button within it
+
+        /*const useThisRubricButton = visibleRubricContainer
+            .locator('button.select_rubric_link', { hasText: 'Use this rubric' });*/
         const useThisRubricButton = visibleRubricContainer
             .locator('button.select_rubric_link', { hasText: 'Use this rubric' });
+
         await expect(useThisRubricButton).toBeVisible({ timeout: 30000 });
+       // await useThisRubricButton.click({ force: true });
         await useThisRubricButton.click();
 
+        // 5. Verify the dialog closed and rubric title is on page
+        await expect(this.rubricDialog).not.toBeVisible({ timeout: 15000 });
         await expect(this.rubricTitleOnPage).toBeVisible({ timeout: 30000 });
+        await expect(this.rubricTitleOnPage).toContainText(rubricName, { timeout: 30000 });
     }
+
 
     private async createNewRubric(rubric: NewRubricConfig): Promise<void> {
         await expect(this.addRubricButton).toBeVisible({ timeout: 30000 });

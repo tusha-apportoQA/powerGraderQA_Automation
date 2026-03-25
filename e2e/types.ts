@@ -158,6 +158,7 @@ export interface D2LAssignmentConfig {
   courseName?: string;
   assignAccess?: CanvasAssignmentData;  // Reuse CanvasAssignmentData for date/student assignment
   rubric?: D2LRubricConfig;
+  teacherEdits?: CriterionEditEntry[];
 }
 
 // Moodle-specific assignment config

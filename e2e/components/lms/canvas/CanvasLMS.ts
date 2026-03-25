@@ -3,6 +3,7 @@ import { CanvasDashboardPage } from './pages/CanvasDashboardPage';
 import { CanvasCoursePage } from './pages/CanvasCoursePage';
 import { CanvasAssignmentListPage } from './pages/CanvasAssignmentListPage';
 import { CanvasCreateAssignmentPage } from './pages/CanvasCreateAssignmentPage';
+//import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage';
 import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage';
 import { AssignmentConfig } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';

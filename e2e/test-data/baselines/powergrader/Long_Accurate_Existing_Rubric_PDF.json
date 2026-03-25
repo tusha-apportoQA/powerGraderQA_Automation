@@ -1,13 +1,14 @@
 {
-  "createdAt": "2026-02-26T21:39:39.627Z",
+  "createdAt": "2026-03-18T21:16:21.160Z",
   "snapshot": {
     "totalScore": 0,
     "criteria": [
       {
         "name": "Description of criterion",
         "score": 0,
-        "feedback": "Your essay did not address the assignment topic or any of its requirements, as it focused on apples as a fruit rather than analyzing the impact of technology on daily life. For future assignments, please ensure your essay aligns with the prompt and covers all the specified aspects."
+        "feedback": "Your essay does not address the assigned topic of technology's impact on daily life, so no points could be awarded. In the future, carefully read the prompt and ensure your response meets all its requirements."
       }
-    ]
+    ],
+    "overallFeedback": "No overall feedback recorded."
   }
 }

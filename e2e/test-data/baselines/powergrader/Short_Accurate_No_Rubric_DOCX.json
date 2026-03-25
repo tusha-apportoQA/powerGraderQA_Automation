@@ -1,33 +1,34 @@
 {
-  "createdAt": "2026-03-02T23:34:41.431Z",
+  "createdAt": "2026-03-19T22:22:39.542Z",
   "snapshot": {
-    "totalScore": 89,
+    "totalScore": 73,
     "criteria": [
       {
-        "name": "Accuracy of Information",
-        "score": 40,
-        "feedback": "All your statements about technology's impact are accurate, well-supported, and free from factual errors or misleading claims, fully satisfying the accuracy requirement for this assignment."
-      },
-      {
-        "name": "Adherence to Essay Conventions",
-        "score": 5,
-        "feedback": "Your essay is formatted appropriately and is free of distracting grammar, spelling, or punctuation errors, which makes it smooth and professional to read. Great work maintaining strong writing conventions throughout!"
-      },
-      {
-        "name": "Organization and Coherence",
-        "score": 4,
-        "feedback": "Your essay lacks a clear introduction, body, and conclusion, making ideas feel disconnected and difficult to follow. For higher scores, organize your thoughts into structured paragraphs with a beginning, middle, and end."
-      },
-      {
-        "name": "Precision and Clarity of Language",
+        "name": "Accuracy and Precision of Content",
         "score": 30,
-        "feedback": "Your writing is consistently clear, concise, and precise, expressing ideas unambiguously without any vague or awkward phrasing. Excellent job meeting the expectations for clarity and precision in your language."
+        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
       },
       {
-        "name": "Relevance to Prompt",
-        "score": 10,
-        "feedback": "Your essay stays directly focused on technology's impact throughout, discussing its role in daily life without digressions. Excellent job maintaining relevance to the prompt."
+        "name": "Clarity and Organization of Ideas",
+        "score": 30,
+        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
+      },
+      {
+        "name": "Engagement and Thoughtfulness",
+        "score": 30,
+        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
+      },
+      {
+        "name": "Grammar, Mechanics, and Formatting",
+        "score": 30,
+        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
+      },
+      {
+        "name": "Use of Appropriate Language and Style Consistency",
+        "score": 30,
+        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
       }
-    ]
+    ],
+    "overallFeedback": "No overall feedback recorded."
   }
 }

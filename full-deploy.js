@@ -117,10 +117,25 @@ try {
     }
 } catch (e) { console.log('⚠️ Scavenger error:', e.message); }
 
-if (detailedPattern) {
+/*if (detailedPattern) {
     fs.writeFileSync(path.join(resultsDir, 'latest-run.json'), JSON.stringify(detailedPattern, null, 2));
     console.log('📦 latest-run.json saved. Deploying...');
     const deployCmd = "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";  
     execSync(deployCmd, { stdio: 'inherit' });
     //execSync('npm run deploy-hub', { stdio: 'inherit' });
+}*/
+
+if (detailedPattern) {
+    fs.writeFileSync(path.join(resultsDir, 'latest-run.json'), JSON.stringify(detailedPattern, null, 2));
+    console.log('📦 latest-run.json created from Allure results.');
+}
+
+// 2. 🎯 ALWAYS DEPLOY: Move this outside the IF block
+console.log('🚀 Starting Sync and Deployment phase...');
+const deployCmd = "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";  
+
+try {
+    execSync(deployCmd, { stdio: 'inherit' });
+} catch (deployError) {
+    console.error('❌ Deployment failed:', deployError.message);
 }

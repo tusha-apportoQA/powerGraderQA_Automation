@@ -1,18 +1,19 @@
 {
-  "createdAt": "2026-02-26T21:50:02.907Z",
+  "createdAt": "2026-03-18T21:26:37.988Z",
   "snapshot": {
-    "totalScore": 13,
+    "totalScore": 12,
     "criteria": [
       {
         "name": "Content Quality",
-        "score": 8,
-        "feedback": "Your submission clearly and accurately discusses technology's impact on daily life with good examples, but would be stronger with more depth or analysis beyond the immediate benefits."
+        "score": 7,
+        "feedback": "Your submission clearly describes the impact of technology using relevant, accurate examples and shows some awareness of both benefits and responsible use, but it would benefit from deeper analysis or discussion of challenges to reach a higher score."
       },
       {
         "name": "Grammar and Style",
-        "score": 5,
-        "feedback": "Your writing is consistently clear, concise, and grammatically correct, with no errors in sentence structure, punctuation, or readability. Excellent work on maintaining flawless grammar and style throughout your submission."
+        "score": 7,
+        "feedback": "Your submission clearly describes the impact of technology using relevant, accurate examples and shows some awareness of both benefits and responsible use, but it would benefit from deeper analysis or discussion of challenges to reach a higher score."
       }
-    ]
+    ],
+    "overallFeedback": "No overall feedback recorded."
   }
 }

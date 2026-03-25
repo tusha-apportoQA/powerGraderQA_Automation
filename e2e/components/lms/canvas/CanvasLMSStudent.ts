@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 import { CanvasDashboardPage } from './pages/CanvasDashboardPage';
 import { CanvasCoursePage } from './pages/CanvasCoursePage';
 import { CanvasAssignmentListPage } from './pages/CanvasAssignmentListPage';
-import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage';
+import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage_march23';
 import { CanvasAssignmentSubmissionPage } from './pages/CanvasAssignmentSubmissionPage';
 import { FormatType } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';

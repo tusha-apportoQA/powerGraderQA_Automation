@@ -29,9 +29,20 @@ export function createBaseline(snapshot: unknown) {
 import fs from "node:fs";
 import path from "node:path";
 
-function baselinePathFor(assignmentKey: string) {
+/*function baselinePathFor(assignmentKey: string) {
   // make filename safe
   const safe = assignmentKey.replace(/[^a-zA-Z0-9._-]+/g, "_");
+  return path.resolve(
+    process.cwd(),
+    `e2e/test-data/baselines/powergrader/${safe}.json`
+  );
+}*/
+
+function baselinePathFor(assignmentKey: string) {
+  // 🎯 STRIP THE BRACKETS HERE TOO
+  const normalizedKey = assignmentKey.replace(/\s*\[\d+\]\s*$/, "").trim();
+  const safe = normalizedKey.replace(/[^a-zA-Z0-9._-]+/g, "_");
+  
   return path.resolve(
     process.cwd(),
     `e2e/test-data/baselines/powergrader/${safe}.json`

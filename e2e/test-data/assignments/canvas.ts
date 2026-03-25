@@ -236,7 +236,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: CANVAS_NEW_RUBRICS[0]
+            rubric: CANVAS_NEW_RUBRICS[1]
         },
         {
             title: 'Sample TXT No Rubric',
