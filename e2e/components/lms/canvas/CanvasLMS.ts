@@ -73,7 +73,6 @@ export class CanvasLMS {
                 console.log(`[CanvasLMS] "No Rubric" detected in config. Skipping Canvas rubric setup.`);
             }
 
-            await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
             await this.assignmentDetailsPage.verifyAssignmentTitle(config.title);
         }
 

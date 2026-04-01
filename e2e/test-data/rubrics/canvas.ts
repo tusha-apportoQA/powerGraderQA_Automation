@@ -19,6 +19,11 @@
             type: 'existing',
             groupName: 'Powergrader',
             rubricName: 'Amit tes'
+        },
+        {
+            type: 'existing',
+            groupName: 'Amit 1 (Course)',
+            rubricName: 'Some rubric (3)'
         }
         // Add more existing rubrics as needed
     ];

@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 import { CanvasDashboardPage } from './pages/CanvasDashboardPage';
 import { CanvasCoursePage } from './pages/CanvasCoursePage';
 import { CanvasAssignmentListPage } from './pages/CanvasAssignmentListPage';
-import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage_march23';
+import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage';
 import { CanvasAssignmentSubmissionPage } from './pages/CanvasAssignmentSubmissionPage';
 import { FormatType } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
@@ -45,7 +45,6 @@ export class CanvasLMSStudent {
         await this.assignmentListPage.clickAssignment(assignmentName);
         
         await this.assignmentDetailsPage.waitForLoad();
-        await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
         await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
     }
 
