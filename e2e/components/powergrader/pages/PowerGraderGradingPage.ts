@@ -80,20 +80,33 @@ export class PowerGraderGradingPage {
      * Clicks publish and handles the potential confirmation modal. Update by Tusha
      */
     async clickPublishButton(): Promise<void> {
-    
+        await this.page.waitForTimeout(30000);
+
         const publishButton = this.page.getByRole('button', { name: 'Publish' }).first();
         console.log(`Publish Button Found..`);
         await expect(publishButton).toBeVisible({ timeout: 30000 });
-      //  await expect(publishButton).toBeEnabled({ timeout: 10000 });
+        await expect(publishButton).toBeEnabled({ timeout: 10000 });
         
         await publishButton.click();
         console.log(`Publish Button Clicked..`);
-        
-        // Handle the confirmation modal that often follows
-        const confirmBtn = this.page.getByRole('button', { name: /^Confirm$|^Yes$|^Publish$/i }).last();
+
+        const certifyCheckbox = this.page.getByRole('checkbox', {
+            name: /I certify this grade can be released to the student/i
+        });
         try {
-            if (await confirmBtn.isVisible({ timeout: 3000 })) {
-                await confirmBtn.click({ timeout: 5000 }).catch(() => {});
+            if (await certifyCheckbox.isVisible({ timeout: 3000 })) {
+                await certifyCheckbox.check();
+                const studentCommentInput = this.page.getByRole('textbox', {
+                    name: 'Add a comment to the student'
+                });
+                await expect(studentCommentInput).toBeVisible({ timeout: 10000 });
+                await studentCommentInput.fill('feedback');
+                await this.page.waitForTimeout(300);
+                const modalPublishButton = this.page.getByRole('button', { name: 'Publish' }).last();
+                await expect(modalPublishButton).toBeVisible({ timeout: 10000 });
+                await expect(modalPublishButton).toBeEnabled({ timeout: 10000 });
+                await modalPublishButton.click();
+                console.log(`Certification modal handled and final publish clicked..`);
             }
         } catch {}
         
@@ -128,12 +141,31 @@ export class PowerGraderGradingPage {
         const saveBtn = editable.locator('xpath=..').locator('button').nth(1);
         await saveBtn.click();
         await this.page.waitForTimeout(300);
+    }
 
-        await this.page.keyboard.press('Tab');
-        await this.page.waitForTimeout(200);
-        const feedbackContainer = this.page.locator(':focus').locator('xpath=..');
-        await expect(feedbackContainer).toContainText(feedback, { timeout: 5000 });
-        await expect(scoreInput).toHaveValue(String(score));
+    /**
+     * Verifies teacher edits after all edits are applied.
+     * Uses the same criterion index mapping as setCriterionResultByIndex.
+     */
+    async verifyTeacherEditsApplied(edits: CriterionEditEntry[]): Promise<void> {
+        for (const edit of edits) {
+            const scoreInput = this.page
+                .locator('div.score-selection')
+                .locator('input[placeholder="Enter score"]')
+                .nth(edit.criterionIndex);
+
+            await expect(scoreInput).toBeVisible({ timeout: 10000 });
+            await expect(scoreInput).toHaveValue(String(edit.score), { timeout: 10000 });
+            await scoreInput.click();
+            await this.page.waitForTimeout(150);
+            await this.page.keyboard.press('Tab');
+
+            const focusedElement = this.page.locator(':focus');
+            await expect(focusedElement).toBeVisible({ timeout: 5000 });
+
+            const feedbackTextSpan = focusedElement.locator('xpath=following-sibling::span[1]');
+            await expect(feedbackTextSpan).toContainText(edit.feedback, { timeout: 10000 });
+        }
     }
 
     /**
@@ -146,6 +178,7 @@ export class PowerGraderGradingPage {
         for (const edit of edits) {
             await this.setCriterionResultByIndex(edit.criterionIndex, edit.score, edit.feedback);
         }
+        await this.verifyTeacherEditsApplied(edits);
         console.log('[Grading Page] Teacher edits applied.');
     }
 

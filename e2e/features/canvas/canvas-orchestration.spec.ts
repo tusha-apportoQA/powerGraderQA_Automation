@@ -209,7 +209,7 @@ import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout";
  * Poll until the student can open the assignment details page by direct URL.
  * This avoids races / title mismatches in the student assignment list.
  */
-async function waitForStudentAssignmentToAppearByUrl(
+async function waitForStudentAssignmentToAppearByUrl( 
   student: CanvasLMSStudent,
   courseId: string,
   assignmentId: string,
@@ -233,7 +233,7 @@ async function waitForStudentAssignmentToAppearByUrl(
       await student.dashboardPage.expectDashboardLoaded();
 
       await student.page.goto(url, { waitUntil: 'domcontentloaded' });
-      await student.assignmentDetailsPage.expectAssignmentDetailsLoaded();
+      await student.assignmentDetailsPage.waitForLoad();
 
       console.log(`[${labelForLogs}] Student Sync: assignment page opened ✅`);
       return;
