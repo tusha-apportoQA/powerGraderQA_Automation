@@ -8,7 +8,7 @@ export class D2LDashboardPage {
     constructor(page: Page) {
         this.page = page;
         this.myCoursesHeading = page.getByRole('heading', { name: 'My Courses', exact: true });
-        this.courseCards = page.locator('d2l-enrollment-card');
+        this.courseCards = page.locator('d2l-my-courses-enrollment-card');
     }
 
     async goto(baseURL: string): Promise<void> {
@@ -31,7 +31,7 @@ export class D2LDashboardPage {
         await this.waitForLoad();
 
         const courseCard = this.courseCards.filter({
-            has: this.page.locator('d2l-organization-name').filter({
+            has: this.page.locator('.d2l-organization-name').filter({
                 hasText: new RegExp(courseName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i')
             })
         }).first();

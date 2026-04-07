@@ -3,8 +3,19 @@ import { D2LDashboardPage } from './pages/D2LDashboardPage';
 import { D2LCoursePage } from './pages/D2LCoursePage';
 import { D2LAssignmentListPage } from './pages/D2LAssignmentListPage';
 import { D2LAssignmentCreatePage } from './pages/D2LAssignmentCreatePage';
-import { D2LAssignmentConfig } from '../../../types';
+import { D2LAssignmentDetailsPage } from './pages/D2LAssignmentDetailsPage';
+import { D2LGradingPage } from './pages/D2LGradingPage';
+import { D2LAssignmentConfig, GradingSummary } from '../../../types';
 import { getD2LConfig } from '../../../config/d2l.config';
+import { expect } from '@playwright/test';
+
+function parseEarnedPointsFromTotalScore(totalScore: string): number {
+    const s = String(totalScore).trim();
+    const slash = s.match(/^([\d.]+)\s*\/\s*[\d.]+/);
+    if (slash) return Number(slash[1]);
+    const m = s.match(/[\d.]+/);
+    return m ? Number(m[0]) : NaN;
+}
 
 export class D2LLMS {
     page: Page;
@@ -13,6 +24,7 @@ export class D2LLMS {
     coursePage: D2LCoursePage;
     assignmentListPage: D2LAssignmentListPage;
     createAssignmentPage: D2LAssignmentCreatePage;
+    assignmentDetailsPage: D2LAssignmentDetailsPage;
 
     constructor(page: Page) {
         this.page = page;
@@ -23,6 +35,7 @@ export class D2LLMS {
         this.coursePage = new D2LCoursePage(page);
         this.assignmentListPage = new D2LAssignmentListPage(page);
         this.createAssignmentPage = new D2LAssignmentCreatePage(page);
+        this.assignmentDetailsPage = new D2LAssignmentDetailsPage(page);
     }
 
     async createAssignment(config: D2LAssignmentConfig): Promise<void> {
@@ -107,6 +120,57 @@ export class D2LLMS {
         await this.dashboardPage.selectCourse(targetCourseName);
         
         await this.coursePage.expectCoursePageLoaded();
+    }
+
+    async verifyLmsScore(studentDisplayName: string, assignmentName: string, gradingSummary: GradingSummary): Promise<void> {
+        console.log(`[D2LLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
+        console.log('[D2LLMS] Expected GradingSummary:', gradingSummary);
+
+        await this.navigateToCourse();
+
+        await this.coursePage.clickAssignments();
+        await this.assignmentListPage.expectAssignmentListPageLoaded();
+
+        await this.assignmentListPage.clickAssignment(assignmentName);
+        await this.assignmentDetailsPage.waitForLoad();
+        await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
+
+        // Open evaluation for the specific student on the submissions list
+        await this.assignmentDetailsPage.openEvaluationForStudent(studentDisplayName);
+
+        const gradingPage = new D2LGradingPage(this.page);
+        const lmsSummary = await gradingPage.getRubricSnapshot();
+
+        const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
+        const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
+        console.log(
+            `[D2LLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
+        );
+        await expect(lmsEarned).toBe(expEarned);
+
+        const expectedCriteria = gradingSummary.criteria ?? [];
+        const lmsCriteria = lmsSummary.criteria ?? [];
+        await expect(lmsCriteria.length).toBe(expectedCriteria.length);
+
+        for (let i = 0; i < expectedCriteria.length; i++) {
+            const expCrit = expectedCriteria[i];
+            const lmsCrit = lmsCriteria[i];
+            if (!lmsCrit) throw new Error(`Criterion at index ${i} missing in LMS`);
+
+            const normalize = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
+            console.log(
+                `[D2LLMS] Criterion index ${i} -> expected name="${expCrit.name}", LMS name="${lmsCrit.name}"`
+            );
+            await expect(normalize(lmsCrit.name)).toBe(normalize(expCrit.name));
+
+            console.log(
+                `[D2LLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
+            );
+            await expect(lmsCrit.points).toBe(expCrit.points);
+
+            console.log(`[D2LLMS] Criterion index ${i} -> comparing feedback`);
+            await expect(lmsCrit.feedback).toBe(expCrit.feedback);
+        }
     }
 
     /*async navigateToPowerGrader(): Promise<Page> {

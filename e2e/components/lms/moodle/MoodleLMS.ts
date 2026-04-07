@@ -4,8 +4,18 @@ import { MoodleCoursePage } from './pages/MoodleCoursePage';
 import { MoodleAssignmentCreatePage } from './pages/MoodleAssignmentCreatePage';
 import { MoodleAssignmentDetailsPage } from './pages/MoodleAssignmentDetailsPage';
 import { MoodleAdvancedGradingPage } from './pages/MoodleAdvancedGradingPage';
-import { MoodleAssignmentConfig } from '../../../types';
+import { MoodleGradingPage } from './pages/MoodleGradingPage';
+import { MoodleAssignmentConfig ,GradingSummary} from '../../../types';
+import { AllureHelper } from '../../../utils/allureHelper';
 import { getMoodleConfig } from '../../../config/moodle.config';
+
+function parseEarnedPointsFromTotalScore(totalScore: string): number {
+    const s = String(totalScore).trim();
+    const slash = s.match(/^([\d.]+)\s*\/\s*[\d.]+/);
+    if (slash) return Number(slash[1]);
+    const m = s.match(/[\d.]+/);
+    return m ? Number(m[0]) : NaN;
+}
 
 export class MoodleLMS {
     page: Page;
@@ -15,6 +25,7 @@ export class MoodleLMS {
     createAssignmentPage: MoodleAssignmentCreatePage;
     assignmentDetailsPage: MoodleAssignmentDetailsPage;
     advancedGradingPage: MoodleAdvancedGradingPage;
+    moodleGradingPage: MoodleGradingPage;
 
     constructor(page: Page) {
         this.page = page;
@@ -26,6 +37,7 @@ export class MoodleLMS {
         this.createAssignmentPage = new MoodleAssignmentCreatePage(page);
         this.assignmentDetailsPage = new MoodleAssignmentDetailsPage(page);
         this.advancedGradingPage = new MoodleAdvancedGradingPage(page);
+        this.moodleGradingPage = new MoodleGradingPage(page);
     }
 
     async createAssignment(config: MoodleAssignmentConfig): Promise<void> {
@@ -133,6 +145,67 @@ export class MoodleLMS {
 
         await newPage.waitForLoadState('domcontentloaded');
         return newPage;
+    }
+
+    /**
+     * Verifies the LMS score for a given student and assignment.
+     * For Moodle, this currently navigates to the course page where assignments are listed.
+     * @param studentDisplayName The display name of the student.
+     * @param assignmentName The name of the assignment.
+     * @param gradingSummary The grading summary to verify.
+     */
+    async verifyLmsScore(studentDisplayName: string, assignmentName: string, gradingSummary: GradingSummary): Promise<void> {
+        console.log(`[MoodleLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
+        console.log('[MoodleLMS] Expected GradingSummary:', gradingSummary);
+
+        await AllureHelper.step('Navigate to course page', async () => {
+            await this.navigateToCourse();
+        });
+
+        await AllureHelper.step(`Navigate to assignment details page for "${assignmentName}"`, async () => {
+            await this.coursePage.clickAssignment(assignmentName);
+            await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
+            await this.page.getByRole('link', { name: 'View all submissions' }).click();
+        });
+
+        await AllureHelper.step(`Navigate to grading page for student "${studentDisplayName}"`, async () => {
+            const studentRow = this.page.locator('tr').filter({ hasText: studentDisplayName }).first();
+            const gradeButton = studentRow.getByRole('link', { name: 'Grade' });
+            await gradeButton.click();
+            await this.moodleGradingPage.expectMoodleGradingPageLoaded();
+            const lmsSummary = await this.moodleGradingPage.getRubricSnapshot();
+
+            const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
+            const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
+            console.log(
+                `[MoodleLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
+            );
+            await expect(lmsEarned).toBe(expEarned);
+
+            const expectedCriteria = gradingSummary.criteria ?? [];
+            const lmsCriteria = lmsSummary.criteria ?? [];
+            await expect(lmsCriteria.length).toBe(expectedCriteria.length);
+
+            for (let i = 0; i < expectedCriteria.length; i++) {
+                const expCrit = expectedCriteria[i];
+                const lmsCrit = lmsCriteria[i];
+                if (!lmsCrit) throw new Error(`Criterion at index ${i} missing in LMS`);
+
+                const normalize = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
+                console.log(
+                    `[MoodleLMS] Criterion index ${i} -> expected name="${expCrit.name}", LMS name="${lmsCrit.name}"`
+                );
+                await expect(normalize(lmsCrit.name)).toBe(normalize(expCrit.name));
+
+                console.log(
+                    `[MoodleLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
+                );
+                await expect(lmsCrit.points).toBe(expCrit.points);
+
+                console.log(`[MoodleLMS] Criterion index ${i} -> comparing feedback`);
+                await expect(lmsCrit.feedback).toBe(expCrit.feedback);
+            }
+        });
     }
 }
 
