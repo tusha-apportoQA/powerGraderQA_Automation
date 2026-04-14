@@ -23,6 +23,8 @@ export interface MoodleConfig {
     courseName: string;
     /** PowerGrader QA instance link text (e.g. "amit powergrader QA") – used to open PowerGrader from course page. */
     powergraderQaInstanceName: string;
+    /** Display name as shown in Moodle UI (e.g. "First Last"). Used by LMS verify flow. */
+    studentDisplayName: string;
     credentials: MoodleCredentials;
 }
 
@@ -34,6 +36,7 @@ export function getMoodleConfig(): MoodleConfig {
     const teacherPassword = process.env.MOODLE_TEACHER_PASSWORD;
     const studentUsername = process.env.MOODLE_STUDENT_USERNAME;
     const studentPassword = process.env.MOODLE_STUDENT_PASSWORD;
+    const studentDisplayName = process.env.MOODLE_STUDENT_DISPLAY_NAME || studentUsername;
 
     if (!baseURL) {
         throw new Error('MOODLE_BASE_URL environment variable is required. Please set it in your .env file.');
@@ -58,11 +61,12 @@ export function getMoodleConfig(): MoodleConfig {
         baseURL,
         courseName: courseName || '',
         powergraderQaInstanceName,
+        studentDisplayName: (studentDisplayName || studentUsername || '').trim(),
         credentials: {
             teacherUsername,
             teacherPassword,
             studentUsername,
-            studentPassword
+            studentPassword,
         }
     };
 }

@@ -26,6 +26,7 @@ export class CanvasAssignmentDetailsPage {
     addRatingRowButton: Locator;
     ratingNameInput: Locator;
     ratingPointsInput: Locator;
+    speedGraderLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -55,6 +56,7 @@ export class CanvasAssignmentDetailsPage {
         this.addRatingRowButton = this.criterionDialog.getByTestId('add-rating-row');
         this.ratingNameInput = this.criterionDialog.getByTestId('rating-name');
         this.ratingPointsInput = this.criterionDialog.getByTestId('rating-points');
+        this.speedGraderLink = page.getByRole('link', { name: 'SpeedGrader' }).last();
     }
 
     async waitForLoad(): Promise<void> {
@@ -64,6 +66,24 @@ export class CanvasAssignmentDetailsPage {
     async verifyAssignmentTitle(expectedTitle: string): Promise<void> {
         await expect(this.assignmentTitle).toBeVisible({ timeout: 30000 });
         await expect(this.assignmentTitle).toHaveText(expectedTitle);
+    }
+
+    /**
+     * Opens the Canvas SpeedGrader for this assignment in a new tab and returns the grading page.
+     */
+    async openSpeedGrader(): Promise<Page> {
+        await expect(this.speedGraderLink).toBeVisible({ timeout: 30000 });
+
+        const [gradingPage] = await Promise.all([
+            this.page.context().waitForEvent('page'),
+            this.speedGraderLink.click()
+        ]);
+
+        await gradingPage.waitForLoadState('domcontentloaded');
+        await gradingPage.waitForURL(/\/gradebook\/speed_grader\?assignment_id=\d+/, {
+            timeout: 30000,
+        });
+        return gradingPage;
     }
 
     async clickStartAssignment(): Promise<void> {

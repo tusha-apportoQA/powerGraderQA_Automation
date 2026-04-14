@@ -80,7 +80,7 @@ export class PowerGraderGradingPage {
      * Clicks publish and handles the potential confirmation modal. Update by Tusha
      */
     async clickPublishButton(): Promise<void> {
-        await this.page.waitForTimeout(30000);
+        await this.page.waitForTimeout(60000);
 
         const publishButton = this.page.getByRole('button', { name: 'Publish' }).first();
         console.log(`Publish Button Found..`);

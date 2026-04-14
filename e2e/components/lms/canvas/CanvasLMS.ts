@@ -1,12 +1,29 @@
-import { Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 import { CanvasDashboardPage } from './pages/CanvasDashboardPage';
 import { CanvasCoursePage } from './pages/CanvasCoursePage';
 import { CanvasAssignmentListPage } from './pages/CanvasAssignmentListPage';
 import { CanvasCreateAssignmentPage } from './pages/CanvasCreateAssignmentPage';
 //import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage';
 import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage';
-import { AssignmentConfig } from '../../../types';
+import { CanvasGradingPage } from './pages/CanvasGradingPage';
+import { AssignmentConfig, GradingSummary } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
+
+/** Earned points from a total string, e.g. "13/15" -> 13. */
+function parseEarnedPointsFromTotalScore(totalScore: string): number {
+    const s = String(totalScore).trim();
+    const slash = s.match(/^([\d.]+)\s*\/\s*[\d.]+/);
+    if (slash) return Number(slash[1]);
+    const m = s.match(/[\d.]+/);
+    return m ? Number(m[0]) : NaN;
+}
+
+/** Max points from a total string, e.g. "13/15" -> 15. */
+function parseMaxPointsFromTotalScore(totalScore: string): number | null {
+    const s = String(totalScore).trim();
+    const slash = s.match(/^[\d.]+\s*\/\s*([\d.]+)/);
+    return slash ? Number(slash[1]) : null;
+}
 
 export class CanvasLMS {
     page: Page;
@@ -75,6 +92,67 @@ export class CanvasLMS {
 
             await this.assignmentDetailsPage.verifyAssignmentTitle(config.title);
         }
+
+    /**
+     * Verify that the score and rubric results visible in Canvas match the expected {@link GradingSummary}.
+     * Scrapes LMS via {@link CanvasGradingPage.getRubricSnapshot}, then compares totals and
+     * per-criterion **points** and **feedback** by **index order** (criterion names are not used).
+     */
+    async verifyLmsScore(studentName: string, assignmentName: string, gradingSummary: GradingSummary): Promise<void> {
+        console.log(`[CanvasLMS] verifyLmsScore for student=${studentName}, assignment="${assignmentName}"`);
+        console.log('[CanvasLMS] Expected GradingSummary:', gradingSummary);
+
+        await this.navigateToCourse();
+
+        await this.coursePage.clickAssignments();
+        await this.assignmentListPage.expectAssignmentsListLoaded();
+
+        await this.assignmentListPage.clickAssignment(assignmentName);
+        await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
+
+        const speedGraderPage = await this.assignmentDetailsPage.openSpeedGrader();
+        const canvasGradingPage = new CanvasGradingPage(speedGraderPage);
+        await canvasGradingPage.waitForLoad();
+        await canvasGradingPage.expectSelectedStudent(studentName);
+
+        const lmsSummary = await canvasGradingPage.getRubricSnapshot();
+        console.log('[CanvasLMS] LMS GradingSummary (scraped):', lmsSummary);
+
+        const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
+        const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
+        console.log(
+            `[CanvasLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
+        );
+        await expect(lmsEarned).toBe(expEarned);
+
+        const expMax = parseMaxPointsFromTotalScore(gradingSummary.totalScore);
+        const lmsMax = parseMaxPointsFromTotalScore(lmsSummary.totalScore);
+        if (expMax != null && lmsMax != null && !Number.isNaN(expMax) && !Number.isNaN(lmsMax)) {
+            console.log(`[CanvasLMS] Total max -> expected=${expMax}, LMS=${lmsMax}`);
+            await expect(lmsMax).toBe(expMax);
+        }
+
+        const expectedCriteria = gradingSummary.criteria ?? [];
+        const lmsCriteria = lmsSummary.criteria ?? [];
+
+        await expect(lmsCriteria.length).toBe(expectedCriteria.length);
+
+        for (let i = 0; i < expectedCriteria.length; i++) {
+            const expCrit = expectedCriteria[i];
+            const lmsCrit = lmsCriteria[i];
+            if (lmsCrit === undefined) {
+                throw new Error(`Criterion at index ${i} missing in LMS`);
+            }
+
+            console.log(
+                `[CanvasLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
+            );
+            await expect(lmsCrit.points).toBe(expCrit.points);
+
+            console.log(`[CanvasLMS] Criterion index ${i} -> comparing feedback`);
+            await expect(lmsCrit.feedback).toBe(expCrit.feedback);
+        }
+    }
 
     /**
      * Extract assignment ID from the current URL
