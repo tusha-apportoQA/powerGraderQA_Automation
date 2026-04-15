@@ -21,11 +21,30 @@ export class D2LAssignmentDetailsPage {
     }
 
     async verifyAssignmentTitle(expectedTitle: string): Promise<void> {
-        await expect(this.assignmentTitle).toBeVisible({ timeout: 30000 });
-        const titleText = await this.assignmentTitle.textContent();
-        if (!titleText || !titleText.includes(expectedTitle)) {
-            throw new Error(`Expected assignment title to contain "${expectedTitle}", but found "${titleText}"`);
-        }
+        const assignmentLink = this.page.getByRole('link', { name: expectedTitle });
+        await expect(assignmentLink).toBeVisible({ timeout: 30000 });
+    }
+
+    /**
+     * From the submissions list, open the evaluation view for a specific student
+     * using the rendered display name, e.g. "student, amit".
+     * Finds the table row containing the display name, then clicks "Go to Evaluation" inside that row.
+     */
+    async openEvaluationForStudent(studentDisplayName: string): Promise<void> {
+        const studentRow = this.page.locator('tr').filter({
+            hasText: studentDisplayName
+        }).first();
+
+        await expect(
+            studentRow,
+            `Submissions row for student display name containing "${studentDisplayName}" not found`
+        ).toBeVisible({ timeout: 30000 });
+
+        const goToEvalButton = studentRow.getByRole('button', { name: /Go to Evaluation/i });
+        await expect(goToEvalButton).toBeVisible({ timeout: 30000 });
+        await goToEvalButton.click();
+
+        await this.page.waitForLoadState('domcontentloaded');
     }
 }
 

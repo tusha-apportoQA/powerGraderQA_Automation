@@ -33,6 +33,8 @@ export default defineConfig({
 export interface D2LConfig {
     baseURL: string;
     courseName: string;
+    /** Display name as shown in D2L UI (e.g. "First Last"). Used by LMS verify flow. */
+    studentDisplayName: string;
     credentials: D2LCredentials;
 }
 
@@ -43,6 +45,7 @@ export function getD2LConfig(): D2LConfig {
     const teacherPassword = process.env.D2L_TEACHER_PASSWORD;
     const studentUsername = process.env.D2L_STUDENT_USERNAME;
     const studentPassword = process.env.D2L_STUDENT_PASSWORD;
+    const studentDisplayName = process.env.D2L_STUDENT_DISPLAY_NAME || studentUsername;
 
     if (!baseURL) {
         throw new Error('D2L_BASE_URL environment variable is required. Please set it in your .env file.');
@@ -63,6 +66,7 @@ export function getD2LConfig(): D2LConfig {
     return {
         baseURL,
         courseName: courseName || '',
+        studentDisplayName: (studentDisplayName || studentUsername || '').trim(),
         credentials: {
             teacherUsername,
             teacherPassword,

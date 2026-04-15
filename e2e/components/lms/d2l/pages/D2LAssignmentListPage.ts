@@ -91,7 +91,6 @@ export class D2LAssignmentListPage {
         }
 
         await assignmentLink.click();
-        await this.page.waitForURL(/\/d2l\/lms\/dropbox\/user\/folder_submit_files\.d2l/, { timeout: 30000 });
         await this.page.waitForLoadState('domcontentloaded');
     }
 

@@ -35,6 +35,8 @@ export interface CanvasConfig {
     courseName: string;
     assignmentGroup: string;
     studentNames: string[];
+    /** Display name as shown in Canvas UI (e.g. "First Last"). Used by LMS verify flow. */
+    studentDisplayName: string;
     defaultPoints: number;
     credentials: CanvasCredentials;
 }
@@ -44,6 +46,7 @@ export function getCanvasConfig(): CanvasConfig {
     const courseName = process.env.CANVAS_COURSE_NAME;
     const assignmentGroup = process.env.CANVAS_ASSIGNMENT_GROUP;
     const studentName = process.env.CANVAS_STUDENT_NAME;
+    const studentDisplayName = process.env.CANVAS_STUDENT_DISPLAY_NAME || studentName;
     const defaultPoints = process.env.CANVAS_DEFAULT_POINTS;
     const teacherUsername = process.env.CANVAS_TEACHER_USERNAME;
     const teacherPassword = process.env.CANVAS_TEACHER_PASSWORD;
@@ -83,6 +86,7 @@ export function getCanvasConfig(): CanvasConfig {
         courseName,
         assignmentGroup,
         studentNames: [studentName.trim()],
+        studentDisplayName: (studentDisplayName || studentName).trim(),
         defaultPoints: parseInt(defaultPoints, 10),
         credentials: {
             teacherUsername,
