@@ -1,12 +1,17 @@
 {
-  "createdAt": "2026-03-18T21:37:55.138Z",
+  "createdAt": "2026-04-06T15:46:12.361Z",
   "snapshot": {
-    "totalScore": 5,
+    "totalScore": 10,
     "criteria": [
       {
-        "name": "Description of criterion",
+        "name": "REadability",
         "score": 5,
-        "feedback": "Your essay is clear, well-structured, and thoughtfully covers both positive and negative aspects of technology, demonstrating relevant understanding and strong organization for a brief technical piece."
+        "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+      },
+      {
+        "name": "Quality",
+        "score": 5,
+        "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
       }
     ],
     "overallFeedback": "No overall feedback recorded."

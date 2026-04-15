@@ -1,0 +1,148 @@
+[
+  {
+    "run_date": "2026-04-02T22:28:52.993Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1775168166971]",
+    "sbert_similarity": 0,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Description of criterion",
+          "score": 5,
+          "feedback": "Your essay is clear, well-structured, and thoughtfully covers both positive and negative aspects of technology, demonstrating relevant understanding and strong organization for a brief technical piece."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clearly written, well-organized with helpful bullet points, and flows smoothly from introduction to conclusion, making it easy and enjoyable to read."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clearly written, well-organized with helpful bullet points, and flows smoothly from introduction to conclusion, making it easy and enjoyable to read."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-02T22:28:53.388Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1775168166971]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Description of criterion",
+          "score": 5,
+          "feedback": "Your essay is clear, well-structured, and thoughtfully covers both positive and negative aspects of technology, demonstrating relevant understanding and strong organization for a brief technical piece."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clearly written, well-organized with helpful bullet points, and flows smoothly from introduction to conclusion, making it easy and enjoyable to read."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clearly written, well-organized with helpful bullet points, and flows smoothly from introduction to conclusion, making it easy and enjoyable to read."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-06T15:46:12.452Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1775489792257]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-06T17:10:11.624Z",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1775494663345]",
+    "sbert_similarity": 1,
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is easy to follow, clearly organized with well-labeled sections and bullet points, and uses straightforward, error-free language throughout. Excellent structure and clarity make your writing highly readable and well-suited for this assignment."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is easy to follow, clearly organized with well-labeled sections and bullet points, and uses straightforward, error-free language throughout. Excellent structure and clarity make your writing highly readable and well-suited for this assignment."
+        }
+      ]
+    }
+  }
+]

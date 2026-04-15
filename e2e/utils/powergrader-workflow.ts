@@ -196,14 +196,18 @@ export async function executeUniversalPGWorkflow(
     if (baselineSnapshot) {
         const totalScoreDiff = Math.abs(baselineSnapshot.totalScore - currentSnapshot.totalScore);
 
-        if (totalScoreDiff > 0.01) {
+       /* if (totalScoreDiff > 0.01) {
             writeLatestRunJson({
                 uniqueTitle,
                 assignmentKey,
                 baselineSnapshot: baselineSnapshot,
                 currentSnapshot: currentSnapshot,
                 sbertSimilarity: 0,
-            });
+            });*/
+    
+            if (totalScoreDiff > 0.01) {
+                console.log(`⚠️ Score mismatch detected: Baseline ${baselineSnapshot.totalScore} vs Current ${currentSnapshot.totalScore} (delta: ${totalScoreDiff}). Continuing to SBERT drift check...`);
+            }
 
             // Publish to Allure so modal populates even on score failure
             await AllureHelper.attachText('student-feedback', JSON.stringify({
@@ -212,11 +216,12 @@ export async function executeUniversalPGWorkflow(
                 total_score: currentSnapshot.totalScore
             }));
 
-            console.log(`📡 [PUBLISH] Feedback attached. Now throwing mismatch error...`);
-           // throw new Error(`❌ TOTAL SCORE MISMATCH: Baseline ${baselineSnapshot.totalScore} vs Current ${currentSnapshot.totalScore}`); 
-        }
+           // console.log(`📡 [PUBLISH] Feedback attached. Now throwing mismatch error...`);
+           console.log(`📡 [PUBLISH] Score mismatch noted (diff: ${totalScoreDiff}). Continuing to SBERT check...`);
 
-        const result = await compareRubricSnapshots(baselineSnapshot, currentSnapshot);
+           // throw new Error(`❌ TOTAL SCORE MISMATCH: Baseline ${baselineSnapshot.totalScore} vs Current ${currentSnapshot.totalScore}`); 
+       // }
+        /*const result = await compareRubricSnapshots(baselineSnapshot, currentSnapshot);
         const sbertScore = result?.overallFeedback?.similarity ?? 0;
 
         writeLatestRunJson({
@@ -237,7 +242,46 @@ export async function executeUniversalPGWorkflow(
                 total_score: currentSnapshot.totalScore
             }));
             throw new Error(driftMsg); 
-        }
+        }*/
+
+        let result: any;
+        let sbertScore = 0;
+
+    try {
+        result = await compareRubricSnapshots(baselineSnapshot, currentSnapshot);
+        sbertScore = result?.overallFeedback?.similarity ?? 0;
+    } catch (compareError) {
+        writeLatestRunJson({
+            uniqueTitle,
+            assignmentKey,
+            baselineSnapshot,
+            currentSnapshot,
+            sbertSimilarity: 0,
+        });
+        throw compareError;
+    }
+
+
+    // Always write BEFORE any potential throw
+    writeLatestRunJson({
+        uniqueTitle,
+        assignmentKey,
+        baselineSnapshot,
+        currentSnapshot,
+        sbertSimilarity: sbertScore,
+    });
+
+    const DRIFT_THRESHOLD = 85;
+    if (result.summary.maxConfidencePct > DRIFT_THRESHOLD) {
+        const driftMsg = `❌ DRIFT DETECTED: ${result.summary.worstField} has ${result.summary.maxConfidencePct.toFixed(1)}% drift.`;
+        await AllureHelper.attachText("SBERT Drift Failure", driftMsg);
+        await AllureHelper.attachText('student-feedback', JSON.stringify({
+            criterion_name: currentSnapshot.criteria[0]?.name || "Criterion",
+            criterion_feedback: currentSnapshot.criteria[0]?.feedback || "N/A",
+            total_score: currentSnapshot.totalScore
+        }));
+        throw new Error(driftMsg);
+    }
 
         console.log(`[${uniqueTitle}] ✅ VERIFIED: Scores match exactly and drift is within ${DRIFT_THRESHOLD}%.`);
 
@@ -279,5 +323,6 @@ export async function executeUniversalPGWorkflow(
 
     const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(2);
     console.log(`✅ [FINISH] Workflow successful after ${duration} minutes.`);
+
 }
 
