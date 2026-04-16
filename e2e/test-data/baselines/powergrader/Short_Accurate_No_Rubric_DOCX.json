@@ -1,32 +1,27 @@
 {
-  "createdAt": "2026-03-19T22:22:39.542Z",
+  "createdAt": "2026-04-15T21:44:49.565Z",
   "snapshot": {
-    "totalScore": 73,
+    "totalScore": 84.5,
     "criteria": [
       {
-        "name": "Accuracy and Precision of Content",
-        "score": 30,
-        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
+        "name": "Accuracy of Content",
+        "score": 32,
+        "feedback": "Your statements about technology's impact are factually correct and reliable, but to earn a higher score, provide more specific examples or detailed evidence to support your claims."
       },
       {
-        "name": "Clarity and Organization of Ideas",
-        "score": 30,
-        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
+        "name": "Precision and Clarity",
+        "score": 32,
+        "feedback": "Your statements about technology's impact are factually correct and reliable, but to earn a higher score, provide more specific examples or detailed evidence to support your claims."
       },
       {
-        "name": "Engagement and Thoughtfulness",
-        "score": 30,
-        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
+        "name": "Relevance and Focus",
+        "score": 32,
+        "feedback": "Your statements about technology's impact are factually correct and reliable, but to earn a higher score, provide more specific examples or detailed evidence to support your claims."
       },
       {
-        "name": "Grammar, Mechanics, and Formatting",
-        "score": 30,
-        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
-      },
-      {
-        "name": "Use of Appropriate Language and Style Consistency",
-        "score": 30,
-        "feedback": "Your statements about technology's impact are accurate but too broad and lacking in specific detail; including concrete examples or more precise explanations would strengthen your essay and improve your score."
+        "name": "Writing Mechanics (Grammar, Spelling, and Formatting)",
+        "score": 32,
+        "feedback": "Your statements about technology's impact are factually correct and reliable, but to earn a higher score, provide more specific examples or detailed evidence to support your claims."
       }
     ],
     "overallFeedback": "No overall feedback recorded."

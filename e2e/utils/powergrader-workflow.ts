@@ -247,9 +247,27 @@ export async function executeUniversalPGWorkflow(
         let result: any;
         let sbertScore = 0;
 
+    /*try {
+       // result = await compareRubricSnapshots(baselineSnapshot, currentSnapshot);
+       // sbertScore = result?.overallFeedback?.similarity ?? 0;
+    } catch (compareError) {*/
+
     try {
         result = await compareRubricSnapshots(baselineSnapshot, currentSnapshot);
-        sbertScore = result?.overallFeedback?.similarity ?? 0;
+        const criteriaAvgSim = result.criteria.length > 0
+            ? result.criteria.reduce((sum: number, c: any) => sum + (c.feedbackSimilarity ?? 0), 0) / result.criteria.length
+            : result?.overallFeedback?.similarity ?? 0;
+        //sbertScore = criteriaAvgSim;
+        const totalScoreDiff = Math.abs(baselineSnapshot.totalScore - currentSnapshot.totalScore);
+        const maxScore = Math.max(baselineSnapshot.totalScore, currentSnapshot.totalScore, 1);
+        const scorePenalty = totalScoreDiff / maxScore; // 0..1
+        sbertScore = Math.max(0, criteriaAvgSim - scorePenalty);
+        // DEBUG: log per-criterion similarity
+        console.log(`[SBERT DEBUG] Overall feedback similarity: ${result?.overallFeedback?.similarity?.toFixed(3)}`);
+        result.criteria.forEach((c: any) => {
+            console.log(`[SBERT DEBUG] Criterion "${c.name}" feedback similarity: ${c.feedbackSimilarity?.toFixed(3)} | score delta: ${c.scoreDelta}`);
+        });
+        console.log(`[SBERT DEBUG] Avg criteria similarity: ${criteriaAvgSim.toFixed(3)} | maxConfidencePct: ${result.summary.maxConfidencePct.toFixed(1)}%`);
     } catch (compareError) {
         writeLatestRunJson({
             uniqueTitle,

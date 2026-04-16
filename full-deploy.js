@@ -126,12 +126,25 @@ try {
 }*/
 
 if (detailedPattern) {
-    fs.writeFileSync(path.join(resultsDir, 'latest-run.json'), JSON.stringify(detailedPattern, null, 2));
+    fs.writeFileSync(path.join(resultsDir, `latest-run-${Date.now()}.json`), JSON.stringify(detailedPattern, null, 2));
     console.log('📦 latest-run.json created from Allure results.');
 }
 
 // 2. 🎯 ALWAYS DEPLOY: Move this outside the IF block
 console.log('🚀 Starting Sync and Deployment phase...');
+// Clear stale latest-run files older than 2 hours before sync
+if (fs.existsSync(resultsDir)) {
+    const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000;
+    fs.readdirSync(resultsDir)
+        .filter(f => f.startsWith('latest-run') && f.endsWith('.json'))
+        .forEach(f => {
+            const filePath = path.join(resultsDir, f);
+            if (fs.statSync(filePath).mtimeMs < twoHoursAgo) {
+                fs.rmSync(filePath);
+                console.log(`🗑️ Removed stale: ${f}`);
+            }
+        });
+}
 const deployCmd = "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";  
 
 try {

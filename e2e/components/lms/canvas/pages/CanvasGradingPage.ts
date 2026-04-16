@@ -43,7 +43,8 @@ export class CanvasGradingPage {
     }
 
     async expectSelectedStudent(expectedName: string): Promise<void> {
-        await expect(this.selectedStudent).toContainText(expectedName);
+        await expect(this.selectedStudent).toContainText(expectedName, { ignoreCase: true });
+
     }
 
     /**

@@ -117,7 +117,8 @@
                             <th class="p-2 border-b border-slate-600 text-slate-400 uppercase">File</th>
                             <th class="p-2 border-b border-slate-600 text-slate-400 uppercase text-center">Base</th>
                             <th class="p-2 border-b border-slate-600 text-slate-400 uppercase text-center">Curr</th>
-                            <th class="p-2 border-b border-slate-600 text-slate-400 uppercase">SBERT %</th>
+                            <th class="p-2 border-b border-slate-600 text-slate-400 uppercase text-center">Score Match</th>
+                            <th class="p-2 border-b border-slate-600 text-slate-400 uppercase">Feedback Similarity %</th>
                         </tr>
                     </thead>
                     <tbody id="pattern-body"></tbody>
@@ -143,7 +144,8 @@
             .then(res => res.json())
             .then(data => {
                 //document.getElementById('total').innerText = data.total || 0;
-                document.getElementById('total').innerText = (data.total - data.not_automatable) || 0;
+                //document.getElementById('total').innerText = (data.total - data.not_automatable) || 0;
+                document.getElementById('total').innerText = data.total || 0;
                 document.getElementById('automated').innerText = data.automated || 0;
                 //document.getElementById('percentage').innerText = data.total > 0 ? ((data.automated/data.total)*100).toFixed(1) + "%" : "0%";
                 // 🎯 Use the pre-calculated adjusted coverage from your JSON
@@ -161,12 +163,27 @@
         // 2. Load AI Drift Data
         async function loadMonthlyPatterns() {
             try {
-                const month = new Date().toISOString().slice(0, 7);
+                /*const month = new Date().toISOString().slice(0, 7);
                 const response = await fetch(`./data/drift-analytics-${month}.json`);
                //const response = await fetch(`./data/drift-analytics-${month}.json?t=${Date.now()}`);
                 if (!response.ok) throw new Error("No drift data found");
                 
-                monthlyData = await response.json();
+                monthlyData = await response.json();*/
+                // Always load all available months into monthlyData
+                monthlyData = [];
+                const now = new Date();
+                for (let i = 0; i < 6; i++) {
+                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                    const month = d.toISOString().slice(0, 7);
+                    try {
+                        const response = await fetch(`./data/drift-analytics-${month}.json`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            monthlyData = monthlyData.concat(data);
+                        }
+                    } catch (e) {}
+                }
+                if (monthlyData.length === 0) throw new Error("No drift data found");
                 
                 // Render Chart
                 const labels = monthlyData.map(e => new Date(e.run_date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'}));
@@ -224,7 +241,9 @@
                     //const existing = uniqueFilesMap.get(baseName);
                    // if (!uniqueFilesMap.has(baseName)) {  // first hit = newest, so just skip dupes
                   // if (!existing || new Date(entry.run_date) > new Date(existing.run_date)) {
-                  if (!uniqueFilesMap.has(baseName)) {
+                  const existing = uniqueFilesMap.get(baseName);
+                  //if (!uniqueFilesMap.has(baseName)) {
+                  if (!existing || new Date(entry.run_date) > new Date(existing.run_date)) {
                         uniqueFilesMap.set(baseName, entry);
                     //}
                    }
@@ -245,7 +264,7 @@
             const tbody = document.getElementById('pattern-body');
             tbody.innerHTML = '';
             
-            displayData.forEach((entry) => {
+            /*displayData.forEach((entry) => {
                 const row = document.createElement('tr');
                 const sim = (entry.sbert_similarity ?? 0) * 100;
                 row.className = "hover:bg-slate-700 transition-colors cursor-pointer border-b border-slate-800";
@@ -258,6 +277,31 @@
                     <td class="p-2 text-slate-400 truncate max-w-[150px]">${entry.student_file || "file.pdf"}</td>
                     <td class="p-2 text-blue-300 font-bold text-center">${entry.baseline?.totalScore ?? entry.baseline?.total_score ?? '--'}</td>
                     <td class="p-2 text-yellow-300 font-bold text-center">${entry.current?.totalScore ?? entry.current?.total_score ?? '--'}</td>
+                    <td class="p-2 font-bold ${sim < 90 ? 'text-red-400' : 'text-green-400'}">${sim.toFixed(1)}%</td>
+                `;
+                tbody.appendChild(row);
+            });*/
+            displayData.forEach((entry) => {
+                const row = document.createElement('tr');
+                const sim = (entry.sbert_similarity ?? 0) * 100;
+                
+                // 1. Extract the scores safely
+                const bScore = entry.baseline?.totalScore ?? entry.baseline?.total_score ?? '--';
+                const cScore = entry.current?.totalScore ?? entry.current?.total_score ?? '--';
+                
+                // 2. Calculate if the numerical grades match
+                const isMatch = (bScore !== '--' && cScore !== '--') ? bScore === cScore : false;
+
+                row.className = "hover:bg-slate-700 transition-colors cursor-pointer border-b border-slate-800";
+                row.onclick = () => openModal(entry.originalIndex); 
+                
+                // 3. Inject the data, including the new ✅/❌ check and the scores
+                row.innerHTML = `
+                    <td class="p-2">${new Date(entry.run_date).toLocaleDateString()}</td>
+                    <td class="p-2 text-slate-400 truncate max-w-[150px]">${entry.student_file || "file.pdf"}</td>
+                    <td class="p-2 text-blue-300 font-bold text-center">${bScore}</td>
+                    <td class="p-2 text-yellow-300 font-bold text-center">${cScore}</td>
+                    <td class="p-2 text-center text-lg">${isMatch ? '✅' : '❌'}</td>
                     <td class="p-2 font-bold ${sim < 90 ? 'text-red-400' : 'text-green-400'}">${sim.toFixed(1)}%</td>
                 `;
                 tbody.appendChild(row);

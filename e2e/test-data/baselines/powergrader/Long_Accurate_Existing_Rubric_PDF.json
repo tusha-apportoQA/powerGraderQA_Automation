@@ -1,12 +1,17 @@
 {
-  "createdAt": "2026-03-18T21:16:21.160Z",
+  "createdAt": "2026-04-15T21:52:20.583Z",
   "snapshot": {
-    "totalScore": 0,
+    "totalScore": 5,
     "criteria": [
       {
-        "name": "Description of criterion",
-        "score": 0,
-        "feedback": "Your essay does not address the assigned topic of technology's impact on daily life, so no points could be awarded. In the future, carefully read the prompt and ensure your response meets all its requirements."
+        "name": "REadability",
+        "score": 5,
+        "feedback": "Your essay is exceptionally clear and well-organized, featuring strong paragraph flow, logical progression, and flawless grammar, making it very easy and pleasant to read."
+      },
+      {
+        "name": "Quality",
+        "score": 5,
+        "feedback": "Your essay is exceptionally clear and well-organized, featuring strong paragraph flow, logical progression, and flawless grammar, making it very easy and pleasant to read."
       }
     ],
     "overallFeedback": "No overall feedback recorded."

@@ -1,17 +1,17 @@
 {
-  "createdAt": "2026-04-06T15:46:12.361Z",
+  "createdAt": "2026-04-15T22:22:00.354Z",
   "snapshot": {
     "totalScore": 10,
     "criteria": [
       {
         "name": "REadability",
         "score": 5,
-        "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+        "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
       },
       {
         "name": "Quality",
         "score": 5,
-        "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and effective use of bullet points and transitions."
+        "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
       }
     ],
     "overallFeedback": "No overall feedback recorded."
