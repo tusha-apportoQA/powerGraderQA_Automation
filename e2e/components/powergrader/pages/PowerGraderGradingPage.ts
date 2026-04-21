@@ -1,4 +1,4 @@
-import { expect, Page, Locator } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 import { CriterionScore, CriterionEditEntry, GradingSummary } from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 
@@ -248,8 +248,8 @@ export class PowerGraderGradingPage {
             const pTag = criterionPTags.nth(i);
             const criterionName = (await pTag.innerText()).trim();
 
-            const rowContainer = this.page.locator('div').filter({ has: pTag }).filter({ has: this.page.locator('input[type="number"]') }).last();
-            //const scoreInput = rowContainer.locator('input[type="number"]');
+            // Nearest div ancestor of this name <p> that also contains a score input (same row; every ancestor already contains the p).
+            const rowContainer = pTag.locator(`xpath=ancestor::div[.//input[@type='number']][1]`);
             const scoreInput = rowContainer.locator('input[type="number"]').first();
 
             // Wait for Score
