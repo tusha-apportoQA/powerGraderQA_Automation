@@ -52,9 +52,13 @@ export class PowerGraderAssignmentDetailsPage {
         await this.handleNoRubricStateIfPresent();
 
         // Locate the specific student row
-        const studentRow = this.page.locator('div, tr').filter({ hasText: studentEmail }).last();
-        await expect(studentRow).toBeVisible({ timeout: 30000 });
-        const actionButton = studentRow.locator('button, a').filter({ hasText: /View|Grade Now|Start Reviewing/i }).first();
+       // Find exact student email text (p tag) and then use its nearest table row.
+       const studentEmailText = this.page.getByText(studentEmail, { exact: true });
+       await expect(studentEmailText).toBeVisible({ timeout: 30000 });
+
+       const studentRow = studentEmailText.locator('xpath=ancestor::tr[1]');
+       await expect(studentRow).toBeVisible({ timeout: 30000 });
+       const actionButton = studentRow.getByText('View', { exact: true }).first();
 
         // Scroll and Click
         await expect(actionButton).toBeVisible({ timeout: 30000 });

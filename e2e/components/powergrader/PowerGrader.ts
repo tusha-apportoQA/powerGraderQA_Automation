@@ -1,5 +1,6 @@
 import { expect, Page } from '@playwright/test';
 import { PowerGraderCoursePage } from './pages/PowerGraderCoursePage';
+import { PowerGraderAssignmentDetailsPage } from './pages/PowerGraderAssignmentDetailsPage';
 import { PowerGraderGradingPage } from './pages/PowerGraderGradingPage';
 import { GradingSummary } from '../../types';
 
@@ -7,6 +8,7 @@ import { GradingSummary } from '../../types';
 export class PowerGrader {
     readonly page: Page;
     readonly coursePage: PowerGraderCoursePage;
+    readonly assignmentDetailsPage: PowerGraderAssignmentDetailsPage;
     readonly gradingPage: PowerGraderGradingPage;
 
     private static readonly POLL_INTERVAL_MS = 30_000;
@@ -14,6 +16,7 @@ export class PowerGrader {
     constructor(page: Page) {
         this.page = page;
         this.coursePage = new PowerGraderCoursePage(page);
+        this.assignmentDetailsPage = new PowerGraderAssignmentDetailsPage(page);
         this.gradingPage = new PowerGraderGradingPage(page);
     }
 
@@ -25,6 +28,15 @@ export class PowerGrader {
         const summary = await this.gradingPage.getGradingSummary();
         await this.gradingPage.clickPublishButton();
         return summary;
+    }
+
+    /**
+     * Opens a specific student's submission grading page by assignment and student email.
+     */
+    async openStudentSubmissionForAssignment(assignmentName: string, studentEmail: string): Promise<void> {
+        await this.syncCoursePageAndOpenAssignment(assignmentName);
+        await this.openStudentSubmissionFromAssignmentDetails(assignmentName, studentEmail);
+        await this.gradingPage.waitForLoad();
     }
 
     /** Open target assignment from course list. */
@@ -103,5 +115,21 @@ export class PowerGrader {
                 throw error;
             }
         }).toPass({ timeout: 180_000, intervals: [15_000] });
+    }
+
+    /** From assignment details, open the target student's submission by email. */
+    private async openStudentSubmissionFromAssignmentDetails(
+        assignmentName: string,
+        studentEmail: string
+    ): Promise<void> {
+        const interval = PowerGrader.POLL_INTERVAL_MS;
+        await expect(async () => {
+            console.log(
+                `[${assignmentName}] Assignment Details Sync: Looking for submission for ${studentEmail}...`
+            );
+            await this.page.reload({ waitUntil: 'networkidle' });
+            await this.assignmentDetailsPage.waitForLoad();
+            await this.assignmentDetailsPage.clickViewButtonForStudent(studentEmail);
+        }).toPass({ timeout: 600_000, intervals: [interval] });
     }
 }
