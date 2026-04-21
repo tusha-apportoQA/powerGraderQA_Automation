@@ -125,7 +125,8 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
           console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
           
           await runPGOrSkipOnTimeout(async () => {
-            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
+            //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
+            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, "canvas", teacherEdits);
           });
           
           console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);

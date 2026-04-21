@@ -10,6 +10,7 @@ const testCmds = {
     canvas: `npx playwright test -c ${cfg} e2e/features/canvas`,
     'canvas-quick': `npx playwright test -c ${cfg} e2e/features/canvas --grep "Short Accurate"`,
     d2l: `npx playwright test -c ${cfg} e2e/features/d2l`,
+    moodle: `npx playwright test -c ${cfg} e2e/features/moodle`,
 };
 
 const testCmd = testCmds[suite] || `npx playwright test -c ${cfg}`;
@@ -37,35 +38,20 @@ try {
 
         for (const file of resultFiles) {
             const data = JSON.parse(fs.readFileSync(path.join(resultsDir, file), 'utf-8'));
+
+            let lmsType = "Canvas"; // Default
+            const suiteLabel = (data.labels || []).find(l => l.name === 'suite' || l.name === 'parentSuite')?.value || "";
+            if (suiteLabel.toLowerCase().includes('moodle')) lmsType = "Moodle";
+            else if (suiteLabel.toLowerCase().includes('d2l')) lmsType = "D2L";
+
             for (const attachment of data.attachments ?? []) {
                 if (attachment.name === 'SBERT Drift Report') {
                     const attachPath = path.join(resultsDir, attachment.source);
                     if (fs.existsSync(attachPath)) {
                         const sbert = JSON.parse(fs.readFileSync(attachPath, 'utf-8'));
-                        
-                        // ✅ NORMALIZE DATA: Map everything to a stable nested structure
-                        /*detailedPattern = {
-                            student_file: sbert.fileName || sbert.student_file || "unknown",
-                            baseline: {
-                                instruction: sbert.baseline?.instruction || sbert.baselineInstruction || "N/A",
-                                totalScore: sbert.baseline?.totalScore || sbert.baseline?.total_score || sbert.baselineScore || 0,
-                                overallFeedback: sbert.baseline?.overallFeedback || sbert.baselineFeedback || "N/A",
-                                criteria: (sbert.baseline?.criteria || sbert.baselineCriteria || []).map(c => ({
-                                    name: c.name, score: c.score || c.points || 0, feedback: c.feedback || "N/A"
-                                }))
-                            },
-                            current: {
-                                instruction: sbert.current?.instruction || sbert.currentInstruction || "N/A",
-                                totalScore: sbert.current?.totalScore || sbert.current?.total_score || sbert.currentScore || 0,
-                                overallFeedback: sbert.current?.overallFeedback || sbert.currentFeedback || "N/A",
-                                criteria: (sbert.current?.criteria || sbert.currentCriteria || []).map(c => ({
-                                    name: c.name, score: c.score || c.points || 0, feedback: c.feedback || "N/A"
-                                }))
-                            },
-                            drift: { sbert_similarity: sbert.summary?.similarityScore || (1 - (sbert.summary?.maxConfidencePct / 100)) || 0 }
-                        };*/
-
                         detailedPattern = {
+                            run_date: new Date().toISOString(),
+                            lms: lmsType,
                             student_file: sbert.fileName || sbert.student_file || "unknown",
                             baseline: {
                                 instruction: sbert.baseline?.instruction || sbert.baselineInstruction || "N/A",
@@ -107,9 +93,9 @@ try {
                                 (sbert.current?.totalScore || sbert.current?.total_score || 0) -
                                 (sbert.baseline?.totalScore || sbert.baseline?.total_score || 0),
                             },
-                            };
-
-
+                        };
+                        const uid = `${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
+                        fs.writeFileSync(path.join(resultsDir, `latest-run-${uid}.json`), JSON.stringify(detailedPattern, null, 2));
                     }
                 }
             }
@@ -125,10 +111,10 @@ try {
     //execSync('npm run deploy-hub', { stdio: 'inherit' });
 }*/
 
-if (detailedPattern) {
+/*if (detailedPattern) {
     fs.writeFileSync(path.join(resultsDir, `latest-run-${Date.now()}.json`), JSON.stringify(detailedPattern, null, 2));
     console.log('📦 latest-run.json created from Allure results.');
-}
+}*/
 
 // 2. 🎯 ALWAYS DEPLOY: Move this outside the IF block
 console.log('🚀 Starting Sync and Deployment phase...');
@@ -145,7 +131,9 @@ if (fs.existsSync(resultsDir)) {
             }
         });
 }
-const deployCmd = "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";  
+execSync("node sync.js", { stdio: 'inherit' });
+//const deployCmd = "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";  
+const deployCmd = "npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";
 
 try {
     execSync(deployCmd, { stdio: 'inherit' });

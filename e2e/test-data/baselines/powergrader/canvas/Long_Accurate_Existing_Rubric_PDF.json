@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-04-17T22:01:04.068Z",
+  "snapshot": {
+    "totalScore": 5,
+    "criteria": [
+      {
+        "name": "REadability",
+        "score": 5,
+        "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+      },
+      {
+        "name": "Quality",
+        "score": 5,
+        "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

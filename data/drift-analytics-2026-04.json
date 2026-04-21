@@ -1,8 +1,301 @@
 [
   {
-    "run_date": "2026-04-16T04:14:26.759Z",
-    "student_file": "Long Accurate Existing Rubric PDF [1776312533791]",
-    "sbert_similarity": 0.8850914486073566,
+    "run_date": "2026-04-17T17:24:23.125Z",
+    "lms": "moodle",
+    "student_file": "Long Accurate Existing Rubric PDF [1776446094393]",
+    "sbert_similarity": 1,
+    "drift": {
+      "sbert_similarity": 1,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 0,
+          "feedback": "Your essay did not address the assignment topic, which required a discussion of technology's impact on daily life from multiple perspectives. For full credit, make sure to respond directly to the prompt and include the required analysis and examples."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 0,
+          "feedback": "Your essay did not address the assignment topic, which required a discussion of technology's impact on daily life from multiple perspectives. For full credit, make sure to respond directly to the prompt and include the required analysis and examples."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-17T17:38:59.708Z",
+    "lms": "moodle",
+    "student_file": "Short Inaccurate New Rubric TXT [1776446754977]",
+    "sbert_similarity": 1,
+    "drift": {
+      "sbert_similarity": 1,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 17,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        },
+        {
+          "name": "Organization",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 17,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        },
+        {
+          "name": "Organization",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-17T17:53:46.092Z",
+    "lms": "moodle",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776447627198]",
+    "sbert_similarity": 1,
+    "drift": {
+      "sbert_similarity": 1,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 2,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 2,
+          "feedback": "Your essay clearly presents a main idea about the impact of technology, concisely explains both its positive and negative aspects, and includes personal context for support, meeting all key expectations for this assignment."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 2,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 2,
+          "feedback": "Your essay clearly presents a main idea about the impact of technology, concisely explains both its positive and negative aspects, and includes personal context for support, meeting all key expectations for this assignment."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-17T19:24:08.956Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776453075469]",
+    "sbert_similarity": 1,
+    "drift": {
+      "sbert_similarity": 1,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-17T20:35:37.134Z",
+    "lms": "moodle",
+    "student_file": "Long Accurate Existing Rubric PDF [1776457385341]",
+    "sbert_similarity": 0.7304340883532983,
+    "drift": {
+      "sbert_similarity": 0.7304340883532983,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 0,
+          "feedback": "Your essay did not address the assignment topic, which required a discussion of technology's impact on daily life from multiple perspectives. For full credit, make sure to respond directly to the prompt and include the required analysis and examples."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 0,
+          "feedback": "Your essay is clear and informative about apples, but it does not address the assignment prompt on the impact of technology in daily life. Please be sure to carefully read and respond to the assignment instructions for future essays."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-17T20:50:31.993Z",
+    "lms": "moodle",
+    "student_file": "Short Inaccurate New Rubric TXT [1776458218647]",
+    "sbert_similarity": 0.3532253585562303,
+    "drift": {
+      "sbert_similarity": 0.3532253585562303,
+      "score_delta": 3
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 17,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        },
+        {
+          "name": "Organization",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 20,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 10,
+          "feedback": "You clearly addressed a relevant technology topic with accurate, real-world examples and demonstrated sound understanding throughout, fully meeting the expectations for this assignment."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 10,
+          "feedback": "You clearly addressed a relevant technology topic with accurate, real-world examples and demonstrated sound understanding throughout, fully meeting the expectations for this assignment."
+        },
+        {
+          "name": "Organization",
+          "score": 10,
+          "feedback": "You clearly addressed a relevant technology topic with accurate, real-world examples and demonstrated sound understanding throughout, fully meeting the expectations for this assignment."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-17T21:06:36.977Z",
+    "lms": "moodle",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776459112029]",
+    "sbert_similarity": 0.6315851526476527,
+    "drift": {
+      "sbert_similarity": 0.6315851526476527,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 2,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 2,
+          "feedback": "Your essay clearly presents a main idea about the impact of technology, concisely explains both its positive and negative aspects, and includes personal context for support, meeting all key expectations for this assignment."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 2,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 2,
+          "feedback": "Your response is clear, well-organized, and thoroughly addresses both positive and negative aspects of technology with accurate, relevant points, meeting all requirements for this early-course assignment."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-17T22:01:04.085Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1776462717688]",
+    "sbert_similarity": 1,
+    "drift": {
+      "sbert_similarity": 1,
+      "score_delta": 0
+    },
     "baseline": {
       "instruction": "N/A",
       "total_score": 5,
@@ -11,12 +304,12 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your essay is exceptionally clear and well-organized, featuring strong paragraph flow, logical progression, and flawless grammar, making it very easy and pleasant to read."
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your essay is exceptionally clear and well-organized, featuring strong paragraph flow, logical progression, and flawless grammar, making it very easy and pleasant to read."
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
         }
       ]
     },
@@ -28,34 +321,39 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your essay is exceptionally readable, with clear structure, logical organization, and smooth, error-free writing that makes your ideas easy to follow."
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your essay is exceptionally readable, with clear structure, logical organization, and smooth, error-free writing that makes your ideas easy to follow."
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
         }
       ]
     }
   },
   {
-    "run_date": "2026-04-16T04:24:11.912Z",
-    "student_file": "Short Inaccurate New Rubric TXT [1776312946926]",
-    "sbert_similarity": 0.39874210146481376,
+    "run_date": "2026-04-17T22:19:58.502Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1776463358384]",
+    "sbert_similarity": 1,
+    "drift": {
+      "sbert_similarity": 1,
+      "score_delta": 0
+    },
     "baseline": {
       "instruction": "N/A",
-      "total_score": 15,
+      "total_score": 12,
       "criterion_feedback": "No overall feedback recorded.",
       "criteria": [
         {
           "name": "Content Quality",
-          "score": 10,
-          "feedback": "Your submission clearly introduces a relevant tech topic and provides accurate, focused examples, but offering more analysis or deeper insight would make your content even stronger."
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
         },
         {
           "name": "Grammar and Style",
-          "score": 10,
-          "feedback": "Your submission clearly introduces a relevant tech topic and provides accurate, focused examples, but offering more analysis or deeper insight would make your content even stronger."
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
         }
       ]
     },
@@ -67,20 +365,25 @@
         {
           "name": "Content Quality",
           "score": 7,
-          "feedback": "Your response accurately covers key uses and benefits of technology with clear examples, but to achieve a higher score, aim to include deeper analysis of challenges or long-term effects."
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
         },
         {
           "name": "Grammar and Style",
           "score": 7,
-          "feedback": "Your response accurately covers key uses and benefits of technology with clear examples, but to achieve a higher score, aim to include deeper analysis of challenges or long-term effects."
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
         }
       ]
     }
   },
   {
-    "run_date": "2026-04-16T04:38:14.006Z",
-    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776313539423]",
-    "sbert_similarity": 0.868701362287289,
+    "run_date": "2026-04-17T22:37:15.192Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776464491741]",
+    "sbert_similarity": 0.8352063932824285,
+    "drift": {
+      "sbert_similarity": 0.8352063932824285,
+      "score_delta": 0
+    },
     "baseline": {
       "instruction": "N/A",
       "total_score": 10,
@@ -89,12 +392,12 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
         }
       ]
     },
@@ -106,20 +409,25 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of lists and clear sentences throughout."
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and smooth flow throughout. Excellent use of lists and concise sentences makes your essay highly readable—keep up the strong communication skills!"
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of lists and clear sentences throughout."
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with logical structure and smooth flow throughout. Excellent use of lists and concise sentences makes your essay highly readable—keep up the strong communication skills!"
         }
       ]
     }
   },
   {
-    "run_date": "2026-04-16T14:30:42.675Z",
-    "student_file": "Long Accurate Existing Rubric PDF [1776349111962]",
-    "sbert_similarity": 0.872336392283377,
+    "run_date": "2026-04-17T23:22:37.973Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1776467564698]",
+    "sbert_similarity": 0.861809805248239,
+    "drift": {
+      "sbert_similarity": 0.861809805248239,
+      "score_delta": 0
+    },
     "baseline": {
       "instruction": "N/A",
       "total_score": 5,
@@ -128,12 +436,12 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your essay is exceptionally clear and well-organized, featuring strong paragraph flow, logical progression, and flawless grammar, making it very easy and pleasant to read."
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your essay is exceptionally clear and well-organized, featuring strong paragraph flow, logical progression, and flawless grammar, making it very easy and pleasant to read."
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
         }
       ]
     },
@@ -145,34 +453,39 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your essay is exceptionally easy to read and follow, with clear organization, concise sentences, and logical transitions throughout. The use of headings and focused paragraphs further enhances the overall readability."
+          "feedback": "Your essay is exceptionally well-organized and easy to follow, with clear section headings, logical progression of ideas, and error-free language throughout, making it highly readable."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your essay is exceptionally easy to read and follow, with clear organization, concise sentences, and logical transitions throughout. The use of headings and focused paragraphs further enhances the overall readability."
+          "feedback": "Your essay is exceptionally well-organized and easy to follow, with clear section headings, logical progression of ideas, and error-free language throughout, making it highly readable."
         }
       ]
     }
   },
   {
-    "run_date": "2026-04-16T14:47:37.364Z",
-    "student_file": "Short Inaccurate New Rubric TXT [1776349932403]",
-    "sbert_similarity": 0.4621726998352434,
+    "run_date": "2026-04-17T23:36:53.690Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1776468242813]",
+    "sbert_similarity": 0.7305309160117786,
+    "drift": {
+      "sbert_similarity": 0.7305309160117786,
+      "score_delta": 0
+    },
     "baseline": {
       "instruction": "N/A",
-      "total_score": 15,
+      "total_score": 12,
       "criterion_feedback": "No overall feedback recorded.",
       "criteria": [
         {
           "name": "Content Quality",
-          "score": 10,
-          "feedback": "Your submission clearly introduces a relevant tech topic and provides accurate, focused examples, but offering more analysis or deeper insight would make your content even stronger."
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
         },
         {
           "name": "Grammar and Style",
-          "score": 10,
-          "feedback": "Your submission clearly introduces a relevant tech topic and provides accurate, focused examples, but offering more analysis or deeper insight would make your content even stronger."
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
         }
       ]
     },
@@ -184,20 +497,25 @@
         {
           "name": "Content Quality",
           "score": 7,
-          "feedback": "Your piece is clear, relevant, and includes accurate examples of technology's impact, but to earn a higher score, aim for deeper analysis or discussion of challenges and long-term effects."
+          "feedback": "Your response is clearly focused on technology, provides specific accurate examples, and stays on topic; to improve your content quality score, include deeper analysis of technology’s challenges or long-term effects."
         },
         {
           "name": "Grammar and Style",
           "score": 7,
-          "feedback": "Your piece is clear, relevant, and includes accurate examples of technology's impact, but to earn a higher score, aim for deeper analysis or discussion of challenges and long-term effects."
+          "feedback": "Your response is clearly focused on technology, provides specific accurate examples, and stays on topic; to improve your content quality score, include deeper analysis of technology’s challenges or long-term effects."
         }
       ]
     }
   },
   {
-    "run_date": "2026-04-16T15:01:07.775Z",
-    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776350969518]",
-    "sbert_similarity": 0.8304983609365572,
+    "run_date": "2026-04-17T23:49:25.128Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776469106572]",
+    "sbert_similarity": 0.8703609405760808,
+    "drift": {
+      "sbert_similarity": 0.8703609405760808,
+      "score_delta": 0
+    },
     "baseline": {
       "instruction": "N/A",
       "total_score": 10,
@@ -206,12 +524,12 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
         }
       ]
     },
@@ -223,98 +541,25 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your writing is clear, well-organized, and easy to follow, with a logical structure, clear sections, and effective transitions that make your essay coherent throughout."
+          "feedback": "Your essay is exceptionally easy to read, with clear organization, good use of bullet points, and concise, well-structured sentences. There are no major grammatical or formatting issues, and your ideas flow logically from start to finish."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your writing is clear, well-organized, and easy to follow, with a logical structure, clear sections, and effective transitions that make your essay coherent throughout."
+          "feedback": "Your essay is exceptionally easy to read, with clear organization, good use of bullet points, and concise, well-structured sentences. There are no major grammatical or formatting issues, and your ideas flow logically from start to finish."
         }
       ]
     }
   },
   {
-    "run_date": "2026-04-16T17:05:04.355Z",
-    "student_file": "Long Accurate Existing Rubric PDF [1776358299359]",
-    "sbert_similarity": 0.9039770528203263,
-    "baseline": {
-      "instruction": "N/A",
-      "total_score": 5,
-      "criterion_feedback": "No overall feedback recorded.",
-      "criteria": [
-        {
-          "name": "REadability",
-          "score": 5,
-          "feedback": "Your essay is exceptionally clear and well-organized, featuring strong paragraph flow, logical progression, and flawless grammar, making it very easy and pleasant to read."
-        },
-        {
-          "name": "Quality",
-          "score": 5,
-          "feedback": "Your essay is exceptionally clear and well-organized, featuring strong paragraph flow, logical progression, and flawless grammar, making it very easy and pleasant to read."
-        }
-      ]
+    "run_date": "2026-04-18T00:44:53.495Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776472285314]",
+    "sbert_similarity": 0.9023668221259759,
+    "drift": {
+      "sbert_similarity": 0.9023668221259759,
+      "score_delta": 0
     },
-    "current": {
-      "instruction": "N/A",
-      "total_score": 5,
-      "criterion_feedback": "No overall feedback recorded.",
-      "criteria": [
-        {
-          "name": "REadability",
-          "score": 5,
-          "feedback": "Your essay is exceptionally well-organized, clearly written, and flows smoothly from introduction to conclusion, with strong grammar and clear sentence structure throughout."
-        },
-        {
-          "name": "Quality",
-          "score": 5,
-          "feedback": "Your essay is exceptionally well-organized, clearly written, and flows smoothly from introduction to conclusion, with strong grammar and clear sentence structure throughout."
-        }
-      ]
-    }
-  },
-  {
-    "run_date": "2026-04-16T17:20:13.077Z",
-    "student_file": "Short Inaccurate New Rubric TXT [1776359197048]",
-    "sbert_similarity": 0.4712045742783319,
-    "baseline": {
-      "instruction": "N/A",
-      "total_score": 15,
-      "criterion_feedback": "No overall feedback recorded.",
-      "criteria": [
-        {
-          "name": "Content Quality",
-          "score": 10,
-          "feedback": "Your submission clearly introduces a relevant tech topic and provides accurate, focused examples, but offering more analysis or deeper insight would make your content even stronger."
-        },
-        {
-          "name": "Grammar and Style",
-          "score": 10,
-          "feedback": "Your submission clearly introduces a relevant tech topic and provides accurate, focused examples, but offering more analysis or deeper insight would make your content even stronger."
-        }
-      ]
-    },
-    "current": {
-      "instruction": "N/A",
-      "total_score": 12,
-      "criterion_feedback": "No overall feedback recorded.",
-      "criteria": [
-        {
-          "name": "Content Quality",
-          "score": 7,
-          "feedback": "Your work is clear, concise, and relevant, providing good examples of technology's impact, but you can improve content quality by offering more depth or analysis beyond listing benefits."
-        },
-        {
-          "name": "Grammar and Style",
-          "score": 7,
-          "feedback": "Your work is clear, concise, and relevant, providing good examples of technology's impact, but you can improve content quality by offering more depth or analysis beyond listing benefits."
-        }
-      ]
-    }
-  },
-  {
-    "run_date": "2026-04-16T17:38:11.454Z",
-    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776360107482]",
-    "sbert_similarity": 0.6803845230204135,
     "baseline": {
       "instruction": "N/A",
       "total_score": 10,
@@ -323,12 +568,12 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
         }
       ]
     },
@@ -340,90 +585,12 @@
         {
           "name": "REadability",
           "score": 5,
-          "feedback": "Your writing is clear, well-organized, and easy to read, with strong sentence structure and effective use of formatting to enhance accessibility."
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with effective use of bullet points and smooth transitions that make your points easy to understand. Excellent job maintaining strong readability throughout your essay."
         },
         {
           "name": "Quality",
           "score": 5,
-          "feedback": "Your writing is clear, well-organized, and easy to read, with strong sentence structure and effective use of formatting to enhance accessibility."
-        }
-      ]
-    }
-  },
-  {
-    "run_date": "2026-04-16T18:19:00.680Z",
-    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776362782567]",
-    "sbert_similarity": 0.7311391283136922,
-    "baseline": {
-      "instruction": "N/A",
-      "total_score": 10,
-      "criterion_feedback": "No overall feedback recorded.",
-      "criteria": [
-        {
-          "name": "REadability",
-          "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
-        },
-        {
-          "name": "Quality",
-          "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
-        }
-      ]
-    },
-    "current": {
-      "instruction": "N/A",
-      "total_score": 10,
-      "criterion_feedback": "No overall feedback recorded.",
-      "criteria": [
-        {
-          "name": "REadability",
-          "score": 5,
-          "feedback": "Your writing is clear, well-organized from introduction to conclusion, and your use of bullet points makes your ideas easy to follow—excellent readability throughout."
-        },
-        {
-          "name": "Quality",
-          "score": 5,
-          "feedback": "Your writing is clear, well-organized from introduction to conclusion, and your use of bullet points makes your ideas easy to follow—excellent readability throughout."
-        }
-      ]
-    }
-  },
-  {
-    "run_date": "2026-04-16T19:30:39.278Z",
-    "student_file": "Short Inaccurate Existing Rubric Text Entry [1776367003177]",
-    "sbert_similarity": 0.8780605477764284,
-    "baseline": {
-      "instruction": "N/A",
-      "total_score": 10,
-      "criterion_feedback": "No overall feedback recorded.",
-      "criteria": [
-        {
-          "name": "REadability",
-          "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
-        },
-        {
-          "name": "Quality",
-          "score": 5,
-          "feedback": "Your essay is very clear, well-organized, and easy to read, with a logical flow, effective use of bullet points, and no language issues to hinder understanding. Well done!"
-        }
-      ]
-    },
-    "current": {
-      "instruction": "N/A",
-      "total_score": 10,
-      "criterion_feedback": "No overall feedback recorded.",
-      "criteria": [
-        {
-          "name": "REadability",
-          "score": 5,
-          "feedback": "Your essay is very clearly written, with excellent organization, clear structure, and smooth flow from introduction to conclusion, making it easy to read and understand."
-        },
-        {
-          "name": "Quality",
-          "score": 5,
-          "feedback": "Your essay is very clearly written, with excellent organization, clear structure, and smooth flow from introduction to conclusion, making it easy to read and understand."
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with effective use of bullet points and smooth transitions that make your points easy to understand. Excellent job maintaining strong readability throughout your essay."
         }
       ]
     }

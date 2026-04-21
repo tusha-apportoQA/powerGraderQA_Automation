@@ -1,0 +1,14 @@
+{
+  "createdAt": "2026-04-17T17:53:46.082Z",
+  "snapshot": {
+    "totalScore": 2,
+    "criteria": [
+      {
+        "name": "Criteria 1 test",
+        "score": 2,
+        "feedback": "Your essay clearly presents a main idea about the impact of technology, concisely explains both its positive and negative aspects, and includes personal context for support, meeting all key expectations for this assignment."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

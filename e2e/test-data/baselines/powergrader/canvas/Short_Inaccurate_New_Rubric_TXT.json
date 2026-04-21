@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-04-17T22:19:58.491Z",
+  "snapshot": {
+    "totalScore": 12,
+    "criteria": [
+      {
+        "name": "Content Quality",
+        "score": 7,
+        "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+      },
+      {
+        "name": "Grammar and Style",
+        "score": 7,
+        "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

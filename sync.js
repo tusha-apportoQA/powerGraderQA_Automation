@@ -348,11 +348,25 @@
                                 ? latest.drift.sbert_similarity 
                                 : (latest.sbertSimilarity ?? 0);
 
-                            const newEntry = {
+                            /*const newEntry = {
                             // run_date: latest.run_date || new Date().toISOString(),
                                 run_date: latest.run_date || new Date().toLocaleString(),
                                 student_file: latest.student_file || latest.uniqueTitle || "Unknown File",
                                 sbert_similarity: sbertValue,
+                                baseline: latest.baseline || {},
+                                current: latest.current || {}
+                            };*/
+
+                            const newEntry = {
+                                run_date: latest.run_date || new Date().toISOString(),
+                                lms: latest.lms || "Canvas", // 👈 ADD THIS LINE
+                                student_file: latest.student_file || latest.uniqueTitle || "Unknown File",
+                                sbert_similarity: sbertValue,
+                                // 🎯 ADD THE DRIFT OBJECT FOR THE DASHBOARD
+                                drift: latest.drift || { 
+                                    sbert_similarity: sbertValue, 
+                                    score_delta: (latest.current?.total_score || 0) - (latest.baseline?.total_score || 0) 
+                                },
                                 baseline: latest.baseline || {},
                                 current: latest.current || {}
                             };

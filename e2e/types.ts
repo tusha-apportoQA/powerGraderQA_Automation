@@ -163,13 +163,14 @@ export interface D2LAssignmentConfig {
 
 // Moodle-specific assignment config
 export interface MoodleAssignmentConfig {
-  title: string;
+title: string;
   description?: string;
   points?: number;
   submissionType?: FormatType;
   courseName?: string;
-  assignAccess?: CanvasAssignmentData;  // Reuse CanvasAssignmentData for date/student assignment
+  assignAccess?: CanvasAssignmentData;  
   rubric?: MoodleRubricConfig;
+  teacherEdits?: CriterionEditEntry[];
 }
 
 // Legacy type for backward compatibility

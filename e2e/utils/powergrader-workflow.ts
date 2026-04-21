@@ -18,9 +18,11 @@ function writeLatestRunJson(params: {
   baselineSnapshot: any;
   currentSnapshot: any;
   sbertSimilarity?: number;
+  lms?: string;
 }) {
   const out = {
     run_date: new Date().toISOString(),
+    lms: params.lms || "Canvas",
     student_file: params.uniqueTitle || params.assignmentKey,
     baseline: {
       instruction: params.baselineSnapshot?.instruction || "N/A",
@@ -60,14 +62,17 @@ export async function executeUniversalPGWorkflow(
     uniqueTitle: string, 
     studentEmail: string,
     baselineKey: string,
+    lms: string = "canvas",
     teacherEdits?: TeacherEditConfig // Preserved from merge
 ) {
     const assignmentKey = uniqueTitle.replace(/\s*\[\d+\]\s*$/, "").trim();
 
     //const baselineData = loadBaseline(assignmentKey);
     //const baselineSnapshot = baselineData?.snapshot || null;
-    const baselineData = baselineExists(assignmentKey) ? loadBaseline(assignmentKey) : null;
+    //const baselineData = baselineExists(assignmentKey) ? loadBaseline(assignmentKey) : null;
+    const baselineData = baselineExists(assignmentKey, lms) ? loadBaseline(assignmentKey, lms) : null;
     const baselineSnapshot = baselineData?.snapshot || null;
+   //const baselineSnapshot = baselineData?.snapshot || null;
     console.log("BASELINE KEY:", assignmentKey);
     const startTime = Date.now();
     const INTERVAL = 30000; 
@@ -155,6 +160,7 @@ export async function executeUniversalPGWorkflow(
                 overallFeedback: "AI grading timed out after 15 minutes." 
             },
             sbertSimilarity: 0,
+            lms,
         });
 
         console.error(`\n❌ [TIMEOUT ERROR] AI grading for "${uniqueTitle}" failed within 15 mins.`);
@@ -275,6 +281,7 @@ export async function executeUniversalPGWorkflow(
             baselineSnapshot,
             currentSnapshot,
             sbertSimilarity: 0,
+            lms,
         });
         throw compareError;
     }
@@ -287,6 +294,7 @@ export async function executeUniversalPGWorkflow(
         baselineSnapshot,
         currentSnapshot,
         sbertSimilarity: sbertScore,
+        lms,
     });
 
     const DRIFT_THRESHOLD = 85;
@@ -310,7 +318,7 @@ export async function executeUniversalPGWorkflow(
         console.log(`[${uniqueTitle}] No baseline found. SEEDING current run as new Golden Baseline.`);
         
         // This line creates the physical file on your disk
-        createBaseline(assignmentKey, currentSnapshot); 
+        createBaseline(assignmentKey, currentSnapshot, lms); 
 
         writeLatestRunJson({
             uniqueTitle,
@@ -318,6 +326,7 @@ export async function executeUniversalPGWorkflow(
             baselineSnapshot: currentSnapshot, 
             currentSnapshot: currentSnapshot,
             sbertSimilarity: 1,
+            lms,
         });
     }
 

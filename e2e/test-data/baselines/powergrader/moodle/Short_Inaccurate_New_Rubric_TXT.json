@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-04-17T17:38:59.693Z",
+  "snapshot": {
+    "totalScore": 17,
+    "criteria": [
+      {
+        "name": "Content Quality",
+        "score": 7,
+        "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+      },
+      {
+        "name": "Grammar and Style",
+        "score": 7,
+        "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+      },
+      {
+        "name": "Organization",
+        "score": 7,
+        "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

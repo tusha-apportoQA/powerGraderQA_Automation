@@ -1,0 +1,14 @@
+{
+  "createdAt": "2026-04-17T17:24:23.094Z",
+  "snapshot": {
+    "totalScore": 0,
+    "criteria": [
+      {
+        "name": "Criteria 1 test",
+        "score": 0,
+        "feedback": "Your essay did not address the assignment topic, which required a discussion of technology's impact on daily life from multiple perspectives. For full credit, make sure to respond directly to the prompt and include the required analysis and examples."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

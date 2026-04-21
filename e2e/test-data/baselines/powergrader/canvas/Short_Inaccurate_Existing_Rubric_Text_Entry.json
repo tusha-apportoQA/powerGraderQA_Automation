@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-04-17T19:24:08.915Z",
+  "snapshot": {
+    "totalScore": 10,
+    "criteria": [
+      {
+        "name": "REadability",
+        "score": 5,
+        "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+      },
+      {
+        "name": "Quality",
+        "score": 5,
+        "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

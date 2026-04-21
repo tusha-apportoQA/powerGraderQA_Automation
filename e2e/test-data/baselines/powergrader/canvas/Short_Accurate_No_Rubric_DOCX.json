@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-04-17T21:50:20.075Z",
+  "snapshot": {
+    "totalScore": 71,
+    "criteria": [
+      {
+        "name": "Accuracy of Content",
+        "score": 20,
+        "feedback": "Your essay mentions relevant areas where technology has an impact and avoids inaccuracies, but lacks specific examples and detailed evidence; adding precise examples next time will strengthen your work."
+      },
+      {
+        "name": "Adherence to Essay Format and Brevity",
+        "score": 20,
+        "feedback": "Your essay mentions relevant areas where technology has an impact and avoids inaccuracies, but lacks specific examples and detailed evidence; adding precise examples next time will strengthen your work."
+      },
+      {
+        "name": "Grammar, Spelling, and Mechanics",
+        "score": 20,
+        "feedback": "Your essay mentions relevant areas where technology has an impact and avoids inaccuracies, but lacks specific examples and detailed evidence; adding precise examples next time will strengthen your work."
+      },
+      {
+        "name": "Logical Organization and Coherence",
+        "score": 20,
+        "feedback": "Your essay mentions relevant areas where technology has an impact and avoids inaccuracies, but lacks specific examples and detailed evidence; adding precise examples next time will strengthen your work."
+      },
+      {
+        "name": "Precision and Clarity of Language",
+        "score": 20,
+        "feedback": "Your essay mentions relevant areas where technology has an impact and avoids inaccuracies, but lacks specific examples and detailed evidence; adding precise examples next time will strengthen your work."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

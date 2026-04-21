@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-04-17T20:21:41.732Z",
+  "snapshot": {
+    "totalScore": 70,
+    "criteria": [
+      {
+        "name": "Accuracy of Content",
+        "score": 17,
+        "feedback": "Your essay accurately identifies several key areas influenced by technology, but to improve your score, you should support your claims with examples or further explanation of technology's impact."
+      },
+      {
+        "name": "Adherence to Assignment Brief",
+        "score": 17,
+        "feedback": "Your essay accurately identifies several key areas influenced by technology, but to improve your score, you should support your claims with examples or further explanation of technology's impact."
+      },
+      {
+        "name": "Clarity and Precision of Expression",
+        "score": 17,
+        "feedback": "Your essay accurately identifies several key areas influenced by technology, but to improve your score, you should support your claims with examples or further explanation of technology's impact."
+      },
+      {
+        "name": "Coherence and Organization",
+        "score": 17,
+        "feedback": "Your essay accurately identifies several key areas influenced by technology, but to improve your score, you should support your claims with examples or further explanation of technology's impact."
+      },
+      {
+        "name": "Minor Stylistic and Mechanical Quality",
+        "score": 17,
+        "feedback": "Your essay accurately identifies several key areas influenced by technology, but to improve your score, you should support your claims with examples or further explanation of technology's impact."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}
