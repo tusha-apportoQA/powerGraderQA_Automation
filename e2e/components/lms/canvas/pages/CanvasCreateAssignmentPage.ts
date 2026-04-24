@@ -19,6 +19,7 @@ export class CanvasCreateAssignmentPage {
     saveButton: Locator;
     saveAndPublishButton: Locator;
     assignWarningDialog: Locator;
+    assignWarningText: Locator;
     assignWarningContinueButton: Locator;
 
     constructor(page: Page) {
@@ -38,8 +39,9 @@ export class CanvasCreateAssignmentPage {
         this.addAssignmentCardButton = page.getByTestId('add-card');
         this.saveButton = page.getByRole('button', { name: 'Save' });
         this.saveAndPublishButton = page.locator('button.save_and_publish');
-        this.assignWarningDialog = page.locator('.ui-dialog:has-text("Not everyone will be assigned this item!")');
-        this.assignWarningContinueButton = page.locator('.ui-dialog-buttonpane button:has-text("Continue")');
+        this.assignWarningDialog = page.getByRole('dialog', { name: 'Warning' });
+        this.assignWarningText = this.assignWarningDialog.getByText('Not everyone will be assigned this item!', { exact: true });
+        this.assignWarningContinueButton = this.assignWarningDialog.getByRole('button', { name: /Continue|Save(\s+and)?\s+Publish|Publish|OK/i }).first();
     }
 
     async waitForLoad(): Promise<void> {
@@ -85,7 +87,8 @@ export class CanvasCreateAssignmentPage {
 
         try {
             await expect(this.assignWarningDialog).toBeVisible({ timeout: 3000 });
-            await expect(this.assignWarningContinueButton).toBeVisible();
+            await expect(this.assignWarningText).toBeVisible({ timeout: 5000 });
+            await expect(this.assignWarningContinueButton).toBeVisible({ timeout: 5000 });
             await this.assignWarningContinueButton.click();
             await this.page.waitForTimeout(500);
         } catch (error) {
