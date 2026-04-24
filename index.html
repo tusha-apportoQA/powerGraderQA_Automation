@@ -173,7 +173,7 @@
                 // Always load all available months into monthlyData
                 monthlyData = [];
                 const now = new Date();
-                for (let i = 0; i < 6; i++) {
+                for (let i = 0; i < 3; i++) {
                     const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
                     const month = d.toISOString().slice(0, 7);
                     try {
@@ -238,16 +238,20 @@
             } else {
                 const uniqueFilesMap = new Map();
                 indexedData.forEach((entry) => {
-                    const baseName = entry.student_file.replace(/\s*\[\d+\]\s*$/, "").trim();
-                    //const existing = uniqueFilesMap.get(baseName);
-                   // if (!uniqueFilesMap.has(baseName)) {  // first hit = newest, so just skip dupes
-                  // if (!existing || new Date(entry.run_date) > new Date(existing.run_date)) {
-                  const existing = uniqueFilesMap.get(baseName);
-                  //if (!uniqueFilesMap.has(baseName)) {
-                  if (!existing || new Date(entry.run_date) > new Date(existing.run_date)) {
+                    /*const baseName = entry.student_file.replace(/\s*\[\d+\]\s*$/, "").trim();
+                    const existing = uniqueFilesMap.get(baseName);
+                    //if (!uniqueFilesMap.has(baseName)) {
+                    if (!existing || new Date(entry.run_date) > new Date(existing.run_date)) {
                         uniqueFilesMap.set(baseName, entry);
-                    //}
-                   }
+                        
+                    }*/
+                    const baseName = entry.student_file.replace(/\s*\[\d+\]\s*$/, "").trim();
+                    const dedupeKey = `${entry.lms || 'canvas'}_${baseName}`;
+                    const existing = uniqueFilesMap.get(dedupeKey);
+                    if (!existing || new Date(entry.run_date) > new Date(existing.run_date)) {
+                        uniqueFilesMap.set(dedupeKey, entry);
+        
+                    }
                 });
                 displayData = Array.from(uniqueFilesMap.values());
             }

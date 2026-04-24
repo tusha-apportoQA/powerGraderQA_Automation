@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-04-22T19:27:13.897Z",
+  "snapshot": {
+    "totalScore": 30,
+    "criteria": [
+      {
+        "name": "Clarity and Precision of Language",
+        "score": 15,
+        "feedback": "Your writing is clear and understandable, but it uses basic vocabulary and sentence structures that limit precision. To improve your clarity and effectiveness, try incorporating more specific language and varied sentence structures."
+      },
+      {
+        "name": "Content Accuracy and Relevance",
+        "score": 0,
+        "feedback": "Your submission did not address technology's impact in biology or provide specific biology-related examples, which was required for this assignment. In the future, focus on discussing a technology's effect within a biological context to meet the assignment's requirements."
+      },
+      {
+        "name": "Essay Focus and Organization",
+        "score": 0,
+        "feedback": "Your essay does not address the required topic of technology's impact in biology and lacks clear organization, with no effective introduction, body, or conclusion. For future assignments, be sure to stay focused on the prompt and structure your essay with a clear introduction, body, and conclusion related to the assigned topic."
+      },
+      {
+        "name": "Grammar, Spelling, and Mechanics",
+        "score": 10,
+        "feedback": "Your writing is free of grammar, spelling, and punctuation errors, making your work clear and easy to read—excellent job on your mechanics!"
+      },
+      {
+        "name": "Style and Professionalism",
+        "score": 5,
+        "feedback": "Your essay maintains a formal tone and is generally organized, but the use of a markdown-style header and lack of standard essay formatting impacted the overall professionalism. For future assignments, follow typical academic formatting guidelines to further polish your presentation."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

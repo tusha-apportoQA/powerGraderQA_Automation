@@ -1,0 +1,29 @@
+{
+  "createdAt": "2026-04-22T19:37:11.334Z",
+  "snapshot": {
+    "totalScore": 11,
+    "criteria": [
+      {
+        "name": "Content Quality",
+        "score": 4,
+        "feedback": "Your submission describes technology in general terms but does not address how technology impacts biology, which was required by the assignment. For full credit, be sure to discuss technology’s role specifically in biological contexts next time."
+      },
+      {
+        "name": "Writing Mechanics",
+        "score": 0,
+        "feedback": "Your writing is clear, concise, and completely free of grammar, spelling, or style errors—excellent work maintaining perfect mechanics throughout."
+      },
+      {
+        "name": "Organization",
+        "score": 3,
+        "feedback": "Your essay presents a recognizable topic and some logical development, but the organization is weak, lacking distinct sections and a clear conclusion. Structuring your essay with a clearer introduction, body, and conclusion would improve its flow and clarity."
+      },
+      {
+        "name": "Research and Citations",
+        "score": 4,
+        "feedback": "You did not include any research or citations to support your statements, which resulted in major citation problems per the rubric. In future assignments, be sure to reference at least one credible source and format your citations correctly to improve your score."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

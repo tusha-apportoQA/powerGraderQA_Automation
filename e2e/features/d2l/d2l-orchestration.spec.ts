@@ -8,6 +8,7 @@ import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submis
 import { getD2LConfig } from '../../config/d2l.config';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
+import { TeacherEditConfig } from '../../types';
 
 /**
  * Poll until the student can open the assignment details page.
@@ -145,13 +146,18 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
           console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
 
           // Define teacher edits from config
-          const teacherEdits = assignmentConfig.teacherEdits?.length
+          /*const teacherEdits = assignmentConfig.teacherEdits?.length
             ? { criteria: assignmentConfig.teacherEdits }
-            : undefined;
+            : undefined;*/
+          const teacherEdits: TeacherEditConfig | undefined = assignmentConfig.teacherEdits?.length
+            ? { criteria: assignmentConfig.teacherEdits }
+            : undefined
 
           // Use the timeout wrapper to ensure JSON is written even on hang
           await runPGOrSkipOnTimeout(async () => {
-            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
+            //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
+            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, "d2l", teacherEdits);
+
           });
 
           console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);

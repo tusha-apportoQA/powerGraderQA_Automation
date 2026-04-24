@@ -22,9 +22,20 @@ function clean(dir) {
 }
 
 // Only run tests if suite is explicitly provided
-if (suite) {
+/*if (suite) {
     clean('allure-results');
     clean('allure-report');
+    try {
+        execSync(testCmd, { stdio: 'inherit' });
+    } catch (e) { console.log('⚠️ Tests completed with failures.'); }
+}*/
+
+if (suite) {
+    const isFirstRun = process.env.FIRST_RUN !== 'false';
+    if (isFirstRun) {
+        clean('allure-results');
+        clean('allure-report');
+    }
     try {
         execSync(testCmd, { stdio: 'inherit' });
     } catch (e) { console.log('⚠️ Tests completed with failures.'); }

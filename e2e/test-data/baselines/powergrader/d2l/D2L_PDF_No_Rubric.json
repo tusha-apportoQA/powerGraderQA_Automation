@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-04-22T23:05:19.099Z",
+  "snapshot": {
+    "totalScore": 44,
+    "criteria": [
+      {
+        "name": "Clarity and Organization",
+        "score": 25,
+        "feedback": "Your essay is exceptionally well organized, with a clear introduction, well-structured body sections, and a strong conclusion, all of which make the flow and progression of your ideas easy to follow."
+      },
+      {
+        "name": "Content Relevance and Accuracy",
+        "score": 5,
+        "feedback": "Your essay includes accurate information about apples, but it does not respond to the essay prompt about the impact of technology in daily life; be sure to directly address the assigned topic and provide relevant examples in future submissions."
+      },
+      {
+        "name": "Critical Analysis and Insight",
+        "score": 4,
+        "feedback": "Your essay focuses on describing apples rather than analyzing the impact of technology in daily life, resulting in no relevant analysis or insight for the assigned topic. To improve, be sure to address the given prompt and provide thoughtful evaluation of technology’s effects."
+      },
+      {
+        "name": "Effort and Completion",
+        "score": 0,
+        "feedback": "Although your essay is well-structured and complete, it did not address the assigned topic about the impact of technology in daily life. To receive full credit, please make sure to carefully follow and respond to the assignment instructions."
+      },
+      {
+        "name": "Writing Mechanics and Grammar",
+        "score": 10,
+        "feedback": "Your writing is clear, professional, and free of noticeable spelling, grammar, or punctuation errors, making your essay highly readable. Excellent job maintaining strong mechanics throughout your work."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

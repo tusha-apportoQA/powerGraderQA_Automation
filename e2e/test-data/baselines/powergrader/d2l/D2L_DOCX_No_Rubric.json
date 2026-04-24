@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-04-22T19:13:55.767Z",
+  "snapshot": {
+    "totalScore": 59,
+    "criteria": [
+      {
+        "name": "Adherence to Assignment Instructions",
+        "score": 2,
+        "feedback": "You addressed the main topic and included a relevant title, but your essay was much too short and did not address the required focus on accuracy and precision. To improve, make sure to meet the length expectation and include all parts of the prompt in future essays."
+      },
+      {
+        "name": "Clarity and Coherence of Ideas",
+        "score": 24,
+        "feedback": "Your essay is clear and easy to follow, with ideas presented in a logical order. To improve, work on adding smoother transitions and further developing your points to enhance overall coherence."
+      },
+      {
+        "name": "Content Accuracy and Precision",
+        "score": 13,
+        "feedback": "Your essay accurately describes technology's use in daily life but does not address its impact on biology as required; be sure to discuss technology's role in areas like medicine, biotechnology, or biology in the future to improve your score."
+      },
+      {
+        "name": "Essay Organization and Structure",
+        "score": 5,
+        "feedback": "Your essay has a clear topic and brief introduction, but lacks developed body paragraphs and a conclusion, so the structure isn't complete. For a stronger score, organize your essay into a distinct introduction, more detailed body paragraphs, and a concluding section."
+      },
+      {
+        "name": "Grammar, Syntax, and Style",
+        "score": 15,
+        "feedback": "Your writing features polished grammar, clear sentence structure, correct punctuation, and a professional academic tone throughout—excellent work meeting college-level standards for language and style."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}
