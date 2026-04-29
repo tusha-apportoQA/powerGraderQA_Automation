@@ -21,7 +21,7 @@ export class PowerGraderCoursePage {
         await expect(assignmentText).toBeVisible({ timeout: 30000 });
         
         const tableRow = assignmentText.locator('xpath=ancestor::tr').first();
-        const viewButton = tableRow.getByRole('button', { name: 'View' }).first();
+        const viewButton = tableRow.getByRole('button', { name: 'View details' }).first();
         
         await expect(viewButton).toBeVisible({ timeout: 10000 });
         

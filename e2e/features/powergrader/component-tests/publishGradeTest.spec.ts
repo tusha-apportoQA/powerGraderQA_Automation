@@ -38,7 +38,7 @@ test.describe('Component Test: Grading and Publishing', () => {
         await powerGraderCoursePage.waitForLoad();
         await powerGraderCoursePage.expectCoursePageLoaded();
         
-        // Use a regex to catch 'View' or 'Grade Now' at the course level
+        // Use a regex to catch 'View details' or 'Grade Now' at the course level
         const assignmentRow = powerGraderPage.locator('tr, div[role="row"]').filter({ hasText: config.title }).last();
         await assignmentRow.locator('button, a').filter({ hasText: /View|Grade Now/i }).first().click();
 
@@ -65,11 +65,11 @@ test.describe('Component Test: Grading and Publishing', () => {
                 throw new Error('Rubric generation triggered. Waiting for AI processing...');
             }
 
-            // 2. Check for the Final 'View' State
+            // 2. Check for the Final 'View details' State
             const studentRow = powerGraderPage.locator('div, tr').filter({ hasText: studentEmail }).last();
-            const viewButton = studentRow.getByRole('button', { name: 'View', exact: true });
+            const viewButton = studentRow.getByRole('button', { name: 'View details', exact: true });
             
-            console.log(`[${config.title}] Checking for 'View' button status...`);
+            console.log(`[${config.title}] Checking for 'View details' button status...`);
             await test.expect(viewButton).toBeVisible({ timeout: 5000 });
         }).toPass({ 
             intervals: [30000], 

@@ -30,9 +30,30 @@ function clean(dir) {
     } catch (e) { console.log('⚠️ Tests completed with failures.'); }
 }*/
 
+/*if (suite) {
+    const isFirstRun = process.env.FIRST_RUN !== 'false';
+    if (isFirstRun) {
+        clean('allure-results');
+        clean('allure-report');
+    }
+    try {
+        execSync(testCmd, { stdio: 'inherit' });
+    } catch (e) { console.log('⚠️ Tests completed with failures.'); }
+}*/
 if (suite) {
     const isFirstRun = process.env.FIRST_RUN !== 'false';
     if (isFirstRun) {
+        // Backup allure history before cleaning
+        const historyDir = path.join(__dirname, 'allure-report', 'history');
+        //const historyBackup = path.join(__dirname, 'allure-history-backup');
+        const permanentHistory = path.join(__dirname, 'allure-history-permanent');
+
+        if (fs.existsSync(historyDir)) {
+            //fs.cpSync(historyDir, historyBackup, { recursive: true, force: true });
+            //console.log('📦 Allure history backed up.');
+            fs.cpSync(historyDir, permanentHistory, { recursive: true, force: true });
+            console.log('📦 Allure history backed up to permanent store.');
+        }
         clean('allure-results');
         clean('allure-report');
     }
@@ -142,12 +163,43 @@ if (fs.existsSync(resultsDir)) {
             }
         });
 }
+// Restore allure history into allure-results before generate
+//const historyBackup = path.join(__dirname, 'allure-history-backup');
+const permanentHistory = path.join(__dirname, 'allure-history-permanent');
+const historyRestore = path.join(__dirname, 'allure-results', 'history');
+/*if (fs.existsSync(historyBackup)) {
+    fs.cpSync(historyBackup, historyRestore, { recursive: true, force: true });
+    fs.rmSync(historyBackup, { recursive: true, force: true });
+    console.log('📦 Allure history restored.');
+}*/
+if (fs.existsSync(permanentHistory)) {
+    fs.cpSync(permanentHistory, historyRestore, { recursive: true, force: true });
+    console.log('📦 Allure history restored from permanent store.');
+}
 execSync("node sync.js", { stdio: 'inherit' });
 //const deployCmd = "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";  
 const deployCmd = "npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";
 
 try {
-    execSync(deployCmd, { stdio: 'inherit' });
+    //execSync(deployCmd, { stdio: 'inherit' });
+    execSync("npx allure-commandline generate ./allure-results --clean -o ./allure-report", { stdio: 'inherit' });
+
+    // Only update permanent history if report has actual test results
+    const newHistory = path.join(__dirname, 'allure-report', 'history');
+   // const permanentHistory = path.join(__dirname, 'allure-history-permanent');
+    const summaryFile = path.join(newHistory, 'history-trend.json');
+    if (fs.existsSync(summaryFile)) {
+        const trend = JSON.parse(fs.readFileSync(summaryFile, 'utf-8'));
+        const hasResults = trend.some(t => (t.data?.total ?? 0) > 0);
+        if (hasResults) {
+            fs.cpSync(newHistory, permanentHistory, { recursive: true, force: true });
+            console.log('📦 Allure history updated in permanent store.');
+        } else {
+            console.log('⚠️ Empty run - keeping existing permanent history.');
+        }
+    }
+
+    execSync("npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true", { stdio: 'inherit' });
 } catch (deployError) {
     console.error('❌ Deployment failed:', deployError.message);
 }

@@ -1785,5 +1785,661 @@
         }
       ]
     }
+  },
+  {
+    "run_date": "2026-04-24T15:51:53.927Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1777045401959]",
+    "sbert_similarity": 0.6058078455250613,
+    "drift": {
+      "sbert_similarity": 0.6058078455250613,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing was exceptionally clear and well-organized, with effective headings, concise sentences, and smooth flow from introduction to conclusion—this made your points easy to understand throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your essay did not address the assigned topic of technology’s impact in daily life and instead focused entirely on apples as a fruit. To improve, be sure to answer the full assignment prompt and provide analysis, examples, and perspectives directly related to technology."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-24T16:09:55.304Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1777046005066]",
+    "sbert_similarity": 0.5276112361405919,
+    "drift": {
+      "sbert_similarity": 0.5276112361405919,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your writing is clear and focused on technology with relevant examples, but to reach a higher score, aim to go beyond summary and include more in-depth analysis or original insight."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 5,
+          "feedback": "Your writing is clear, grammatically correct, and concise throughout, with no errors or awkward phrasing to distract from your message. Excellent work on maintaining strong writing mechanics and style."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-24T16:23:02.789Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1777047087481]",
+    "sbert_similarity": 0.6511546896550429,
+    "drift": {
+      "sbert_similarity": 0.6511546896550429,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is clear, logically organized, and easy to follow, with effective use of bullet points and a smooth, well-structured conclusion. Excellent grammar and clarity make your essay highly readable."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "You accurately and thoroughly addressed both the positive and negative impacts of technology on daily life, showing a balanced understanding with clear and relevant examples appropriate for this assignment's scope."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T17:14:05.146Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1777395821646]",
+    "sbert_similarity": 0.5496249601788822,
+    "drift": {
+      "sbert_similarity": 0.5496249601788822,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour writing is clear, well-organized, and easy to follow, with strong use of headings and bullet points to support readability."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour essay accurately identifies both positive and negative impacts of technology in daily life, showing clear understanding and relevant examples. All key technical requirements are met, earning full marks for this criterion."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T17:47:27.967Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1777397898384]",
+    "sbert_similarity": 0.31149242677432126,
+    "drift": {
+      "sbert_similarity": 0.31149242677432126,
+      "score_delta": 3
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 15,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 10,
+          "feedback": "AI FEEDBACK\nYour piece is concise and clearly demonstrates how technology affects daily life, using accurate and relevant examples; slightly deeper analysis of challenges or long-term effects would make your content outstanding."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour writing is error-free, clear, and flows smoothly, making it easy to read and understand. Excellent control of grammar, spelling, punctuation, and style fully meet the expectations for this criterion."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T17:59:10.089Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1777398473988]",
+    "sbert_similarity": 0.3843843998136739,
+    "drift": {
+      "sbert_similarity": 0.3843843998136739,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour writing is well-organized, clear, and easy to follow, with smooth language and a logical structure that makes all your points easy to understand."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour submission addresses a relevant technical topic with accurate and balanced discussion of both the positive and negative impacts of technology, showing sound reasoning and understanding with no significant technical errors."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T21:17:36.507Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1777410847832]",
+    "sbert_similarity": 0.5838392887780053,
+    "drift": {
+      "sbert_similarity": 0.5838392887780053,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour essay is exceptionally clear and well-organized, with straightforward language, logical structure, and error-free grammar and spelling, making it very easy to follow."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "AI FEEDBACK\nYour essay did not address the assigned topic about technology's impact in daily life, so none of the required aspects for this criterion were met. For future assignments, be sure to focus on the given topic and cover all specified requirements."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T21:28:34.131Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1777411163094]",
+    "sbert_similarity": 0.29772002324092206,
+    "drift": {
+      "sbert_similarity": 0.29772002324092206,
+      "score_delta": 3
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 15,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 10,
+          "feedback": "AI FEEDBACK\nYour submission is focused, relevant, and demonstrates a clear understanding of technology's daily impact with accurate examples and a thoughtful conclusion, fully meeting the assignment's expectations."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour writing is clear, well-structured, and free from grammar or spelling errors, making your work easy to read and understand. Excellent job meeting the expectations for grammar and style!"
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T21:39:24.879Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1777411825023]",
+    "sbert_similarity": 0.41285302189105244,
+    "drift": {
+      "sbert_similarity": 0.41285302189105244,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour submission is clearly organized, concise, and easy to read, with well-structured sentences and helpful bulleted lists that make your main ideas stand out for the reader."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour submission accurately and concisely covers both positive and negative technical impacts of technology in daily life, with relevant examples and clear, correct explanations that meet all expectations for technical quality at the introductory level."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T22:25:13.512Z",
+    "lms": "moodle",
+    "student_file": "Long Accurate Existing Rubric PDF [1777414608965]",
+    "sbert_similarity": 0.7549904587290777,
+    "drift": {
+      "sbert_similarity": 0.7549904587290777,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 0,
+          "feedback": "Your essay did not address the assignment topic, which required a discussion of technology's impact on daily life from multiple perspectives. For full credit, make sure to respond directly to the prompt and include the required analysis and examples."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 0,
+          "feedback": "AI FEEDBACK\nYour submission did not address the assignment prompt about technology's impact in daily life—instead, it discussed apples as a fruit. To improve, ensure your essay directly answers the prompt by analyzing technology's effects and meeting all listed requirements."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T22:35:50.712Z",
+    "lms": "moodle",
+    "student_file": "Short Inaccurate New Rubric TXT [1777415216952]",
+    "sbert_similarity": 0.27859860582655827,
+    "drift": {
+      "sbert_similarity": 0.27859860582655827,
+      "score_delta": 3
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 17,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        },
+        {
+          "name": "Organization",
+          "score": 7,
+          "feedback": "Your response shows clear and accurate understanding of technology's impact and gives good examples, but could be improved with deeper analysis or discussion of long-term effects and challenges."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 20,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 10,
+          "feedback": "AI FEEDBACK\nYour piece is clearly about technology, gives specific and reasonable examples, and communicates relevant ideas concisely and thoughtfully, fully meeting the assignment's expectations."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour writing is clear, grammatically correct, and maintains an appropriate academic tone throughout, fully meeting expectations for grammar and style on this assignment."
+        },
+        {
+          "name": "Organization",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour writing has a clear introduction, logical flow between ideas, and a well-structured conclusion, making your piece easy to follow from start to finish."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T22:45:43.576Z",
+    "lms": "moodle",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1777415854156]",
+    "sbert_similarity": 0.7494556622671323,
+    "drift": {
+      "sbert_similarity": 0.7494556622671323,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 2,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 2,
+          "feedback": "Your essay clearly presents a main idea about the impact of technology, concisely explains both its positive and negative aspects, and includes personal context for support, meeting all key expectations for this assignment."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 2,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Criteria 1 test",
+          "score": 2,
+          "feedback": "AI FEEDBACK\nYour essay is clear, accurate, and well-organized, presenting both positive and negative impacts of technology with relevant examples and a concise structure that fulfills the assignment requirements."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T23:29:45.677Z",
+    "lms": "d2l",
+    "student_file": "D2L DOCX Existing Rubric [1777418698578]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": 3
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 30,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Clarity and Precision of Language",
+          "score": 15,
+          "feedback": "Your writing is clear and understandable, but it uses basic vocabulary and sentence structures that limit precision. To improve your clarity and effectiveness, try incorporating more specific language and varied sentence structures."
+        },
+        {
+          "name": "Content Accuracy and Relevance",
+          "score": 0,
+          "feedback": "Your submission did not address technology's impact in biology or provide specific biology-related examples, which was required for this assignment. In the future, focus on discussing a technology's effect within a biological context to meet the assignment's requirements."
+        },
+        {
+          "name": "Essay Focus and Organization",
+          "score": 0,
+          "feedback": "Your essay does not address the required topic of technology's impact in biology and lacks clear organization, with no effective introduction, body, or conclusion. For future assignments, be sure to stay focused on the prompt and structure your essay with a clear introduction, body, and conclusion related to the assigned topic."
+        },
+        {
+          "name": "Grammar, Spelling, and Mechanics",
+          "score": 10,
+          "feedback": "Your writing is free of grammar, spelling, and punctuation errors, making your work clear and easy to read—excellent job on your mechanics!"
+        },
+        {
+          "name": "Style and Professionalism",
+          "score": 5,
+          "feedback": "Your essay maintains a formal tone and is generally organized, but the use of a markdown-style header and lack of standard essay formatting impacted the overall professionalism. For future assignments, follow typical academic formatting guidelines to further polish your presentation."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 33,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Clarity and Precision of Expression",
+          "score": 21,
+          "feedback": "AI FEEDBACK\nYour writing is generally clear and communicates your ideas effectively, but some statements are broad or general; adding specific examples and more precise language would strengthen your clarity and precision."
+        },
+        {
+          "name": "Content Accuracy and Understanding",
+          "score": 0,
+          "feedback": "AI FEEDBACK\nYour submission does not address how technology impacts biology, remaining focused on general uses in daily life; to improve, specifically discuss technologies that have changed biological research or understanding, such as DNA sequencing or medical imaging."
+        },
+        {
+          "name": "Grammar, Mechanics, and Conventions",
+          "score": 5,
+          "feedback": "AI FEEDBACK\nYour writing is clear and error-free, with strong grammar, punctuation, and spelling that fully support reader comprehension. Excellent work maintaining such precise mechanics throughout your essay."
+        },
+        {
+          "name": "Organization and Structure",
+          "score": 0,
+          "feedback": "AI FEEDBACK\nYour essay starts with a main idea but lacks an effective introduction, logical sequencing, transitions, and a conclusion. For higher marks, ensure you include an introduction, logically developed body, transitions, and a concluding statement."
+        },
+        {
+          "name": "Relevance and Focus",
+          "score": 7,
+          "feedback": "AI FEEDBACK\nYour essay stays on topic and avoids tangents, but to receive full points, directly address technology’s impact in biology as required by the prompt."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-04-28T23:33:42.370Z",
+    "lms": "d2l",
+    "student_file": "D2L DOCX New Rubric [1777419003012]",
+    "sbert_similarity": 0.35065329438439785,
+    "drift": {
+      "sbert_similarity": 0.35065329438439785,
+      "score_delta": 2
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 11,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 4,
+          "feedback": "Your submission describes technology in general terms but does not address how technology impacts biology, which was required by the assignment. For full credit, be sure to discuss technology’s role specifically in biological contexts next time."
+        },
+        {
+          "name": "Writing Mechanics",
+          "score": 0,
+          "feedback": "Your writing is clear, concise, and completely free of grammar, spelling, or style errors—excellent work maintaining perfect mechanics throughout."
+        },
+        {
+          "name": "Organization",
+          "score": 3,
+          "feedback": "Your essay presents a recognizable topic and some logical development, but the organization is weak, lacking distinct sections and a clear conclusion. Structuring your essay with a clearer introduction, body, and conclusion would improve its flow and clarity."
+        },
+        {
+          "name": "Research and Citations",
+          "score": 4,
+          "feedback": "You did not include any research or citations to support your statements, which resulted in major citation problems per the rubric. In future assignments, be sure to reference at least one credible source and format your citations correctly to improve your score."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 13,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 4,
+          "feedback": "AI FEEDBACK\nYour submission provides only very general statements about technology’s importance and lacks specific details, examples, or explanation of its impact; to improve, include accurate facts and expand on how technology affects different areas of life."
+        },
+        {
+          "name": "Writing Mechanics",
+          "score": 1,
+          "feedback": "AI FEEDBACK\nYour writing is clear, with good grammar, spelling, and punctuation throughout; just be careful to avoid repeating your title, as this minor style issue can detract slightly from professionalism."
+        },
+        {
+          "name": "Organization",
+          "score": 4,
+          "feedback": "AI FEEDBACK\nYour essay is very brief and lacks clear organization, missing separate introduction, body, and conclusion sections. To improve, use clear paragraphs and develop your ideas with a more complete essay structure."
+        },
+        {
+          "name": "Research and Citations",
+          "score": 4,
+          "feedback": "AI FEEDBACK\nYour submission did not include any research or citations, which is required for this assignment. For higher marks in the future, please reference and properly cite at least one external source about technology's impact."
+        }
+      ]
+    }
   }
 ]

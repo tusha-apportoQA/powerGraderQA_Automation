@@ -58,7 +58,7 @@ export class PowerGraderAssignmentDetailsPage {
 
        const studentRow = studentEmailText.locator('xpath=ancestor::tr[1]');
        await expect(studentRow).toBeVisible({ timeout: 30000 });
-       const actionButton = studentRow.getByText('View', { exact: true }).first();
+       const actionButton = studentRow.getByText('View details', { exact: true }).first();
 
         // Scroll and Click
         await expect(actionButton).toBeVisible({ timeout: 30000 });

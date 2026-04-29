@@ -42,17 +42,29 @@ export class PowerGrader {
     /** Open target assignment from course list. */
     private async syncCoursePageAndOpenAssignment(assignmentName: string): Promise<void> {
         const interval = PowerGrader.POLL_INTERVAL_MS;
+
         await expect(async () => {
             console.log(`[${assignmentName}] Course Page Sync: Checking for assignment...`);
             await this.page.reload({ waitUntil: 'networkidle' });
             await this.coursePage.waitForLoad();
+            await this.page.waitForTimeout(2000);
+
+            // Search for the assignment by title
+           // const searchInput = this.page.locator('input[placeholder="Search titles..."]');
+           const searchInput = this.page.locator('input[placeholder*="Search titles"]');
+            //console.log(`[${uniqueTitle}] Looking for search input...`);
+            await expect(searchInput).toBeVisible({ timeout: 10000 });
+           // console.log(`[${uniqueTitle}] Search input found. Filling with: ${assignmentKey}`);
+            await searchInput.clear();
+            await searchInput.fill(assignmentName);
+            await this.page.waitForTimeout(1000);
 
             const row = this.page.locator('tr, div[role="row"]').filter({ hasText: assignmentName }).last();
             if (await row.isVisible()) {
-                console.log(`[${assignmentName}] Assignment found. Clicking on "View"...`);
+                console.log(`[${assignmentName}] Assignment found. Clicking on "View details"...`);
                 const viewBtn = row
-                    .getByRole('link', { name: 'View', exact: true })
-                    .or(row.getByText('View', { exact: true }));
+                    .getByRole('link', { name: 'View details', exact: true })
+                    .or(row.getByText('View details', { exact: true }));
                 await Promise.all([
                     this.page.waitForNavigation({ waitUntil: 'networkidle' }).catch(() => {}),
                     viewBtn.first().click(),
@@ -93,11 +105,11 @@ export class PowerGrader {
                 throw new Error('Waiting for AI grading after Grade Anyway...');
             }
 
-            const startBtn = this.page.locator('button').filter({ hasText: /^Start Reviewing$/i });
+            const startBtn = this.page.locator('button').filter({ hasText: /^Review$/i });
             if (await startBtn.isVisible({ timeout: 5000 })) {
                 await startBtn.click();
             } else {
-                throw new Error('Waiting for "Start Reviewing" button...');
+                throw new Error('Waiting for "Review" button...');
             }
         }).toPass({ timeout: 15 * 60 * 1000, intervals: [interval] });
     }

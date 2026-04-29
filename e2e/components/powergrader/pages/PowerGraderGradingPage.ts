@@ -25,7 +25,7 @@ export class PowerGraderGradingPage {
     }
   
     //Update by Tusha
-    async verifyGradesAndFeedbackPopulated(): Promise<void> {
+    /*async verifyGradesAndFeedbackPopulated(): Promise<void> {
         console.log("[Grading Page] Verifying AI Grades data is present...");
         // Just verify the element is visible and populated without logging it here
         //const totalGradeHeader = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2');
@@ -36,10 +36,29 @@ export class PowerGraderGradingPage {
         await expect(criteriaContent).toBeVisible({ timeout: 20000 });
         
         console.log("[Grading Page] AI Results verified successfully.");
-        }
-    
+    }*/
+
+    //new UI update - Tusha
+    async verifyGradesAndFeedbackPopulated(): Promise<void> {
+        console.log("[Grading Page] Verifying AI Grades data is present...");
+
+        // Total score: h2 with tabular-nums class
+        const totalGradeHeader = this.page.locator('h2.text-2xl.font-bold.text-gray-900.tabular-nums');
+        await expect(totalGradeHeader).toBeVisible({ timeout: 60000 });
+
+        // At least one criterion section visible
+        const firstCriterion = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm').first();
+        await expect(firstCriterion).toBeVisible({ timeout: 20000 });
+
+        // At least one AI Feedback block visible
+        const firstFeedback = this.page.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
+        await expect(firstFeedback).toBeVisible({ timeout: 20000 });
+
+        console.log("[Grading Page] AI Results verified successfully.");
+    }
+
     //Update by Tusha
-    async getTotalScore(): Promise<string> {
+    /*async getTotalScore(): Promise<string> {
         //console.log(`[Grading Page] Target XPath: /html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2`);
        // const totalGradeHeader = this.page.locator('xpath=/html/body/div[3]/div[2]/div/div/div/div/div[3]/div/div/div[1]/div[2]/div[1]/h2');
         const totalGradeHeader = this.page.locator('h2').filter({ hasText: /\// });
@@ -52,12 +71,35 @@ export class PowerGraderGradingPage {
         return scoreText.trim();
         
         //return scoreText.split('/')[0].trim(); 
+    }*/
+
+    //new UI update - Tusha
+    async getTotalScore(): Promise<string> {
+        const totalGradeHeader = this.page.locator('h2.text-2xl.font-bold.text-gray-900.tabular-nums');
+        await expect(totalGradeHeader).toBeVisible({ timeout: 30000 });
+        const scoreText = await totalGradeHeader.innerText();
+        console.log(`[Grading Page] Found Total Score Text: ${scoreText}`);
+        return scoreText.trim();
     }
 
-    async getIndividualScore(): Promise<string> {
+    /*async getIndividualScore(): Promise<string> {
         const scoreInput = this.page.locator('input[placeholder="Enter score"]').first();
         return await scoreInput.inputValue();
+    }*/
+
+    //New UI update - Tusha
+    async getIndividualScore(): Promise<string> {
+        // New UI: read from the selected card (border-blue-500) score div, fallback to custom input
+        const selectedCard = this.page.locator('div.border-blue-500').first();
+        const scoreDiv = selectedCard.locator('div.inline-flex.h-9.min-w-9');
+        if (await scoreDiv.count() > 0) {
+            return (await scoreDiv.innerText()).trim();
+        }
+        const customInput = selectedCard.locator('input[placeholder="Score"]');
+        return await customInput.inputValue();
     }
+
+
 
     //Update by Tusha
    /* async getAllFeedback(): Promise<string[]> {
@@ -117,7 +159,7 @@ export class PowerGraderGradingPage {
      * Sets score and feedback for a single criterion by 0-based index (teacher edit).
      * Score and feedback are required so we always start from the score input; Tab then focuses the edit-feedback button.
      */
-    async setCriterionResultByIndex(criterionIndex: number, score: number, feedback: string): Promise<void> {
+   /* async setCriterionResultByIndex(criterionIndex: number, score: number, feedback: string): Promise<void> {
         const scoreInput = this.page.locator('div.score-selection').locator('input[placeholder="Enter score"]').nth(criterionIndex);
         await expect(scoreInput).toBeVisible({ timeout: 10000 });
 
@@ -141,13 +183,95 @@ export class PowerGraderGradingPage {
         const saveBtn = editable.locator('xpath=..').locator('button').nth(1);
         await saveBtn.click();
         await this.page.waitForTimeout(300);
+    }*/
+
+    //New UI Update - Tusha
+    /*async setCriterionResultByIndex(criterionIndex: number, score: number, feedback: string): Promise<void> {
+        const criterionSections = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm');
+        const section = criterionSections.nth(criterionIndex);
+
+        // Try clicking a preset level card that matches the score
+        const levelCards = section.locator('div.rounded-lg.border-2').filter({ hasNot: this.page.locator('input[placeholder="Score"]') });
+        const cardCount = await levelCards.count();
+        let scoreSet = false;
+
+        for (let i = 0; i < cardCount; i++) {
+            const card = levelCards.nth(i);
+            const scoreDiv = card.locator('div.inline-flex.h-9.min-w-9');
+            if (await scoreDiv.count() > 0) {
+                const cardScore = parseFloat((await scoreDiv.innerText()).trim());
+                if (cardScore === score) {
+                    await card.click();
+                    await this.page.waitForTimeout(300);
+                    scoreSet = true;
+                    break;
+                }
+            }
+        }
+
+        if (!scoreSet) {
+            // Use custom score input
+            const customInput = section.locator('input[placeholder="Score"]').first();
+            await expect(customInput).toBeVisible({ timeout: 10000 });
+            await customInput.clear();
+            await customInput.fill(String(score));
+            await customInput.press('Tab');
+            await this.page.waitForTimeout(300);
+        }
+        console.log(`[Grading Page] Score ${score} set via ${scoreSet ? 'preset card' : 'custom input'} for criterion index ${criterionIndex}`);
+
+
+        // Edit feedback via the edit (pencil) button
+        const editBtn = section.locator('button._1iv3oxt3._1iv3oxt2').first();
+        await expect(editBtn).toBeVisible({ timeout: 10000 });
+        await editBtn.click();
+        await this.page.waitForTimeout(200);
+
+        const editable = this.page.locator('div[contenteditable="true"][spellcheck="false"]').first();
+        await expect(editable).toBeVisible({ timeout: 10000 });
+        await editable.click();
+        await editable.fill(feedback);
+        await this.page.waitForTimeout(300);
+
+        const saveBtn = editable.locator('xpath=..').locator('button').nth(1);
+        await saveBtn.click();
+        await this.page.waitForTimeout(300);
+    }*/
+
+    async setCriterionResultByIndex(criterionIndex: number, score: number, feedback: string): Promise<void> {
+        const section = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm').nth(criterionIndex);
+
+        // Always use custom score input — preset card clicks don't sync to custom input
+        const customInput = section.locator('input[placeholder="Score"]').first();
+        await expect(customInput).toBeVisible({ timeout: 10000 });
+        await customInput.clear();
+        await customInput.fill(String(score));
+        await customInput.press('Tab');
+        await this.page.waitForTimeout(300);
+        console.log(`[Grading Page] Score ${score} set via custom input for criterion index ${criterionIndex}`);
+
+        // Edit feedback via the pencil button
+        const editBtn = section.locator('button._1iv3oxt3._1iv3oxt2').first();
+        await expect(editBtn).toBeVisible({ timeout: 10000 });
+        await editBtn.click();
+        await this.page.waitForTimeout(200);
+
+        const editable = this.page.locator('div[contenteditable="true"][spellcheck="false"]').first();
+        await expect(editable).toBeVisible({ timeout: 10000 });
+        await editable.click();
+        await editable.fill(feedback);
+        await this.page.waitForTimeout(300);
+
+        const saveBtn = editable.locator('xpath=..').locator('button').nth(1);
+        await saveBtn.click();
+        await this.page.waitForTimeout(300);
     }
 
     /**
      * Verifies teacher edits after all edits are applied.
      * Uses the same criterion index mapping as setCriterionResultByIndex.
      */
-    async verifyTeacherEditsApplied(edits: CriterionEditEntry[]): Promise<void> {
+   /* async verifyTeacherEditsApplied(edits: CriterionEditEntry[]): Promise<void> {
         for (const edit of edits) {
             const scoreInput = this.page
                 .locator('div.score-selection')
@@ -165,6 +289,47 @@ export class PowerGraderGradingPage {
 
             const feedbackTextSpan = focusedElement.locator('xpath=following-sibling::span[1]');
             await expect(feedbackTextSpan).toContainText(edit.feedback, { timeout: 10000 });
+        }
+    }*/
+
+    //New UI Update - Tusha
+    /*async verifyTeacherEditsApplied(edits: CriterionEditEntry[]): Promise<void> {
+        for (const edit of edits) {
+            const section = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm').nth(edit.criterionIndex);
+
+            // Verify the selected card (border-blue-500) has the correct score
+            const selectedCard = section.locator('div.border-blue-500');
+            await expect(selectedCard).toBeVisible({ timeout: 10000 });
+
+            const scoreDiv = selectedCard.locator('div.inline-flex.h-9.min-w-9');
+            if (await scoreDiv.count() > 0) {
+                await expect(scoreDiv).toHaveText(String(edit.score), { timeout: 10000 });
+            } else {
+                const customInput = selectedCard.locator('input[placeholder="Score"]');
+                await expect(customInput).toHaveValue(String(edit.score), { timeout: 10000 });
+            }
+
+            // Verify feedback text appears in the feedback block
+            const feedbackLocator = section.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
+            await expect(feedbackLocator).toContainText(edit.feedback, { timeout: 10000 });
+        }
+    }*/
+
+    //New UI Update - Tusha
+    async verifyTeacherEditsApplied(edits: CriterionEditEntry[]): Promise<void> {
+        for (const edit of edits) {
+            const section = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm').nth(edit.criterionIndex);
+
+            // Custom Score input always reflects the current score
+            const customInput = section.locator('input[placeholder="Score"]').first();
+            await expect(customInput).toBeVisible({ timeout: 10000 });
+            await expect(customInput).toHaveValue(String(edit.score), { timeout: 10000 });
+            console.log(`[Grading Page] Verified score ${edit.score} for criterion ${edit.criterionIndex}`);
+
+            // Verify feedback
+            const feedbackLocator = section.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
+            await expect(feedbackLocator).toContainText(edit.feedback, { timeout: 10000 });
+            console.log(`[Grading Page] Verified feedback for criterion ${edit.criterionIndex}`);
         }
     }
 
@@ -186,7 +351,7 @@ export class PowerGraderGradingPage {
      * Gets all criterion scores with their names, points, and feedback
      * @returns Array of CriterionScore objects
      */
-    async getAllCriteriaScores(): Promise<CriterionScore[]> {
+  /*  async getAllCriteriaScores(): Promise<CriterionScore[]> {
 
         console.log("[Grading Page] Extracting all criteria scores and feedback...");
        
@@ -203,46 +368,6 @@ export class PowerGraderGradingPage {
         }).locator('p');
         const criterionCount = await criterionPTags.count();
         console.log(`[Grading Page] Found ${criterionCount} criterion p tags with Customize buttons...`);
-
-
-       /* for (let i = 0; i < criterionCount; i++) {
-            const pTag = criterionPTags.nth(i);
-            const criterionName = (await pTag.innerText()).trim();
-
-            // Identify the container for this specific criterion row
-            const rowContainer = this.page.locator('div').filter({ has: pTag }).filter({ has: this.page.locator('input[type="number"]') }).last();
-            
-            // Get the score
-            const scoreInput = rowContainer.locator('input[type="number"]');
-            try {
-                await expect(scoreInput).not.toHaveValue('', { timeout: 30000 });
-            } catch (e) {
-                console.log(`⚠️ Warning: Score not populated by AI in time for ${criterionName}. Defaulting to 0.`);
-            }
-            const score = parseFloat(await scoreInput.inputValue());
-
-            console.log(`[DEBUG] Criterion: "${criterionName}" | Scraped Score: ${score}`);
-
-            const feedbackLocator = rowContainer.locator('div.pl-2.pt-2.pb-2.min-h-16').first();
-            //console.log(`Feedback Locator: ${feedbackLocator}`);
-            const feedbackText = await feedbackLocator.innerText();
-            await feedbackLocator.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {}); 
-            
-            const feedback = await feedbackLocator.innerText().catch(() => 'No feedback found');
-            console.log(`Feedback: ${feedbackText.substring(0, 50)}...`);
-
-            await AllureHelper.attachText('student-feedback', JSON.stringify({
-                criterion_name: criterionName,
-                criterion_feedback: feedbackText
-            }));
-
-
-            criteriaScores.push({
-                name: criterionName,
-                points: score,
-                feedback: feedback.trim()
-            });
-        }*/
 
         for (let i = 0; i < criterionCount; i++) {
             const pTag = criterionPTags.nth(i);
@@ -283,6 +408,68 @@ export class PowerGraderGradingPage {
             });
         }
         
+        console.log(`[Grading Page] Successfully extracted ${criteriaScores.length} criteria scores`);
+        return criteriaScores;
+    }*/
+
+    //new UI update - Tusha
+    async getAllCriteriaScores(): Promise<CriterionScore[]> {
+        console.log("[Grading Page] Extracting all criteria scores and feedback...");
+
+        const criterionSections = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm');
+        await expect(criterionSections.first()).toBeVisible({ timeout: 30000 });
+
+        const criterionCount = await criterionSections.count();
+        console.log(`[Grading Page] Found ${criterionCount} criterion sections...`);
+
+        const criteriaScores: CriterionScore[] = [];
+
+        for (let i = 0; i < criterionCount; i++) {
+            const section = criterionSections.nth(i);
+
+            // Criterion name
+            const nameEl = section.locator('h3.truncate.text-base.font-semibold.text-gray-900');
+            const criterionName = (await nameEl.innerText()).trim();
+
+            // Selected score card has border-blue-500; read the score div inside it
+            const selectedCard = section.locator('div.border-blue-500');
+            let score = 0;
+            if (await selectedCard.count() > 0) {
+                const scoreDiv = selectedCard.locator('div.inline-flex.h-9.min-w-9');
+                if (await scoreDiv.count() > 0) {
+                    const scoreText = (await scoreDiv.innerText()).trim();
+                    score = parseFloat(scoreText) || 0;
+                } else {
+                    // Custom score input is selected
+                    const customInput = selectedCard.locator('input[placeholder="Score"]');
+                    const val = await customInput.inputValue();
+                    score = parseFloat(val) || 0;
+                }
+            }
+
+            // AI Feedback block
+            const feedbackLocator = section.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
+            try {
+                await expect(feedbackLocator).not.toHaveText('', { timeout: 20000 });
+            } catch (e) {
+                console.log(`⚠️ Warning: Feedback not populated in time for "${criterionName}".`);
+            }
+            const feedbackText = await feedbackLocator.innerText().catch(() => '');
+
+            console.log(`[DEBUG] Criterion: "${criterionName}" | Score: ${score} | Feedback length: ${feedbackText.length}`);
+
+            await AllureHelper.attachText('student-feedback', JSON.stringify({
+                criterion_name: criterionName,
+                criterion_feedback: feedbackText.trim()
+            }));
+
+            criteriaScores.push({
+                name: criterionName,
+                points: score,
+                feedback: feedbackText.trim()
+            });
+        }
+
         console.log(`[Grading Page] Successfully extracted ${criteriaScores.length} criteria scores`);
         return criteriaScores;
     }
