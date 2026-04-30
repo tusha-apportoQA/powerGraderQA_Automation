@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
 import { Page } from '@playwright/test';
+import { allure } from 'allure-playwright';
 
 export class AllureHelper {
     static async attachScreenshot(page: Page, name: string): Promise<void> {
@@ -38,6 +39,9 @@ export class AllureHelper {
 
 
     static label(name: string, value: string): void {
+        // Write as real Allure labels so they appear in *-result.json labels array.
+        void allure.label(name, value);
+        // Keep annotation for local/debug compatibility with existing logic.
         test.info().annotations.push({ type: name, description: value });
     }
 

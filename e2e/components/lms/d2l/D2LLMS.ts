@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, test } from '@playwright/test';
 import { D2LDashboardPage } from './pages/D2LDashboardPage';
 import { D2LCoursePage } from './pages/D2LCoursePage';
 import { D2LAssignmentListPage } from './pages/D2LAssignmentListPage';
@@ -8,6 +8,8 @@ import { D2LGradingPage } from './pages/D2LGradingPage';
 import { D2LAssignmentConfig, GradingSummary } from '../../../types';
 import { getD2LConfig } from '../../../config/d2l.config';
 import { expect } from '@playwright/test';
+import { C69002, C69065, C69067 } from '../../../test-data/testCaseIds';
+import { AllureHelper } from '../../../utils/allureHelper';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
     const s = String(totalScore).trim();
@@ -137,6 +139,10 @@ export class D2LLMS {
 
         // Open evaluation for the specific student on the submissions list
         await this.assignmentDetailsPage.openEvaluationForStudent(studentDisplayName);
+        AllureHelper.label('caseStatus', `${C69065.split(':')[0]}:passed`);
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69067:'))) {
+            AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:passed`);
+        }
 
         const gradingPage = new D2LGradingPage(this.page);
         const lmsSummary = await gradingPage.getRubricSnapshot();
@@ -171,6 +177,7 @@ export class D2LLMS {
             console.log(`[D2LLMS] Criterion index ${i} -> comparing feedback`);
             await expect(lmsCrit.feedback).toBe(expCrit.feedback);
         }
+        AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
     }
 
     /*async navigateToPowerGrader(): Promise<Page> {

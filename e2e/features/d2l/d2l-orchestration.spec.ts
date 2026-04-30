@@ -4,6 +4,7 @@ import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout"; // 
 import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
+import { C68998, C68999, C69000, C69036, C69038, C69039, C69092, C69100, C75511, C75526, C75645 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getD2LConfig } from '../../config/d2l.config';
 import testUsers from '../../test_users';
@@ -66,6 +67,32 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
   for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
     test(`D2L Orchestration: ${assignmentConfig.title}`, async ({ d2lTeacherPage, d2lStudentPage }) => {
       test.setTimeout(1_200_000);
+      AllureHelper.label('lms', 'd2l');
+      AllureHelper.label('caseConfig', `d2l|${assignmentConfig.title}`);
+      AllureHelper.label('testCaseId', C75526);
+      AllureHelper.label('testCaseId', C69100);
+      if (assignmentConfig.submissionType === 'Text Entry') {
+        AllureHelper.label('testCaseId', C69092);
+      }
+      if (assignmentConfig.submissionType === '.docx') {
+        AllureHelper.label('testCaseId', C75645);
+      }
+      if (assignmentConfig.teacherEdits?.length) {
+        AllureHelper.label('testCaseId', C75511);
+      }
+      if (assignmentConfig.rubric?.type === 'no') {
+        AllureHelper.label('testCaseId', C69036);
+        AllureHelper.label('testCaseId', C68998);
+        AllureHelper.label('testCaseId', C69000);
+      } else {
+        AllureHelper.label('testCaseId', C68999);
+      }
+      if (assignmentConfig.rubric?.type === 'new') {
+        AllureHelper.label('testCaseId', C69038);
+      }
+      if (assignmentConfig.rubric?.type === 'existing') {
+        AllureHelper.label('testCaseId', C69039);
+      }
 
       const runStart = Date.now();
       const baselineKey = assignmentConfig.title; // stable across runs
@@ -88,6 +115,12 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
           console.log(`[${uniqueTitle}] Setting up rubric: ${assignmentConfig.rubric.type}`);
         }
         await teacher.createAssignment({ ...assignmentConfig, title: uniqueTitle });
+        if (assignmentConfig.rubric?.type === 'new') {
+          AllureHelper.label('caseStatus', `${C69038.split(':')[0]}:passed`);
+        }
+        if (assignmentConfig.rubric?.type === 'existing') {
+          AllureHelper.label('caseStatus', `${C69039.split(':')[0]}:passed`);
+        }
       });
 
       const createMs = Date.now() - createStart;

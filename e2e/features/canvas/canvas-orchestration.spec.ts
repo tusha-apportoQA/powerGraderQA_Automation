@@ -4,6 +4,7 @@ import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
+import { C68998, C68999, C69000, C69036, C69038, C69039, C69074, C69092, C69100, C75511, C75526, C75645 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -66,6 +67,33 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
   for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
     test(`Canvas Orchestration: ${assignmentConfig.title}`, async ({ canvasTeacherPage, canvasStudentPage }) => {
       test.setTimeout(1_200_000);
+      AllureHelper.label('lms', 'canvas');
+      AllureHelper.label('caseConfig', `canvas|${assignmentConfig.title}`);
+      AllureHelper.label('testCaseId', C69074);
+      AllureHelper.label('testCaseId', C69100);
+      AllureHelper.label('testCaseId', C75526);
+      if (assignmentConfig.submissionType === 'Text Entry') {
+        AllureHelper.label('testCaseId', C69092);
+      }
+      if (assignmentConfig.submissionType === '.docx') {
+        AllureHelper.label('testCaseId', C75645);
+      }
+      if (assignmentConfig.teacherEdits?.length) {
+        AllureHelper.label('testCaseId', C75511);
+      }
+      if (assignmentConfig.rubric?.type === 'no') {
+        AllureHelper.label('testCaseId', C69036);
+        AllureHelper.label('testCaseId', C68998);
+        AllureHelper.label('testCaseId', C69000);
+      } else {
+        AllureHelper.label('testCaseId', C68999);
+      }
+      if (assignmentConfig.rubric?.type === 'new') {
+        AllureHelper.label('testCaseId', C69038);
+      }
+      if (assignmentConfig.rubric?.type === 'existing') {
+        AllureHelper.label('testCaseId', C69039);
+      }
 
       const runStart = Date.now();
       const baselineKey = assignmentConfig.title; 
@@ -81,6 +109,12 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       const createStart = Date.now();
       await AllureHelper.step('Create assignment in Canvas', async () => {
         await teacher.createAssignment({ ...assignmentConfig, title: uniqueTitle });
+        if (assignmentConfig.rubric?.type === 'new') {
+          AllureHelper.label('caseStatus', `${C69038.split(':')[0]}:passed`);
+        }
+        if (assignmentConfig.rubric?.type === 'existing') {
+          AllureHelper.label('caseStatus', `${C69039.split(':')[0]}:passed`);
+        }
       });
       const createMs = Date.now() - createStart;
 

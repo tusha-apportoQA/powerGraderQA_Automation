@@ -8,6 +8,7 @@ import { MoodleGradingPage } from './pages/MoodleGradingPage';
 import { MoodleAssignmentConfig ,GradingSummary} from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { getMoodleConfig } from '../../../config/moodle.config';
+import { C69002, C69060, C69061 } from '../../../test-data/testCaseIds';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
     const s = String(totalScore).trim();
@@ -170,6 +171,14 @@ export class MoodleLMS {
 
         await AllureHelper.step(`Navigate to grading page for student "${studentDisplayName}"`, async () => {
             const studentRow = this.page.locator('tr').filter({ hasText: studentDisplayName }).first();
+            if (await studentRow.isVisible()) {
+                AllureHelper.label('caseStatus', `${C69060.split(':')[0]}:passed`);
+                AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:passed`);
+                await AllureHelper.attachText(
+                    'Case status',
+                    'PASSED: teacher can see student submission in "View all submissions".'
+                );
+            }
             const gradeButton = studentRow.getByRole('link', { name: 'Grade' });
             await gradeButton.click();
             await this.moodleGradingPage.expectMoodleGradingPageLoaded();
@@ -205,6 +214,7 @@ export class MoodleLMS {
                 console.log(`[MoodleLMS] Criterion index ${i} -> comparing feedback`);
                 await expect(lmsCrit.feedback).toBe(expCrit.feedback);
             }
+            AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
         });
     }
 }
