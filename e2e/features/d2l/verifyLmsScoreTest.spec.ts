@@ -4,6 +4,7 @@ import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
+import { C69002, C69065, C69067 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getD2LConfig } from '../../config/d2l.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -60,6 +61,13 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
         d2lStudentPage,
     }) => {
         test.setTimeout(1_200_000);
+        AllureHelper.label('lms', 'd2l');
+        AllureHelper.label('caseConfig', `d2l|${assignmentConfig.title}`);
+        AllureHelper.label('testCaseId', C69065);
+        AllureHelper.label('testCaseId', C69002);
+        if (assignmentConfig.submissionType === 'Text Entry') {
+            AllureHelper.label('testCaseId', C69067);
+        }
 
         const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
         const teacher = new D2LLMS(d2lTeacherPage.page);

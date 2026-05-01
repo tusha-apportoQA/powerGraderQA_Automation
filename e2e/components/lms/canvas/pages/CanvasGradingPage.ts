@@ -51,7 +51,7 @@ export class CanvasGradingPage {
      * Sets SpeedGrader **Rubric Assessment View Mode** (Horizontal, Vertical, or Traditional).
      */
     async setRubricAssessmentViewMode(mode: RubricAssessmentViewMode): Promise<void> {
-        const combo = this.page.getByRole('combobox', { name: 'Rubric Assessment View Mode' });
+        const combo = this.page.getByRole('combobox', { name: 'View Mode' })
         await expect(combo).toBeVisible({ timeout: 30000 });
         await combo.click();
         await this.page.getByRole('option', { name: mode, exact: true }).click();

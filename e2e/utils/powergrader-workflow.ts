@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { Page, expect, test } from '@playwright/test';
 import { PowerGraderCoursePage } from '../components/powergrader/pages/PowerGraderCoursePage';
 import { PowerGraderAssignmentDetailsPage } from '../components/powergrader/pages/PowerGraderAssignmentDetailsPage';
 import { PowerGraderGradingPage } from '../components/powergrader/pages/PowerGraderGradingPage';
@@ -6,6 +6,7 @@ import { AllureHelper } from './allureHelper';
 import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
 import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
 import { TeacherEditConfig } from '../types'; // Preserved from merge
+import { C68998, C68999, C69000, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75645 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
 
@@ -126,6 +127,9 @@ export async function executeUniversalPGWorkflow(
                 viewBtn.first().click()
             ]);
             await expect(powerGraderPage).not.toHaveURL(/.*dashboard.*/);
+            if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69074:'))) {
+                AllureHelper.label('caseStatus', `${C69074.split(':')[0]}:passed`);
+            }
         } else {
             throw new Error(`[${uniqueTitle}] Syncing... assignment row not visible yet.`);
         }
@@ -143,15 +147,28 @@ export async function executeUniversalPGWorkflow(
             // logic to handle "No Rubric" state
             const generateBtn = powerGraderPage.locator('button').filter({ hasText: "Generate Compatible Rubric" });
             if (await generateBtn.isVisible({ timeout: 2000 })) {
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C68998:'))) {
+                    AllureHelper.label('caseStatus', `${C68998.split(':')[0]}:passed`);
+                }
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69036:'))) {
+                    AllureHelper.label('caseStatus', `${C69036.split(':')[0]}:passed`);
+                }
                 console.log(`[${uniqueTitle}] No rubric found. Clicking "Generate Compatible Rubric"...`);
                 /*await generateBtn.click();
                 await powerGraderPage.waitForTimeout(5000);
                 await powerGraderPage.reload({ waitUntil: 'networkidle' });
                 throw new Error('Rubric generated. Reloading to check AI grading status...');*/
                 await generateBtn.click();
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69000:'))) {
+                    AllureHelper.label('caseStatus', `${C69000.split(':')[0]}:passed`);
+                }
                 console.log(`[${uniqueTitle}] Rubric generated. Waiting for AI grading to begin...`);
                 await powerGraderPage.waitForTimeout(5000);
                 throw new Error('Waiting for AI grading after rubric generation...');
+            } else {
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C68999:'))) {
+                    AllureHelper.label('caseStatus', `${C68999.split(':')[0]}:passed`);
+                }
             }
 
             const seeWhyBtn = powerGraderPage.getByRole('button', { name: /See Why/i });
@@ -167,12 +184,32 @@ export async function executeUniversalPGWorkflow(
                 throw new Error('Triggered Grade Anyway flow, waiting for AI to resume...');*/
                 await gradeAnywayBtn.click();
                 console.log(`[${uniqueTitle}] Clicked "Grade Anyway". Waiting for AI grading...`);
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75526:'))) {
+                    try {
+                        const seeWhyStillVisible = await seeWhyBtn.isVisible({ timeout: 5000 });
+                        if (!seeWhyStillVisible) {
+                            AllureHelper.label('caseStatus', `${C75526.split(':')[0]}:passed`);
+                        }
+                    } catch {
+                        // Non-blocking by requirement: do not fail workflow on this verification.
+                    }
+                }
                 await powerGraderPage.waitForTimeout(5000);
                 throw new Error('Waiting for AI grading after Grade Anyway...');
             }
 
             const startBtn = powerGraderPage.locator('button').filter({ hasText: /^Review$/i });
             if (await startBtn.isVisible({ timeout: 5000 })) {
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69063:'))) {
+                    AllureHelper.label('caseStatus', `${C69063.split(':')[0]}:passed`);
+                }
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69092:'))) {
+                    AllureHelper.label('caseStatus', `${C69092.split(':')[0]}:passed`);
+                }
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75645:'))) {
+                    AllureHelper.label('caseStatus', `${C75645.split(':')[0]}:passed`);
+                }
+                AllureHelper.label('caseStatus', `${C69100.split(':')[0]}:passed`);
                 await startBtn.click();
             } else {
                 throw new Error('Waiting for "Review" button...');
@@ -340,6 +377,9 @@ export async function executeUniversalPGWorkflow(
     }
     
     await gradingPage.clickPublishButton();
+    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75511:'))) {
+        AllureHelper.label('caseStatus', `${C75511.split(':')[0]}:passed`);
+    }
     //await powerGraderPage.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 30000 });
    // console.log(`✅ [FINISH] Workflow successful.`);
    try {

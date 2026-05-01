@@ -455,18 +455,21 @@ export class PowerGraderGradingPage {
                 console.log(`⚠️ Warning: Feedback not populated in time for "${criterionName}".`);
             }
             const feedbackText = await feedbackLocator.innerText().catch(() => '');
+            const normalizedFeedback = feedbackText
+                .replace(/^AI FEEDBACK\s*/i, '')
+                .trim();
 
             console.log(`[DEBUG] Criterion: "${criterionName}" | Score: ${score} | Feedback length: ${feedbackText.length}`);
 
             await AllureHelper.attachText('student-feedback', JSON.stringify({
                 criterion_name: criterionName,
-                criterion_feedback: feedbackText.trim()
+                criterion_feedback: normalizedFeedback
             }));
 
             criteriaScores.push({
                 name: criterionName,
                 points: score,
-                feedback: feedbackText.trim()
+                feedback: normalizedFeedback
             });
         }
 

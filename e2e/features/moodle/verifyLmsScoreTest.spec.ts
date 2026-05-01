@@ -4,6 +4,7 @@ import { MoodleLMS } from '../../components/lms/moodle/MoodleLMS';
 import { MoodleLMSStudent } from '../../components/lms/moodle/MoodleLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getMoodleAssignmentConfigs } from '../../test-data/assignments/moodle';
+import { C69002, C69060, C69061 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getMoodleConfig } from '../../config/moodle.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -58,6 +59,11 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
         moodleStudentPage,
     }) => {
         test.setTimeout(1_200_000);
+        AllureHelper.label('lms', 'moodle');
+        AllureHelper.label('caseConfig', `moodle|${assignmentConfig.title}`);
+        AllureHelper.label('testCaseId', C69060);
+        AllureHelper.label('testCaseId', C69061);
+        AllureHelper.label('testCaseId', C69002);
 
         const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
         const teacher = new MoodleLMS(moodleTeacherPage.page);

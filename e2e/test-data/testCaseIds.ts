@@ -1,0 +1,20 @@
+export const C69060 = 'C69060:POW - Moodle Submit assignment with student role';
+export const C69061 = 'C69061:POW - Moodle verify user can submit different types of assignments';
+export const C69063 = 'C69063:POW - Moodle verify submissions are visible in QA instance';
+export const C69065 = 'C69065:POW - D2L student should be able to submit assignment';
+export const C69067 = 'C69067:POW - D2L student should be able to submit text entry assignment';
+export const C69070 = 'C69070:POW - Canvas student should be able to submit assignment';
+export const C69074 = 'C69074:POW - Canvas all assignments in QA instance should show submission details';
+export const C69092 = 'C69092:Verify that Text Entry submission is successful';
+export const C75526 = 'C75526:Verify SeeWhy disables or disappears when user clicks on it in QA';
+export const C75645 = 'C75645:Verify the docx file is ingested and graded';
+export const C75511 = 'C75511:Verify editing score/feedback gets published without explicitly clicking on Save';
+export const C69036 = 'C69036:Verify the status of the assignments with no Rubric in PowerGrader';
+export const C68998 = 'C68998:Rubric: Button Visibility (No Rubric)';
+export const C68999 = 'C68999:Rubric: Button Hidden (Has Rubric)';
+export const C69000 = 'C69000:Rubric: Transition to Grading';
+export const C69002 = 'C69002:Sync: Scoring Reflection in LMS';
+export const C69038 = 'C69038:POW: Teacher should be able to create new Rubric with multiple criteria';
+export const C69039 = 'C69039:POW: Teacher should be able to add pre-existing rubric';
+export const C69100 = 'C69100:On-time submission (before due date) is accepted and gradable';
+

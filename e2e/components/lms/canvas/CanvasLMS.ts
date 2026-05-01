@@ -8,6 +8,8 @@ import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage
 import { CanvasGradingPage } from './pages/CanvasGradingPage';
 import { AssignmentConfig, GradingSummary } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
+import { C69002, C69070 } from '../../../test-data/testCaseIds';
+import { AllureHelper } from '../../../utils/allureHelper';
 
 /** Earned points from a total string, e.g. "13/15" -> 13. */
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
@@ -114,6 +116,7 @@ export class CanvasLMS {
         const canvasGradingPage = new CanvasGradingPage(speedGraderPage);
         await canvasGradingPage.waitForLoad();
         await canvasGradingPage.expectSelectedStudent(studentName);
+        AllureHelper.label('caseStatus', `${C69070.split(':')[0]}:passed`);
 
         const lmsSummary = await canvasGradingPage.getRubricSnapshot();
         console.log('[CanvasLMS] LMS GradingSummary (scraped):', lmsSummary);
@@ -152,6 +155,7 @@ export class CanvasLMS {
             console.log(`[CanvasLMS] Criterion index ${i} -> comparing feedback`);
             await expect(lmsCrit.feedback).toBe(expCrit.feedback);
         }
+        AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
     }
 
     /**

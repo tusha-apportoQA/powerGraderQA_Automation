@@ -4,6 +4,7 @@ import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
+import { C69002, C69070 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getCanvasConfig } from '../../config/canvas.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -77,6 +78,10 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     canvasStudentPage,
   }) => {
     test.setTimeout(1_200_000);
+    AllureHelper.label('lms', 'canvas');
+    AllureHelper.label('caseConfig', `canvas|${assignmentConfig.title}`);
+    AllureHelper.label('testCaseId', C69070);
+    AllureHelper.label('testCaseId', C69002);
 
     const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
     const teacher = new CanvasLMS(canvasTeacherPage.page);
