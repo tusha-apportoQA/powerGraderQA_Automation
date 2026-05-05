@@ -68,17 +68,26 @@ export class D2LLMSStudent {
         await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
     }
 
+    /**
+     * @param submissionCommentMeta - Optional; when set, fills D2L Comments (TinyMCE iframe) with
+     *   `submission for {uniqueTitle} by {studentLabel}` after file/text submission body is prepared.
+     */
     async verifyFileTypeAndSubmit(
         assignmentTitle: string,
         submissionType: FormatType,
         filePath?: string,
-        text?: string
+        text?: string,
+        submissionCommentMeta?: { uniqueTitle: string; studentLabel: string }
     ): Promise<void> {
         await this.submissionPage.waitForLoad();
         
         await this.submissionPage.verifyAssignmentName(assignmentTitle);
         
         await this.submissionPage.prepareSubmission(submissionType, filePath, text);
+        if (submissionCommentMeta) {
+            const comment = `submission for ${submissionCommentMeta.uniqueTitle} by ${submissionCommentMeta.studentLabel}`;
+            await this.submissionPage.fillComments(comment);
+        }
         await this.submissionPage.verifySubmissionReady(submissionType);
         
         await this.submissionPage.submitAssignment();

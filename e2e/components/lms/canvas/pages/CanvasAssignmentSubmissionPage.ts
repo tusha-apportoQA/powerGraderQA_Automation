@@ -272,7 +272,7 @@ export class CanvasAssignmentSubmissionPage {
 
         this.submissionForm = page.locator('#submit_assignment');
         this.fileUploadInput = page.locator('input[data-testid="file-upload-0"]');
-        this.submissionCommentTextarea = page.locator('textarea#submission_comment');
+        this.submissionCommentTextarea = page.getByRole('textbox', { name: 'Additional comments' })
         
         // Use the specific ID found in your DOM inspection
        // this.submitButton = page.locator('#submit_file_button');

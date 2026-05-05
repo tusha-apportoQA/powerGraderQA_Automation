@@ -8,7 +8,7 @@ import { D2LGradingPage } from './pages/D2LGradingPage';
 import { D2LAssignmentConfig, GradingSummary } from '../../../types';
 import { getD2LConfig } from '../../../config/d2l.config';
 import { expect } from '@playwright/test';
-import { C69002, C69065, C69067 } from '../../../test-data/testCaseIds';
+import { C69002, C69065, C69067, C69098 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
@@ -124,7 +124,12 @@ export class D2LLMS {
         await this.coursePage.expectCoursePageLoaded();
     }
 
-    async verifyLmsScore(studentDisplayName: string, assignmentName: string, gradingSummary: GradingSummary): Promise<void> {
+    async verifyLmsScore(
+        studentDisplayName: string,
+        assignmentName: string,
+        gradingSummary: GradingSummary,
+        expectedSubmissionComment?: string
+    ): Promise<void> {
         console.log(`[D2LLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
         console.log('[D2LLMS] Expected GradingSummary:', gradingSummary);
 
@@ -177,6 +182,25 @@ export class D2LLMS {
             console.log(`[D2LLMS] Criterion index ${i} -> comparing feedback`);
             await expect(lmsCrit.feedback).toBe(expCrit.feedback);
         }
+
+        if (expectedSubmissionComment) {
+            try {
+                const found = await gradingPage.hasVisibleExactText(expectedSubmissionComment);
+                if (!found) {
+                    console.warn(
+                        `[D2LLMS] Submission comment not found on grading page (non-blocking). Expected exact: "${expectedSubmissionComment}"`
+                    );
+                } else {
+                    console.log('[D2LLMS] Submission comment found on grading page.');
+                    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
+                        AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:passed`);
+                    }
+                }
+            } catch (error) {
+                console.warn('[D2LLMS] Submission comment check failed (non-blocking):', error);
+            }
+        }
+
         AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
     }
 

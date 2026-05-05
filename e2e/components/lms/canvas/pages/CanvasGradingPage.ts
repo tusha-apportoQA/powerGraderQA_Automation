@@ -96,4 +96,12 @@ export class CanvasGradingPage {
             criteria,
         };
     }
+
+    async getSubmissionCommentText(): Promise<string | null> {
+        const comment = this.page.getByTestId('comment-0-text');
+        const visible = await comment.isVisible().catch(() => false);
+        if (!visible) return null;
+        const text = await comment.textContent();
+        return text?.trim() ?? '';
+    }
 }

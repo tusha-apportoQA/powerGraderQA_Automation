@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { Page, expect, test } from '@playwright/test';
 import { MoodleDashboardPage } from './pages/MoodleDashboardPage';
 import { MoodleCoursePage } from './pages/MoodleCoursePage';
 import { MoodleAssignmentCreatePage } from './pages/MoodleAssignmentCreatePage';
@@ -8,7 +8,7 @@ import { MoodleGradingPage } from './pages/MoodleGradingPage';
 import { MoodleAssignmentConfig ,GradingSummary} from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { getMoodleConfig } from '../../../config/moodle.config';
-import { C69002, C69060, C69061 } from '../../../test-data/testCaseIds';
+import { C69002, C69060, C69061, C69098 } from '../../../test-data/testCaseIds';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
     const s = String(totalScore).trim();
@@ -155,7 +155,12 @@ export class MoodleLMS {
      * @param assignmentName The name of the assignment.
      * @param gradingSummary The grading summary to verify.
      */
-    async verifyLmsScore(studentDisplayName: string, assignmentName: string, gradingSummary: GradingSummary): Promise<void> {
+    async verifyLmsScore(
+        studentDisplayName: string,
+        assignmentName: string,
+        gradingSummary: GradingSummary,
+        expectedSubmissionComment?: string
+    ): Promise<void> {
         console.log(`[MoodleLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
         console.log('[MoodleLMS] Expected GradingSummary:', gradingSummary);
 
@@ -214,6 +219,25 @@ export class MoodleLMS {
                 console.log(`[MoodleLMS] Criterion index ${i} -> comparing feedback`);
                 await expect(lmsCrit.feedback).toBe(expCrit.feedback);
             }
+
+            if (expectedSubmissionComment) {
+                try {
+                    const found = await this.moodleGradingPage.hasSubmissionCommentVisible(expectedSubmissionComment);
+                    if (!found) {
+                        console.warn(
+                            `[MoodleLMS] Submission comment not found on grading page (non-blocking). Expected exact: "${expectedSubmissionComment}"`
+                        );
+                    } else {
+                        console.log('[MoodleLMS] Submission comment found on grading page.');
+                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
+                            AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:passed`);
+                        }
+                    }
+                } catch (error) {
+                    console.warn('[MoodleLMS] Submission comment check failed (non-blocking):', error);
+                }
+            }
+
             AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
         });
     }

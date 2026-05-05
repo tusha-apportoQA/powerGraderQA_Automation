@@ -6,7 +6,7 @@ import { AllureHelper } from './allureHelper';
 import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
 import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
 import { TeacherEditConfig } from '../types'; // Preserved from merge
-import { C68998, C68999, C69000, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75645 } from '../test-data/testCaseIds';
+import { C68998, C68999, C69000, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75645, C78823 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
 
@@ -380,6 +380,7 @@ export async function executeUniversalPGWorkflow(
     if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75511:'))) {
         AllureHelper.label('caseStatus', `${C75511.split(':')[0]}:passed`);
     }
+    AllureHelper.label('caseStatus', `${C78823.split(':')[0]}:passed`);
     //await powerGraderPage.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 30000 });
    // console.log(`✅ [FINISH] Workflow successful.`);
    try {

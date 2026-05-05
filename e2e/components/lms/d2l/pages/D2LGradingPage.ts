@@ -130,5 +130,16 @@ export class D2LGradingPage {
         console.log('[D2LGradingPage] LMS GradingSummary (scraped):', summary);
         return summary;
     }
+
+    /**
+     * True if at least one element has this exact text and the **first** match is visible.
+     */
+    async hasVisibleExactText(expected: string): Promise<boolean> {
+        const loc = this.page.getByText(expected, { exact: true });
+        if ((await loc.count()) === 0) {
+            return false;
+        }
+        return await loc.first().isVisible().catch(() => false);
+    }
 }
 

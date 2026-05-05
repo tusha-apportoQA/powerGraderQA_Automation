@@ -4,7 +4,7 @@ import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout"; // 
 import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
-import { C68998, C68999, C69000, C69036, C69038, C69039, C69092, C69100, C75511, C75526, C75645 } from '../../test-data/testCaseIds';
+import { C68998, C68999, C69000, C69036, C69038, C69039, C69092, C69100, C75511, C75526, C75645, C78823 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getD2LConfig } from '../../config/d2l.config';
 import testUsers from '../../test_users';
@@ -71,6 +71,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       AllureHelper.label('caseConfig', `d2l|${assignmentConfig.title}`);
       AllureHelper.label('testCaseId', C75526);
       AllureHelper.label('testCaseId', C69100);
+      AllureHelper.label('testCaseId', C78823);
       if (assignmentConfig.submissionType === 'Text Entry') {
         AllureHelper.label('testCaseId', C69092);
       }

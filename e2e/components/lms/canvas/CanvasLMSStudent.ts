@@ -53,11 +53,14 @@ export class CanvasLMSStudent {
      * @param submissionType - Expected submission type from assignment config
      * @param filePath - Path to file (required for file types)
      * @param text - Text content (required for Text Entry)
+     * @param submissionCommentMeta - Optional; used by Canvas verify-LMS spec only. When set, fills
+     *   "Comments..." with `submission for {uniqueTitle} by {studentLabel}`.
      */
     async verifyFileTypeAndSubmit(
         submissionType: FormatType,
         filePath?: string,
-        text?: string
+        text?: string,
+        submissionCommentMeta?: { uniqueTitle: string; studentLabel: string }
     ): Promise<void> {
         // Verify file type and submit assignment
         await this.assignmentDetailsPage.verifyFileType(submissionType);
@@ -65,6 +68,10 @@ export class CanvasLMSStudent {
         
         await this.submissionPage.waitForLoad();
         await this.submissionPage.prepareSubmission(submissionType, filePath, text);
+        if (submissionCommentMeta) {
+            const comment = `submission for ${submissionCommentMeta.uniqueTitle} by ${submissionCommentMeta.studentLabel}`;
+            await this.submissionPage.fillComment(comment);
+        }
         await this.submissionPage.verifySubmissionReady(submissionType);
         
         // Submit the assignment
