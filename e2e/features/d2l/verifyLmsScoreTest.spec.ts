@@ -4,7 +4,7 @@ import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
-import { C69002, C69065, C69067 } from '../../test-data/testCaseIds';
+import { C69002, C69065, C69067, C69098 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getD2LConfig } from '../../config/d2l.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -54,7 +54,7 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
         throw new Error(`Selected config at index ${CONFIG_INDEX} has no submissionType.`);
     }
 
-    const { studentDisplayName, courseName } = getD2LConfig();
+    const { studentDisplayName, courseName, credentials } = getD2LConfig();
 
     test('Create, submit, PG extracts summary + publish, verify LMS', async ({
         d2lTeacherPage,
@@ -65,6 +65,9 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
         AllureHelper.label('caseConfig', `d2l|${assignmentConfig.title}`);
         AllureHelper.label('testCaseId', C69065);
         AllureHelper.label('testCaseId', C69002);
+        if (assignmentConfig.submissionType !== 'Text Entry') {
+            AllureHelper.label('testCaseId', C69098);
+        }
         if (assignmentConfig.submissionType === 'Text Entry') {
             AllureHelper.label('testCaseId', C69067);
         }
@@ -84,11 +87,18 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
 
         await AllureHelper.step(`2. Submit assignment (${submissionType})`, async () => {
             await waitForStudentAssignmentToAppear(student, courseName, uniqueTitle);
+            const commentMeta = { uniqueTitle, studentLabel: credentials.studentUsername };
             if (submissionType === 'Text Entry') {
-                await student.verifyFileTypeAndSubmit(uniqueTitle, 'Text Entry', undefined, getSubmissionText());
+                await student.verifyFileTypeAndSubmit(
+                    uniqueTitle,
+                    'Text Entry',
+                    undefined,
+                    getSubmissionText(),
+                    commentMeta
+                );
             } else {
                 const filePath = getSubmissionFilePath(submissionType as any);
-                await student.verifyFileTypeAndSubmit(uniqueTitle, submissionType, filePath);
+                await student.verifyFileTypeAndSubmit(uniqueTitle, submissionType, filePath, undefined, commentMeta);
             }
         });
 
@@ -111,7 +121,8 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
         });
 
         await AllureHelper.step('4. Verify LMS against extracted summary', async () => {
-            await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary);
+            const expectedSubmissionComment = `submission for ${uniqueTitle} by ${credentials.studentUsername}`;
+            await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary, expectedSubmissionComment);
         });
     });
 });

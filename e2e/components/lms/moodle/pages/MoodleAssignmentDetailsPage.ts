@@ -117,6 +117,27 @@ export class MoodleAssignmentDetailsPage {
     }
 
     /**
+     * On assignment details (before Add submission): expand Comments, fill “Add a comment...”, click Save comment, wait for network idle.
+     * Button label includes count, e.g. `Comments Comments (0)`.
+     */
+    async expandCommentsAndPostComment(comment: string): Promise<void> {
+        await this.expectAssignmentDetailsLoaded();
+        const commentsToggle = this.page.getByRole('button', { name: /^Comments Comments \(\d+\)$/ });
+        await expect(commentsToggle).toBeVisible({ timeout: 10000 });
+        await commentsToggle.click();
+
+        const commentBox = this.page.getByRole('textbox', { name: 'Add a comment...' });
+        await expect(commentBox).toBeVisible({ timeout: 10000 });
+        await commentBox.fill(comment);
+
+        const saveComment = this.page.getByRole('link', { name: 'Save comment' });
+        await expect(saveComment).toBeVisible({ timeout: 10000 });
+        await saveComment.click();
+
+        await this.page.waitForLoadState('networkidle');
+    }
+
+    /**
      * Student: click "Add submission" to go to the edit submission page (view.php?id=X&action=editsubmission).
      */
     async clickAddSubmission(): Promise<void> {

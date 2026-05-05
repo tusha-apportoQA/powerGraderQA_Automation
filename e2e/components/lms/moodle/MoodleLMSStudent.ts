@@ -60,12 +60,23 @@ export class MoodleLMSStudent {
      * Verify submission type, go to edit submission page, and prepare submission (mirrors Canvas verifyFileTypeAndSubmit).
      * File types (.docx, .pdf, .txt): require filePath, upload via file manager.
      * Text Entry: optional text param; inner logic left blank for now.
+     *
+     * @param submissionCommentMeta - Optional (verify-LMS). Posts assignment comment on details page **before** Add submission (non-blocking).
      */
     async verifyFileTypeAndSubmit(
         submissionType: FormatType,
         filePath?: string,
-        text?: string
+        text?: string,
+        submissionCommentMeta?: { uniqueTitle: string; studentLabel: string }
     ): Promise<void> {
+        if (submissionCommentMeta) {
+            try {
+                const comment = `submission for ${submissionCommentMeta.uniqueTitle} by ${submissionCommentMeta.studentLabel}`;
+                await this.assignmentDetailsPage.expandCommentsAndPostComment(comment);
+            } catch (error) {
+                console.warn('[MoodleLMSStudent] Assignment comment step failed — continuing without it (non-blocking):', error);
+            }
+        }
         await this.assignmentDetailsPage.clickAddSubmission();
         await this.submissionPage.waitForLoad();
         await this.submissionPage.prepareSubmission(submissionType, filePath, text);

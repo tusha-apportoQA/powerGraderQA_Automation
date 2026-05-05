@@ -171,7 +171,7 @@ import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { MoodleLMS } from '../../components/lms/moodle/MoodleLMS';
 import { MoodleLMSStudent } from '../../components/lms/moodle/MoodleLMSStudent';
 import { getMoodleAssignmentConfigs } from '../../test-data/assignments/moodle';
-import { C68998, C68999, C69000, C69036, C69038, C69039, C69063, C69092, C69100, C75511, C75526, C75645 } from '../../test-data/testCaseIds';
+import { C68998, C68999, C69000, C69036, C69038, C69039, C69063, C69092, C69100, C75511, C75526, C75645, C78823 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getMoodleConfig } from '../../config/moodle.config';
 import testUsers from '../../test_users';
@@ -238,6 +238,7 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
       AllureHelper.label('caseConfig', `moodle|${assignmentConfig.title}`);
       AllureHelper.label('testCaseId', C69063);
       AllureHelper.label('testCaseId', C69100);
+      AllureHelper.label('testCaseId', C78823);
       AllureHelper.label('testCaseId', C75526);
       if (assignmentConfig.submissionType === 'Text Entry') {
         AllureHelper.label('testCaseId', C69092);

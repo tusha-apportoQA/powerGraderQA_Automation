@@ -4,7 +4,7 @@ import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
-import { C68998, C68999, C69000, C69036, C69038, C69039, C69074, C69092, C69100, C75511, C75526, C75645 } from '../../test-data/testCaseIds';
+import { C68998, C68999, C69000, C69036, C69038, C69039, C69074, C69092, C69100, C75511, C75526, C75645, C78823 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -71,6 +71,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       AllureHelper.label('caseConfig', `canvas|${assignmentConfig.title}`);
       AllureHelper.label('testCaseId', C69074);
       AllureHelper.label('testCaseId', C69100);
+      AllureHelper.label('testCaseId', C78823);
       AllureHelper.label('testCaseId', C75526);
       if (assignmentConfig.submissionType === 'Text Entry') {
         AllureHelper.label('testCaseId', C69092);

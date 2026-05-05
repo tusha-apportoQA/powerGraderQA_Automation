@@ -93,6 +93,22 @@ export class D2LAssignmentSubmissionPage {
         await this.page.waitForTimeout(1000);
     }
 
+    /** D2L “Comments” uses a TinyMCE iframe; `title="Comments"` on the iframe (tox-edit-area). */
+    async fillComments(comment: string): Promise<void> {
+        await this.waitForLoad();
+
+        const commentsIframe = this.page.getByTitle('Comments');
+        await expect(commentsIframe).toBeVisible({ timeout: 30000 });
+
+        const commentsFrame = this.page.frameLocator('iframe[title="Comments"]');
+        const tinymceBody = commentsFrame.locator('#tinymce');
+        await expect(tinymceBody).toBeVisible({ timeout: 15000 });
+        await tinymceBody.click();
+        await this.page.waitForTimeout(300);
+        await tinymceBody.fill(comment);
+        await this.page.waitForTimeout(500);
+    }
+
     async prepareSubmission(
         submissionType: FormatType,
         filePath?: string,

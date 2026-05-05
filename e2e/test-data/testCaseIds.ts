@@ -14,7 +14,9 @@ export const C68998 = 'C68998:Rubric: Button Visibility (No Rubric)';
 export const C68999 = 'C68999:Rubric: Button Hidden (Has Rubric)';
 export const C69000 = 'C69000:Rubric: Transition to Grading';
 export const C69002 = 'C69002:Sync: Scoring Reflection in LMS';
+export const C69098 = 'C69098:All LMS: Student submits files (.docx/.txt/.pdf) with comments';
 export const C69038 = 'C69038:POW: Teacher should be able to create new Rubric with multiple criteria';
 export const C69039 = 'C69039:POW: Teacher should be able to add pre-existing rubric';
 export const C69100 = 'C69100:On-time submission (before due date) is accepted and gradable';
+export const C78823 = 'C78823:Verify Submission Review Page new UI';
 

@@ -4,7 +4,7 @@ import { MoodleLMS } from '../../components/lms/moodle/MoodleLMS';
 import { MoodleLMSStudent } from '../../components/lms/moodle/MoodleLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getMoodleAssignmentConfigs } from '../../test-data/assignments/moodle';
-import { C69002, C69060, C69061 } from '../../test-data/testCaseIds';
+import { C69002, C69060, C69061, C69098 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getMoodleConfig } from '../../config/moodle.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -52,7 +52,7 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
         throw new Error(`Selected config at index ${CONFIG_INDEX} has no submissionType.`);
     }
 
-    const { studentDisplayName, courseName } = getMoodleConfig();
+    const { studentDisplayName, courseName, credentials } = getMoodleConfig();
 
     test('Create, submit, PG extracts summary + publish, verify LMS', async ({
         moodleTeacherPage,
@@ -64,6 +64,9 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
         AllureHelper.label('testCaseId', C69060);
         AllureHelper.label('testCaseId', C69061);
         AllureHelper.label('testCaseId', C69002);
+        if (assignmentConfig.submissionType !== 'Text Entry') {
+            AllureHelper.label('testCaseId', C69098);
+        }
 
         const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
         const teacher = new MoodleLMS(moodleTeacherPage.page);
@@ -81,11 +84,12 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
         await AllureHelper.step(`2. Submit assignment (${submissionType})`, async () => {
             await waitForAssignmentToAppearOnCoursePage(student, uniqueTitle, courseName, uniqueTitle);
             await student.navigateToAssignmentDetails(uniqueTitle, courseName);
+            const commentMeta = { uniqueTitle, studentLabel: credentials.studentUsername };
             if (submissionType === 'Text Entry') {
-                await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
+                await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText(), commentMeta);
             } else {
                 const filePath = getSubmissionFilePath(submissionType as any);
-                await student.verifyFileTypeAndSubmit(submissionType, filePath);
+                await student.verifyFileTypeAndSubmit(submissionType, filePath, undefined, commentMeta);
             }
         });
 
@@ -108,7 +112,8 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
         });
 
         await AllureHelper.step('4. Verify LMS against extracted summary', async () => {
-            await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary);
+            const expectedSubmissionComment = `submission for ${uniqueTitle} by ${credentials.studentUsername}`;
+            await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary, expectedSubmissionComment);
         });
     });
 });

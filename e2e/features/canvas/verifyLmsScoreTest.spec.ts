@@ -4,7 +4,7 @@ import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
-import { C69002, C69070 } from '../../test-data/testCaseIds';
+import { C69002, C69070, C69098 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getCanvasConfig } from '../../config/canvas.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -71,7 +71,7 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     throw new Error(`Selected config at index ${CONFIG_INDEX} has no submissionType.`);
   }
 
-  const { studentDisplayName } = getCanvasConfig();
+  const { studentDisplayName, credentials } = getCanvasConfig();
 
   test('Create, submit, PG extracts summary, publish, verify LMS (SpeedGrader)', async ({
     canvasTeacherPage,
@@ -82,6 +82,9 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     AllureHelper.label('caseConfig', `canvas|${assignmentConfig.title}`);
     AllureHelper.label('testCaseId', C69070);
     AllureHelper.label('testCaseId', C69002);
+    if (assignmentConfig.submissionType !== 'Text Entry') {
+      AllureHelper.label('testCaseId', C69098);
+    }
 
     const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
     const teacher = new CanvasLMS(canvasTeacherPage.page);
@@ -102,12 +105,13 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     await AllureHelper.step(`2. Submit assignment (${submissionType})`, async () => {
       await waitForStudentAssignmentToAppearByUrl(student, courseId, assignmentId, uniqueTitle);
 
+      const commentMeta = { uniqueTitle, studentLabel: credentials.studentUsername };
       if (submissionType === 'Text Entry') {
-        await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
+        await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText(), commentMeta);
       } else {
         const filePath = getSubmissionFilePath(submissionType as any);
         const text = submissionType === '.txt' ? getSubmissionText() : undefined;
-        await student.verifyFileTypeAndSubmit(submissionType, filePath, text);
+        await student.verifyFileTypeAndSubmit(submissionType, filePath, text, commentMeta);
       }
     });
 
@@ -132,7 +136,8 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     });
 
     await AllureHelper.step('4. Verify LMS (Canvas SpeedGrader) against extracted summary', async () => {
-      await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary);
+      const expectedSubmissionComment = `submission for ${uniqueTitle} by ${credentials.studentUsername}`;
+      await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary, expectedSubmissionComment);
     });
   });
 });

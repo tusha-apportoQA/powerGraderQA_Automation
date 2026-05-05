@@ -47,4 +47,22 @@ export class MoodleGradingPage {
         console.log('[MoodleGradingPage] LMS GradingSummary (scraped):', summary);
         return summary;
     }
+
+    /**
+     * Expand Comments on the grading UI, then assert submission comment text (same pattern as D2L):
+     * at least one `getByText(..., { exact: true })` and the **first** match is visible.
+     */
+    async hasSubmissionCommentVisible(expected: string): Promise<boolean> {
+        const commentsControl = this.page.getByRole('button', { name: /^Comments Comments \(\d+\)$/ });
+        await expect(commentsControl).toBeVisible({ timeout: 10000 });
+        await commentsControl.click();
+        await this.page.waitForTimeout(500);
+
+        const commentText = this.page.getByText(expected, { exact: true });
+
+        if ((await commentText.count()) === 0) {
+            return false;
+        }
+        return await commentText.first().isVisible().catch(() => false);
+    }
 }

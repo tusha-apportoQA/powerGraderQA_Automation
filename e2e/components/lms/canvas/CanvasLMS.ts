@@ -1,4 +1,4 @@
-import { expect, Page } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
 import { CanvasDashboardPage } from './pages/CanvasDashboardPage';
 import { CanvasCoursePage } from './pages/CanvasCoursePage';
 import { CanvasAssignmentListPage } from './pages/CanvasAssignmentListPage';
@@ -8,7 +8,7 @@ import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage
 import { CanvasGradingPage } from './pages/CanvasGradingPage';
 import { AssignmentConfig, GradingSummary } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
-import { C69002, C69070 } from '../../../test-data/testCaseIds';
+import { C69002, C69070, C69098 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 
 /** Earned points from a total string, e.g. "13/15" -> 13. */
@@ -97,10 +97,15 @@ export class CanvasLMS {
 
     /**
      * Verify that the score and rubric results visible in Canvas match the expected {@link GradingSummary}.
-     * Scrapes LMS via {@link CanvasGradingPage.getRubricSnapshot}, then compares totals and
+     * Scrapes LMS via {@link CanvasGradingPage} (`getRubricSnapshot`), then compares totals and
      * per-criterion **points** and **feedback** by **index order** (criterion names are not used).
      */
-    async verifyLmsScore(studentName: string, assignmentName: string, gradingSummary: GradingSummary): Promise<void> {
+    async verifyLmsScore(
+        studentName: string,
+        assignmentName: string,
+        gradingSummary: GradingSummary,
+        expectedSubmissionComment?: string
+    ): Promise<void> {
         console.log(`[CanvasLMS] verifyLmsScore for student=${studentName}, assignment="${assignmentName}"`);
         console.log('[CanvasLMS] Expected GradingSummary:', gradingSummary);
 
@@ -154,6 +159,26 @@ export class CanvasLMS {
 
             console.log(`[CanvasLMS] Criterion index ${i} -> comparing feedback`);
             await expect(lmsCrit.feedback).toBe(expCrit.feedback);
+        }
+
+        if (expectedSubmissionComment) {
+            try {
+                const actualComment = await canvasGradingPage.getSubmissionCommentText();
+                if (actualComment === null) {
+                    console.warn('[CanvasLMS] Submission comment element not visible (data-testid="comment-0-text").');
+                } else if (actualComment !== expectedSubmissionComment) {
+                    console.warn(
+                        `[CanvasLMS] Submission comment mismatch (non-blocking). Expected="${expectedSubmissionComment}" | Actual="${actualComment}"`
+                    );
+                } else {
+                    console.log('[CanvasLMS] Submission comment matches expected text.');
+                    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
+                        AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:passed`);
+                    }
+                }
+            } catch (error) {
+                console.warn('[CanvasLMS] Could not verify submission comment (non-blocking):', error);
+            }
         }
         AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
     }
