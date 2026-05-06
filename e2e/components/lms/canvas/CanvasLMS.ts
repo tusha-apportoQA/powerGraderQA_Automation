@@ -214,7 +214,8 @@ export class CanvasLMS {
      */
     async navigateToPowerGrader(): Promise<Page> {
         //const powergraderQALink = this.page.locator('id=powergrader-qa-link');
-        const powergraderQALink = this.page.getByRole('link', { name: /Powergrader QA/i });
+        //const powergraderQALink = this.page.getByRole('link', { name: /Powergrader QA/i });
+        const powergraderQALink = this.page.getByRole('link', { name: /Apporto AI Suite QA/i });
         
         await powergraderQALink.waitFor({ state: 'visible', timeout: 30000 });
         

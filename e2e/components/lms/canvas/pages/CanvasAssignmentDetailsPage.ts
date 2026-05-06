@@ -30,7 +30,8 @@ export class CanvasAssignmentDetailsPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.assignmentTitle = page.locator('.assignment-title h1.title');
+        //this.assignmentTitle = page.locator('.assignment-title h1.title');
+        this.assignmentTitle = page.locator('.assignment-title .title-content');
         this.startAssignmentButton = page.getByRole('button', { name: 'Start Assignment' });
         this.fileTypesValue = page.locator('ul.student-assignment-overview li').filter({
             has: page.locator('span.title', { hasText: 'File types' })

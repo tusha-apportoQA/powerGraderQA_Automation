@@ -38,7 +38,8 @@ test.describe('Component Test: Assignment Submission', () => {
         await studentLms.coursePage.clickAssignments();
         await studentLms.assignmentListPage.expectAssignmentsListLoaded();
         await studentLms.assignmentListPage.clickAssignment(config.title);
-        await studentLms.assignmentDetailsPage.expectAssignmentDetailsLoaded();
+        //await studentLms.assignmentDetailsPage.expectAssignmentDetailsLoaded();
+        await studentLms.assignmentDetailsPage.waitForLoad();
         await studentLms.assignmentDetailsPage.verifyAssignmentTitle(config.title);
 
         if (config.submissionType === 'Text Entry') {

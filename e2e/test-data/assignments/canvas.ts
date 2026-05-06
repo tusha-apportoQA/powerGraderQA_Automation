@@ -17,7 +17,7 @@ import { getCanvasConfig } from '../../config/canvas.config';
     return `${day}/${month}/${year} ${hours}:${minutes}`;
 }*/
 
-function formatDate(date: Date): string {
+/*function formatDate(date: Date): string {
     // This automatically detects the user's locale (US vs UK) 
     // and formats the date and time to match their specific UI settings.
     return date.toLocaleString('en-US', {
@@ -28,6 +28,16 @@ function formatDate(date: Date): string {
         minute: '2-digit',
         hour12: true // Using 12-hour format with AM/PM is the most 'compatible' for Canvas
     }).replace(',', ''); // Removes the comma often placed between date and time
+}*/
+
+function formatDate(date: Date): string {
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    // Canvas interprets as MM/DD/YYYY
+    return `${month}/${day}/${year} ${hours}:${minutes}`;
 }
 
 function getAssignmentDates() {
@@ -35,6 +45,7 @@ function getAssignmentDates() {
     
     // Available from: Current date at 12:00 AM (midnight)
     const availableFrom = new Date(now);
+    availableFrom.setDate(availableFrom.getDate() - 1);
     availableFrom.setHours(0, 0, 0, 0);
 
     // Due date: 3 days after current date
@@ -47,11 +58,16 @@ function getAssignmentDates() {
     until.setDate(until.getDate() + 3);
     until.setHours(10, 0, 0, 0);
 
-    return {
+
+    const result = {
         availableFrom: formatDate(availableFrom),
         dueDate: formatDate(dueDate),
         until: formatDate(until)
     };
+    console.log('[Canvas Dates] Generated:', result);
+
+    return result;
+
 }
 
 /**

@@ -14,6 +14,53 @@ import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout";
  * Poll until the student can open the assignment details page by direct URL.
  * This avoids races / title mismatches in the student assignment list.
  */
+/*async function waitForStudentAssignmentToAppearByUrl( 
+  student: CanvasLMSStudent,
+  courseId: string,
+  assignmentId: string,
+  labelForLogs: string,
+  opts?: { maxWaitMs?: number; intervalMs?: number }
+): Promise<void> {
+  const maxWaitMs = opts?.maxWaitMs ?? 8 * 60 * 1000;
+  const intervalMs = opts?.intervalMs ?? 15 * 1000;
+  const start = Date.now();
+  let attempt = 0;
+
+  const url = `${student.baseURL}/courses/${courseId}/assignments/${assignmentId}`;
+
+  while (Date.now() - start < maxWaitMs) {
+    attempt += 1;
+    const elapsedSec = ((Date.now() - start) / 1000).toFixed(0);
+
+    try {
+      console.log(`[${labelForLogs}] Student Sync: attempt ${attempt} (elapsed ${elapsedSec}s) - opening assignment URL...`);
+      //await student.dashboardPage.goto(student.baseURL);
+      await student.dashboardPage.goto(url);
+
+      await student.dashboardPage.expectDashboardLoaded();
+
+      await student.page.goto(url, { waitUntil: 'domcontentloaded' });
+      await student.assignmentDetailsPage.waitForLoad();
+
+      console.log(`[${labelForLogs}] Student Sync: assignment page opened ✅`);
+      return;
+    /*} catch (e) {
+      console.log(`[${labelForLogs}] Student Sync: not accessible yet... retrying in ${Math.round(intervalMs / 1000)}s`);
+      await student.page.waitForTimeout(intervalMs);
+    }*/
+    /*} catch (e) {
+        console.log(`[${labelForLogs}] Student Sync: not accessible yet... retrying in ${Math.round(intervalMs / 1000)}s`);
+        if (student.page.isClosed()) {
+          console.log(`[${labelForLogs}] Student Sync: page was closed, reopening...`);
+          //student.page = await student.context.newPage();
+           student.page = await student.page.context().newPage();
+        }
+        await student.page.waitForTimeout(intervalMs);
+      }
+  }
+  throw new Error(`Timed out waiting for student to access assignment page for: "${labelForLogs}"`);
+}*/
+
 async function waitForStudentAssignmentToAppearByUrl( 
   student: CanvasLMSStudent,
   courseId: string,
@@ -34,17 +81,18 @@ async function waitForStudentAssignmentToAppearByUrl(
 
     try {
       console.log(`[${labelForLogs}] Student Sync: attempt ${attempt} (elapsed ${elapsedSec}s) - opening assignment URL...`);
-      await student.dashboardPage.goto(student.baseURL);
-      await student.dashboardPage.expectDashboardLoaded();
-
+      //await student.dashboardPage.goto(url);
+      //await student.dashboardPage.expectDashboardLoaded();
       await student.page.goto(url, { waitUntil: 'domcontentloaded' });
+      //await student.page.goto(url, { waitUntil: 'domcontentloaded' });
       await student.assignmentDetailsPage.waitForLoad();
 
       console.log(`[${labelForLogs}] Student Sync: assignment page opened ✅`);
       return;
     } catch (e) {
       console.log(`[${labelForLogs}] Student Sync: not accessible yet... retrying in ${Math.round(intervalMs / 1000)}s`);
-      await student.page.waitForTimeout(intervalMs);
+      console.log(`[${labelForLogs}] Student Sync: ERROR: ${e instanceof Error ? e.message : String(e)}`);
+      await new Promise(resolve => setTimeout(resolve, intervalMs));
     }
   }
   throw new Error(`Timed out waiting for student to access assignment page for: "${labelForLogs}"`);
