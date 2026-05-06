@@ -4,7 +4,7 @@ import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
-import { C68998, C68999, C69000, C69036, C69038, C69039, C69074, C69092, C69100, C75511, C75526, C75645, C78823 } from '../../test-data/testCaseIds';
+import { C68998, C68999, C69000, C69036, C69038, C69039, C69074, C69092, C69100, C75511, C75645, C78823 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -68,11 +68,10 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
     test(`Canvas Orchestration: ${assignmentConfig.title}`, async ({ canvasTeacherPage, canvasStudentPage }) => {
       test.setTimeout(1_200_000);
       AllureHelper.label('lms', 'canvas');
-      AllureHelper.label('caseConfig', `canvas|${assignmentConfig.title}`);
+      AllureHelper.label('caseConfig', `canvas|orchestration|${assignmentConfig.title}`);
       AllureHelper.label('testCaseId', C69074);
       AllureHelper.label('testCaseId', C69100);
       AllureHelper.label('testCaseId', C78823);
-      AllureHelper.label('testCaseId', C75526);
       if (assignmentConfig.submissionType === 'Text Entry') {
         AllureHelper.label('testCaseId', C69092);
       }
@@ -88,6 +87,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
         AllureHelper.label('testCaseId', C69000);
       } else {
         AllureHelper.label('testCaseId', C68999);
+        AllureHelper.label('caseStatus', `${C68999.split(':')[0]}:not_reached`);
       }
       if (assignmentConfig.rubric?.type === 'new') {
         AllureHelper.label('testCaseId', C69038);

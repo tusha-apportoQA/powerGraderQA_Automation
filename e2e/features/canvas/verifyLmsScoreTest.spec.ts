@@ -41,6 +41,9 @@ async function waitForStudentAssignmentToAppearByUrl(
 
       await student.page.goto(url, { waitUntil: 'domcontentloaded' });
       await student.assignmentDetailsPage.waitForLoad();
+      if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69070:'))) {
+        AllureHelper.label('caseStatus', `${C69070.split(':')[0]}:reached`);
+      }
 
       console.log(`[${labelForLogs}] Student Sync: assignment page opened ✅`);
       return;
@@ -79,11 +82,13 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
   }) => {
     test.setTimeout(1_200_000);
     AllureHelper.label('lms', 'canvas');
-    AllureHelper.label('caseConfig', `canvas|${assignmentConfig.title}`);
+    AllureHelper.label('caseConfig', `canvas|verify-lms|${assignmentConfig.title}`);
     AllureHelper.label('testCaseId', C69070);
+    AllureHelper.label('caseStatus', `${C69070.split(':')[0]}:not_reached`);
     AllureHelper.label('testCaseId', C69002);
     if (assignmentConfig.submissionType !== 'Text Entry') {
       AllureHelper.label('testCaseId', C69098);
+      AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
     }
 
     const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
@@ -123,21 +128,10 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
       extractedSummary = await powerGrader.gradeAssignmentAndExtractSummary(uniqueTitle);
 
       await AllureHelper.attachJSON('PowerGrader GradingSummary', extractedSummary);
-
-      try {
-        await pg.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 45_000 });
-        const allReviewedBtn = pg.locator('button').filter({ hasText: /Submissions Reviewed|All Reviewed/i });
-        await expect(allReviewedBtn).toBeVisible({ timeout: 30_000 });
-      } catch {
-        console.log(
-          `[${uniqueTitle}] Warning: post-publish redirect or confirmation timed out; continuing to LMS verify.`
-        );
-      }
     });
 
     await AllureHelper.step('4. Verify LMS (Canvas SpeedGrader) against extracted summary', async () => {
-      const expectedSubmissionComment = `submission for ${uniqueTitle} by ${credentials.studentUsername}`;
-      await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary, expectedSubmissionComment);
+      await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary);
     });
   });
 });

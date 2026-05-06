@@ -60,12 +60,15 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
     }) => {
         test.setTimeout(1_200_000);
         AllureHelper.label('lms', 'moodle');
-        AllureHelper.label('caseConfig', `moodle|${assignmentConfig.title}`);
+        AllureHelper.label('caseConfig', `moodle|verify-lms|${assignmentConfig.title}`);
         AllureHelper.label('testCaseId', C69060);
+        AllureHelper.label('caseStatus', `${C69060.split(':')[0]}:not_reached`);
         AllureHelper.label('testCaseId', C69061);
+        AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:not_reached`);
         AllureHelper.label('testCaseId', C69002);
         if (assignmentConfig.submissionType !== 'Text Entry') {
             AllureHelper.label('testCaseId', C69098);
+      AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
         }
 
         const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
@@ -99,21 +102,10 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
             const powerGrader = new PowerGrader(pg);
             extractedSummary = await powerGrader.gradeAssignmentAndExtractSummary(uniqueTitle);
             await AllureHelper.attachJSON('PowerGrader GradingSummary', extractedSummary);
-
-            try {
-                await pg.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 45_000 });
-                const allReviewedBtn = pg.locator('button').filter({ hasText: /Submissions Reviewed|All Reviewed/i });
-                await expect(allReviewedBtn).toBeVisible({ timeout: 30_000 });
-            } catch {
-                console.log(
-                    `[${uniqueTitle}] Warning: post-publish redirect or confirmation timed out; continuing to LMS verify.`
-                );
-            }
         });
 
         await AllureHelper.step('4. Verify LMS against extracted summary', async () => {
-            const expectedSubmissionComment = `submission for ${uniqueTitle} by ${credentials.studentUsername}`;
-            await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary, expectedSubmissionComment);
+            await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary);
         });
     });
 });

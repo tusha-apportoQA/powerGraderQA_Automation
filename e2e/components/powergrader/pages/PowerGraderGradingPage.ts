@@ -125,22 +125,19 @@ export class PowerGraderGradingPage {
         await this.page.waitForTimeout(60000);
 
         const publishButton = this.page.getByRole('button', { name: 'Publish' }).first();
-        console.log(`Publish Button Found..`);
-        await expect(publishButton).toBeVisible({ timeout: 30000 });
-        await expect(publishButton).toBeEnabled({ timeout: 10000 });
-        
-        await publishButton.click();
-        console.log(`Publish Button Clicked..`);
-
         const certifyCheckbox = this.page.getByRole('checkbox', {
             name: /I certify this grade can be released to the student/i
         });
-        try {
-            if (await certifyCheckbox.isVisible({ timeout: 3000 })) {
+        console.log(`Publish Button Found..`);
+        const clickAndHandleModal = async (attempt: number) => {
+            await expect(publishButton).toBeVisible({ timeout: 30000 });
+            await expect(publishButton).toBeEnabled({ timeout: 10000 });
+            await publishButton.click();
+            console.log(`Publish Button Clicked (attempt ${attempt})..`);
+
+            if (await certifyCheckbox.isVisible({ timeout: 5000 }).catch(() => false)) {
                 await certifyCheckbox.check();
-                const studentCommentInput = this.page.getByRole('textbox', {
-                    name: 'Add a comment to the student'
-                });
+                const studentCommentInput = this.page.getByRole('textbox', { name: 'Add a comment to the student' });
                 await expect(studentCommentInput).toBeVisible({ timeout: 10000 });
                 await studentCommentInput.fill('feedback');
                 await this.page.waitForTimeout(300);
@@ -150,7 +147,15 @@ export class PowerGraderGradingPage {
                 await modalPublishButton.click();
                 console.log(`Certification modal handled and final publish clicked..`);
             }
-        } catch {}
+        };
+
+        await clickAndHandleModal(1);
+
+        // If first click did not register, retry once with same flow.
+        if (/\/RegisterSubmissionPublicUUID--/.test(this.page.url())) {
+            console.log('Still on submission page after publish; retrying publish click once.');
+            await clickAndHandleModal(2);
+        }
         
         await this.page.waitForLoadState('networkidle');
     }

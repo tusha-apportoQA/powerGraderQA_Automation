@@ -1,10 +1,12 @@
-import { Page } from '@playwright/test';
+import { Page, test } from '@playwright/test';
 import { MoodleDashboardPage } from './pages/MoodleDashboardPage';
 import { MoodleCoursePage } from './pages/MoodleCoursePage';
 import { MoodleAssignmentDetailsPage } from './pages/MoodleAssignmentDetailsPage';
 import { MoodleAssignmentSubmissionPage } from './pages/MoodleAssignmentSubmissionPage';
 import { FormatType } from '../../../types';
 import { getMoodleConfig } from '../../../config/moodle.config';
+import { AllureHelper } from '../../../utils/allureHelper';
+import { C69060, C69061, C69098 } from '../../../test-data/testCaseIds';
 
 export class MoodleLMSStudent {
     page: Page;
@@ -44,6 +46,12 @@ export class MoodleLMSStudent {
         await this.assignmentDetailsPage.waitForLoad();
         await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
         await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69060:'))) {
+            AllureHelper.label('caseStatus', `${C69060.split(':')[0]}:reached`);
+        }
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69061:'))) {
+            AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:reached`);
+        }
     }
 
     /**
@@ -70,9 +78,15 @@ export class MoodleLMSStudent {
         submissionCommentMeta?: { uniqueTitle: string; studentLabel: string }
     ): Promise<void> {
         if (submissionCommentMeta) {
+            if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
+                AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:reached`);
+            }
             try {
                 const comment = `submission for ${submissionCommentMeta.uniqueTitle} by ${submissionCommentMeta.studentLabel}`;
                 await this.assignmentDetailsPage.expandCommentsAndPostComment(comment);
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
+                    AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:passed`);
+                }
             } catch (error) {
                 console.warn('[MoodleLMSStudent] Assignment comment step failed — continuing without it (non-blocking):', error);
             }
@@ -81,5 +95,11 @@ export class MoodleLMSStudent {
         await this.submissionPage.waitForLoad();
         await this.submissionPage.prepareSubmission(submissionType, filePath, text);
         await this.submissionPage.clickSaveChanges();
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69060:'))) {
+            AllureHelper.label('caseStatus', `${C69060.split(':')[0]}:passed`);
+        }
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69061:'))) {
+            AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:passed`);
+        }
     }
 }
