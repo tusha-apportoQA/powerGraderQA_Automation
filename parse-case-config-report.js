@@ -60,25 +60,81 @@ function parseCaseStatus(statusLabel) {
   };
 }
 
+function cleanMessage(value) {
+  if (!value) return null;
+  return String(value).replace(/\s+/g, ' ').trim() || null;
+}
+
+function findFirstFailedStep(steps) {
+  if (!Array.isArray(steps)) return null;
+  for (const step of steps) {
+    if (!step) continue;
+    if (step.status === 'failed' || step.status === 'broken') {
+      return step;
+    }
+    const nested = findFirstFailedStep(step.steps);
+    if (nested) return nested;
+  }
+  return null;
+}
+
+function extractFailureInfo(result, filePath) {
+  const statusDetails = result?.statusDetails || {};
+  const failedStep = findFirstFailedStep(result?.steps);
+  const tracePreview = cleanMessage(statusDetails?.trace)?.slice(0, 500);
+  const error =
+    cleanMessage(statusDetails?.message) ||
+    cleanMessage(failedStep?.statusDetails?.message) ||
+    tracePreview ||
+    'No error details available';
+
+  return {
+    config: null, // assigned by caller
+    error,
+    failedStep: cleanMessage(failedStep?.name),
+    test: cleanMessage(result?.fullName || result?.name),
+    resultFile: path.basename(filePath),
+  };
+}
+
+function getTestIdentity(result, filePath) {
+  return (
+    result?.historyId ||
+    result?.testCaseId ||
+    result?.fullName ||
+    result?.name ||
+    path.basename(filePath)
+  );
+}
+
 function buildCaseConfigReport(resultsDir = './allure-results') {
   const files = getResultFiles(resultsDir);
   const perCase = new Map();
+  const latestByTestAndConfig = new Map();
 
   for (const file of files) {
     const result = readJson(file);
     if (!result) continue;
-
-    const caseLabels = collectNamedValues(result, 'testCaseId');
-    const caseStatusLabels = collectNamedValues(result, 'caseStatus');
     const caseConfigLabels = collectNamedValues(result, 'caseConfig');
     const config = caseConfigLabels[0] || 'unknown-config';
+    const testIdentity = getTestIdentity(result, file);
+    const resultTimestamp = Number(result?.stop ?? result?.start ?? 0);
+    const key = `${testIdentity}::${config}`;
+    const existing = latestByTestAndConfig.get(key);
+    if (!existing || resultTimestamp >= existing.timestamp) {
+      latestByTestAndConfig.set(key, { file, result, config, timestamp: resultTimestamp });
+    }
+  }
 
-    const passedCaseIds = new Set(
-      caseStatusLabels
-        .map(parseCaseStatus)
-        .filter((s) => s.id && s.status === 'passed')
-        .map((s) => s.id)
-    );
+  for (const { file, result, config } of latestByTestAndConfig.values()) {
+    const caseLabels = collectNamedValues(result, 'testCaseId');
+    const caseStatusLabels = collectNamedValues(result, 'caseStatus');
+    const statusesByCase = new Map();
+    for (const statusItem of caseStatusLabels.map(parseCaseStatus)) {
+      if (!statusItem.id || !statusItem.status) continue;
+      if (!statusesByCase.has(statusItem.id)) statusesByCase.set(statusItem.id, new Set());
+      statusesByCase.get(statusItem.id).add(statusItem.status);
+    }
 
     for (const rawCaseLabel of caseLabels) {
       const parsed = parseCaseLabel(rawCaseLabel);
@@ -88,8 +144,7 @@ function buildCaseConfigReport(resultsDir = './allure-results') {
         perCase.set(parsed.id, {
           caseId: parsed.id,
           caseName: parsed.name,
-          passedConfigs: [],
-          failedConfigs: [],
+          outcomes: [],
         });
       }
 
@@ -98,28 +153,52 @@ function buildCaseConfigReport(resultsDir = './allure-results') {
         entry.caseName = parsed.name;
       }
 
-      if (passedCaseIds.has(parsed.id)) {
-        entry.passedConfigs.push(config);
-      } else {
-        entry.failedConfigs.push(config);
-      }
+      const caseStatuses = statusesByCase.get(parsed.id) || new Set();
+      const isPassed = caseStatuses.has('passed');
+      const isReached = caseStatuses.has('reached');
+      const isNotReached = caseStatuses.has('not_reached');
+      let outcomeStatus = 'failed';
+      if (isPassed) outcomeStatus = 'passed';
+      else if (isReached) outcomeStatus = 'failed';
+      else if (isNotReached) outcomeStatus = 'not_reached';
+
+      const failure = outcomeStatus === 'passed' ? null : (() => {
+        const f = extractFailureInfo(result, file);
+        f.config = config;
+        f.status = outcomeStatus;
+        return f;
+      })();
+      entry.outcomes.push({ config, status: outcomeStatus, failure });
     }
   }
 
   const summary = Array.from(perCase.values()).map((entry) => {
-    const passedCount = entry.passedConfigs.length;
-    const failedCount = entry.failedConfigs.length;
+    const passedConfigs = entry.outcomes.filter((o) => o.status === 'passed').map((o) => o.config);
+    const failedConfigs = entry.outcomes.filter((o) => o.status !== 'passed').map((o) => o.failure);
+    const failedCount = failedConfigs.filter((f) => f?.status === 'failed').length;
+    const notReachedCount = failedConfigs.filter((f) => f?.status === 'not_reached').length;
+    const passedCount = passedConfigs.length;
 
     let status = 'failed';
     if (passedCount > 0 && failedCount === 0) status = 'passed';
     else if (passedCount > 0 && failedCount > 0) status = 'partially_passed';
+    else if (passedCount === 0 && failedCount === 0 && notReachedCount > 0) status = 'not_reached';
+    else if (passedCount === 0 && failedCount > 0) status = 'failed';
 
     return {
       caseId: entry.caseId,
       caseName: entry.caseName,
       status,
-      passedConfigs: [...new Set(entry.passedConfigs)],
-      failedConfigs: [...new Set(entry.failedConfigs)],
+      passedConfigs: [...new Set(passedConfigs)],
+      failedConfigs: failedConfigs.filter(
+        (item, index, arr) =>
+          arr.findIndex(
+            (x) =>
+              x.config === item.config &&
+              x.error === item.error &&
+              x.failedStep === item.failedStep
+          ) === index
+      ),
     };
   });
 

@@ -8,7 +8,7 @@ import { D2LGradingPage } from './pages/D2LGradingPage';
 import { D2LAssignmentConfig, GradingSummary } from '../../../types';
 import { getD2LConfig } from '../../../config/d2l.config';
 import { expect } from '@playwright/test';
-import { C69002, C69065, C69067, C69098 } from '../../../test-data/testCaseIds';
+import { C69002, C69065, C69067 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
@@ -144,10 +144,6 @@ export class D2LLMS {
 
         // Open evaluation for the specific student on the submissions list
         await this.assignmentDetailsPage.openEvaluationForStudent(studentDisplayName);
-        AllureHelper.label('caseStatus', `${C69065.split(':')[0]}:passed`);
-        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69067:'))) {
-            AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:passed`);
-        }
 
         const gradingPage = new D2LGradingPage(this.page);
         const lmsSummary = await gradingPage.getRubricSnapshot();
@@ -192,9 +188,6 @@ export class D2LLMS {
                     );
                 } else {
                     console.log('[D2LLMS] Submission comment found on grading page.');
-                    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
-                        AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:passed`);
-                    }
                 }
             } catch (error) {
                 console.warn('[D2LLMS] Submission comment check failed (non-blocking):', error);

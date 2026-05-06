@@ -1,4 +1,4 @@
-import { expect, Page, test } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 import { CanvasDashboardPage } from './pages/CanvasDashboardPage';
 import { CanvasCoursePage } from './pages/CanvasCoursePage';
 import { CanvasAssignmentListPage } from './pages/CanvasAssignmentListPage';
@@ -8,7 +8,7 @@ import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage
 import { CanvasGradingPage } from './pages/CanvasGradingPage';
 import { AssignmentConfig, GradingSummary } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
-import { C69002, C69070, C69098 } from '../../../test-data/testCaseIds';
+import { C69002, C69070 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 
 /** Earned points from a total string, e.g. "13/15" -> 13. */
@@ -121,7 +121,6 @@ export class CanvasLMS {
         const canvasGradingPage = new CanvasGradingPage(speedGraderPage);
         await canvasGradingPage.waitForLoad();
         await canvasGradingPage.expectSelectedStudent(studentName);
-        AllureHelper.label('caseStatus', `${C69070.split(':')[0]}:passed`);
 
         const lmsSummary = await canvasGradingPage.getRubricSnapshot();
         console.log('[CanvasLMS] LMS GradingSummary (scraped):', lmsSummary);
@@ -172,9 +171,6 @@ export class CanvasLMS {
                     );
                 } else {
                     console.log('[CanvasLMS] Submission comment matches expected text.');
-                    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
-                        AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:passed`);
-                    }
                 }
             } catch (error) {
                 console.warn('[CanvasLMS] Could not verify submission comment (non-blocking):', error);

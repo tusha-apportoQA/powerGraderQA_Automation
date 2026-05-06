@@ -27,6 +27,7 @@ export class PowerGrader {
         await this.waitUntilGradingPagePopulated(assignmentName);
         const summary = await this.gradingPage.getGradingSummary();
         await this.gradingPage.clickPublishButton();
+        await this.verifyPostPublishState(assignmentName);
         return summary;
     }
 
@@ -127,6 +128,20 @@ export class PowerGrader {
                 throw error;
             }
         }).toPass({ timeout: 180_000, intervals: [15_000] });
+    }
+
+    /** After publish, confirm we return to assignment details and review turns into view. */
+    private async verifyPostPublishState(assignmentName: string): Promise<void> {
+        await this.page.waitForURL(/\/assignments\/RegisterAssignmentPublicUUID--[^/]+$/, { timeout: 45_000 });
+
+        const viewDetails = this.page
+            .getByRole('button', { name: /^View$/i })
+            .or(this.page.getByText('View', { exact: true }))
+            .first();
+        await expect(viewDetails).toBeVisible({ timeout: 30_000 });
+
+        const reviewButtons = this.page.getByRole('button', { name: /^Review$/i });
+        await expect(reviewButtons).toHaveCount(0, { timeout: 30_000 });
     }
 
     /** From assignment details, open the target student's submission by email. */
