@@ -1,266 +1,79 @@
 {
-  "generatedAt": "2026-05-05T18:21:36.268Z",
+  "generatedAt": "2026-05-07T04:38:50.160Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
-  "totalCases": 20,
+  "totalCases": 8,
   "cases": [
     {
       "caseId": "C68998",
       "caseName": "Rubric: Button Visibility (No Rubric)",
       "status": "passed",
       "passedConfigs": [
-        "d2l|D2L DOCX No Rubric",
-        "canvas|Short Accurate No Rubric DOCX",
-        "moodle|Short Accurate No Rubric DOCX",
-        "d2l|D2L PDF No Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": []
-    },
-    {
-
-      "caseId": "C68999",
-      "caseName": "Rubric: Button Hidden (Has Rubric)",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|Short Inaccurate Existing Rubric Text Entry",
-        "moodle|Short Inaccurate New Rubric TXT",
-        "d2l|D2L DOCX New Rubric",
-        "moodle|Long Accurate Existing Rubric PDF",
-        "moodle|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|Long Accurate Existing Rubric PDF",
-        "d2l|D2L DOCX Existing Rubric"
-      ],
-      "failedConfigs": [
-        "canvas|Short Inaccurate New Rubric TXT"
-      ]
     },
     {
       "caseId": "C69000",
       "caseName": "Rubric: Transition to Grading",
       "status": "passed",
       "passedConfigs": [
-        "d2l|D2L DOCX No Rubric",
-        "canvas|Short Accurate No Rubric DOCX",
-        "moodle|Short Accurate No Rubric DOCX",
-        "d2l|D2L PDF No Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": []
-    },
-    {
-      "caseId": "C69002",
-      "caseName": "Sync: Scoring Reflection in LMS",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        "canvas|Short Inaccurate New Rubric TXT",
-        "d2l|D2L DOCX New Rubric",
-        "moodle|Short Inaccurate New Rubric TXT"
-      ]
     },
     {
       "caseId": "C69036",
       "caseName": "Verify the status of the assignments with no Rubric in PowerGrader",
       "status": "passed",
       "passedConfigs": [
-        "d2l|D2L DOCX No Rubric",
-        "canvas|Short Accurate No Rubric DOCX",
-        "moodle|Short Accurate No Rubric DOCX",
-        "d2l|D2L PDF No Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": []
-    },
-    {
-      "caseId": "C69038",
-      "caseName": "POW: Teacher should be able to create new Rubric with multiple criteria",
-      "status": "passed",
-      "passedConfigs": [
-        "moodle|Short Inaccurate New Rubric TXT",
-        "d2l|D2L DOCX New Rubric",
-        "canvas|Short Inaccurate New Rubric TXT"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69039",
-      "caseName": "POW: Teacher should be able to add pre-existing rubric",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|Short Inaccurate Existing Rubric Text Entry",
-        "moodle|Long Accurate Existing Rubric PDF",
-        "moodle|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|Long Accurate Existing Rubric PDF",
-        "d2l|D2L DOCX Existing Rubric"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69060",
-      "caseName": "POW - Moodle Submit assignment with student role",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        "moodle|Short Inaccurate New Rubric TXT" 
-      ]
-    },
-    {
-      "caseId": "C69061",
-      "caseName": "POW - Moodle verify user can submit different types of assignments",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        "moodle|Short Inaccurate New Rubric TXT"
-      ]
-    },
-    {
-      "caseId": "C69063",
-      "caseName": "POW - Moodle verify submissions are visible in QA instance",
-      "status": "passed",
-      "passedConfigs": [
-        "moodle|Short Inaccurate New Rubric TXT",
-        "moodle|Long Accurate Existing Rubric PDF",
-        "moodle|Short Accurate No Rubric DOCX",
-        "moodle|Short Inaccurate Existing Rubric Text Entry"
-      ],
-      "failedConfigs": []
-    },
-    { 
-      "caseId": "C69065",
-      "caseName": "POW - D2L student should be able to submit assignment",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        "d2l|D2L DOCX New Rubric"
-      ]
-    },
-    {
-      "caseId": "C69070",
-      "caseName": "POW - Canvas student should be able to submit assignment",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        "canvas|Short Inaccurate New Rubric TXT"
-      ]
     },
     {
       "caseId": "C69074",
       "caseName": "POW - Canvas all assignments in QA instance should show submission details",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|Short Accurate No Rubric DOCX",
-        "canvas|Long Accurate Existing Rubric PDF"
-      ],
-      "failedConfigs": [
-        "canvas|Short Inaccurate New Rubric TXT"
-      ]
-    },
-    {
-      "caseId": "C69092",
-      "caseName": "Verify that Text Entry submission is successful",
       "status": "passed",
       "passedConfigs": [
-        "canvas|Short Inaccurate Existing Rubric Text Entry",
-        "moodle|Short Inaccurate Existing Rubric Text Entry"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": []
     },
     {
-      "caseId": "C69098",
-      "caseName": "All LMS: Student submits files (.docx/.txt/.pdf) with comments",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        "canvas|Short Inaccurate New Rubric TXT",
-        "d2l|D2L DOCX New Rubric",
-        "moodle|Short Inaccurate New Rubric TXT"
-      ]
-    },
-    {
       "caseId": "C69100",
       "caseName": "On-time submission (before due date) is accepted and gradable",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
-        "canvas|Short Inaccurate Existing Rubric Text Entry",
-        "d2l|D2L DOCX No Rubric",
-        "moodle|Short Inaccurate New Rubric TXT",
-        "canvas|Short Accurate No Rubric DOCX",
-        "d2l|D2L DOCX New Rubric",
-        "moodle|Long Accurate Existing Rubric PDF",
-        "moodle|Short Accurate No Rubric DOCX",
-        "d2l|D2L PDF No Rubric",
-        "moodle|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|Long Accurate Existing Rubric PDF",
-        "d2l|D2L DOCX Existing Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
-      "failedConfigs": [
-        "canvas|Short Inaccurate New Rubric TXT"
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C75511",
       "caseName": "Verify editing score/feedback gets published without explicitly clicking on Save",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
-        "canvas|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|Short Accurate No Rubric DOCX",
-        "canvas|Long Accurate Existing Rubric PDF"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
-      "failedConfigs": [
-        "canvas|Short Inaccurate New Rubric TXT"
-      ]
-    },
-    {
-      "caseId": "C75526",
-      "caseName": "Verify SeeWhy disables or disappears when user clicks on it in QA",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        "canvas|Short Inaccurate Existing Rubric Text Entry",
-        "d2l|D2L DOCX No Rubric",
-        "moodle|Short Inaccurate New Rubric TXT",
-        "canvas|Short Accurate No Rubric DOCX",
-        "d2l|D2L DOCX New Rubric",
-        "moodle|Long Accurate Existing Rubric PDF",
-        "moodle|Short Accurate No Rubric DOCX",
-        "d2l|D2L PDF No Rubric",
-        "moodle|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|Short Inaccurate New Rubric TXT",
-        "canvas|Long Accurate Existing Rubric PDF",
-        "d2l|D2L DOCX Existing Rubric"
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C75645",
       "caseName": "Verify the docx file is ingested and graded",
       "status": "passed",
       "passedConfigs": [
-        "d2l|D2L DOCX No Rubric",
-        "canvas|Short Accurate No Rubric DOCX",
-        "d2l|D2L DOCX New Rubric",
-        "moodle|Short Accurate No Rubric DOCX",
-        "d2l|D2L DOCX Existing Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": []
     },
     {
       "caseId": "C78823",
       "caseName": "Verify Submission Review Page new UI",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
-        "canvas|Short Inaccurate Existing Rubric Text Entry",
-        "d2l|D2L DOCX No Rubric",
-        "moodle|Short Inaccurate New Rubric TXT",
-        "canvas|Short Accurate No Rubric DOCX",
-        "d2l|D2L DOCX New Rubric",
-        "moodle|Long Accurate Existing Rubric PDF",
-        "moodle|Short Accurate No Rubric DOCX",
-        "d2l|D2L PDF No Rubric",
-        "moodle|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|Long Accurate Existing Rubric PDF"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
-      "failedConfigs": [
-        "canvas|Short Inaccurate New Rubric TXT",
-        "d2l|D2L DOCX Existing Rubric"
-      ]
+      "failedConfigs": []
     }
   ]
 }

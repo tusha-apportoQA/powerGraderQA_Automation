@@ -689,5 +689,93 @@
         }
       ]
     }
+  },
+  {
+    "run_date": "2026-05-07T03:17:05.475Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1778123381383]",
+    "sbert_similarity": 0.628971002868011,
+    "drift": {
+      "sbert_similarity": 0.628971002868011,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is exceptionally clear, well-organized, and error-free, with strong structure and effective transitions that make your essay easy to read and follow from start to finish."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your submission does not address the assigned topic or demonstrate the required analysis of technology's impact in daily life; please carefully respond to all parts of the prompt in future work."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-05-07T03:27:04.795Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1778123932638]",
+    "sbert_similarity": 0.32602818469953004,
+    "drift": {
+      "sbert_similarity": 0.32602818469953004,
+      "score_delta": 3
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 15,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 10,
+          "feedback": "Your submission directly addresses the impact of technology in daily life with accurate, relevant examples and demonstrates basic critical thinking by mentioning both positive effects and potential drawbacks—excellent work for this concise assignment."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 5,
+          "feedback": "Your writing is clear, well-structured, and free of distracting grammatical errors, making it easy to read and understand. Excellent sentence construction and word choice demonstrate strong command of grammar and style at the expected level."
+        }
+      ]
+    }
   }
 ]

@@ -177,12 +177,30 @@ if (fs.existsSync(permanentHistory)) {
     console.log('📦 Allure history restored from permanent store.');
 }
 execSync("node sync.js", { stdio: 'inherit' });
+if (fs.existsSync(resultsDir)) {
+    fs.readdirSync(resultsDir)
+        .filter(f => f.endsWith('-case-summary-result.json'))
+        .forEach(f => fs.rmSync(path.join(resultsDir, f), { force: true }));
+    console.log('🧹 Cleaned old case summary results.');
+}
+if (fs.existsSync('./case-config-report.json')) {
+    fs.rmSync('./case-config-report.json', { force: true });
+    console.log('🧹 Cleaned stale case-config-report.json');
+}
+execSync("node parse-case-config-report.js", { stdio: 'inherit' });
+execSync("node inject-case-report-to-allure.js", { stdio: 'inherit' });
 //const deployCmd = "node sync.js && npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";  
 const deployCmd = "npx allure-commandline generate ./allure-results --clean -o ./allure-report && npm run patch-report && npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --commit-dirty=true";
 
 try {
     //execSync(deployCmd, { stdio: 'inherit' });
     execSync("npx allure-commandline generate ./allure-results --clean -o ./allure-report", { stdio: 'inherit' });
+    // Create missing behaviors.json to prevent 500 error in Allure dashboard
+    fs.writeFileSync(
+        path.join(__dirname, 'allure-report', 'widgets', 'behaviors.json'),
+        JSON.stringify({ total: 0, items: [] })
+    );
+    console.log('✅ behaviors.json created.');
 
     // Only update permanent history if report has actual test results
     const newHistory = path.join(__dirname, 'allure-report', 'history');
