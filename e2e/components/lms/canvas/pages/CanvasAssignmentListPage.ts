@@ -104,5 +104,54 @@ export class CanvasAssignmentListPage {
         await this.page.waitForURL(new RegExp(`/courses/\\d+/assignments/${expectedId}`), { timeout: 30000 });
         await this.page.waitForLoadState();
     }
-}
 
+
+    async deleteAssignmentsByNames(assignmentNames: string[]): Promise<void> {
+        if (assignmentNames.length === 0) {
+            return;
+        }
+
+        for (const assignmentName of assignmentNames) {
+            await this.waitForLoad();
+
+            const nameOnPage = this.page.getByText(assignmentName, { exact: true });
+            if (!(await nameOnPage.first().isVisible({ timeout: 10000 }).catch(() => false))) {
+                continue;
+            }
+
+            const assignmentLink = this.page.getByRole('link', {
+                name: assignmentName,
+                exact: true,
+            });
+
+            const assignmentRow = assignmentLink.locator('xpath=ancestor::li[1]');
+            const settingsButton = assignmentRow.getByRole('button', {
+                name: `Settings for Assignment ${assignmentName}`,
+            });
+
+            await expect(settingsButton).toBeVisible({ timeout: 30000 });
+            await settingsButton.click();
+
+            const assignmentRowMenu = assignmentRow.getByRole('menu');
+            await expect(assignmentRowMenu).toBeVisible({ timeout: 10000 });
+
+            const deleteItem = assignmentRowMenu.getByRole('menuitem', {
+                name: `Delete Assignment ${assignmentName}`,
+            });
+            await expect(deleteItem).toBeVisible({ timeout: 10000 });
+
+            await Promise.all([
+                this.page.waitForEvent('dialog').then((dialog) => dialog.accept()),
+                deleteItem.click(),
+            ]);
+
+            await this.page.waitForLoadState('networkidle', { timeout: 60000 });
+
+            await expect(
+                this.page.getByRole('link', { name: assignmentName, exact: true }),
+            ).toHaveCount(0, { timeout: 30000 });
+
+            await this.page.waitForTimeout(3000);
+        }
+    }
+}

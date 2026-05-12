@@ -136,5 +136,60 @@ export class MoodleCoursePage {
         await this.page.waitForURL(/\/mod\/assign\/view\.php\?id=\d+/, { timeout: 30000 });
         await this.page.waitForLoadState('domcontentloaded');
     }
+
+    /**
+     * Deletes each assignment from the course page (editing mode on, Edit → Delete → Yes per item).
+     * Before each delete: `networkidle` (timeout 0) is only a best-effort quiet window — it does not mean the
+     * delete XHR has finished. After **Yes**, we wait until the activity link is **detached** or **hidden**
+     * (timeout 0), which matches when Moodle’s UI reflects the completed delete before the next iteration.
+     */
+    async deleteAssignmentsByNames(assignmentTitles: string[]): Promise<void> {
+        if (assignmentTitles.length === 0) {
+            return;
+        }
+
+        await this.waitForLoad();
+        await this.turnEditingOn();
+
+        for (const assignmentTitle of assignmentTitles) {
+            await this.page.waitForLoadState('networkidle');
+            await this.waitForLoad();
+
+            const assignmentLink = this.page.getByRole('link', { name: assignmentTitle }).first();
+            await expect(
+                assignmentLink,
+                `Assignment "${assignmentTitle}" not found on Moodle course list page`,
+            ).toBeVisible({ timeout: 30000 });
+
+            const assignmentContainer = assignmentLink.locator('xpath=ancestor::li[1]');
+            const editButton = assignmentContainer.getByRole('button', { name: 'Edit' });
+            await expect(editButton, `Edit button not found for assignment "${assignmentTitle}"`).toBeVisible({
+                timeout: 30000,
+            });
+            await editButton.click();
+
+            const editButtonParent = editButton.locator('xpath=parent::*');
+            const deleteMenuItem = editButtonParent.getByRole('menuitem', { name: 'Delete' });
+            await expect(
+                deleteMenuItem,
+                `Delete menuitem not found near Edit button for assignment "${assignmentTitle}"`,
+            ).toBeVisible({ timeout: 30000 });
+            await deleteMenuItem.click();
+
+            const confirmYesButton = this.page.locator('button').filter({ hasText: 'Yes' }).last();
+            await expect(confirmYesButton, 'Delete confirmation "Yes" button not visible').toBeVisible({
+                timeout: 30000,
+            });
+            await confirmYesButton.click();
+
+            try {
+                await this.page.getByRole('link', { name: assignmentTitle }).first().waitFor({ state: 'detached', timeout: 0 });
+            } catch {
+                await this.page.getByRole('link', { name: assignmentTitle }).first().waitFor({ state: 'hidden', timeout: 0 });
+            }
+
+            console.log(`[MoodleCoursePage] Assignment "${assignmentTitle}" delete confirmed.`);
+        }
+    }
 }
 

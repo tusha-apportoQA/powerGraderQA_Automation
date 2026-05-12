@@ -10,6 +10,7 @@ import { AssignmentConfig, GradingSummary } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
 import { C69002, C69070 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
+import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
 
 /** Earned points from a total string, e.g. "13/15" -> 13. */
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
@@ -226,5 +227,27 @@ export class CanvasLMS {
         
         await newPage.waitForLoadState('domcontentloaded');
         return newPage;
+    }
+
+    /**
+     * Opens PowerGrader for this course, builds the automation cleanup title list, then deletes
+     * each assignment on the Canvas assignment list.
+     */
+    async cleanupAutomationAssignments(): Promise<void> {
+        await this.navigateToCourse();
+        const powerGraderPage = await this.navigateToPowerGrader();
+
+        const powerGraderCoursePage = new PowerGraderCoursePage(powerGraderPage);
+        await powerGraderCoursePage.page.waitForLoadState('networkidle', {timeout: 180000});
+        await powerGraderPage.waitForTimeout(2000);
+
+        const cleanupTitles = await powerGraderCoursePage.getAutomationCleanupAssignmentTitles();
+        console.log(`[cleanup][canvas] assignments to delete (${cleanupTitles.length}):`, cleanupTitles);
+
+        await this.coursePage.expectCoursePageLoaded();
+        await this.coursePage.clickAssignments();
+        await this.assignmentListPage.expectAssignmentsListLoaded();
+
+        await this.assignmentListPage.deleteAssignmentsByNames(cleanupTitles);
     }
 }

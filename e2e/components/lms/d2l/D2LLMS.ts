@@ -10,6 +10,7 @@ import { getD2LConfig } from '../../../config/d2l.config';
 import { expect } from '@playwright/test';
 import { C69002, C69065, C69067 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
+import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
     const s = String(totalScore).trim();
@@ -223,6 +224,39 @@ export class D2LLMS {
         
         // Return the NEW page object
         return pgPage; 
+    }
+
+    /**
+     * Opens PowerGrader for this course, builds the automation cleanup title list, then deletes
+     * each assignment on the D2L assignment list.
+     */
+    async cleanupAutomationAssignments(): Promise<void> {
+        await this.navigateToCourse();
+        const powerGraderPage = await this.navigateToPowerGrader();
+
+        const powerGraderCoursePage = new PowerGraderCoursePage(powerGraderPage);
+        await powerGraderCoursePage.page.waitForLoadState('networkidle', {timeout: 180000});
+        await powerGraderPage.waitForTimeout(2000);
+
+        const d2lAutomationCleanupBaseTitles: string[] = [
+            'D2L DOCX No Rubric',
+            'D2L DOCX Existing Rubric',
+            'D2L DOCX New Rubric',
+            'D2L PDF No Rubric',
+        ];
+        const cleanupTitles = await powerGraderCoursePage.getAutomationCleanupAssignmentTitles(
+            d2lAutomationCleanupBaseTitles,
+        );
+        console.log(`[cleanup][d2l] assignments to delete (${cleanupTitles.length}):`, cleanupTitles);
+
+        await this.navigateToCourse();
+
+        await this.coursePage.clickAssignments();
+        await this.assignmentListPage.expectAssignmentListPageLoaded();
+
+        await this.assignmentListPage.deleteAssignmentsByNames(cleanupTitles);
+
+        await this.page.waitForLoadState('domcontentloaded');
     }
 }
 
