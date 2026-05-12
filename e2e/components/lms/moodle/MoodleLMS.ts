@@ -9,6 +9,7 @@ import { MoodleAssignmentConfig ,GradingSummary} from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { getMoodleConfig } from '../../../config/moodle.config';
 import { C69002 } from '../../../test-data/testCaseIds';
+import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
     const s = String(totalScore).trim();
@@ -146,6 +147,34 @@ export class MoodleLMS {
 
         await newPage.waitForLoadState('domcontentloaded');
         return newPage;
+    }
+
+    /**
+     * Opens PowerGrader for this course, builds the automation cleanup title list, then deletes
+     * each assignment from the Moodle course page activity list.
+     */
+    async cleanupAutomationAssignments(): Promise<void> {
+        await this.navigateToCourse();
+        const powerGraderPage = await this.navigateToPowerGrader();
+
+        const powerGraderCoursePage = new PowerGraderCoursePage(powerGraderPage);
+        await powerGraderCoursePage.page.waitForLoadState('networkidle', {timeout: 180000});
+        await powerGraderPage.waitForTimeout(2000);
+
+        const moodleAutomationCleanupBaseTitles: string[] = [
+            'Short Accurate No Rubric DOCX',
+            'Long Accurate Existing Rubric PDF',
+            'Short Inaccurate New Rubric TXT',
+            'Short Inaccurate Existing Rubric Text Entry',
+        ];
+        const cleanupTitles = await powerGraderCoursePage.getAutomationCleanupAssignmentTitles(
+            moodleAutomationCleanupBaseTitles,
+        );
+        console.log(`[cleanup][moodle] assignments to delete (${cleanupTitles.length}):`, cleanupTitles);
+
+        await this.coursePage.expectCoursePageLoaded();
+
+        await this.coursePage.deleteAssignmentsByNames(cleanupTitles);
     }
 
     /**

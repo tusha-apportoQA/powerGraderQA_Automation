@@ -19,6 +19,24 @@ export class D2LAssignmentListPage {
         await expect(this.pageTitle).toBeVisible({ timeout: 30000 });
     }
 
+    /**
+     * D2L list pages allow changing "items per page" (e.g. 10/20/50/100/200).
+     * This reduces paging complexity for find-by-name/deletion flows.
+     */
+    async setAssignmentsPerPage(perPage: number = 200): Promise<void> {
+        const combobox = this.page.getByRole('combobox', { name: 'Results Per Page' })
+
+        // If D2L UI doesn't render the combobox for some roles/states, just skip.
+        const isVisible = await combobox.isVisible({ timeout: 5000 }).catch(() => false);
+        if (!isVisible) return;
+
+        await combobox.selectOption({ value: String(perPage) });
+
+        // The list usually refreshes after selection; wait for the DOM to settle.
+        await this.page.waitForLoadState('domcontentloaded').catch(() => {});
+        await this.page.waitForTimeout(500);
+    }
+
     async expectAssignmentListPageLoaded(): Promise<void> {
         await expect(this.pageTitle).toBeVisible();
         try {
@@ -27,6 +45,7 @@ export class D2LAssignmentListPage {
             // Expected for student role
         }
         await expect(this.page).toHaveURL(/\/d2l\/lms\/dropbox/);
+        await this.setAssignmentsPerPage(200);
     }
 
 
@@ -94,5 +113,37 @@ export class D2LAssignmentListPage {
         await this.page.waitForLoadState('domcontentloaded');
     }
 
+    /**
+     * Bulk delete: select each assignment by checkbox, then More Actions → Delete → confirm once.
+     */
+    async deleteAssignmentsByNames(assignmentNames: string[]): Promise<void> {
+        if (assignmentNames.length === 0) {
+            return;
+        }
+
+        await this.waitForLoad();
+        await expect(this.assignmentsGrid).toBeVisible({ timeout: 10000 });
+
+        for (const name of assignmentNames) {
+            const checkbox = this.page.getByRole('checkbox', { name: `Select ${name}` }).first();
+            await expect(checkbox).toBeVisible({ timeout: 30000 });
+            await checkbox.check();
+        }
+
+        const moreActions = this.page.getByText('More Actions', { exact: true });
+        await expect(moreActions).toBeVisible({ timeout: 30000 });
+        await moreActions.click();
+
+        const deleteMenuItem = this.page.getByRole('menuitem', { name: 'Delete' });
+        await expect(deleteMenuItem).toBeVisible({ timeout: 15000 });
+        await deleteMenuItem.click();
+
+        const confirmDeleteButton = this.page.getByRole('button', { name: 'Delete' });
+        await expect(confirmDeleteButton).toBeVisible({ timeout: 30000 });
+        await confirmDeleteButton.click();
+
+        await this.page.waitForLoadState('networkidle', { timeout: 120000 }).catch(() => {});
+        await this.page.waitForLoadState('domcontentloaded');
+    }
 }
 
