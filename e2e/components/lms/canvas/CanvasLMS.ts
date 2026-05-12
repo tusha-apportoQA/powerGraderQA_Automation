@@ -6,7 +6,7 @@ import { CanvasCreateAssignmentPage } from './pages/CanvasCreateAssignmentPage';
 //import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage';
 import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage';
 import { CanvasGradingPage } from './pages/CanvasGradingPage';
-import { AssignmentConfig, GradingSummary } from '../../../types';
+import { AssignmentConfig, GradingSummary, LmsTeacher } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
 import { C69002, C69070 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
@@ -28,7 +28,7 @@ function parseMaxPointsFromTotalScore(totalScore: string): number | null {
     return slash ? Number(slash[1]) : null;
 }
 
-export class CanvasLMS {
+export class CanvasLMS implements LmsTeacher {
     page: Page;
     baseURL: string;
     dashboardPage: CanvasDashboardPage;
@@ -100,13 +100,14 @@ export class CanvasLMS {
      * Verify that the score and rubric results visible in Canvas match the expected {@link GradingSummary}.
      * Scrapes LMS via {@link CanvasGradingPage} (`getRubricSnapshot`), then compares totals and
      * per-criterion **points** and **feedback** by **index order** (criterion names are not used).
+     * Uses configured {@link getCanvasConfig}.studentDisplayName for SpeedGrader student selection.
      */
     async verifyLmsScore(
-        studentName: string,
         assignmentName: string,
         gradingSummary: GradingSummary,
         expectedSubmissionComment?: string
     ): Promise<void> {
+        const { studentDisplayName: studentName } = getCanvasConfig();
         console.log(`[CanvasLMS] verifyLmsScore for student=${studentName}, assignment="${assignmentName}"`);
         console.log('[CanvasLMS] Expected GradingSummary:', gradingSummary);
 

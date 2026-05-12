@@ -5,7 +5,7 @@ import { MoodleAssignmentCreatePage } from './pages/MoodleAssignmentCreatePage';
 import { MoodleAssignmentDetailsPage } from './pages/MoodleAssignmentDetailsPage';
 import { MoodleAdvancedGradingPage } from './pages/MoodleAdvancedGradingPage';
 import { MoodleGradingPage } from './pages/MoodleGradingPage';
-import { MoodleAssignmentConfig ,GradingSummary} from '../../../types';
+import { GradingSummary, LmsTeacher, MoodleAssignmentConfig } from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { getMoodleConfig } from '../../../config/moodle.config';
 import { C69002 } from '../../../test-data/testCaseIds';
@@ -19,7 +19,7 @@ function parseEarnedPointsFromTotalScore(totalScore: string): number {
     return m ? Number(m[0]) : NaN;
 }
 
-export class MoodleLMS {
+export class MoodleLMS implements LmsTeacher {
     page: Page;
     baseURL: string;
     dashboardPage: MoodleDashboardPage;
@@ -178,18 +178,14 @@ export class MoodleLMS {
     }
 
     /**
-     * Verifies the LMS score for a given student and assignment.
-     * For Moodle, this currently navigates to the course page where assignments are listed.
-     * @param studentDisplayName The display name of the student.
-     * @param assignmentName The name of the assignment.
-     * @param gradingSummary The grading summary to verify.
+     * Verifies the LMS score for the configured student ({@link getMoodleConfig}.studentDisplayName) and assignment.
      */
     async verifyLmsScore(
-        studentDisplayName: string,
         assignmentName: string,
         gradingSummary: GradingSummary,
         expectedSubmissionComment?: string
     ): Promise<void> {
+        const { studentDisplayName } = getMoodleConfig();
         console.log(`[MoodleLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
         console.log('[MoodleLMS] Expected GradingSummary:', gradingSummary);
 

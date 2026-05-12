@@ -5,7 +5,7 @@ import { PowerGraderGradingPage } from '../components/powergrader/pages/PowerGra
 import { AllureHelper } from './allureHelper';
 import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
 import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
-import { TeacherEditConfig } from '../types'; // Preserved from merge
+import { GradingSummary, LmsTeacher, TeacherEditConfig } from '../types'; // Preserved from merge
 import { C68998, C68999, C69000, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75645, C78823 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
@@ -58,13 +58,32 @@ function writeLatestRunJson(params: {
   fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
 }
 
+/** Max time to wait for navigation to assignment details after Publish (API + redirect). */
+const POST_PUBLISH_NAV_TIMEOUT_MS = 120_000;
+const POST_PUBLISH_DETAILS_URL = /\/assignments\/RegisterAssignmentPublicUUID--/;
+
+/**
+ * After Publish: same idea as login — click already happened; wait for backend + redirect to assignment details,
+ * then assert the View button. No polling / no second Publish clicks.
+ */
+async function waitForPostPublishAssignmentDetails(pg: Page, label: string): Promise<void> {
+    await pg.waitForURL(POST_PUBLISH_DETAILS_URL, { timeout: POST_PUBLISH_NAV_TIMEOUT_MS });
+    await pg.waitForLoadState('domcontentloaded');
+    await pg.waitForLoadState('networkidle').catch(() => {});
+
+    const viewBtn = pg.getByRole('button', { name: /^View$/i }).first();
+    await expect(viewBtn).toBeVisible({ timeout: 30_000 });
+    console.log(`[${label}] Post-publish: assignment details + View confirmed.`);
+}
+
 export async function executeUniversalPGWorkflow(
     powerGraderPage: Page, 
     uniqueTitle: string, 
     studentEmail: string,
     baselineKey: string,
     lms: string = "canvas",
-    teacherEdits?: TeacherEditConfig // Preserved from merge
+    teacherEdits?: TeacherEditConfig, // Preserved from merge
+    lmsTeacher?: LmsTeacher,
 ) {
     const assignmentKey = uniqueTitle.replace(/\s*\[\d+\]\s*$/, "").trim();
 
@@ -264,6 +283,8 @@ export async function executeUniversalPGWorkflow(
         overallFeedback: gradingSummary?.overallFeedback || "No overall feedback recorded."
     };
 
+    let deferredSbertFailure: Error | null = null;
+
     // --- CASE 3: COMPARISON RUN ---
     if (baselineSnapshot) {
             const totalScoreDiff = Math.abs(baselineSnapshot.totalScore - currentSnapshot.totalScore);
@@ -322,10 +343,18 @@ export async function executeUniversalPGWorkflow(
                 sbertSimilarity: 0,
                 lms,
             });
-            throw compareError;
+            deferredSbertFailure = compareError instanceof Error ? compareError : new Error(String(compareError));
+            console.error(
+                `[${uniqueTitle}] ❌ SBERT comparison error (deferred—test will fail after LMS verification):`,
+                deferredSbertFailure.message,
+            );
+            console.error(
+                `[${uniqueTitle}] Continuing with publish → LMS verification; SBERT failure will be thrown afterward.`,
+            );
         }
 
 
+        if (!deferredSbertFailure) {
         // Always write BEFORE any potential throw
         writeLatestRunJson({
             uniqueTitle,
@@ -345,10 +374,18 @@ export async function executeUniversalPGWorkflow(
                 criterion_feedback: currentSnapshot.criteria[0]?.feedback || "N/A",
                 total_score: currentSnapshot.totalScore
             }));
-            throw new Error(driftMsg);
-        }
-
+            deferredSbertFailure = new Error(driftMsg);
+            console.error(
+                `[${uniqueTitle}] ❌ SBERT drift detected above ${DRIFT_THRESHOLD}% (deferred—test will fail after LMS verification).`,
+                driftMsg,
+            );
+            console.error(
+                `[${uniqueTitle}] Continuing with publish → LMS verification; SBERT failure will be thrown afterward.`,
+            );
+        } else {
             console.log(`[${uniqueTitle}] ✅ VERIFIED: Scores match exactly and drift is within ${DRIFT_THRESHOLD}%.`);
+        }
+        }
     }
 
     } else {
@@ -375,6 +412,8 @@ export async function executeUniversalPGWorkflow(
         console.log(`[${uniqueTitle}] Applying teacher edits...`);
         await gradingPage.applyTeacherEdits(teacherEdits.criteria);
     }
+
+    const publishedGradingSummary = await gradingPage.getGradingSummary();
     
     await gradingPage.clickPublishButton();
     if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75511:'))) {
@@ -383,13 +422,15 @@ export async function executeUniversalPGWorkflow(
     AllureHelper.label('caseStatus', `${C78823.split(':')[0]}:passed`);
     //await powerGraderPage.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 30000 });
    // console.log(`✅ [FINISH] Workflow successful.`);
-   try {
-        await powerGraderPage.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 45000 });
-        const allReviewedBtn = powerGraderPage.locator('button').filter({ hasText: /Submissions Reviewed|All Reviewed/i });
-        await expect(allReviewedBtn).toBeVisible({ timeout: 30000 });
-        console.log(`[${uniqueTitle}] Redirect and confirmation successful.`);
-    } catch (e) {
-        console.log(`[${uniqueTitle}] Warning: Reached finish line, but redirect/button confirmation timed out. Proceeding as successful.`);
+    await waitForPostPublishAssignmentDetails(powerGraderPage, uniqueTitle);
+    console.log(`[${uniqueTitle}] Post-publish redirect verified.`);
+
+    if (lmsTeacher) {
+        await lmsTeacher.verifyLmsScore(uniqueTitle, publishedGradingSummary as GradingSummary);
+    }
+
+    if (deferredSbertFailure) {
+        throw deferredSbertFailure;
     }
 
     const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(2);

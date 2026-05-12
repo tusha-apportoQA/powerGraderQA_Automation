@@ -74,7 +74,7 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     throw new Error(`Selected config at index ${CONFIG_INDEX} has no submissionType.`);
   }
 
-  const { studentDisplayName, credentials } = getCanvasConfig();
+  const { credentials } = getCanvasConfig();
 
   test('Create, submit, PG extracts summary, publish, verify LMS (SpeedGrader)', async ({
     canvasTeacherPage,
@@ -131,7 +131,7 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     });
 
     await AllureHelper.step('4. Verify LMS (Canvas SpeedGrader) against extracted summary', async () => {
-      await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary);
+      await teacher.verifyLmsScore(uniqueTitle, extractedSummary);
     });
   });
 });

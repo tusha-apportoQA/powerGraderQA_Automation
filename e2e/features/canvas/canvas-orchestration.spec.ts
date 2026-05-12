@@ -4,7 +4,23 @@ import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
-import { C68998, C68999, C69000, C69036, C69038, C69039, C69074, C69092, C69100, C75511, C75645, C78823 } from '../../test-data/testCaseIds';
+import {
+  C68998,
+  C68999,
+  C69000,
+  C69002,
+  C69036,
+  C69038,
+  C69039,
+  C69070,
+  C69074,
+  C69092,
+  C69098,
+  C69100,
+  C75511,
+  C75645,
+  C78823,
+} from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -152,6 +168,15 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       const student = new CanvasLMSStudent(canvasStudentPage.page);
       const submissionType = assignmentConfig.submissionType;
 
+      // LMS verify runs inside workflow (teacher); same Allure case IDs as verifyLmsScoreTest
+      AllureHelper.label('testCaseId', C69070);
+      AllureHelper.label('caseStatus', `${C69070.split(':')[0]}:not_reached`);
+      AllureHelper.label('testCaseId', C69002);
+      if (submissionType && submissionType !== 'Text Entry') {
+        AllureHelper.label('testCaseId', C69098);
+        AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
+      }
+
       console.log(`\n===== START: ${uniqueTitle} =====`);
 
       // ---------------- CREATE ----------------
@@ -176,6 +201,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
         const submitStart = Date.now();
         await AllureHelper.step('Wait for assignment to be accessible for student', async () => {
           await waitForStudentAssignmentToAppearByUrl(student, courseId, assignmentId, uniqueTitle);
+          AllureHelper.label('caseStatus', `${C69070.split(':')[0]}:reached`);
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
@@ -209,7 +235,15 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
           
           await runPGOrSkipOnTimeout(async () => {
             //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
-            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, "canvas", teacherEdits);
+            await executeUniversalPGWorkflow(
+              pg,
+              uniqueTitle,
+              studentEmail,
+              baselineKey,
+              'canvas',
+              teacherEdits,
+              teacher,
+            );
           });
           
           console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);

@@ -171,7 +171,24 @@ import { executeUniversalPGWorkflow } from '../../utils/powergrader-workflow';
 import { MoodleLMS } from '../../components/lms/moodle/MoodleLMS';
 import { MoodleLMSStudent } from '../../components/lms/moodle/MoodleLMSStudent';
 import { getMoodleAssignmentConfigs } from '../../test-data/assignments/moodle';
-import { C68998, C68999, C69000, C69036, C69038, C69039, C69063, C69092, C69100, C75511, C75645, C78823 } from '../../test-data/testCaseIds';
+import {
+  C68998,
+  C68999,
+  C69000,
+  C69002,
+  C69036,
+  C69038,
+  C69039,
+  C69060,
+  C69061,
+  C69063,
+  C69092,
+  C69098,
+  C69100,
+  C75511,
+  C75645,
+  C78823,
+} from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getMoodleConfig } from '../../config/moodle.config';
 import testUsers from '../../test_users';
@@ -274,6 +291,17 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
       const submissionType = assignmentConfig.submissionType;
       const { courseName } = getMoodleConfig();
 
+      // LMS verify runs inside workflow (teacher); same Allure case IDs as verifyLmsScoreTest
+      AllureHelper.label('testCaseId', C69060);
+      AllureHelper.label('caseStatus', `${C69060.split(':')[0]}:not_reached`);
+      AllureHelper.label('testCaseId', C69061);
+      AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:not_reached`);
+      AllureHelper.label('testCaseId', C69002);
+      if (submissionType && submissionType !== 'Text Entry') {
+        AllureHelper.label('testCaseId', C69098);
+        AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
+      }
+
       console.log(`\n===== START: ${uniqueTitle} =====`);
       console.log(`[${uniqueTitle}] Config: rubric=${assignmentConfig.rubric?.type ?? 'unknown'} | submission=${submissionType ?? 'none'}`);
 
@@ -306,6 +334,7 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
             maxWaitMs: 8 * 60 * 1000,
             intervalMs: 15 * 1000
           });
+          AllureHelper.label('caseStatus', `${C69060.split(':')[0]}:reached`);
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
@@ -316,6 +345,7 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
             const filePath = getSubmissionFilePath(submissionType as any);
             await student.verifyFileTypeAndSubmit(submissionType, filePath);
           }
+          AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:reached`);
         });
 
         submitMs = Date.now() - submitStart;
@@ -348,7 +378,15 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
             // 🎯 FIX: Passed teacherEdits as the 5th argument
            // await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
            // Insert "moodle" as the 5th argument
-          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, "moodle", teacherEdits);
+          await executeUniversalPGWorkflow(
+            pg,
+            uniqueTitle,
+            studentEmail,
+            baselineKey,
+            'moodle',
+            teacherEdits,
+            teacher,
+          );
           });
 
           console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);

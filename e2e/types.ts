@@ -210,6 +210,21 @@ export interface GradingSummary {
     overallFeedback?: string;
 }
 
+/**
+ * Shared contract for teacher-side LMS page objects (`CanvasLMS`, `D2LLMS`, `MoodleLMS`).
+ * Keep method names aligned across POMs; add signatures here first, then implement per LMS.
+ *
+ * Implemented: `verifyLmsScore`.
+ * Future (example): `createAssignment`, `navigateToCourse`, `navigateToPowerGrader` — will extend this interface when all LMS POMs match.
+ */
+export interface LmsTeacher {
+    verifyLmsScore(
+        assignmentName: string,
+        gradingSummary: GradingSummary,
+        expectedSubmissionComment?: string,
+    ): Promise<void>;
+}
+
 /** Per-criterion edit for teacher calibration. All three are required so the flow always starts from the score input (Tab then focuses the edit-feedback button). criterionIndex is 0-based, same order as getAllCriteriaScores. */
 export interface CriterionEditEntry {
     criterionIndex: number;
