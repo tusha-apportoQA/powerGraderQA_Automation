@@ -1,32 +1,180 @@
 {
-  "generatedAt": "2026-05-07T04:38:50.160Z",
+  "generatedAt": "2026-05-07T19:48:22.014Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
-  "totalCases": 8,
+  "totalCases": 20,
   "cases": [
     {
       "caseId": "C68998",
       "caseName": "Rubric: Button Visibility (No Rubric)",
+      "status": "partially_passed",
+      "passedConfigs": [
+        "d2l|orchestration|D2L DOCX No Rubric",
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "d2l|orchestration|D2L PDF No Rubric"
+      ],
+      "failedConfigs": [
+        {
+          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "caseId": "C68999",
+      "caseName": "Rubric: Button Hidden (Has Rubric)",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF",
+        "moodle|orchestration|Long Accurate Existing Rubric PDF",
+        "moodle|orchestration|Short Inaccurate New Rubric TXT",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
+        "d2l|orchestration|D2L DOCX New Rubric",
+        "d2l|orchestration|D2L DOCX Existing Rubric",
+        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": []
     },
     {
       "caseId": "C69000",
       "caseName": "Rubric: Transition to Grading",
-      "status": "passed",
+      "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
+        "d2l|orchestration|D2L DOCX No Rubric",
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "d2l|orchestration|D2L PDF No Rubric"
       ],
-      "failedConfigs": []
+      "failedConfigs": [
+        {
+          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "caseId": "C69002",
+      "caseName": "Sync: Scoring Reflection in LMS",
+      "status": "partially_passed",
+      "passedConfigs": [
+        "moodle|verify-lms|Short Inaccurate New Rubric TXT",
+        "canvas|verify-lms|Short Inaccurate New Rubric TXT"
+      ],
+      "failedConfigs": [
+        {
+          "config": "d2l|verify-lms|D2L DOCX New Rubric",
+          "error": "Error: Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "3. Open PowerGrader, grade, extract summary, publish",
+          "test": "features/d2l/verifyLmsScoreTest.spec.ts#D2L: PowerGrader grade + LMS verify @d2l @component Create, submit, PG extracts summary + publish, verify LMS",
+          "resultFile": "aa4c11f1-afc0-4d2c-9ac6-3336299a5cd8-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C69036",
       "caseName": "Verify the status of the assignments with no Rubric in PowerGrader",
+      "status": "partially_passed",
+      "passedConfigs": [
+        "d2l|orchestration|D2L DOCX No Rubric",
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "d2l|orchestration|D2L PDF No Rubric"
+      ],
+      "failedConfigs": [
+        {
+          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "caseId": "C69038",
+      "caseName": "POW: Teacher should be able to create new Rubric with multiple criteria",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
+        "moodle|orchestration|Short Inaccurate New Rubric TXT",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
+        "d2l|orchestration|D2L DOCX New Rubric"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C69039",
+      "caseName": "POW: Teacher should be able to add pre-existing rubric",
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Long Accurate Existing Rubric PDF",
+        "moodle|orchestration|Long Accurate Existing Rubric PDF",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "d2l|orchestration|D2L DOCX Existing Rubric",
+        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C69060",
+      "caseName": "POW - Moodle Submit assignment with student role",
+      "status": "passed",
+      "passedConfigs": [
+        "moodle|verify-lms|Short Inaccurate New Rubric TXT"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C69061",
+      "caseName": "POW - Moodle verify user can submit different types of assignments",
+      "status": "passed",
+      "passedConfigs": [
+        "moodle|verify-lms|Short Inaccurate New Rubric TXT"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C69063",
+      "caseName": "POW - Moodle verify submissions are visible in QA instance",
+      "status": "partially_passed",
+      "passedConfigs": [
+        "moodle|orchestration|Long Accurate Existing Rubric PDF",
+        "moodle|orchestration|Short Inaccurate New Rubric TXT",
+        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+      ],
+      "failedConfigs": [
+        {
+          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "caseId": "C69065",
+      "caseName": "POW - D2L student should be able to submit assignment",
+      "status": "passed",
+      "passedConfigs": [
+        "d2l|verify-lms|D2L DOCX New Rubric"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C69070",
+      "caseName": "POW - Canvas student should be able to submit assignment",
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|verify-lms|Short Inaccurate New Rubric TXT"
       ],
       "failedConfigs": []
     },
@@ -35,45 +183,141 @@
       "caseName": "POW - Canvas all assignments in QA instance should show submission details",
       "status": "passed",
       "passedConfigs": [
+        "canvas|orchestration|Long Accurate Existing Rubric PDF",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
         "canvas|orchestration|Short Accurate No Rubric DOCX"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C69092",
+      "caseName": "Verify that Text Entry submission is successful",
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C69098",
+      "caseName": "All LMS: Student submits files (.docx/.txt/.pdf) with comments",
+      "status": "passed",
+      "passedConfigs": [
+        "moodle|verify-lms|Short Inaccurate New Rubric TXT",
+        "d2l|verify-lms|D2L DOCX New Rubric",
+        "canvas|verify-lms|Short Inaccurate New Rubric TXT"
       ],
       "failedConfigs": []
     },
     {
       "caseId": "C69100",
       "caseName": "On-time submission (before due date) is accepted and gradable",
-      "status": "passed",
+      "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF",
+        "moodle|orchestration|Long Accurate Existing Rubric PDF",
+        "moodle|orchestration|Short Inaccurate New Rubric TXT",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "d2l|orchestration|D2L DOCX No Rubric",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "d2l|orchestration|D2L DOCX New Rubric",
+        "d2l|orchestration|D2L DOCX Existing Rubric",
+        "d2l|orchestration|D2L PDF No Rubric",
+        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
-      "failedConfigs": []
+      "failedConfigs": [
+        {
+          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C75511",
       "caseName": "Verify editing score/feedback gets published without explicitly clicking on Save",
       "status": "passed",
       "passedConfigs": [
+        "canvas|orchestration|Long Accurate Existing Rubric PDF",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
         "canvas|orchestration|Short Accurate No Rubric DOCX"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C75526",
+      "caseName": "Verify SeeWhy disables or disappears when user clicks on it in QA",
+      "status": "passed",
+      "passedConfigs": [
+        "moodle|orchestration|Short Inaccurate New Rubric TXT",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
+        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": []
     },
     {
       "caseId": "C75645",
       "caseName": "Verify the docx file is ingested and graded",
-      "status": "passed",
+      "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
+        "d2l|orchestration|D2L DOCX No Rubric",
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "d2l|orchestration|D2L DOCX New Rubric",
+        "d2l|orchestration|D2L DOCX Existing Rubric"
       ],
-      "failedConfigs": []
+      "failedConfigs": [
+        {
+          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C78823",
       "caseName": "Verify Submission Review Page new UI",
-      "status": "passed",
+      "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF",
+        "moodle|orchestration|Long Accurate Existing Rubric PDF",
+        "moodle|orchestration|Short Inaccurate New Rubric TXT",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "d2l|orchestration|D2L DOCX No Rubric",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "d2l|orchestration|D2L DOCX New Rubric",
+        "d2l|orchestration|D2L PDF No Rubric",
+        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
-      "failedConfigs": []
+      "failedConfigs": [
+        {
+          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
+          "error": "Error: ❌ DRIFT DETECTED: criteriaFeedback:Clarity and Precision of Language has 100.0% drift.",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
+          "resultFile": "c00ea47a-5b32-4ebf-b035-d20d507b77e4-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "status": "failed"
+        }
+      ]
     }
   ]
 }

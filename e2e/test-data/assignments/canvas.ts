@@ -30,7 +30,7 @@ import { getCanvasConfig } from '../../config/canvas.config';
     }).replace(',', ''); // Removes the comma often placed between date and time
 }*/
 
-function formatDate(date: Date): string {
+/*function formatDate(date: Date): string {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const year = date.getFullYear();
@@ -38,14 +38,28 @@ function formatDate(date: Date): string {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     // Canvas interprets as MM/DD/YYYY
     return `${month}/${day}/${year} ${hours}:${minutes}`;
+}*/
+function formatDate(date: Date): string {
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    // Use DD/MM/YYYY — Canvas instance is configured with DD/MM locale
+   // return `${day}/${month}/${year} ${hours}:${minutes}`;
+   return `${day}/${month}/${year} ${hours}:${minutes}`;
+
 }
 
 function getAssignmentDates() {
     const now = new Date();
     
     // Available from: Current date at 12:00 AM (midnight)
-    const availableFrom = new Date(now);
-    availableFrom.setDate(availableFrom.getDate() - 1);
+    //const availableFrom = new Date(now);
+    const availableFrom = new Date(now.getFullYear(), 0, 1); // Jan 1 this year — unambiguous in any locale
+    //availableFrom.setDate(availableFrom.getDate() - 1);
+    //availableFrom.setHours(0, 0, 0, 0);
+   // availableFrom.setDate(availableFrom.getDate() - 14); // 2 weeks ago — unambiguous in any locale
     availableFrom.setHours(0, 0, 0, 0);
 
     // Due date: 3 days after current date
@@ -69,6 +83,8 @@ function getAssignmentDates() {
     return result;
 
 }
+
+
 
 /**
  * Get Canvas assignment configurations
