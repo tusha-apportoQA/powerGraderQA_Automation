@@ -4,7 +4,23 @@ import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout"; // 
 import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
-import { C68998, C68999, C69000, C69036, C69038, C69039, C69092, C69100, C75511, C75645, C78823 } from '../../test-data/testCaseIds';
+import {
+  C68998,
+  C68999,
+  C69000,
+  C69002,
+  C69036,
+  C69038,
+  C69039,
+  C69065,
+  C69067,
+  C69092,
+  C69098,
+  C69100,
+  C75511,
+  C75645,
+  C78823,
+} from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getD2LConfig } from '../../config/d2l.config';
 import testUsers from '../../test_users';
@@ -104,6 +120,19 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       const teacher = new D2LLMS(d2lTeacherPage.page);
       const student = new D2LLMSStudent(d2lStudentPage.page);
 
+      // LMS verify runs inside workflow (teacher); same Allure case IDs as verifyLmsScoreTest
+      AllureHelper.label('testCaseId', C69065);
+      AllureHelper.label('caseStatus', `${C69065.split(':')[0]}:not_reached`);
+      AllureHelper.label('testCaseId', C69002);
+      if (submissionType && submissionType !== 'Text Entry') {
+        AllureHelper.label('testCaseId', C69098);
+        AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
+      }
+      if (submissionType === 'Text Entry') {
+        AllureHelper.label('testCaseId', C69067);
+        AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:not_reached`);
+      }
+
       console.log(`\n===== START: ${uniqueTitle} =====`);
       console.log(`[${uniqueTitle}] Config: rubric=${assignmentConfig.rubric?.type ?? 'unknown'} | submission=${submissionType ?? 'none'}`);
 
@@ -141,6 +170,10 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
             maxWaitMs: 8 * 60 * 1000,
             intervalMs: 15 * 1000
           });
+          AllureHelper.label('caseStatus', `${C69065.split(':')[0]}:reached`);
+          if (submissionType === 'Text Entry') {
+            AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:reached`);
+          }
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
@@ -190,7 +223,15 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
           // Use the timeout wrapper to ensure JSON is written even on hang
           await runPGOrSkipOnTimeout(async () => {
             //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
-            await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, "d2l", teacherEdits);
+            await executeUniversalPGWorkflow(
+              pg,
+              uniqueTitle,
+              studentEmail,
+              baselineKey,
+              'd2l',
+              teacherEdits,
+              teacher,
+            );
 
           });
 

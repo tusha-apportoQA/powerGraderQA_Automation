@@ -60,7 +60,7 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
         throw new Error(`Selected config at index ${CONFIG_INDEX} has no submissionType.`);
     }
 
-    const { studentDisplayName, courseName, credentials } = getD2LConfig();
+    const { courseName, credentials } = getD2LConfig();
 
     test('Create, submit, PG extracts summary + publish, verify LMS', async ({
         d2lTeacherPage,
@@ -120,7 +120,7 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
         });
 
         await AllureHelper.step('4. Verify LMS against extracted summary', async () => {
-            await teacher.verifyLmsScore(studentDisplayName, uniqueTitle, extractedSummary);
+            await teacher.verifyLmsScore(uniqueTitle, extractedSummary);
         });
     });
 });

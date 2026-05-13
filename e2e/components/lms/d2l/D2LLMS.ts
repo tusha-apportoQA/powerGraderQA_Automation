@@ -5,7 +5,7 @@ import { D2LAssignmentListPage } from './pages/D2LAssignmentListPage';
 import { D2LAssignmentCreatePage } from './pages/D2LAssignmentCreatePage';
 import { D2LAssignmentDetailsPage } from './pages/D2LAssignmentDetailsPage';
 import { D2LGradingPage } from './pages/D2LGradingPage';
-import { D2LAssignmentConfig, GradingSummary } from '../../../types';
+import { D2LAssignmentConfig, GradingSummary, LmsTeacher } from '../../../types';
 import { getD2LConfig } from '../../../config/d2l.config';
 import { expect } from '@playwright/test';
 import { C69002, C69065, C69067 } from '../../../test-data/testCaseIds';
@@ -20,7 +20,7 @@ function parseEarnedPointsFromTotalScore(totalScore: string): number {
     return m ? Number(m[0]) : NaN;
 }
 
-export class D2LLMS {
+export class D2LLMS implements LmsTeacher {
     page: Page;
     baseURL: string;
     dashboardPage: D2LDashboardPage;
@@ -126,11 +126,11 @@ export class D2LLMS {
     }
 
     async verifyLmsScore(
-        studentDisplayName: string,
         assignmentName: string,
         gradingSummary: GradingSummary,
         expectedSubmissionComment?: string
     ): Promise<void> {
+        const { studentDisplayName } = getD2LConfig();
         console.log(`[D2LLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
         console.log('[D2LLMS] Expected GradingSummary:', gradingSummary);
 

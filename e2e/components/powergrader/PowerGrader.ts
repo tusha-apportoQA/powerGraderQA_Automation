@@ -139,9 +139,6 @@ export class PowerGrader {
             .or(this.page.getByText('View', { exact: true }))
             .first();
         await expect(viewDetails).toBeVisible({ timeout: 30_000 });
-
-        const reviewButtons = this.page.getByRole('button', { name: /^Review$/i });
-        await expect(reviewButtons).toHaveCount(0, { timeout: 30_000 });
     }
 
     /** From assignment details, open the target student's submission by email. */

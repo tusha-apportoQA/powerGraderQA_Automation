@@ -436,10 +436,16 @@ export class PowerGraderGradingPage {
             const nameEl = section.locator('h3.truncate.text-base.font-semibold.text-gray-900');
             const criterionName = (await nameEl.innerText()).trim();
 
-            // Selected score card has border-blue-500; read the score div inside it
-            const selectedCard = section.locator('div.border-blue-500');
+            // Selected score card: blue (Ai score) or amber highlight (custome score)
+            const blueCard = section.locator('div.border-blue-500');
+            const amberCard = section.locator('div.border-amber-500');
+            const blueCount = await blueCard.count();
+            const amberCount = await amberCard.count();
+            const selectedCard =
+                blueCount > 0 ? blueCard.first() : amberCount > 0 ? amberCard.first() : null;
+
             let score = 0;
-            if (await selectedCard.count() > 0) {
+            if (selectedCard) {
                 const scoreDiv = selectedCard.locator('div.inline-flex.h-9.min-w-9');
                 if (await scoreDiv.count() > 0) {
                     const scoreText = (await scoreDiv.innerText()).trim();

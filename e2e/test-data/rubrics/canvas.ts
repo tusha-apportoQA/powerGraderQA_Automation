@@ -23,7 +23,7 @@
         {
             type: 'existing',
             groupName: 'Amit 1 (Course)',
-            rubricName: 'Some rubric (3)'
+            rubricName: 'CS rubric'
         }
         // Add more existing rubrics as needed
     ];
