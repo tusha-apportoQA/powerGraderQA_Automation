@@ -13,6 +13,7 @@
     "patch-report": "node calculate-reliability.js && shx mv allure-report/index.html allure-report/report.html && shx cp index.html allure-report/index.html && shx cp testrail-stats.json allure-report/testrail-stats.json && shx cp data/drift-analytics-*.json allure-report/data/ && node -e \"const fs=require('fs');const path=require('path');const LIMIT=24*1024*1024;const root='allure-report/data/attachments';if(!fs.existsSync(root)){process.exit(0);}for(const f of fs.readdirSync(root)){const p=path.join(root,f);if(!fs.statSync(p).isFile()) continue;if(fs.statSync(p).size>LIMIT){fs.rmSync(p,{force:true});}}\"",
     "deploy-hub_old": "npm run sync && npm run generate-report && npm run patch-report && cross-env NODE_OPTIONS=--dns-result-order=ipv4first npx wrangler pages deploy ./allure-report --project-name=powergrader-automation-qa-hub --skip-caching --commit-dirty=true",
     "full-deploy:canvas": "node full-deploy.js canvas",
+    "full-deploy:canvas-d2l": "node full-deploy.js canvas-d2l",
     "full-deploy:d2l": "node full-deploy.js d2l",
     "full-deploy": "node full-deploy.js",
     "full-deploy:moodle": "node full-deploy.js moodle",

@@ -1169,5 +1169,93 @@
         }
       ]
     }
+  },
+  {
+    "run_date": "2026-05-13T23:08:10.711Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1778713579167]",
+    "sbert_similarity": 0.6651522314718822,
+    "drift": {
+      "sbert_similarity": 0.6651522314718822,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear and well-organized, with logical structure, smooth transitions, and language that makes your ideas easy to follow throughout. Excellent work on crafting such a readable and coherent piece!"
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your essay does not address the assigned topic about technology in daily life or any of its required aspects. To improve, make sure to directly discuss technology's impacts, provide relevant examples, and analyze different perspectives as outlined in the prompt."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-05-13T23:28:38.134Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1778714482665]",
+    "sbert_similarity": 0.5119252282944533,
+    "drift": {
+      "sbert_similarity": 0.5119252282944533,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with strong structure and logical flow that make your ideas highly readable. Excellent use of lists and headings enhances clarity throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your submission demonstrates accurate, relevant technical understanding of both positive and negative impacts of technology in daily life, using correct terminology and fully addressing the topic at the expected level."
+        }
+      ]
+    }
   }
 ]

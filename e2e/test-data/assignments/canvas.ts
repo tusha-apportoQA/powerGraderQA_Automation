@@ -18,28 +18,6 @@ import { getCanvasConfig } from '../../config/canvas.config';
 }*/
 
 /*function formatDate(date: Date): string {
-    // This automatically detects the user's locale (US vs UK) 
-    // and formats the date and time to match their specific UI settings.
-    return date.toLocaleString('en-US', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true // Using 12-hour format with AM/PM is the most 'compatible' for Canvas
-    }).replace(',', ''); // Removes the comma often placed between date and time
-}*/
-
-/*function formatDate(date: Date): string {
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    // Canvas interprets as MM/DD/YYYY
-    return `${month}/${day}/${year} ${hours}:${minutes}`;
-}*/
-function formatDate(date: Date): string {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const year = date.getFullYear();
@@ -49,6 +27,16 @@ function formatDate(date: Date): string {
    // return `${day}/${month}/${year} ${hours}:${minutes}`;
    return `${day}/${month}/${year} ${hours}:${minutes}`;
 
+}*/
+function formatDate(date: Date): string {
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'AM' : 'AM';
+    const hours12 = hours % 12 || 12;
+    return `${day}/${month}/${year} ${hours12}:${minutes} ${ampm}`;
 }
 
 function getAssignmentDates() {

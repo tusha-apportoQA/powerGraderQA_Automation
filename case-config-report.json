@@ -1,24 +1,22 @@
 {
-  "generatedAt": "2026-05-07T19:48:22.014Z",
+  "generatedAt": "2026-05-14T00:05:52.495Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
-  "totalCases": 20,
+  "totalCases": 17,
   "cases": [
     {
       "caseId": "C68998",
       "caseName": "Rubric: Button Visibility (No Rubric)",
       "status": "partially_passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX No Rubric",
-        "canvas|orchestration|Short Accurate No Rubric DOCX",
-        "d2l|orchestration|D2L PDF No Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": [
         {
-          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "config": "d2l|orchestration|D2L PDF No Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L PDF No Rubric [1778716498457]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
           "failedStep": "Navigate to PowerGrader",
-          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
+          "resultFile": "8646c170-1f7d-4304-8814-c25695b9711e-result.json",
           "status": "failed"
         }
       ]
@@ -29,32 +27,49 @@
       "status": "passed",
       "passedConfigs": [
         "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "moodle|orchestration|Long Accurate Existing Rubric PDF",
-        "moodle|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "d2l|orchestration|D2L DOCX New Rubric",
-        "d2l|orchestration|D2L DOCX Existing Rubric",
-        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
-      "failedConfigs": []
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2825\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
+          "resultFile": "49d939c9-2572-4416-b236-6dd1c618ba73-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX New Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L DOCX New Rubric [1778715779570]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX New Rubric",
+          "resultFile": "74c12a17-4f30-41bf-912d-0cade71add8d-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first() Expected: visible Timeout: 5000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 5000ms - waiting for locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "failedStep": "Expect \"toBeVisible\" locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
+          "resultFile": "f644a41d-01df-4b65-8124-8e4b2ab213b8-result.json",
+          "status": "not_reached"
+        }
+      ]
     },
     {
       "caseId": "C69000",
       "caseName": "Rubric: Transition to Grading",
       "status": "partially_passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX No Rubric",
-        "canvas|orchestration|Short Accurate No Rubric DOCX",
-        "d2l|orchestration|D2L PDF No Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": [
         {
-          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "config": "d2l|orchestration|D2L PDF No Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L PDF No Rubric [1778716498457]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
           "failedStep": "Navigate to PowerGrader",
-          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
+          "resultFile": "8646c170-1f7d-4304-8814-c25695b9711e-result.json",
           "status": "failed"
         }
       ]
@@ -64,16 +79,48 @@
       "caseName": "Sync: Scoring Reflection in LMS",
       "status": "partially_passed",
       "passedConfigs": [
-        "moodle|verify-lms|Short Inaccurate New Rubric TXT",
-        "canvas|verify-lms|Short Inaccurate New Rubric TXT"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|verify-lms|D2L DOCX New Rubric",
-          "error": "Error: Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "3. Open PowerGrader, grade, extract summary, publish",
-          "test": "features/d2l/verifyLmsScoreTest.spec.ts#D2L: PowerGrader grade + LMS verify @d2l @component Create, submit, PG extracts summary + publish, verify LMS",
-          "resultFile": "aa4c11f1-afc0-4d2c-9ac6-3336299a5cd8-result.json",
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2823\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "3c31a04f-705b-461b-8e21-16083fa24e2c-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2825\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
+          "resultFile": "49d939c9-2572-4416-b236-6dd1c618ba73-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX New Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L DOCX New Rubric [1778715779570]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX New Rubric",
+          "resultFile": "74c12a17-4f30-41bf-912d-0cade71add8d-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L PDF No Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L PDF No Rubric [1778716498457]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
+          "resultFile": "8646c170-1f7d-4304-8814-c25695b9711e-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first() Expected: visible Timeout: 5000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 5000ms - waiting for locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "failedStep": "Expect \"toBeVisible\" locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
+          "resultFile": "f644a41d-01df-4b65-8124-8e4b2ab213b8-result.json",
           "status": "failed"
         }
       ]
@@ -83,17 +130,15 @@
       "caseName": "Verify the status of the assignments with no Rubric in PowerGrader",
       "status": "partially_passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX No Rubric",
-        "canvas|orchestration|Short Accurate No Rubric DOCX",
-        "d2l|orchestration|D2L PDF No Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": [
         {
-          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "config": "d2l|orchestration|D2L PDF No Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L PDF No Rubric [1778716498457]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
           "failedStep": "Navigate to PowerGrader",
-          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
+          "resultFile": "8646c170-1f7d-4304-8814-c25695b9711e-result.json",
           "status": "failed"
         }
       ]
@@ -103,7 +148,6 @@
       "caseName": "POW: Teacher should be able to create new Rubric with multiple criteria",
       "status": "passed",
       "passedConfigs": [
-        "moodle|orchestration|Short Inaccurate New Rubric TXT",
         "canvas|orchestration|Short Inaccurate New Rubric TXT",
         "d2l|orchestration|D2L DOCX New Rubric"
       ],
@@ -115,57 +159,19 @@
       "status": "passed",
       "passedConfigs": [
         "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "moodle|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "d2l|orchestration|D2L DOCX Existing Rubric",
-        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": []
-    },
-    {
-      "caseId": "C69060",
-      "caseName": "POW - Moodle Submit assignment with student role",
-      "status": "passed",
-      "passedConfigs": [
-        "moodle|verify-lms|Short Inaccurate New Rubric TXT"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69061",
-      "caseName": "POW - Moodle verify user can submit different types of assignments",
-      "status": "passed",
-      "passedConfigs": [
-        "moodle|verify-lms|Short Inaccurate New Rubric TXT"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69063",
-      "caseName": "POW - Moodle verify submissions are visible in QA instance",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "moodle|orchestration|Long Accurate Existing Rubric PDF",
-        "moodle|orchestration|Short Inaccurate New Rubric TXT",
-        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
-      "failedConfigs": [
-        {
-          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
-          "status": "failed"
-        }
-      ]
     },
     {
       "caseId": "C69065",
       "caseName": "POW - D2L student should be able to submit assignment",
       "status": "passed",
       "passedConfigs": [
-        "d2l|verify-lms|D2L DOCX New Rubric"
+        "d2l|orchestration|D2L DOCX New Rubric",
+        "d2l|orchestration|D2L PDF No Rubric",
+        "d2l|orchestration|D2L DOCX Existing Rubric"
       ],
       "failedConfigs": []
     },
@@ -174,42 +180,97 @@
       "caseName": "POW - Canvas student should be able to submit assignment",
       "status": "passed",
       "passedConfigs": [
-        "canvas|verify-lms|Short Inaccurate New Rubric TXT"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF",
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": []
     },
     {
       "caseId": "C69074",
       "caseName": "POW - Canvas all assignments in QA instance should show submission details",
-      "status": "passed",
+      "status": "partially_passed",
       "passedConfigs": [
         "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
-      "failedConfigs": []
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2825\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
+          "resultFile": "49d939c9-2572-4416-b236-6dd1c618ba73-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C69092",
       "caseName": "Verify that Text Entry submission is successful",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": []
     },
     {
       "caseId": "C69098",
       "caseName": "All LMS: Student submits files (.docx/.txt/.pdf) with comments",
-      "status": "passed",
-      "passedConfigs": [
-        "moodle|verify-lms|Short Inaccurate New Rubric TXT",
-        "d2l|verify-lms|D2L DOCX New Rubric",
-        "canvas|verify-lms|Short Inaccurate New Rubric TXT"
-      ],
-      "failedConfigs": []
+      "status": "not_reached",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2824\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
+          "resultFile": "35eae412-b162-4ea3-8dd9-c1352a7bd4e4-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2823\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "3c31a04f-705b-461b-8e21-16083fa24e2c-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2825\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
+          "resultFile": "49d939c9-2572-4416-b236-6dd1c618ba73-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX New Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L DOCX New Rubric [1778715779570]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX New Rubric",
+          "resultFile": "74c12a17-4f30-41bf-912d-0cade71add8d-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "d2l|orchestration|D2L PDF No Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L PDF No Rubric [1778716498457]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
+          "resultFile": "8646c170-1f7d-4304-8814-c25695b9711e-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first() Expected: visible Timeout: 5000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 5000ms - waiting for locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "failedStep": "Expect \"toBeVisible\" locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
+          "resultFile": "f644a41d-01df-4b65-8124-8e4b2ab213b8-result.json",
+          "status": "not_reached"
+        }
+      ]
     },
     {
       "caseId": "C69100",
@@ -217,24 +278,40 @@
       "status": "partially_passed",
       "passedConfigs": [
         "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "moodle|orchestration|Long Accurate Existing Rubric PDF",
-        "moodle|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "d2l|orchestration|D2L DOCX No Rubric",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
         "canvas|orchestration|Short Accurate No Rubric DOCX",
-        "d2l|orchestration|D2L DOCX New Rubric",
-        "d2l|orchestration|D2L DOCX Existing Rubric",
-        "d2l|orchestration|D2L PDF No Rubric",
-        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": [
         {
-          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2825\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
+          "resultFile": "49d939c9-2572-4416-b236-6dd1c618ba73-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX New Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L DOCX New Rubric [1778715779570]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
           "failedStep": "Navigate to PowerGrader",
-          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX New Rubric",
+          "resultFile": "74c12a17-4f30-41bf-912d-0cade71add8d-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L PDF No Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L PDF No Rubric [1778716498457]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
+          "resultFile": "8646c170-1f7d-4304-8814-c25695b9711e-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first() Expected: visible Timeout: 5000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 5000ms - waiting for locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "failedStep": "Expect \"toBeVisible\" locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
+          "resultFile": "f644a41d-01df-4b65-8124-8e4b2ab213b8-result.json",
           "status": "failed"
         }
       ]
@@ -242,24 +319,29 @@
     {
       "caseId": "C75511",
       "caseName": "Verify editing score/feedback gets published without explicitly clicking on Save",
-      "status": "passed",
+      "status": "partially_passed",
       "passedConfigs": [
         "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
+        "canvas|orchestration|Short Accurate No Rubric DOCX",
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
-      "failedConfigs": []
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2825\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
+          "resultFile": "49d939c9-2572-4416-b236-6dd1c618ba73-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C75526",
       "caseName": "Verify SeeWhy disables or disappears when user clicks on it in QA",
       "status": "passed",
       "passedConfigs": [
-        "moodle|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": []
     },
@@ -268,18 +350,23 @@
       "caseName": "Verify the docx file is ingested and graded",
       "status": "partially_passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX No Rubric",
-        "canvas|orchestration|Short Accurate No Rubric DOCX",
-        "d2l|orchestration|D2L DOCX New Rubric",
-        "d2l|orchestration|D2L DOCX Existing Rubric"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": [
         {
-          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "config": "d2l|orchestration|D2L DOCX New Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L DOCX New Rubric [1778715779570]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
           "failedStep": "Navigate to PowerGrader",
-          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX New Rubric",
+          "resultFile": "74c12a17-4f30-41bf-912d-0cade71add8d-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first() Expected: visible Timeout: 5000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 5000ms - waiting for locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "failedStep": "Expect \"toBeVisible\" locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
+          "resultFile": "f644a41d-01df-4b65-8124-8e4b2ab213b8-result.json",
           "status": "failed"
         }
       ]
@@ -290,31 +377,40 @@
       "status": "partially_passed",
       "passedConfigs": [
         "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "moodle|orchestration|Long Accurate Existing Rubric PDF",
-        "moodle|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "d2l|orchestration|D2L DOCX No Rubric",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
         "canvas|orchestration|Short Accurate No Rubric DOCX",
-        "d2l|orchestration|D2L DOCX New Rubric",
-        "d2l|orchestration|D2L PDF No Rubric",
-        "moodle|orchestration|Short Inaccurate Existing Rubric Text Entry"
+        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
-          "error": "Error: ❌ DRIFT DETECTED: criteriaFeedback:Clarity and Precision of Language has 100.0% drift.",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
-          "resultFile": "c00ea47a-5b32-4ebf-b035-d20d507b77e4-result.json",
+          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2825\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
+          "resultFile": "49d939c9-2572-4416-b236-6dd1c618ba73-result.json",
           "status": "failed"
         },
         {
-          "config": "moodle|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [Short Accurate No Rubric DOCX [1778180379473]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "config": "d2l|orchestration|D2L DOCX New Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L DOCX New Rubric [1778715779570]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
           "failedStep": "Navigate to PowerGrader",
-          "test": "features/moodle/moodle-orchestration.spec.ts#Moodle Orchestration @moodle @orchestration Moodle Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "f61f0342-5054-44a2-90f3-92fb97b8be0d-result.json",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX New Rubric",
+          "resultFile": "74c12a17-4f30-41bf-912d-0cade71add8d-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L PDF No Rubric",
+          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L PDF No Rubric [1778716498457]] Syncing... assignment row not visible yet. Call Log: - Timeout 600000ms exceeded while waiting on the predicate",
+          "failedStep": "Navigate to PowerGrader",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
+          "resultFile": "8646c170-1f7d-4304-8814-c25695b9711e-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first() Expected: visible Timeout: 5000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 5000ms - waiting for locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "failedStep": "Expect \"toBeVisible\" locator('table.d2l-grid').getByRole('link', { name: 'D2L DOCX Existing Rubric [1778715112138]' }).first()",
+          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
+          "resultFile": "f644a41d-01df-4b65-8124-8e4b2ab213b8-result.json",
           "status": "failed"
         }
       ]

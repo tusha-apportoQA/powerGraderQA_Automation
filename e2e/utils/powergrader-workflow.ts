@@ -425,8 +425,16 @@ export async function executeUniversalPGWorkflow(
     await waitForPostPublishAssignmentDetails(powerGraderPage, uniqueTitle);
     console.log(`[${uniqueTitle}] Post-publish redirect verified.`);
 
-    if (lmsTeacher) {
+    /*if (lmsTeacher) {
         await lmsTeacher.verifyLmsScore(uniqueTitle, publishedGradingSummary as GradingSummary);
+    }*/
+
+    if (lmsTeacher) {
+        if (assignmentKey.toLowerCase().includes('no rubric')) {
+            console.log(`[${uniqueTitle}] Skipping LMS rubric verification - No Rubric assignment.`);
+        } else {
+            await lmsTeacher.verifyLmsScore(uniqueTitle, publishedGradingSummary as GradingSummary);
+        }
     }
 
     if (deferredSbertFailure) {

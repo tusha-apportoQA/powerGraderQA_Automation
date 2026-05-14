@@ -11,6 +11,8 @@ const testCmds = {
     'canvas-quick': `npx playwright test -c ${cfg} e2e/features/canvas --grep "Short Accurate"`,
     d2l: `npx playwright test -c ${cfg} e2e/features/d2l`,
     moodle: `npx playwright test -c ${cfg} e2e/features/moodle`,
+    'canvas-d2l': `npx playwright test -c ${cfg} e2e/features/canvas && npx playwright test -c ${cfg} e2e/features/d2l`,
+
 };
 
 const testCmd = testCmds[suite] || `npx playwright test -c ${cfg}`;
