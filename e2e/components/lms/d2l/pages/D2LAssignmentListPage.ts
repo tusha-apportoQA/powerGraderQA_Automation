@@ -5,14 +5,12 @@ export class D2LAssignmentListPage {
     pageTitle: Locator;
     newAssignmentButton: Locator;
     assignmentsGrid: Locator;
-    newAssignmentHeading: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.pageTitle = page.getByRole('heading', { name: 'Assignments', exact: true });
         this.newAssignmentButton = page.getByRole('button', { name: 'New Assignment' , exact: true})
         this.assignmentsGrid = page.locator('table.d2l-grid');
-        this.newAssignmentHeading = page.getByRole('heading', { name: 'New Assignment' });
     }
 
     async waitForLoad(): Promise<void> {
@@ -30,11 +28,13 @@ export class D2LAssignmentListPage {
         const isVisible = await combobox.isVisible({ timeout: 5000 }).catch(() => false);
         if (!isVisible) return;
 
+        const currentValue = await combobox.inputValue().catch(() => '');
+        if (currentValue === String(perPage)) return;
+
         await combobox.selectOption({ value: String(perPage) });
 
-        // The list usually refreshes after selection; wait for the DOM to settle.
-        await this.page.waitForLoadState('domcontentloaded').catch(() => {});
-        await this.page.waitForTimeout(500);
+        await this.page.waitForLoadState('load', { timeout: 60000 });
+        await this.page.waitForLoadState('networkidle', { timeout: 60000 }).catch(() => {});
     }
 
     async expectAssignmentListPageLoaded(): Promise<void> {
@@ -57,9 +57,8 @@ export class D2LAssignmentListPage {
         
         await this.newAssignmentButton.scrollIntoViewIfNeeded();
         
-        await this.newAssignmentButton.click({ timeout: 10000, noWaitAfter: true });
+        await this.newAssignmentButton.click({ timeout: 10000});
 
-        await expect(this.newAssignmentHeading).toBeVisible({ timeout: 60000 });
         await this.page.waitForLoadState('domcontentloaded');
     }
 

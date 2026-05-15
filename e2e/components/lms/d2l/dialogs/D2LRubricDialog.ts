@@ -3,6 +3,7 @@ import { Page, Locator } from '@playwright/test';
 export class D2LRubricDialog {
     page: Page;
     rubricEditor: Locator;
+    addAssociations: Locator;
     appendLevelButton: Locator;
     levelCells: Locator;
     levelsEditor: Locator;
@@ -12,6 +13,7 @@ export class D2LRubricDialog {
         this.page = page;
 
         this.rubricEditor = page.locator('d2l-rubric-editor');
+        this.addAssociations = page.locator('d2l-add-associations');
         
         this.levelsEditor = this.rubricEditor.locator("d2l-rubric-levels-editor");
         this.appendLevelButton = this.levelsEditor.getByRole('button', { name: 'Add new level after' });
@@ -266,6 +268,34 @@ export class D2LRubricDialog {
         await attachButton.waitFor({ state: 'attached', timeout: 10000 });
         await attachButton.click();
 
+        await this.page.waitForTimeout(500);
+    }
+
+    /** Attach-rubric modal for picking an existing rubric (`d2l-add-associations`, shadow DOM). */
+    async waitForAddAssociationsDialogOpen(): Promise<void> {
+        await this.addAssociations.waitFor({ state: 'attached', timeout: 30000 });
+        await this.page.waitForTimeout(500);
+    }
+
+    /**
+     * Selects one rubric in the add-associations list by visible name (clicks its `listitem` row).
+     */
+    async selectExistingRubricByName(rubricName: string): Promise<void> {
+        await this.waitForAddAssociationsDialogOpen();
+
+        const rubricLabel = this.page.getByText(rubricName, { exact: true }).first();
+        await rubricLabel.waitFor({ state: 'attached', timeout: 30000 });
+
+        const listItem = rubricLabel.locator('xpath=ancestor::*[@role="listitem"][1]');
+        await listItem.waitFor({ state: 'attached', timeout: 10000 });
+        await listItem.click();
+        await this.page.waitForTimeout(300);
+    }
+
+    async confirmAddSelectedExistingRubrics(): Promise<void> {
+        const addSelectedButton = this.page.getByRole('button', { name: 'Add Selected' });
+        await addSelectedButton.waitFor({ state: 'attached', timeout: 10000 });
+        await addSelectedButton.click();
         await this.page.waitForTimeout(500);
     }
 }

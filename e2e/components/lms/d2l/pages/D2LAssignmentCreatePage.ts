@@ -19,6 +19,7 @@ export class D2LAssignmentCreatePage {
     evalFeedbackBtn: Locator;
     addRubricBtn: Locator;
     createNewRubricMenuItem: Locator;
+    addExistingRubricMenuItem: Locator;
     rubricDialog: D2LRubricDialog;
 
     constructor(page: Page) {
@@ -52,6 +53,7 @@ export class D2LAssignmentCreatePage {
         this.evalFeedbackBtn = this.evalFeedbackSection.getByRole("button", { name: "Evaluation & Feedback" });
         this.addRubricBtn = this.evalFeedbackSection.getByRole('button', { name: 'Add Rubric' });
         this.createNewRubricMenuItem = this.evalFeedbackSection.locator('d2l-menu-item[text="Create New"]');
+        this.addExistingRubricMenuItem = this.evalFeedbackSection.locator('d2l-menu-item[text="Add Existing"]');
         
         this.rubricDialog = new D2LRubricDialog(page);
     }
@@ -247,6 +249,20 @@ export class D2LAssignmentCreatePage {
         await this.rubricDialog.waitForDialogOpen();
     }
 
+    async openAddExistingRubricDialog(): Promise<void> {
+        await this.expandEvalFeedbackSection();
+
+        await expect(this.addRubricBtn).toBeVisible({ timeout: 30000 });
+        await this.addRubricBtn.click();
+        await this.page.waitForLoadState('networkidle', { timeout: 120000 }).catch(() => {});
+
+        await expect(this.addExistingRubricMenuItem).toBeVisible({ timeout: 10000 });
+        await this.addExistingRubricMenuItem.click();
+        await this.page.waitForTimeout(500);
+
+        await this.rubricDialog.waitForAddAssociationsDialogOpen();
+    }
+
     async setRubric(rubric: D2LRubricConfig): Promise<void> {
         if (rubric.type === 'no') {
             return;
@@ -261,6 +277,12 @@ export class D2LAssignmentCreatePage {
             }
             await this.rubricDialog.attachRubric();
             return;
+        }
+
+        if (rubric.type === 'existing') {
+            await this.openAddExistingRubricDialog();
+            await this.rubricDialog.selectExistingRubricByName(rubric.rubricName);
+            await this.rubricDialog.confirmAddSelectedExistingRubrics();
         }
     }
 }
