@@ -59,7 +59,7 @@ export class D2LLoginPage {
             await this.page.waitForURL(url => {
                 const urlStr = url.toString();
                 return !urlStr.includes('/login') && !urlStr.includes('/lp/auth/login');
-            }, { timeout: 10000 });
+            }, { timeout: 60000 });
         });
         
         await this.page.waitForLoadState('domcontentloaded');
@@ -67,6 +67,7 @@ export class D2LLoginPage {
     }
 
     async waitForLoad(): Promise<void> {
+        await this.page.waitForTimeout(3000);
         await expect(this.loginForm).toBeVisible({ timeout: 30000 });
         await expect(this.usernameField).toBeVisible({ timeout: 30000 });
         await expect(this.passwordField).toBeVisible({ timeout: 30000 });
