@@ -71,7 +71,8 @@ async function waitForPostPublishAssignmentDetails(pg: Page, label: string): Pro
     await pg.waitForLoadState('domcontentloaded');
     await pg.waitForLoadState('networkidle').catch(() => {});
 
-    const viewBtn = pg.getByRole('button', { name: /^View$/i }).first();
+  //  const viewBtn = pg.getByRole('button', { name: /^View$/i }).first();
+    const viewBtn = pg.locator('button[data-slot="button"]').filter({ hasText: /^View$/i }).first();
     await expect(viewBtn).toBeVisible({ timeout: 30_000 });
     console.log(`[${label}] Post-publish: assignment details + View confirmed.`);
 }
@@ -135,9 +136,12 @@ export async function executeUniversalPGWorkflow(
         await expect(searchInput).toBeVisible({ timeout: 10000 });
         await searchInput.clear();
         await searchInput.fill(uniqueTitle);
+        console.log(`[${uniqueTitle}] Search filled with: ${uniqueTitle}`);
         await powerGraderPage.waitForTimeout(1000);
 
         const row = powerGraderPage.locator('tr, div[role="row"]').filter({ hasText: uniqueTitle }).last();
+        const isVisible = await row.isVisible();
+        console.log(`[${uniqueTitle}] Row visible: ${isVisible}`);
         if (await row.isVisible()) {
             console.log(`[${uniqueTitle}] Assignment found. Clicking on "View details"...`);
             const viewBtn = row.getByRole('link', { name: 'View details', exact: true }).or(row.getByText('View details', { exact: true }));
@@ -414,6 +418,8 @@ export async function executeUniversalPGWorkflow(
     }
 
     const publishedGradingSummary = await gradingPage.getGradingSummary();
+
+    await powerGraderPage.waitForTimeout(80000);
     
     await gradingPage.clickPublishButton();
     if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75511:'))) {

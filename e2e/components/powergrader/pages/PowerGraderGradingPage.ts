@@ -123,10 +123,12 @@ export class PowerGraderGradingPage {
      */
     async clickPublishButton(): Promise<void> {
         await this.page.waitForTimeout(60000);
-
         const publishButton = this.page.getByRole('button', { name: 'Publish' }).first();
+        //await expect(publishButton).toBeEnabled({ timeout: 60000 });
+       // await this.page.waitForTimeout(3000);   
+
         const certifyCheckbox = this.page.getByRole('checkbox', {
-            name: /I certify this grade can be released to the student/i
+            name: /I certify this grade can be released to the student/
         });
         console.log(`Publish Button Found..`);
         const clickAndHandleModal = async (attempt: number) => {
@@ -150,14 +152,22 @@ export class PowerGraderGradingPage {
         };
 
         await clickAndHandleModal(1);
+        await this.page.waitForTimeout(30000);
+
 
         // If first click did not register, retry once with same flow.
         if (/\/RegisterSubmissionPublicUUID--/.test(this.page.url())) {
             console.log('Still on submission page after publish; retrying publish click once.');
             await clickAndHandleModal(2);
+            await this.page.waitForTimeout(30000);
+        }
+        if (/\/RegisterSubmissionPublicUUID--/.test(this.page.url())) {
+            console.log('Still on submission page after publish; retrying publish click (attempt 3).');
+            await clickAndHandleModal(3);
         }
         
-        await this.page.waitForLoadState('networkidle');
+        //await this.page.waitForLoadState('networkidle');
+        await this.page.waitForURL(/\/assignments\/RegisterAssignmentPublicUUID--/, { timeout: 60000 });
     }
 
     /**

@@ -221,7 +221,16 @@ export class D2LLMS implements LmsTeacher {
 
         // Wait for the PowerGrader UI to actually load
         await pgPage.waitForLoadState('networkidle');
-        
+        // Dismiss D2L permission modal if it appears
+        try {
+            const yesBtn = pgPage.getByRole('button', { name: 'Yes' });
+            await expect(yesBtn).toBeVisible({ timeout: 10000 });
+            await yesBtn.click();
+            await pgPage.waitForLoadState('networkidle');
+            console.log('[D2LLMS] D2L permission modal dismissed.');
+        } catch {
+            // no modal, continue
+        }
         // Return the NEW page object
         return pgPage; 
     }
