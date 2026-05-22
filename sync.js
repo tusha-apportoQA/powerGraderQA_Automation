@@ -368,7 +368,9 @@
                                     score_delta: (latest.current?.total_score || 0) - (latest.baseline?.total_score || 0) 
                                 },
                                 baseline: latest.baseline || {},
-                                current: latest.current || {}
+                                current: latest.current || {},
+                                grade_time_mins: latest.grade_time_mins ?? 'N/A',
+                                status: latest.status ?? 'unknown',
                             };
 
                             /*const baseName = newEntry.student_file.replace(/\s*\[\d+\]\s*$/, "").trim();

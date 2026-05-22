@@ -12,7 +12,7 @@ const testCmds = {
     d2l: `npx playwright test -c ${cfg} e2e/features/d2l`,
     moodle: `npx playwright test -c ${cfg} e2e/features/moodle`,
     'canvas-d2l': `npx playwright test -c ${cfg} e2e/features/canvas && npx playwright test -c ${cfg} e2e/features/d2l`,
-
+    'canvas-single': `npx playwright test -c ${cfg} e2e/features/canvas --grep "Long Accurate Existing Rubric PDF"`,
 };
 
 const testCmd = testCmds[suite] || `npx playwright test -c ${cfg}`;
@@ -178,6 +178,7 @@ if (fs.existsSync(permanentHistory)) {
     fs.cpSync(permanentHistory, historyRestore, { recursive: true, force: true });
     console.log('📦 Allure history restored from permanent store.');
 }
+
 execSync("node sync.js", { stdio: 'inherit' });
 if (fs.existsSync(resultsDir)) {
     fs.readdirSync(resultsDir)

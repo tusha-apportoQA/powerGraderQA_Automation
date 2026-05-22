@@ -13,6 +13,15 @@ import path from "path";
 /**
  * Writes the latest test result to a JSON file for the dashboard.
  */
+/*function writeLatestRunJson(params: {
+  uniqueTitle: string;
+  assignmentKey: string;
+  baselineSnapshot: any;
+  currentSnapshot: any;
+  sbertSimilarity?: number;
+  lms?: string;
+}) {*/
+
 function writeLatestRunJson(params: {
   uniqueTitle: string;
   assignmentKey: string;
@@ -20,6 +29,8 @@ function writeLatestRunJson(params: {
   currentSnapshot: any;
   sbertSimilarity?: number;
   lms?: string;
+  gradeTimeMins?: string;
+  status?: string;
 }) {
   const out = {
     run_date: new Date().toISOString(),
@@ -48,6 +59,8 @@ function writeLatestRunJson(params: {
       sbert_similarity: params.sbertSimilarity ?? 0,
       score_delta: (params.currentSnapshot?.totalScore ?? 0) - (params.baselineSnapshot?.totalScore ?? 0),
     },
+    grade_time_mins: params.gradeTimeMins ?? 'N/A',
+    status: params.status ?? 'unknown',
   };
 
   //const outPath = path.join(process.cwd(), "allure-results", "latest-run.json");
@@ -158,6 +171,8 @@ export async function executeUniversalPGWorkflow(
         }
     }).toPass({ timeout: 600000, intervals: [INTERVAL] });
 
+    const gradeStart = Date.now();
+
     // PHASE 2: Assignment Details Page Sync
     const detailsPage = new PowerGraderAssignmentDetailsPage(powerGraderPage);
    
@@ -250,6 +265,8 @@ export async function executeUniversalPGWorkflow(
             },
             sbertSimilarity: 0,
             lms,
+            // gradeTimeMins: 'timeout',
+            //status: 'failed',
         });
 
         console.error(`\n❌ [TIMEOUT ERROR] AI grading for "${uniqueTitle}" failed within 15 mins.`);
@@ -257,6 +274,7 @@ export async function executeUniversalPGWorkflow(
     }
 
     // PHASE 3: Grading Validation & Snapshot Capture
+    //const gradeStart = Date.now();
     const gradingPage = new PowerGraderGradingPage(powerGraderPage);
     
     await expect(async () => {
@@ -276,6 +294,9 @@ export async function executeUniversalPGWorkflow(
     const finalScoreRaw = await gradingPage.getTotalScore();
     const finalScore = Number(String(finalScoreRaw).match(/[\d.]+/)?.[0] ?? "0");
     const gradingSummary: any = await gradingPage.getGradingSummary();
+    const gradeTimeMins = ((Date.now() - gradeStart) / 1000 / 60).toFixed(2);
+    console.log(`[${uniqueTitle}] AI grading took ${gradeTimeMins} mins`);
+    AllureHelper.parameter('AI Grade time (mins)', gradeTimeMins);
 
     const currentSnapshot = {
         totalScore: finalScore,
@@ -302,6 +323,10 @@ export async function executeUniversalPGWorkflow(
                     currentSnapshot,
                     sbertSimilarity: 1,
                     lms,
+                   // gradeTimeMins: 'timeout',
+                   gradeTimeMins,
+                   // status: 'failed',
+                    status: 'passed',
                 });
             } else {
             
@@ -346,6 +371,9 @@ export async function executeUniversalPGWorkflow(
                 currentSnapshot,
                 sbertSimilarity: 0,
                 lms,
+                //gradeTimeMins: 'timeout',
+                gradeTimeMins,
+                status: 'failed',
             });
             deferredSbertFailure = compareError instanceof Error ? compareError : new Error(String(compareError));
             console.error(
@@ -360,6 +388,8 @@ export async function executeUniversalPGWorkflow(
 
         if (!deferredSbertFailure) {
         // Always write BEFORE any potential throw
+        const DRIFT_THRESHOLD = 85;
+
         writeLatestRunJson({
             uniqueTitle,
             assignmentKey,
@@ -367,9 +397,13 @@ export async function executeUniversalPGWorkflow(
             currentSnapshot,
             sbertSimilarity: sbertScore,
             lms,
+            //gradeTimeMins: 'timeout',
+            gradeTimeMins,
+            //status: 'failed',
+            status: result.summary.maxConfidencePct > DRIFT_THRESHOLD ? 'failed' : 'passed',
         });
 
-        const DRIFT_THRESHOLD = 85;
+        //const DRIFT_THRESHOLD = 85;
         if (result.summary.maxConfidencePct > DRIFT_THRESHOLD) {
             const driftMsg = `❌ DRIFT DETECTED: ${result.summary.worstField} has ${result.summary.maxConfidencePct.toFixed(1)}% drift.`;
             await AllureHelper.attachText("SBERT Drift Failure", driftMsg);
@@ -408,6 +442,10 @@ export async function executeUniversalPGWorkflow(
             currentSnapshot: currentSnapshot,
             sbertSimilarity: 1,
             lms,
+            //gradeTimeMins: 'timeout',
+            gradeTimeMins,  
+            //status: 'failed',
+             status: 'passed',
         });
     }
 

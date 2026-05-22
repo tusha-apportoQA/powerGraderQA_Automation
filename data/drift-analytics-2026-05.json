@@ -1639,5 +1639,409 @@
         }
       ]
     }
+  },
+  {
+    "run_date": "2026-05-21T23:53:51.783Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1779406465195]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": -5
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "AI grading timed out after 15 minutes.",
+      "criteria": []
+    }
+  },
+  {
+    "run_date": "2026-05-22T00:10:25.622Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1779407648281]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": -12
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "AI grading timed out after 15 minutes.",
+      "criteria": []
+    }
+  },
+  {
+    "run_date": "2026-05-22T00:30:25.537Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1779408649762]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": -10
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "AI grading timed out after 15 minutes.",
+      "criteria": []
+    }
+  },
+  {
+    "run_date": "2026-05-22T17:47:02.497Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1779471693717]",
+    "sbert_similarity": 0.6958210211047496,
+    "drift": {
+      "sbert_similarity": 0.6958210211047496,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-organized, and easy to follow, with excellent use of headings, coherent paragraphing, and flawless grammar and flow throughout. This strong structure and readability fully meet the expectations for top marks."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your essay shows factual knowledge about apples, but it does not address technology or any of the required perspectives; to improve, be sure to directly answer the assignment prompt and analyze technology's impact in detail."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-05-22T18:04:00.222Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1779472289482]",
+    "sbert_similarity": 0.5350355456390047,
+    "drift": {
+      "sbert_similarity": 0.5350355456390047,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "You clearly and accurately explain the broad impact of technology and provide relevant examples, but for a higher score, you would need to explore challenges or deeper implications more thoroughly."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 5,
+          "feedback": "Your writing is polished and error-free, with clear sentences, effective punctuation, and precise word choice throughout. Excellent work on grammar and style."
+        }
+      ]
+    }
+  },
+  {
+    "run_date": "2026-05-22T18:25:44.649Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1779473301302]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": -10
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "AI grading timed out after 15 minutes.",
+      "criteria": []
+    }
+  },
+  {
+    "run_date": "2026-05-22T22:14:35.964Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1779487759407]",
+    "sbert_similarity": 0.619200010308339,
+    "drift": {
+      "sbert_similarity": 0.619200010308339,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally well-organized with clear section headings, concise paragraphs, and error-free grammar, making it easy to read and follow from start to finish."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your submission did not address the required topic of technology's impact in daily life and instead discussed apples as a fruit, so none of the criterion's requirements for analysis or relevant examples were met. Please ensure future essays respond directly to the assignment prompt to receive credit."
+        }
+      ]
+    },
+    "grade_time_mins": "2.20",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-05-22T22:40:36.695Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1779488957136]",
+    "sbert_similarity": 0.6187672235498443,
+    "drift": {
+      "sbert_similarity": 0.6187672235498443,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear and easy to read, with well-organized sections, logical flow between ideas, and correct grammar throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your submission does not address the assignment prompt, as it discusses apples as a fruit instead of the impact of technology in daily life. For future assignments, carefully read the prompt and ensure your analysis and examples directly relate to the assigned topic."
+        }
+      ]
+    },
+    "grade_time_mins": "7.54",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-05-22T23:02:25.797Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1779490173217]",
+    "sbert_similarity": 0.5696460264192476,
+    "drift": {
+      "sbert_similarity": 0.5696460264192476,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is clear, well-organized, and easy to follow, with strong structure, error-free grammar, and smooth transitions—excellent work on readability!"
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your essay provides detailed and accurate information about apples, but it does not address the required topic of technology's impact in daily life. For higher marks, make sure to focus your examples and analysis on the assigned topic and carefully follow the prompt instructions."
+        }
+      ]
+    },
+    "grade_time_mins": "9.06",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-05-22T23:32:12.961Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1779492348554]",
+    "sbert_similarity": 0.7107322211409359,
+    "drift": {
+      "sbert_similarity": 0.7107322211409359,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally organized, with clear headings, logical flow, and excellent grammar, making it very easy to read and understand. Outstanding clarity and structure meet all expectations for readability at this level."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your submission does not address the assignment's topic or required analysis of technology's impact; to improve, ensure your essay directly responds to the prompt and covers the specified criteria."
+        }
+      ]
+    },
+    "grade_time_mins": "2.76",
+    "status": "passed"
   }
 ]

@@ -17,14 +17,33 @@ export class CanvasDashboardPage {
         await this.waitForLoad();
     }
 
+    /*async goto(baseURL: string): Promise<void> {
+        await this.page.goto(`${baseURL}/dashboard`, { waitUntil: 'domcontentloaded' });
+        await this.page.waitForLoadState('networkidle');
+        await this.waitForLoad();
+    }*/
+
     async waitForLoad(): Promise<void> {
         await expect(this.dashboardHeader).toBeVisible({ timeout: 30000 });
         await this.courseCardContainer.first().waitFor({ state: 'visible', timeout: 30000 });
     }
 
+    /*async waitForLoad(): Promise<void> {
+        try {
+            await expect(this.dashboardHeader).toBeVisible({ timeout: 15000 });
+        } catch {
+            // Dashboard heading not found, try navigating directly
+            await this.page.goto(`${this.page.url().split('/').slice(0, 3).join('/')}/dashboard`, { waitUntil: 'domcontentloaded' });
+            await expect(this.dashboardHeader).toBeVisible({ timeout: 30000 });
+        }
+        await this.courseCardContainer.first().waitFor({ state: 'visible', timeout: 30000 });
+    }*/
+
     async expectDashboardLoaded(): Promise<void> {
         await expect(this.dashboardHeader).toBeVisible();
         await expect(this.page).toHaveURL(/\/\?login_success=1|\/dashboard/);
+       // await expect(this.page).toHaveURL(/\/dashboard/);
+
     }
 
     async selectCourse(courseName: string): Promise<void> {

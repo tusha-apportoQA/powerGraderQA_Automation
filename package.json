@@ -17,6 +17,7 @@
     "full-deploy:d2l": "node full-deploy.js d2l",
     "full-deploy": "node full-deploy.js",
     "full-deploy:moodle": "node full-deploy.js moodle",
+    "full-deploy:canvas-single": "node full-deploy.js canvas-single",
     "full-deploy:canvas-quick": "node full-deploy.js canvas-quick",
     "full-deploy:all_old": "cross-env FIRST_RUN=true node full-deploy.js canvas && cross-env FIRST_RUN=false node full-deploy.js d2l && cross-env FIRST_RUN=false node full-deploy.js moodle",
     "full-deploy:all": "node run-all-deploys.js",

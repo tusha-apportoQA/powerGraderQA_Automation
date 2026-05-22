@@ -1,105 +1,23 @@
 {
-  "generatedAt": "2026-05-17T00:49:10.040Z",
+  "generatedAt": "2026-05-22T23:36:31.152Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
-  "totalCases": 12,
+  "totalCases": 9,
   "cases": [
-    {
-      "caseId": "C68998",
-      "caseName": "Rubric: Button Visibility (No Rubric)",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "d2l|orchestration|D2L DOCX No Rubric"
-      ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L PDF No Rubric",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
-          "resultFile": "3273d634-24e1-41d1-ac11-62a9685b4e88-result.json",
-          "status": "failed"
-        }
-      ]
-    },
     {
       "caseId": "C68999",
       "caseName": "Rubric: Button Hidden (Has Rubric)",
       "status": "passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX Existing Rubric",
-        "d2l|orchestration|D2L DOCX New Rubric"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
     },
     {
-      "caseId": "C69000",
-      "caseName": "Rubric: Transition to Grading",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "d2l|orchestration|D2L DOCX No Rubric"
-      ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L PDF No Rubric",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
-          "resultFile": "3273d634-24e1-41d1-ac11-62a9685b4e88-result.json",
-          "status": "failed"
-        }
-      ]
-    },
-    {
       "caseId": "C69002",
       "caseName": "Sync: Scoring Reflection in LMS",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "d2l|orchestration|D2L DOCX Existing Rubric",
-        "d2l|orchestration|D2L DOCX New Rubric"
-      ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L PDF No Rubric",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
-          "resultFile": "3273d634-24e1-41d1-ac11-62a9685b4e88-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L DOCX No Rubric",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('button', { name: 'Yes' }) Expected: visible Timeout: 10000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 10000ms - waiting for getByRole('button', { name: 'Yes' })",
-          "failedStep": "Expect \"toBeVisible\" getByRole('button', { name: 'Yes' })",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX No Rubric",
-          "resultFile": "7aee5c21-9fc4-4476-9105-ac4c1098f3e6-result.json",
-          "status": "failed"
-        }
-      ]
-    },
-    {
-      "caseId": "C69036",
-      "caseName": "Verify the status of the assignments with no Rubric in PowerGrader",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "d2l|orchestration|D2L DOCX No Rubric"
-      ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L PDF No Rubric",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
-          "resultFile": "3273d634-24e1-41d1-ac11-62a9685b4e88-result.json",
-          "status": "failed"
-        }
-      ]
-    },
-    {
-      "caseId": "C69038",
-      "caseName": "POW: Teacher should be able to create new Rubric with multiple criteria",
       "status": "passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX New Rubric"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
     },
@@ -108,19 +26,25 @@
       "caseName": "POW: Teacher should be able to add pre-existing rubric",
       "status": "passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX Existing Rubric"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
     },
     {
-      "caseId": "C69065",
-      "caseName": "POW - D2L student should be able to submit assignment",
+      "caseId": "C69070",
+      "caseName": "POW - Canvas student should be able to submit assignment",
       "status": "passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX Existing Rubric",
-        "d2l|orchestration|D2L PDF No Rubric",
-        "d2l|orchestration|D2L DOCX New Rubric",
-        "d2l|orchestration|D2L DOCX No Rubric"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C69074",
+      "caseName": "POW - Canvas all assignments in QA instance should show submission details",
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
     },
@@ -131,35 +55,11 @@
       "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L DOCX Existing Rubric",
-          "error": "Error: ❌ DRIFT DETECTED: criteriaFeedback:Clarity and Precision of Language has 100.0% drift.",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX Existing Rubric",
-          "resultFile": "015b7b54-3cae-42f1-bc63-55f609e673ea-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L PDF No Rubric",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
-          "resultFile": "3273d634-24e1-41d1-ac11-62a9685b4e88-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L DOCX New Rubric",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('button', { name: 'Yes' }) Expected: visible Timeout: 10000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 10000ms - waiting for getByRole('button', { name: 'Yes' })",
-          "failedStep": "Expect \"toBeVisible\" getByRole('button', { name: 'Yes' })",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX New Rubric",
-          "resultFile": "38e74b08-ddeb-419a-8398-8a39f570fd23-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L DOCX No Rubric",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('button', { name: 'Yes' }) Expected: visible Timeout: 10000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 10000ms - waiting for getByRole('button', { name: 'Yes' })",
-          "failedStep": "Expect \"toBeVisible\" getByRole('button', { name: 'Yes' })",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L DOCX No Rubric",
-          "resultFile": "7aee5c21-9fc4-4476-9105-ac4c1098f3e6-result.json",
+          "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2910\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
+          "resultFile": "a313ea7d-f55f-4d53-bd86-968049e83f33-result.json",
           "status": "not_reached"
         }
       ]
@@ -167,53 +67,29 @@
     {
       "caseId": "C69100",
       "caseName": "On-time submission (before due date) is accepted and gradable",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "d2l|orchestration|D2L DOCX Existing Rubric",
-        "d2l|orchestration|D2L DOCX New Rubric",
-        "d2l|orchestration|D2L DOCX No Rubric"
-      ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L PDF No Rubric",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
-          "resultFile": "3273d634-24e1-41d1-ac11-62a9685b4e88-result.json",
-          "status": "failed"
-        }
-      ]
-    },
-    {
-      "caseId": "C75645",
-      "caseName": "Verify the docx file is ingested and graded",
       "status": "passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX Existing Rubric",
-        "d2l|orchestration|D2L DOCX New Rubric",
-        "d2l|orchestration|D2L DOCX No Rubric"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF"
+      ],
+      "failedConfigs": []
+    },
+    {
+      "caseId": "C75511",
+      "caseName": "Verify editing score/feedback gets published without explicitly clicking on Save",
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
     },
     {
       "caseId": "C78823",
       "caseName": "Verify Submission Review Page new UI",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
-        "d2l|orchestration|D2L DOCX Existing Rubric",
-        "d2l|orchestration|D2L DOCX New Rubric",
-        "d2l|orchestration|D2L DOCX No Rubric"
+        "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L PDF No Rubric",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: Timeout 600000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L PDF No Rubric",
-          "resultFile": "3273d634-24e1-41d1-ac11-62a9685b4e88-result.json",
-          "status": "failed"
-        }
-      ]
+      "failedConfigs": []
     }
   ]
 }

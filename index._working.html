@@ -150,27 +150,6 @@
         <p id="allure-passrate" class="text-2xl font-bold text-purple-400 mt-1">--%</p>
     </div>
 </section>
-    <section class="bg-gradient-to-br from-slate-900 to-yellow-950/30 rounded-xl border-2 border-yellow-600/50 shadow-2xl shadow-yellow-900/20 mb-10">
-        <div class="bg-yellow-900/30 p-5 border-b-2 border-yellow-600/50">
-            <h3 class="text-yellow-300 font-extrabold uppercase text-lg tracking-widest">⚡ Latest Run Summary</h3>
-        </div>
-        <div class="overflow-x-auto max-h-[180px] overflow-y-auto">
-            <table class="w-full text-left text-[12px] border-collapse">
-                <thead class="bg-slate-900 sticky top-0">
-                    <tr class="bg-yellow-900/20">
-                        <th class="p-3 border-b border-yellow-600/30 text-yellow-300 uppercase text-[11px] font-bold tracking-wider">Submission</th>
-                        <th class="p-3 border-b border-yellow-600/30 text-yellow-300 uppercase text-[11px] font-bold tracking-wider text-center">LMS</th>
-                        <th class="p-3 border-b border-yellow-600/30 text-yellow-300 uppercase text-[11px] font-bold tracking-wider text-center">Status</th>
-                        <th class="p-3 border-b border-yellow-600/30 text-yellow-300 uppercase text-[11px] font-bold tracking-wider text-center">AI Grade Time</th>
-                        <th class="p-3 border-b border-yellow-600/30 text-yellow-300 uppercase text-[11px] font-bold tracking-wider text-center">Score Match</th>
-                        <th class="p-3 border-b border-yellow-600/30 text-yellow-300 uppercase text-[11px] font-bold tracking-wider text-center">Feedback Drift</th>
-                    </tr>
-                </thead>
-                <tbody id="latest-run-body"></tbody>
-            </table>
-        </div>
-    </section>
-
     <section class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-2xl">
          <!--<div class="bg-slate-900 p-3 border-b border-slate-700 flex justify-between items-center">
             <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Live Allure Report</span>
@@ -215,7 +194,6 @@
                 document.getElementById('not_automatable').innerText = data.not_automatable || 0;
                 document.getElementById('sync-time').innerText = "Last Sync: " + (data.lastUpdated || "N/A");
                 loadMonthlyPatterns();
-                loadLatestRunSummary();
             })
             .catch(err => console.error("Error loading stats:", err));
             // Fetch chromium-only stats from Allure
@@ -499,62 +477,6 @@
             });
 
             document.getElementById('drift-modal').classList.remove('hidden');
-        }
-
-        //function closeModal() { document.getElementById('drift-modal').classList.add('hidden'); }
-        async function loadLatestRunSummary() {
-            try {
-                const now = new Date();
-                let allEntries = [];
-                for (let i = 0; i < 2; i++) {
-                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-                    const month = d.toISOString().slice(0, 7);
-                    try {
-                        const res = await fetch(`./data/drift-analytics-${month}.json`);
-                        if (res.ok) {
-                            const data = await res.json();
-                            allEntries = allEntries.concat(data);
-                        }
-                    } catch (e) {}
-                }
-                if (allEntries.length === 0) return;
-
-                allEntries.sort((a, b) => new Date(b.run_date) - new Date(a.run_date));
-                const latestDate = new Date(allEntries[0].run_date);
-                const cutoff = new Date(latestDate.getTime() - 15 * 60 * 1000);
-                const latestRun = allEntries.filter(e => new Date(e.run_date) >= cutoff);
-
-                const tbody = document.getElementById('latest-run-body');
-                tbody.innerHTML = '';
-
-                latestRun.forEach(entry => {
-                    const sim = (entry.sbert_similarity ?? 0) * 100;
-                    const bScore = entry.baseline?.total_score ?? '--';
-                    const cScore = entry.current?.total_score ?? '--';
-                    const isMatch = (bScore !== '--' && cScore !== '--') ? bScore === cScore : false;
-                    const status = entry.status ?? 'unknown';
-                    const gradeTime = entry.grade_time_mins ?? 'N/A';
-                    const lmsColor = entry.lms === 'moodle' ? 'text-orange-400' :
-                        entry.lms === 'd2l' ? 'text-purple-400' : 'text-blue-400';
-                    const statusColor = status === 'passed' ? 'text-green-400' : status === 'failed' ? 'text-red-400' : 'text-slate-400';
-                    const statusIcon = status === 'passed' ? '✅ Passed' : status === 'failed' ? '❌ Failed' : '⏭️ Skipped';
-                    const baseName = entry.student_file.replace(/\s*\[\d+\]\s*$/, '').trim();
-
-                    const row = document.createElement('tr');
-                    row.className = 'border-b border-slate-800 hover:bg-slate-700 transition-colors';
-                    row.innerHTML = `
-                        <td class="p-3 text-slate-300 max-w-[250px] truncate">${baseName}</td>
-                        <td class="p-3 text-center font-bold ${lmsColor}">${entry.lms || 'canvas'}</td>
-                        <td class="p-3 text-center font-bold ${statusColor}">${statusIcon}</td>
-                        <td class="p-3 text-center text-yellow-300 font-mono">${gradeTime === 'N/A' ? 'N/A' : gradeTime + ' mins'}</td>
-                        <td class="p-3 text-center text-lg">${isMatch ? '✅' : '❌'}</td>
-                        <td class="p-3 text-center font-bold ${sim < 90 ? 'text-red-400' : 'text-green-400'}">${sim.toFixed(1)}%</td>
-                    `;
-                    tbody.appendChild(row);
-                });
-            } catch (e) {
-                console.warn('Could not load latest run summary:', e.message);
-            }
         }
 
         function closeModal() { document.getElementById('drift-modal').classList.add('hidden'); }
