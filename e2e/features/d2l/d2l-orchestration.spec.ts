@@ -82,7 +82,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
 
   for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
     test(`D2L Orchestration: ${assignmentConfig.title}`, async ({ d2lTeacherPage, d2lStudentPage }) => {
-      test.setTimeout(1_200_000);
+      test.setTimeout(1_500_000);
       AllureHelper.label('lms', 'd2l');
       AllureHelper.label('caseConfig', `d2l|orchestration|${assignmentConfig.title}`);
       AllureHelper.label('testCaseId', C69100);

@@ -1,12 +1,22 @@
-import { expect, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import { CriterionScore, CriterionEditEntry, GradingSummary } from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 
 export class PowerGraderGradingPage {
     page: Page;
+    interactiveRegradeButton: Locator;
+    applyButton: Locator;
+    discardButton: Locator;
+    previewModeLabel: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.interactiveRegradeButton = page
+            .getByRole('button', { name: 'Interactive regrade' })
+            .first();
+        this.applyButton = page.getByRole('button', { name: 'Apply' });
+        this.discardButton = page.getByRole('button', { name: 'Discard' });
+        this.previewModeLabel = page.getByText('Preview mode', { exact: true });
     }
 
     async waitForLoad(): Promise<void> {
@@ -55,6 +65,93 @@ export class PowerGraderGradingPage {
         await expect(firstFeedback).toBeVisible({ timeout: 20000 });
 
         console.log("[Grading Page] AI Results verified successfully.");
+    }
+
+    /** Selected pills use inline style with --blue-accent-color (not aria-pressed). */
+    private async isIgPillSelected(pill: Locator): Promise<boolean> {
+        return pill.evaluate((el) => (el.getAttribute('style') ?? '').includes('--blue-accent-color'));
+    }
+
+    /**
+     * Select an IG pill. Skips if style already shows selected.
+     * In-browser click avoids Playwright "stable" wait while React remounts the node.
+     */
+    private async selectIgPill(name: string): Promise<void> {
+        const pill = this.page.getByRole('button', { name });
+        await expect(pill, `${name} is not visible`).toBeVisible({ timeout: 30000 });
+
+        if (await this.isIgPillSelected(pill)) {
+            console.log(`[Grading Page] IG option "${name}" already selected`);
+            return;
+        }
+
+        console.log(`[Grading Page] Selecting IG option: ${name}`);
+        await pill.evaluate((el) => el.click());
+
+        await expect
+            .poll(() => this.isIgPillSelected(pill), {
+                timeout: 5000,
+                message: `${name} did not show selected style (--blue-accent-color)`,
+            })
+            .toBe(true);
+        console.log(`[Grading Page] IG option "${name}" selected`);
+    }
+
+    /**
+     * Opens IG (Interactive regrade), sets options, and generates preview.
+     * Without `criterionIndex`, uses the main header Interactive regrade button.
+     * With `criterionIndex`, uses that criterion section's Interactive regrade button.
+     */
+    async generateIG(options?: { criterionIndex?: number }): Promise<void> {
+        const previewModeTimeoutMs = 3 * 60 * 1000;
+        const criterionIndex = options?.criterionIndex;
+        const igScope =
+            criterionIndex !== undefined ? `criterion index ${criterionIndex}` : 'main header';
+        console.log(`[Grading Page] generateIG: opening Interactive regrade (${igScope})...`);
+
+        let igButton: Locator;
+        if (criterionIndex !== undefined) {
+            const section = this.page
+                .locator('div.overflow-visible.rounded-lg.p-3.shadow-sm')
+                .nth(criterionIndex);
+            igButton = section.getByRole('button', { name: 'Interactive regrade' });
+            await expect(
+                igButton,
+                `Interactive regrade button is not visible for criterion index ${criterionIndex}`,
+            ).toBeVisible({ timeout: 30000 });
+        } else {
+            igButton = this.interactiveRegradeButton;
+            await expect(
+                igButton,
+                'Interactive regrade button is not visible',
+            ).toBeVisible({ timeout: 30000 });
+        }
+        await igButton.click();
+
+        const generateButton = this.page.getByRole('button', { name: 'Generate' });
+        await expect(generateButton, 'Generate button is not visible').toBeVisible({
+            timeout: 30000,
+        });
+
+        console.log('[Grading Page] generateIG: setting More Lenient...');
+        await this.selectIgPill('More Lenient');
+        console.log('[Grading Page] generateIG: setting More Encouraging...');
+        await this.selectIgPill('More Encouraging');
+
+        console.log('[Grading Page] generateIG: clicking Generate (preview may take a few minutes)...');
+        await generateButton.click();
+
+        await expect(
+            igButton,
+            'Interactive regrade button should be disabled after clicking Generate',
+        ).toBeDisabled({ timeout: 30000 });
+
+        await expect(
+            this.previewModeLabel,
+            'Preview mode did not appear after interactive grade generation',
+        ).toBeVisible({ timeout: previewModeTimeoutMs });
+
+        console.log('[Grading Page] Interactive grade preview generated (Preview mode visible).');
     }
 
     //Update by Tusha

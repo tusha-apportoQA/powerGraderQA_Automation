@@ -1,10 +1,28 @@
 import { expect, Page } from '@playwright/test';
 
 export class PowerGraderAssignmentDetailsPage {
+    private static readonly POST_PUBLISH_NAV_TIMEOUT_MS = 120_000;
+    private static readonly POST_PUBLISH_DETAILS_URL = /\/assignments\/RegisterAssignmentPublicUUID--/;
+
     page: Page;
 
     constructor(page: Page) {
         this.page = page;
+    }
+
+    /**
+     * After Publish: wait for backend + redirect to assignment details, then assert View is visible.
+     */
+    async waitForPostPublishAssignmentDetails(label: string): Promise<void> {
+        await this.page.waitForURL(PowerGraderAssignmentDetailsPage.POST_PUBLISH_DETAILS_URL, {
+            timeout: PowerGraderAssignmentDetailsPage.POST_PUBLISH_NAV_TIMEOUT_MS,
+        });
+        await this.page.waitForLoadState('domcontentloaded');
+        await this.page.waitForLoadState('networkidle').catch(() => {});
+
+        const viewBtn = this.page.locator('button[data-slot="button"]').filter({ hasText: /^View$/i }).first();
+        await expect(viewBtn).toBeVisible({ timeout: 30_000 });
+        console.log(`[${label}] Post-publish: assignment details + View confirmed.`);
     }
 
     async waitForLoad(): Promise<void> {

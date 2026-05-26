@@ -23,7 +23,7 @@ const config: PlaywrightTestConfig = {
   ],
   /* Maximum time one test can run for. */
   //timeout: 120000, // 2 minutes for assignment creation
-    timeout: 20 * 60 * 1000,
+    timeout: 25 * 60 * 1000, // 25 min (orchestration + ~5 min interactive grading)
   
   expect: {
     /**
