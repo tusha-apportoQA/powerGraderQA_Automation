@@ -2043,5 +2043,86 @@
     },
     "grade_time_mins": "2.76",
     "status": "passed"
+  },
+  {
+    "run_date": "2026-05-27T14:29:54.856Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1779891467528]",
+    "sbert_similarity": 0.5122770683349374,
+    "drift": {
+      "sbert_similarity": 0.5122770683349374,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "You clearly addressed technology's impact in several areas and gave relevant, concise examples, but deeper analysis or more insight would be needed to reach the highest level."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 5,
+          "feedback": "Your writing is clear, concise, and easy to read, with no errors in grammar, punctuation, or word use. Excellent control of sentence structure and flow made your submission highly readable."
+        }
+      ]
+    },
+    "grade_time_mins": "7.07",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-05-27T14:58:20.256Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1779892925658]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": -10
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "AI grading timed out after 15 minutes.",
+      "criteria": []
+    },
+    "grade_time_mins": "N/A",
+    "status": "unknown"
   }
 ]
