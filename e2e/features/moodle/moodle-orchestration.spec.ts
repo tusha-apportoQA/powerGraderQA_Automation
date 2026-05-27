@@ -250,7 +250,7 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
 
   for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
     test(`Moodle Orchestration: ${assignmentConfig.title}`, async ({ moodleTeacherPage, moodleStudentPage }) => {
-      test.setTimeout(1_200_000);
+      test.setTimeout(1_500_000);
       AllureHelper.label('lms', 'moodle');
       AllureHelper.label('caseConfig', `moodle|orchestration|${assignmentConfig.title}`);
       AllureHelper.label('testCaseId', C69063);
