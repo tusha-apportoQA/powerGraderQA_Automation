@@ -87,13 +87,10 @@ export class PowerGraderGradingPage {
 
         console.log(`[Grading Page] Selecting IG option: ${name}`);
         await pill.evaluate((el) => el.click());
+        await this.page.waitForTimeout(300);
 
-        await expect
-            .poll(() => this.isIgPillSelected(pill), {
-                timeout: 5000,
-                message: `${name} did not show selected style (--blue-accent-color)`,
-            })
-            .toBe(true);
+        await expect.poll(() => this.isIgPillSelected(pill), { timeout: 5000 }).toBe(true);
+        await this.page.waitForTimeout(300);
         console.log(`[Grading Page] IG option "${name}" selected`);
     }
 
@@ -127,6 +124,7 @@ export class PowerGraderGradingPage {
             ).toBeVisible({ timeout: 30000 });
         }
         await igButton.click();
+        await this.page.waitForTimeout(500);
 
         const generateButton = this.page.getByRole('button', { name: 'Generate' });
         await expect(generateButton, 'Generate button is not visible').toBeVisible({
@@ -137,9 +135,11 @@ export class PowerGraderGradingPage {
         await this.selectIgPill('More Lenient');
         console.log('[Grading Page] generateIG: setting More Encouraging...');
         await this.selectIgPill('More Encouraging');
+        await this.page.waitForTimeout(500);
 
         console.log('[Grading Page] generateIG: clicking Generate (preview may take a few minutes)...');
         await generateButton.click();
+        await this.page.waitForTimeout(300);
 
         await expect(
             igButton,

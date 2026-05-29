@@ -50,14 +50,12 @@ function getAssignmentDates() {
    // availableFrom.setDate(availableFrom.getDate() - 14); // 2 weeks ago — unambiguous in any locale
     availableFrom.setHours(0, 0, 0, 0);
 
-    // Due date: 3 days after current date
-    const dueDate = new Date(now);
-    dueDate.setDate(dueDate.getDate() + 3);
+    // Due date: Jan 1 next year — unambiguous in any locale
+    const dueDate = new Date(now.getFullYear() + 1, 0, 1);
     dueDate.setHours(8, 0, 0, 0);
 
-    // Available until: 3 days after current date
-    const until = new Date(now);
-    until.setDate(until.getDate() + 3);
+    // Available until: Jan 1 next year — unambiguous in any locale
+    const until = new Date(now.getFullYear() + 1, 0, 1);
     until.setHours(10, 0, 0, 0);
 
 
