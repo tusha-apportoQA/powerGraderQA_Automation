@@ -14,10 +14,10 @@ export const C68976 = "C68976:IG: 'Customize' Visibility (Header)";
 export const C68985 = 'C68985:IG: Discard Functional Check';
 export const C68986 = 'C68986:IG: Discard Persistence';
 export const C68987 = 'C68987:IG: Navigation Warning/Discard';
+export const C68990 = 'C68990:IG: Custom Score Button Lock (POW-525)';
 export const C68989 = 'C68989:IG: Apply Visibility';
 export const C69094 = 'C69094:Apply opens modal: "Apply to this submission only, or all submissions?" with two options';
-export const C69095 =
-    'C69095:Apply -> "This submission only": preview banner disappears; grade becomes official and publishable';
+export const C69095 = 'C69095:Apply -> "This submission only": preview banner disappears; grade becomes official and publishable';
 export const C69008 = 'C69008:Verify Customize link is visible in each criteria in grading page in QA';
 export const C69011 = 'C69011:Main view: clicking "Customize" opens the Interactive Grading sidebar also its flow check';
 export const C69023 = 'C69023:Verify Interactive grading score is getting published';
