@@ -34,6 +34,9 @@ test.describe('Component Test: Interactive grade (grading page entry)', () => {
 
         await powerGrader.gradingPage.expectPageLoaded();
         await powerGrader.gradingPage.verifyGradesAndFeedbackPopulated();
-        await executeIgWorkflow(powerGraderPage);
+        const igError = await executeIgWorkflow(powerGraderPage);
+        if (igError) {
+            throw igError;
+        }
     });
 });

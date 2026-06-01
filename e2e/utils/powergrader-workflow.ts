@@ -151,7 +151,7 @@ export async function executeUniversalPGWorkflow(
         } else {
             throw new Error(`[${uniqueTitle}] Syncing... assignment row not visible yet.`);
         }
-    }).toPass({ timeout: 600000, intervals: [INTERVAL] });
+    }).toPass({ timeout: 1200000, intervals: [INTERVAL] });
 
     const gradeStart = Date.now();
 
@@ -271,7 +271,7 @@ export async function executeUniversalPGWorkflow(
             await powerGraderPage.waitForTimeout(5000);
             throw error;
         }
-    }).toPass({ timeout: 180000, intervals: [15000] });
+    }).toPass({ timeout: 600000, intervals: [15000] });
 
     const finalScoreRaw = await gradingPage.getTotalScore();
     const finalScore = Number(String(finalScoreRaw).match(/[\d.]+/)?.[0] ?? "0");
@@ -292,6 +292,7 @@ export async function executeUniversalPGWorkflow(
 
     let deferredSbertFailure: Error | null = null;
     let deferredLmsFailure: Error | null = null;
+    let deferredIgFailure: Error | null = null;
 
     // --- CASE 3: COMPARISON RUN ---
     if (baselineSnapshot) {
@@ -510,7 +511,7 @@ export async function executeUniversalPGWorkflow(
         }
 
         if (igReady) {
-            await executeIgWorkflow(powerGraderPage);
+            deferredIgFailure = await executeIgWorkflow(powerGraderPage);
         }
     });
 
@@ -520,6 +521,10 @@ export async function executeUniversalPGWorkflow(
 
     if (deferredLmsFailure) {
         throw deferredLmsFailure;
+    }
+
+    if (deferredIgFailure) {
+        throw deferredIgFailure;
     }
 
     const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(2);

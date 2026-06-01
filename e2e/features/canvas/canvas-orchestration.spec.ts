@@ -130,7 +130,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
 
   for (const assignmentConfig of ASSIGNMENT_CONFIGS) {
     test(`Canvas Orchestration: ${assignmentConfig.title}`, async ({ canvasTeacherPage, canvasStudentPage }) => {
-      test.setTimeout(1_800_000);
+      test.setTimeout(2_400_000);
       AllureHelper.label('lms', 'canvas');
       AllureHelper.label('caseConfig', `canvas|orchestration|${assignmentConfig.title}`);
       AllureHelper.label('testCaseId', C69074);

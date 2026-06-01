@@ -28,6 +28,22 @@ function caseId(caseLabel: string): string {
     return caseLabel.split(':')[0];
 }
 
+type IgCaseFailure = {
+    caseId: string;
+    caseLabel: string;
+    message: string;
+};
+
+function buildIgWorkflowDeferredError(failures: IgCaseFailure[]): Error | null {
+    if (failures.length === 0) {
+        return null;
+    }
+    const lines = failures.map((f) => `  - ${f.caseId}: ${f.message}`);
+    return new Error(
+        `Interactive Grading workflow failed (${failures.length} case(s)):\n${lines.join('\n')}`,
+    );
+}
+
 function gradingSummariesMatch(a: GradingSummary, b: GradingSummary): boolean {
     return JSON.stringify(normalizeGradingSummary(a)) === JSON.stringify(normalizeGradingSummary(b));
 }
@@ -89,10 +105,21 @@ async function clickDiscardIfVisible(gradingPage: PowerGraderGradingPage): Promi
 
 /**
  * Interactive grading workflow. All UI actions go through {@link PowerGraderGradingPage}.
- * Non-blocking cases: try/catch wraps each {@link AllureHelper.step} (not inside it) so
- * failures show in Allure while later cases still run. Blocking cases omit the outer catch.
+ * Blocking cases fail the test immediately. Non-blocking cases use try/catch; returned
+ * {@link Error} (or null) should be thrown by the caller after publish/LMS (orchestration).
  */
-export async function executeIgWorkflow(page: Page): Promise<void> {
+export async function executeIgWorkflow(page: Page): Promise<Error | null> {
+    const failures: IgCaseFailure[] = [];
+
+    const recordIgCaseFailure = (caseLabel: string, error: unknown): void => {
+        const id = caseId(caseLabel);
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn(`[IG Workflow] ❌ ${id} FAILED (non-blocking):`, message);
+        AllureHelper.label('caseStatus', `${id}:failed`);
+        AllureHelper.label('caseError', `${id}:${message}`);
+        failures.push({ caseId: id, caseLabel, message });
+    };
+
     const workflowStart = Date.now();
     console.log('[IG Workflow] 🚀 START Interactive Grading workflow');
 
@@ -130,10 +157,7 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
             console.log(`[IG Workflow] ✅ ${caseId(C69114)} PASSED`);
         });
     } catch (error) {
-        console.warn(
-            `[IG Workflow] ❌ ${caseId(C69114)} FAILED (non-blocking):`,
-            error instanceof Error ? error.message : String(error),
-        );
+        recordIgCaseFailure(C69114, error);
     } finally {
         await clickCancelIfVisible(page);
     }
@@ -182,10 +206,7 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
             console.log(`[IG Workflow] ✅ ${caseId(C69008)} PASSED`);
         });
     } catch (error) {
-        console.warn(
-            `[IG Workflow] ❌ ${caseId(C69008)} FAILED (non-blocking):`,
-            error instanceof Error ? error.message : String(error),
-        );
+        recordIgCaseFailure(C69008, error);
     } finally {
         await clickCancelIfVisible(page);
     }
@@ -256,10 +277,7 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
             console.log(`[IG Workflow] ✅ ${caseId(C69011)} PASSED`);
         });
     } catch (error) {
-        console.warn(
-            `[IG Workflow] ❌ ${caseId(C69011)} FAILED (non-blocking):`,
-            error instanceof Error ? error.message : String(error),
-        );
+        recordIgCaseFailure(C69011, error);
         await clickDiscardIfVisible(gradingPage);
     }
 
@@ -294,10 +312,7 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
                     console.log(`[IG Workflow] ✅ ${caseId(C68990)} PASSED`);
                 });
             } catch (error) {
-                console.warn(
-                    `[IG Workflow] ❌ ${caseId(C68990)} FAILED (non-blocking):`,
-                    error instanceof Error ? error.message : String(error),
-                );
+                recordIgCaseFailure(C68990, error);
             }
 
             console.log('[IG Workflow] Reloading page to verify Preview mode persists...');
@@ -315,14 +330,8 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
             console.log(`[IG Workflow] ✅ ${caseId(C68987)} PASSED`);
         });
     } catch (error) {
-        console.warn(
-            `[IG Workflow] ❌ ${caseId(C68986)} FAILED (non-blocking):`,
-            error instanceof Error ? error.message : String(error),
-        );
-        console.warn(
-            `[IG Workflow] ❌ ${caseId(C68987)} FAILED (non-blocking):`,
-            error instanceof Error ? error.message : String(error),
-        );
+        recordIgCaseFailure(C68986, error);
+        recordIgCaseFailure(C68987, error);
     }
 
     // C68985 — non-blocking: discard restores original grades
@@ -352,10 +361,7 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
             console.log(`[IG Workflow] ✅ ${caseId(C68985)} PASSED`);
         });
     } catch (error) {
-        console.warn(
-            `[IG Workflow] ❌ ${caseId(C68985)} FAILED (non-blocking):`,
-            error instanceof Error ? error.message : String(error),
-        );
+        recordIgCaseFailure(C68985, error);
         await clickDiscardIfVisible(gradingPage);
     }
 
@@ -394,10 +400,7 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
                     console.log(`[IG Workflow] ✅ ${caseId(C69094)} PASSED`);
                 });
             } catch (error) {
-                console.warn(
-                    `[IG Workflow] ❌ ${caseId(C69094)} FAILED (non-blocking):`,
-                    error instanceof Error ? error.message : String(error),
-                );
+                recordIgCaseFailure(C69094, error);
             }
 
             try {
@@ -413,10 +416,7 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
                     console.log(`[IG Workflow] ✅ ${caseId(C69095)} PASSED`);
                 });
             } catch (error) {
-                console.warn(
-                    `[IG Workflow] ❌ ${caseId(C69095)} FAILED (non-blocking):`,
-                    error instanceof Error ? error.message : String(error),
-                );
+                recordIgCaseFailure(C69095, error);
             }
 
             const summaryAfterApply = await gradingPage.getGradingSummary();
@@ -446,14 +446,8 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
                     console.log(`[IG Workflow] ✅ ${caseId(C75537)} PASSED`);
                 });
             } catch (error) {
-                console.warn(
-                    `[IG Workflow] ❌ ${caseId(C69034)} FAILED (non-blocking):`,
-                    error instanceof Error ? error.message : String(error),
-                );
-                console.warn(
-                    `[IG Workflow] ❌ ${caseId(C75537)} FAILED (non-blocking):`,
-                    error instanceof Error ? error.message : String(error),
-                );
+                recordIgCaseFailure(C69034, error);
+                recordIgCaseFailure(C75537, error);
             }
 
             const differsFromBaseline = !gradingSummariesMatch(summaryBeforeApply, summaryAfterApply);
@@ -469,10 +463,7 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
             console.log(`[IG Workflow] ✅ ${caseId(C68989)} PASSED`);
         });
     } catch (error) {
-        console.warn(
-            `[IG Workflow] ❌ ${caseId(C68989)} FAILED (non-blocking):`,
-            error instanceof Error ? error.message : String(error),
-        );
+        recordIgCaseFailure(C68989, error);
         await clickDiscardIfVisible(gradingPage);
     }
 
@@ -520,12 +511,16 @@ export async function executeIgWorkflow(page: Page): Promise<void> {
             console.log(`[IG Workflow] ✅ ${caseId(C69023)} PASSED`);
         });
     } catch (error) {
-        console.warn(
-            `[IG Workflow] ❌ ${caseId(C69023)} FAILED (non-blocking):`,
-            error instanceof Error ? error.message : String(error),
-        );
+        recordIgCaseFailure(C69023, error);
     }
 
     const durationMin = ((Date.now() - workflowStart) / 60000).toFixed(1);
-    console.log(`[IG Workflow] ✅ FINISH Interactive Grading workflow (${durationMin} min)`);
+    if (failures.length > 0) {
+        console.warn(
+            `[IG Workflow] ⚠️ FINISH with ${failures.length} failed case(s) (${durationMin} min) — caller should throw deferred error`,
+        );
+    } else {
+        console.log(`[IG Workflow] ✅ FINISH Interactive Grading workflow (${durationMin} min)`);
+    }
+    return buildIgWorkflowDeferredError(failures);
 }
