@@ -78,6 +78,36 @@ function findFirstFailedStep(steps) {
   return null;
 }
 
+function extractCaseErrorForId(result, caseId) {
+  const prefix = `${caseId}:`;
+  for (const raw of collectNamedValues(result, 'caseError')) {
+    const text = String(raw);
+    if (text.startsWith(prefix)) {
+      return cleanMessage(text.slice(prefix.length));
+    }
+  }
+  return null;
+}
+
+function findFailedStepForCaseName(steps, caseName) {
+  if (!Array.isArray(steps) || !caseName) return null;
+  const needle = caseName.toLowerCase();
+  for (const step of steps) {
+    if (!step) continue;
+    const stepName = cleanMessage(step.name);
+    if (
+      (step.status === 'failed' || step.status === 'broken') &&
+      stepName &&
+      stepName.toLowerCase().includes(needle)
+    ) {
+      return step;
+    }
+    const nested = findFailedStepForCaseName(step.steps, caseName);
+    if (nested) return nested;
+  }
+  return null;
+}
+
 function extractFailureInfo(result, filePath) {
   const statusDetails = result?.statusDetails || {};
   const failedStep = findFirstFailedStep(result?.steps);
@@ -166,6 +196,18 @@ function buildCaseConfigReport(resultsDir = './allure-results') {
         const f = extractFailureInfo(result, file);
         f.config = config;
         f.status = outcomeStatus;
+        const caseError = extractCaseErrorForId(result, parsed.id);
+        if (caseError) {
+          f.error = caseError;
+        } else if (parsed.name) {
+          const caseStep = findFailedStepForCaseName(result?.steps, parsed.name);
+          if (caseStep) {
+            const stepMsg = cleanMessage(caseStep?.statusDetails?.message);
+            if (stepMsg) f.error = stepMsg;
+            const stepName = cleanMessage(caseStep?.name);
+            if (stepName) f.failedStep = stepName;
+          }
+        }
         return f;
       })();
       entry.outcomes.push({ config, status: outcomeStatus, failure });

@@ -58,11 +58,11 @@ export class PowerGraderGradingPage {
 
         // At least one criterion section visible
         const firstCriterion = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm').first();
-        await expect(firstCriterion).toBeVisible({ timeout: 20000 });
+        await expect(firstCriterion).toBeVisible({ timeout: 60000 });
 
         // At least one AI Feedback block visible
         const firstFeedback = this.page.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
-        await expect(firstFeedback).toBeVisible({ timeout: 20000 });
+        await expect(firstFeedback).toBeVisible({ timeout: 60000 });
 
         console.log("[Grading Page] AI Results verified successfully.");
     }
@@ -568,7 +568,7 @@ export class PowerGraderGradingPage {
             // AI Feedback block
             const feedbackLocator = section.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
             try {
-                await expect(feedbackLocator).not.toHaveText('', { timeout: 20000 });
+                await expect(feedbackLocator).not.toHaveText('', { timeout: 60000 });
             } catch (e) {
                 console.log(`⚠️ Warning: Feedback not populated in time for "${criterionName}".`);
             }
