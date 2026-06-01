@@ -521,7 +521,7 @@
 
                 allEntries.sort((a, b) => new Date(b.run_date) - new Date(a.run_date));
                 const latestDate = new Date(allEntries[0].run_date);
-                const cutoff = new Date(latestDate.getTime() - 15 * 60 * 1000);
+                const cutoff = new Date(latestDate.getTime() - 2 * 60 * 60 * 1000);
                 const latestRun = allEntries.filter(e => new Date(e.run_date) >= cutoff);
 
                 const tbody = document.getElementById('latest-run-body');

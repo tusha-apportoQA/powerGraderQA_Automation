@@ -59,9 +59,18 @@ if (suite) {
         clean('allure-results');
         clean('allure-report');
     }
-    try {
+    /*try {
         execSync(testCmd, { stdio: 'inherit' });
-    } catch (e) { console.log('⚠️ Tests completed with failures.'); }
+    } catch (e) { console.log('⚠️ Tests completed with failures.'); }*/
+
+    if (suite === 'canvas-d2l') {
+        try { execSync(testCmds['canvas'], { stdio: 'inherit' }); } catch (e) { console.log('⚠️ Canvas tests completed with failures.'); }
+        try { execSync(testCmds['d2l'], { stdio: 'inherit' }); } catch (e) { console.log('⚠️ D2L tests completed with failures.'); }
+    } else {
+        try {
+            execSync(testCmd, { stdio: 'inherit' });
+        } catch (e) { console.log('⚠️ Tests completed with failures.'); }
+    }
 }
 
 let detailedPattern = null; 

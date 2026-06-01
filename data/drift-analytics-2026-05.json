@@ -2124,5 +2124,121 @@
     },
     "grade_time_mins": "N/A",
     "status": "unknown"
+  },
+  {
+    "run_date": "2026-05-27T17:48:01.521Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1779903543949]",
+    "sbert_similarity": 0.7218834584810837,
+    "drift": {
+      "sbert_similarity": 0.7218834584810837,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is very well organized, with a clear introduction, logically structured body, and a strong conclusion. The flow and clarity of your writing make it easy and enjoyable to read."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your essay provides information about apples but does not address the assignment, which required an analysis of technology’s impact on daily life. To improve, ensure your work directly responds to the prompt and covers the required topics in your analysis."
+        }
+      ]
+    },
+    "grade_time_mins": "2.74",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-05-27T18:16:03.625Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate New Rubric TXT [1779904797012]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": -12
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Content Quality",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        },
+        {
+          "name": "Grammar and Style",
+          "score": 7,
+          "feedback": "Your submission clearly explains technology's impact on daily life and provides relevant examples, but to score higher, you could add more depth by reflecting on challenges or complexities related to technology."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "AI grading timed out after 15 minutes.",
+      "criteria": []
+    },
+    "grade_time_mins": "N/A",
+    "status": "unknown"
+  },
+  {
+    "run_date": "2026-05-27T18:36:46.570Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1779905780983]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": -10
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 0,
+      "criterion_feedback": "AI grading timed out after 15 minutes.",
+      "criteria": []
+    },
+    "grade_time_mins": "N/A",
+    "status": "unknown"
   }
 ]
