@@ -1,0 +1,94 @@
+[
+  {
+    "run_date": "2026-06-01T16:02:32.299Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1780329391714]",
+    "sbert_similarity": 0.6988838341947876,
+    "drift": {
+      "sbert_similarity": 0.6988838341947876,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear and well-organized, with smooth sentence structure and strong use of headings and transitions, making it very easy to read throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your essay did not address the assigned topic, as it discussed apples instead of the impact of technology on daily life, so none of the required content elements were present. To improve, be sure to follow the assignment prompt closely and provide detailed, relevant examples and analysis about technology’s effects from multiple perspectives."
+        }
+      ]
+    },
+    "grade_time_mins": "0.58",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-06-01T16:32:49.080Z",
+    "lms": "canvas",
+    "student_file": "Short Inaccurate Existing Rubric Text Entry [1780330981330]",
+    "sbert_similarity": 0.5345373609297303,
+    "drift": {
+      "sbert_similarity": 0.5345373609297303,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is clear, well-organized, and easy to follow, with a logical structure and effective use of bullet points that enhance readability and coherence throughout."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is clear, organized, and easy to follow, with strong structure, logical flow, and effective paragraphing and bullet points—excellent work on readability!"
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "You clearly and accurately present both positive and negative impacts of technology using logical structure and relevant examples, but to achieve full marks, aim for deeper technical analysis and insight."
+        }
+      ]
+    },
+    "grade_time_mins": "5.50",
+    "status": "passed"
+  }
+]
