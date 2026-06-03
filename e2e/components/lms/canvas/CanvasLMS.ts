@@ -227,6 +227,15 @@ export class CanvasLMS implements LmsTeacher {
         ]);
         
         await newPage.waitForLoadState('domcontentloaded');
+        try {
+            const yesBtn = newPage.getByRole('button', { name: 'Yes' });
+            await expect(yesBtn).toBeVisible({ timeout: 10000 });
+            await yesBtn.click();
+            await newPage.waitForLoadState('networkidle');
+            console.log('[D2LLMS] D2L permission modal dismissed.');
+        } catch {
+            // no modal, continue
+        }
         return newPage;
     }
 

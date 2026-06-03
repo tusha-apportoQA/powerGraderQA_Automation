@@ -1,14 +1,13 @@
 {
-  "generatedAt": "2026-06-01T16:42:25.651Z",
+  "generatedAt": "2026-06-01T21:58:48.240Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
-  "totalCases": 30,
+  "totalCases": 29,
   "cases": [
     {
       "caseId": "C68976",
       "caseName": "IG: 'Customize' Visibility (Header)",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -18,7 +17,6 @@
       "caseName": "IG: Discard Functional Check",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -28,7 +26,6 @@
       "caseName": "IG: Discard Persistence",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -38,7 +35,6 @@
       "caseName": "IG: Navigation Warning/Discard",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -48,7 +44,6 @@
       "caseName": "IG: Apply Visibility",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -58,7 +53,6 @@
       "caseName": "IG: Custom Score Button Lock (POW-525)",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -66,27 +60,41 @@
     {
       "caseId": "C68998",
       "caseName": "Rubric: Button Visibility (No Rubric)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C68999",
       "caseName": "Rubric: Button Hidden (Has Rubric)",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": [
         {
+          "config": "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate Existing Rubric Text Entry",
+          "resultFile": "16291ba2-8d68-4176-9201-9ee7d2ba66e5-result.json",
+          "status": "not_reached"
+        },
+        {
           "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2989\" ============================================================",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2996\" ============================================================",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "fa681c27-dddc-4132-afd1-43e5e0b5a2d7-result.json",
+          "resultFile": "633c1a8e-ae01-43f2-92cc-31d8056b8e5f-result.json",
           "status": "not_reached"
         }
       ]
@@ -94,35 +102,49 @@
     {
       "caseId": "C69000",
       "caseName": "Rubric: Transition to Grading",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C69002",
       "caseName": "Sync: Scoring Reflection in LMS",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first() Expected: visible Timeout: 20000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 20000ms - waiting for locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first() Call Log: - Timeout 180000ms exceeded while waiting on the predicate",
+          "config": "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" ============================================================",
           "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "3e5a7694-9f7b-4484-b867-2f76b035cbfc-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate Existing Rubric Text Entry",
+          "resultFile": "16291ba2-8d68-4176-9201-9ee7d2ba66e5-result.json",
           "status": "failed"
         },
         {
           "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2989\" ============================================================",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2996\" ============================================================",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "fa681c27-dddc-4132-afd1-43e5e0b5a2d7-result.json",
+          "resultFile": "633c1a8e-ae01-43f2-92cc-31d8056b8e5f-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
           "status": "failed"
         }
       ]
@@ -132,7 +154,6 @@
       "caseName": "Verify Customize link is visible in each criteria in grading page in QA",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -142,7 +163,6 @@
       "caseName": "Main view: clicking \"Customize\" opens the Interactive Grading sidebar also its flow check",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -150,17 +170,15 @@
     {
       "caseId": "C69023",
       "caseName": "Verify Interactive grading score is getting published",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
+      "status": "failed",
+      "passedConfigs": [],
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2988\" ============================================================",
+          "error": "Published grading summary should match pre-publish summary after reopening submission \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
-          "resultFile": "e9d0dde6-1e05-487c-b04d-f1bcec692d33-result.json",
+          "resultFile": "ad66bf32-41ab-4761-9ec2-97d4a5f8d6ef-result.json",
           "status": "failed"
         }
       ]
@@ -168,17 +186,15 @@
     {
       "caseId": "C69034",
       "caseName": "Verify interactive grading score is visible in UI after clicking on Apply",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
+      "status": "failed",
+      "passedConfigs": [],
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2988\" ============================================================",
+          "error": "Applied grades should match preview-mode grades before Apply \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
-          "resultFile": "e9d0dde6-1e05-487c-b04d-f1bcec692d33-result.json",
+          "resultFile": "ad66bf32-41ab-4761-9ec2-97d4a5f8d6ef-result.json",
           "status": "failed"
         }
       ]
@@ -186,11 +202,18 @@
     {
       "caseId": "C69036",
       "caseName": "Verify the status of the assignments with no Rubric in PowerGrader",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C69038",
@@ -216,10 +239,10 @@
       "caseName": "POW - Canvas student should be able to submit assignment",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX",
         "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+        "canvas|orchestration|Short Inaccurate New Rubric TXT",
         "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT"
+        "canvas|orchestration|Short Accurate No Rubric DOCX"
       ],
       "failedConfigs": []
     },
@@ -228,17 +251,31 @@
       "caseName": "POW - Canvas all assignments in QA instance should show submission details",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": [
         {
+          "config": "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate Existing Rubric Text Entry",
+          "resultFile": "16291ba2-8d68-4176-9201-9ee7d2ba66e5-result.json",
+          "status": "failed"
+        },
+        {
           "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2989\" ============================================================",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2996\" ============================================================",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "fa681c27-dddc-4132-afd1-43e5e0b5a2d7-result.json",
+          "resultFile": "633c1a8e-ae01-43f2-92cc-31d8056b8e5f-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
           "status": "failed"
         }
       ]
@@ -246,18 +283,24 @@
     {
       "caseId": "C69092",
       "caseName": "Verify that Text Entry submission is successful",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
-      "failedConfigs": []
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate Existing Rubric Text Entry",
+          "resultFile": "16291ba2-8d68-4176-9201-9ee7d2ba66e5-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C69094",
       "caseName": "Apply opens modal: \"Apply to this submission only, or all submissions?\" with two options",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -267,7 +310,6 @@
       "caseName": "Apply -> \"This submission only\": preview banner disappears; grade becomes official and publishable",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -279,27 +321,27 @@
       "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first() Expected: visible Timeout: 20000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 20000ms - waiting for locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first() Call Log: - Timeout 180000ms exceeded while waiting on the predicate",
+          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2996\" ============================================================",
           "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "3e5a7694-9f7b-4484-b867-2f76b035cbfc-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
+          "resultFile": "633c1a8e-ae01-43f2-92cc-31d8056b8e5f-result.json",
           "status": "not_reached"
         },
         {
           "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2988\" ============================================================",
+          "error": "Error: Interactive Grading workflow failed (3 case(s)): - C69034: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C75537: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C69023: Published grading summary should match pre-publish summary after reopening submission expect(received).toBe(expected) // Object.is equality Expected: true Received: false",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
-          "resultFile": "e9d0dde6-1e05-487c-b04d-f1bcec692d33-result.json",
+          "resultFile": "ad66bf32-41ab-4761-9ec2-97d4a5f8d6ef-result.json",
           "status": "not_reached"
         },
         {
-          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2989\" ============================================================",
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
           "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "fa681c27-dddc-4132-afd1-43e5e0b5a2d7-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
           "status": "not_reached"
         }
       ]
@@ -309,17 +351,31 @@
       "caseName": "On-time submission (before due date) is accepted and gradable",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": [
         {
+          "config": "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate Existing Rubric Text Entry",
+          "resultFile": "16291ba2-8d68-4176-9201-9ee7d2ba66e5-result.json",
+          "status": "failed"
+        },
+        {
           "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2989\" ============================================================",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2996\" ============================================================",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "fa681c27-dddc-4132-afd1-43e5e0b5a2d7-result.json",
+          "resultFile": "633c1a8e-ae01-43f2-92cc-31d8056b8e5f-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
           "status": "failed"
         }
       ]
@@ -329,7 +385,6 @@
       "caseName": "Sidebar contains Grading Strictness options (More Strict  / More Lenient)",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": []
@@ -339,51 +394,47 @@
       "caseName": "Verify editing score/feedback gets published without explicitly clicking on Save",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first() Expected: visible Timeout: 20000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 20000ms - waiting for locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first() Call Log: - Timeout 180000ms exceeded while waiting on the predicate",
+          "config": "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" ============================================================",
           "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "3e5a7694-9f7b-4484-b867-2f76b035cbfc-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate Existing Rubric Text Entry",
+          "resultFile": "16291ba2-8d68-4176-9201-9ee7d2ba66e5-result.json",
           "status": "failed"
         },
         {
           "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2989\" ============================================================",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2996\" ============================================================",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "fa681c27-dddc-4132-afd1-43e5e0b5a2d7-result.json",
+          "resultFile": "633c1a8e-ae01-43f2-92cc-31d8056b8e5f-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
           "status": "failed"
         }
       ]
     },
     {
-      "caseId": "C75526",
-      "caseName": "Verify SeeWhy disables or disappears when user clicks on it in QA",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
-      "failedConfigs": []
-    },
-    {
       "caseId": "C75537",
       "caseName": "Verify interactive grading score is visible in UI after clicking on Apply",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
+      "status": "failed",
+      "passedConfigs": [],
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2988\" ============================================================",
+          "error": "Applied grades should match preview-mode grades before Apply \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
-          "resultFile": "e9d0dde6-1e05-487c-b04d-f1bcec692d33-result.json",
+          "resultFile": "ad66bf32-41ab-4761-9ec2-97d4a5f8d6ef-result.json",
           "status": "failed"
         }
       ]
@@ -391,35 +442,49 @@
     {
       "caseId": "C75645",
       "caseName": "Verify the docx file is ingested and graded",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C78823",
       "caseName": "Verify Submission Review Page new UI",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
         "canvas|orchestration|Long Accurate Existing Rubric PDF"
       ],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first() Expected: visible Timeout: 20000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 20000ms - waiting for locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first() Call Log: - Timeout 180000ms exceeded while waiting on the predicate",
+          "config": "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" ============================================================",
           "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "3e5a7694-9f7b-4484-b867-2f76b035cbfc-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate Existing Rubric Text Entry",
+          "resultFile": "16291ba2-8d68-4176-9201-9ee7d2ba66e5-result.json",
           "status": "failed"
         },
         {
           "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2989\" ============================================================",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2996\" ============================================================",
           "failedStep": "Wait for navigation",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "fa681c27-dddc-4132-afd1-43e5e0b5a2d7-result.json",
+          "resultFile": "633c1a8e-ae01-43f2-92cc-31d8056b8e5f-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
+          "error": "TimeoutError: page.waitForURL: Timeout 10000ms exceeded. =========================== logs =========================== waiting for navigation until \"load\" navigated to \"https://apporto.instructure.com/courses/312/assignments/2994\" ============================================================",
+          "failedStep": "Wait for navigation",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
+          "resultFile": "c4d21243-0a00-4eaf-a34a-ed890cf64fbf-result.json",
           "status": "failed"
         }
       ]

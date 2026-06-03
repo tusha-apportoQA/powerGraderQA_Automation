@@ -90,5 +90,51 @@
     },
     "grade_time_mins": "5.50",
     "status": "passed"
+  },
+  {
+    "run_date": "2026-06-01T20:53:43.825Z",
+    "lms": "canvas",
+    "student_file": "Long Accurate Existing Rubric PDF [1780346922803]",
+    "sbert_similarity": 0.5926766789294884,
+    "drift": {
+      "sbert_similarity": 0.5926766789294884,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        },
+        {
+          "name": "Quality",
+          "score": 5,
+          "feedback": "Your essay is exceptionally clear, well-structured, and free from grammatical or spelling errors, making it easy and enjoyable to read from introduction to conclusion."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "REadability",
+          "score": 5,
+          "feedback": "Your writing is consistently clear, logically organized, and easy to follow throughout, with effective paragraphing and strong transitions—excellent work on readability!"
+        },
+        {
+          "name": "Quality",
+          "score": 0,
+          "feedback": "Your submission did not address technology or its impacts as required by the assignment; to improve, be sure to directly answer the essay prompt and discuss technology from the requested social, economic, and environmental perspectives."
+        }
+      ]
+    },
+    "grade_time_mins": "1.16",
+    "status": "passed"
   }
 ]
