@@ -67,6 +67,14 @@ export class PowerGraderGradingPage {
         console.log("[Grading Page] AI Results verified successfully.");
     }
 
+    async expectDueDateVisible(): Promise<void> {
+        const dueDateLabel = this.page.getByText('Due:');
+        await expect(dueDateLabel, 'Due date label is not visible on grading page').toBeVisible({
+            timeout: 10000,
+        });
+        await expect(dueDateLabel, 'Due date label should resolve to a single element').toHaveCount(1);
+    }
+
     /** Selected pills use inline style with --blue-accent-color (not aria-pressed). */
     private async isIgPillSelected(pill: Locator): Promise<boolean> {
         return pill.evaluate((el) => (el.getAttribute('style') ?? '').includes('--blue-accent-color'));

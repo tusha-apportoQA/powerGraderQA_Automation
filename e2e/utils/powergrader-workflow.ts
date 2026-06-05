@@ -7,7 +7,12 @@ import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrad
 import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
 import { GradingSummary, LmsTeacher, TeacherEditConfig } from '../types'; // Preserved from merge
 import { executeIgWorkflow } from './ig-workflow';
-import { C68998, C68999, C69000, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75645, C78823 } from '../test-data/testCaseIds';
+import {
+    buildWorkflowFailureError,
+    createWorkflowFailure,
+    WorkflowFailure,
+} from './workflow-failures';
+import { C68998, C68999, C69000, C69002, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75529, C75645, C78823 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
 
@@ -258,7 +263,8 @@ export async function executeUniversalPGWorkflow(
     // PHASE 3: Grading Validation & Snapshot Capture
     //const gradeStart = Date.now();
     const gradingPage = new PowerGraderGradingPage(powerGraderPage);
-    
+    const workflowFailures: WorkflowFailure[] = [];
+
     await expect(async () => {
         console.log(`[${uniqueTitle}] Grading Page: Verifying AI results...`);
         try {
@@ -272,6 +278,29 @@ export async function executeUniversalPGWorkflow(
             throw error;
         }
     }).toPass({ timeout: 600000, intervals: [15000] });
+
+    try {
+        AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:reached`);
+        await AllureHelper.step(C75529.split(':').slice(1).join(':'), async () => {
+            AllureHelper.label('testCaseId', C75529);
+            console.log(`[${uniqueTitle}] C75529: Checking due date label is visible on grading page`);
+            await gradingPage.expectDueDateVisible();
+            AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:passed`);
+        });
+    } catch (error) {
+        try {
+            await AllureHelper.attachScreenshot(
+                powerGraderPage,
+                'C75529 | PG | Due date visibility failure',
+            );
+        } catch (screenshotError) {
+            console.warn(
+                `[${uniqueTitle}] C75529: Could not attach failure screenshot:`,
+                screenshotError,
+            );
+        }
+        workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C75529 }));
+    }
 
     const finalScoreRaw = await gradingPage.getTotalScore();
     const finalScore = Number(String(finalScoreRaw).match(/[\d.]+/)?.[0] ?? "0");
@@ -290,9 +319,7 @@ export async function executeUniversalPGWorkflow(
         overallFeedback: gradingSummary?.overallFeedback || "No overall feedback recorded."
     };
 
-    let deferredSbertFailure: Error | null = null;
-    let deferredLmsFailure: Error | null = null;
-    let deferredIgFailure: Error | null = null;
+    let hasSbertFailure = false;
 
     // --- CASE 3: COMPARISON RUN ---
     if (baselineSnapshot) {
@@ -359,18 +386,12 @@ export async function executeUniversalPGWorkflow(
                 gradeTimeMins,
                 status: 'failed',
             });
-            deferredSbertFailure = compareError instanceof Error ? compareError : new Error(String(compareError));
-            console.error(
-                `[${uniqueTitle}] ❌ SBERT comparison error (deferred—test will fail after LMS verification):`,
-                deferredSbertFailure.message,
-            );
-            console.error(
-                `[${uniqueTitle}] Continuing with publish → LMS verification; SBERT failure will be thrown afterward.`,
-            );
+            workflowFailures.push(createWorkflowFailure(compareError, { tag: 'SBERT' }));
+            hasSbertFailure = true;
         }
 
 
-        if (!deferredSbertFailure) {
+        if (!hasSbertFailure) {
         // Always write BEFORE any potential throw
         const DRIFT_THRESHOLD = 85;
 
@@ -396,14 +417,8 @@ export async function executeUniversalPGWorkflow(
                 criterion_feedback: currentSnapshot.criteria[0]?.feedback || "N/A",
                 total_score: currentSnapshot.totalScore
             }));
-            deferredSbertFailure = new Error(driftMsg);
-            console.error(
-                `[${uniqueTitle}] ❌ SBERT drift detected above ${DRIFT_THRESHOLD}% (deferred—test will fail after LMS verification).`,
-                driftMsg,
-            );
-            console.error(
-                `[${uniqueTitle}] Continuing with publish → LMS verification; SBERT failure will be thrown afterward.`,
-            );
+            workflowFailures.push(createWorkflowFailure(new Error(driftMsg), { tag: 'SBERT' }));
+            hasSbertFailure = true;
         } else {
             console.log(`[${uniqueTitle}] ✅ VERIFIED: Scores match exactly and drift is within ${DRIFT_THRESHOLD}%.`);
         }
@@ -473,14 +488,14 @@ export async function executeUniversalPGWorkflow(
             try {
                 await lmsTeacher.verifyLmsScore(uniqueTitle, publishedGradingSummary as GradingSummary);
             } catch (error) {
-                deferredLmsFailure = error instanceof Error ? error : new Error(String(error));
-                console.error(
-                    `[${uniqueTitle}] ❌ LMS verification error (deferred—continuing to IG workflow if applicable):`,
-                    deferredLmsFailure.message,
+                workflowFailures.push(
+                    createWorkflowFailure(error, { tag: 'LMS', caseLabel: C69002 }),
                 );
             }
         }
     }
+
+    let igFailures: WorkflowFailure[] = [];
 
     await AllureHelper.step('Interactive Grading workflow', async () => {
         console.log(`[${uniqueTitle}] Starting Interactive Grading workflow...`);
@@ -511,20 +526,17 @@ export async function executeUniversalPGWorkflow(
         }
 
         if (igReady) {
-            deferredIgFailure = await executeIgWorkflow(powerGraderPage);
+            igFailures = await executeIgWorkflow(powerGraderPage);
         }
     });
 
-    if (deferredSbertFailure) {
-        throw deferredSbertFailure;
-    }
-
-    if (deferredLmsFailure) {
-        throw deferredLmsFailure;
-    }
-
-    if (deferredIgFailure) {
-        throw deferredIgFailure;
+    const combinedError = buildWorkflowFailureError([...workflowFailures, ...igFailures]);
+    if (combinedError) {
+        console.error(
+            `[${uniqueTitle}] ❌ Combined deferred failures:`,
+            combinedError.message,
+        );
+        throw combinedError;
     }
 
     const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(2);

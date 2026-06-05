@@ -78,7 +78,7 @@ function getAssignmentDates() {
  */
 export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
     const dates = getAssignmentDates();
-    const { defaultPoints, studentNames } = getCanvasConfig();
+    const { defaultPoints } = getCanvasConfig();
     
     return [
         // Orchestration test configs
@@ -88,7 +88,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.docx',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -118,7 +118,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.pdf',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -138,7 +138,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.txt',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -163,7 +163,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: 'Text Entry',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -184,7 +184,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.docx',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -197,7 +197,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.docx',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -210,7 +210,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.docx',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -223,7 +223,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.pdf',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -236,7 +236,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.pdf',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -249,7 +249,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.pdf',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -262,7 +262,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.txt',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -275,7 +275,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.txt',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -288,7 +288,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: '.txt',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -301,7 +301,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: 'Text Entry',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -314,7 +314,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: 'Text Entry',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until
@@ -327,7 +327,7 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
             points: defaultPoints,
             submissionType: 'Text Entry',
             assignAccess: {
-                students: studentNames,
+                assignTo: 'Everyone',
                 availableFrom: dates.availableFrom,
                 dueDate: dates.dueDate,
                 until: dates.until

@@ -186,6 +186,7 @@ import {
   C69098,
   C69100,
   C75511,
+  C75529,
   C75645,
   C78823,
 } from '../../test-data/testCaseIds';
@@ -301,6 +302,9 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
         AllureHelper.label('testCaseId', C69098);
         AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
       }
+
+      AllureHelper.label('testCaseId', C75529);
+      AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
 
       console.log(`\n===== START: ${uniqueTitle} =====`);
       console.log(`[${uniqueTitle}] Config: rubric=${assignmentConfig.rubric?.type ?? 'unknown'} | submission=${submissionType ?? 'none'}`);
