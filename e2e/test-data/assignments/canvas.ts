@@ -177,6 +177,32 @@ export function getCanvasAssignmentConfigs(): CanvasAssignmentConfig[] {
                 }
             ]
         },
+        {
+            title: 'New Rubric CSV',
+            description: 'Upload a CSV file containing monthly sales data with columns for Product Name, Units Sold, Unit Price, and Total Revenue. The file should contain at least 5 product entries with logically correct calculations and properly formatted rows and headers. Ensure the dataset is complete, readable, and internally consistent so it can be evaluated for accuracy, completeness, and formatting quality.',
+            points: defaultPoints,
+            submissionType: '.csv',
+            assignAccess: {
+                assignTo: 'Everyone',
+                availableFrom: dates.availableFrom,
+                dueDate: dates.dueDate,
+                until: dates.until
+            },
+            rubric: CANVAS_NEW_RUBRICS[2]
+        },
+        {
+            title: 'New RubricXLSX',
+            description: 'Upload an Excel spreadsheet containing employee performance information with columns for Employee Name, Department, Performance Score, and Final Rating. The spreadsheet should include at least 5 employee records with logically correct scores and matching ratings. Organize the workbook clearly and ensure all information is complete, readable, and professionally structured for evaluation.',
+            points: defaultPoints,
+            submissionType: '.xlsx',
+            assignAccess: {
+                assignTo: 'Everyone',
+                availableFrom: dates.availableFrom,
+                dueDate: dates.dueDate,
+                until: dates.until
+            },
+            rubric: CANVAS_NEW_RUBRICS[3]
+        },
         // Component test configs
         {
             title: 'Sample DOCX No Rubric',

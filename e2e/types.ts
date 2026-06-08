@@ -6,6 +6,8 @@ export type FormatType =
   | '.docx' 
   | '.pdf' 
   | '.txt' 
+  | '.csv'
+  | '.xlsx'
   | 'Text Entry';
 
 export type RubricType = 'existing' | 'new' | 'no';

@@ -130,7 +130,11 @@ export class CanvasCreateAssignmentPage {
                 await this.fileUploadCheckbox.check();
             }
 
-            if (submissionType === '.docx' || submissionType === '.pdf' || submissionType === '.txt') {
+            if (
+                submissionType === '.docx' ||
+                submissionType === '.pdf' ||
+                submissionType === '.txt'
+            ) {
                 await expect(this.restrictFileExtensionsCheckbox).toBeVisible();
                 if (!(await this.restrictFileExtensionsCheckbox.isChecked())) {
                     await this.restrictFileExtensionsCheckbox.check();
@@ -144,6 +148,8 @@ export class CanvasCreateAssignmentPage {
                 await this.allowedExtensionsField.clear();
                 await this.allowedExtensionsField.fill(extension);
             } else {
+                // .csv / .xlsx: unrestricted file upload (Canvas does not restrict these cleanly)
+                await expect(this.restrictFileExtensionsCheckbox).toBeVisible();
                 if (await this.restrictFileExtensionsCheckbox.isChecked()) {
                     await this.restrictFileExtensionsCheckbox.uncheck();
                 }

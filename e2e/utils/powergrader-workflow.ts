@@ -12,7 +12,7 @@ import {
     createWorkflowFailure,
     WorkflowFailure,
 } from './workflow-failures';
-import { C68998, C68999, C69000, C69002, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75529, C75645, C78823 } from '../test-data/testCaseIds';
+import { C68998, C68999, C69000, C69002, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75529, C75645, C78816, C78820, C78823 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
 
@@ -302,6 +302,35 @@ export async function executeUniversalPGWorkflow(
         workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C75529 }));
     }
 
+    const assignmentKeyLower = assignmentKey.toLowerCase();
+    const isCsvOrXlsxAssignment =
+        assignmentKeyLower.includes('csv') || assignmentKeyLower.includes('xlsx');
+    if (isCsvOrXlsxAssignment) {
+        try {
+            await AllureHelper.step(C78816.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', C78816);
+                console.log(
+                    `[${uniqueTitle}] C78816: Checking submission file is visible on Submission tab`,
+                );
+                await gradingPage.expectSubmissionFileDisplayed();
+                AllureHelper.label('caseStatus', `${C78816.split(':')[0]}:passed`);
+            });
+        } catch (error) {
+            try {
+                await AllureHelper.attachScreenshot(
+                    powerGraderPage,
+                    'C78816 | PG | Submission file visibility failure',
+                );
+            } catch (screenshotError) {
+                console.warn(
+                    `[${uniqueTitle}] C78816: Could not attach failure screenshot:`,
+                    screenshotError,
+                );
+            }
+            workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C78816 }));
+        }
+    }
+
     const finalScoreRaw = await gradingPage.getTotalScore();
     const finalScore = Number(String(finalScoreRaw).match(/[\d.]+/)?.[0] ?? "0");
     const gradingSummary: any = await gradingPage.getGradingSummary();
@@ -457,10 +486,17 @@ export async function executeUniversalPGWorkflow(
     const publishedGradingSummary = await gradingPage.getGradingSummary();
 
     await powerGraderPage.waitForTimeout(80000);
-    
+
+    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C78820:'))) {
+        AllureHelper.label('caseStatus', `${C78820.split(':')[0]}:reached`);
+    }
+
     await gradingPage.clickPublishButton();
     if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75511:'))) {
         AllureHelper.label('caseStatus', `${C75511.split(':')[0]}:passed`);
+    }
+    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C78820:'))) {
+        AllureHelper.label('caseStatus', `${C78820.split(':')[0]}:passed`);
     }
     AllureHelper.label('caseStatus', `${C78823.split(':')[0]}:passed`);
     //await powerGraderPage.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 30000 });

@@ -41,7 +41,9 @@ const filesDir = getSubmissionFilesDir();
 export const TEST_SUBMISSION_FILES = {
     '.pdf': path.resolve(filesDir, 'test-submission.pdf'),
     '.docx': path.resolve(filesDir, 'test-submission.docx'),
-    '.txt': path.resolve(filesDir, 'test-submission.txt')
+    '.txt': path.resolve(filesDir, 'test-submission.txt'),
+    '.csv': path.resolve(filesDir, 'test_submission.csv'),
+    '.xlsx': path.resolve(filesDir, 'test_submission.xlsx'),
 } as const;
 
 /**

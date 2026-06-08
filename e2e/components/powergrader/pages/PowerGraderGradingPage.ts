@@ -75,6 +75,20 @@ export class PowerGraderGradingPage {
         await expect(dueDateLabel, 'Due date label should resolve to a single element').toHaveCount(1);
     }
 
+    async expectSubmissionFileDisplayed(): Promise<void> {
+        const submissionTab = this.page.getByRole('tab', { name: 'Submission' });
+        await expect(submissionTab, 'Submission tab is not visible on grading page').toBeVisible({
+            timeout: 10000,
+        });
+        await submissionTab.click();
+        await this.page.waitForTimeout(10_000);
+        const fileLabel = this.page.getByText('test_submission');
+        await expect(
+            fileLabel,
+            'Submitted file "test_submission" is not visible on Submission tab',
+        ).toBeVisible({ timeout: 10000 });
+    }
+
     /** Selected pills use inline style with --blue-accent-color (not aria-pressed). */
     private async isIgPillSelected(pill: Locator): Promise<boolean> {
         return pill.evaluate((el) => (el.getAttribute('style') ?? '').includes('--blue-accent-color'));

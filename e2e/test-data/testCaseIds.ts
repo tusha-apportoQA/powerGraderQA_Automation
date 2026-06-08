@@ -32,6 +32,9 @@ export const C69098 = 'C69098:All LMS: Student submits files (.docx/.txt/.pdf) w
 export const C69038 = 'C69038:POW: Teacher should be able to create new Rubric with multiple criteria';
 export const C69039 = 'C69039:POW: Teacher should be able to add pre-existing rubric';
 export const C69100 = 'C69100:On-time submission (before due date) is accepted and gradable';
+export const C78816 = 'C78816:Verify XLSX and CSV files get displayed';
+export const C78819 = 'C78819:Verify XLSX and CSV files get interactive graded';
+export const C78820 = 'C78820:Verify XLSX and CSV files get published';
 export const C78823 = 'C78823:Verify Submission Review Page new UI';
 export const C75529 = 'C75529:Verify OnTime is visible for Moodle, D2L, Canvas';
 

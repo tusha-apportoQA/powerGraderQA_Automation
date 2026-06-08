@@ -16,6 +16,7 @@ import {
     C69095,
     C69114,
     C75537,
+    C78819,
 } from '../test-data/testCaseIds';
 import { GradingSummary } from '../types';
 import { AllureHelper } from './allureHelper';
@@ -98,6 +99,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
 
     const workflowStart = Date.now();
     console.log('[IG Workflow] 🚀 START Interactive Grading workflow');
+    AllureHelper.label('caseStatus', `${caseId(C78819)}:reached`);
 
     const gradingPage = new PowerGraderGradingPage(page);
     const cancelButton = page.getByRole('button', { name: 'Cancel' });
@@ -390,6 +392,8 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                     await page.waitForTimeout(3000);
                     AllureHelper.label('caseStatus', `${caseId(C69095)}:passed`);
                     console.log(`[IG Workflow] ✅ ${caseId(C69095)} PASSED`);
+                    AllureHelper.label('caseStatus', `${caseId(C78819)}:passed`);
+                    console.log(`[IG Workflow] ✅ ${caseId(C78819)} PASSED`);
                 });
             } catch (error) {
                 failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69095 }));

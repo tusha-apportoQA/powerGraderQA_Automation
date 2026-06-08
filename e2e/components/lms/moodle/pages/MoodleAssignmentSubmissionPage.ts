@@ -90,7 +90,7 @@ export class MoodleAssignmentSubmissionPage {
 
     /**
      * Prepare submission based on type (mirrors Canvas prepareSubmission).
-     * File types (.docx, .pdf, .txt): upload file. Text Entry: fill online text editor.
+     * File types (.docx, .pdf, .txt, .csv, .xlsx): upload file. Text Entry: fill online text editor.
      */
     async prepareSubmission(
         submissionType: FormatType,
@@ -103,6 +103,8 @@ export class MoodleAssignmentSubmissionPage {
             case '.docx':
             case '.pdf':
             case '.txt':
+            case '.csv':
+            case '.xlsx':
                 if (!filePath) {
                     throw new Error(`File path is required for ${submissionType} submission type`);
                 }

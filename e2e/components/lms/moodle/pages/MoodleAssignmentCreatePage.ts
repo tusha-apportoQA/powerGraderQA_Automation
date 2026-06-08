@@ -202,7 +202,7 @@ export class MoodleAssignmentCreatePage {
 
     /**
      * Set submission type for the assignment
-     * @param submissionType - Type of submission (.pdf, .docx, .txt, or 'Text Entry')
+     * @param submissionType - Type of submission (.pdf, .docx, .txt, .csv, .xlsx, or 'Text Entry')
      */
     async setSubmissionType(submissionType: FormatType): Promise<void> {
         await this.waitForLoad();
@@ -221,7 +221,7 @@ export class MoodleAssignmentCreatePage {
                 await this.page.waitForTimeout(500);
             }
         } else {
-            // Enable file submissions (for .pdf, .docx, .txt)
+            // Enable file submissions (for .pdf, .docx, .txt, .csv, .xlsx)
             await expect(this.fileSubmissionsCheckbox).toBeVisible({ timeout: 10000 });
             if (!(await this.fileSubmissionsCheckbox.isChecked())) {
                 await this.fileSubmissionsCheckbox.check();

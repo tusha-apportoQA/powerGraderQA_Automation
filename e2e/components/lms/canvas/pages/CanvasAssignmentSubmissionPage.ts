@@ -395,12 +395,10 @@ export class CanvasAssignmentSubmissionPage {
     ): Promise<void> {
         switch (submissionType) {
             case '.pdf':
-            case '.docx': {
-                if (!filePath) throw new Error(`File path required for ${submissionType}`);
-                await this.uploadFile(filePath);
-                break;
-            }
-            case '.txt': {
+            case '.docx':
+            case '.txt':
+            case '.csv':
+            case '.xlsx': {
                 if (!filePath) throw new Error(`File path required for ${submissionType}`);
                 await this.uploadFile(filePath);
                 break;

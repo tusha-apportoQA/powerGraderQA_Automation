@@ -42,9 +42,30 @@ export class CanvasGradingPage {
         return Number(String(raw).trim().match(/[\d.]+/)?.[0] ?? NaN);
     }
 
-    async expectSelectedStudent(expectedName: string): Promise<void> {
-        await expect(this.selectedStudent).toContainText(expectedName, { ignoreCase: true });
+    /**
+     * Ensures SpeedGrader shows the expected student's submission.
+     * Opens the student picker and selects by display name when another student is active.
+     */
+    async ensureSelectedStudent(expectedName: string): Promise<void> {
+        const currentText = (await this.selectedStudent.textContent())?.trim() ?? '';
+        if (currentText.toLowerCase().includes(expectedName.toLowerCase())) {
+            return;
+        }
 
+        console.log(
+            `[CanvasGradingPage] Selected student "${currentText}" does not match "${expectedName}". Selecting from dropdown...`,
+        );
+
+        const trigger = this.page.getByTestId('student-select-trigger');
+        await expect(trigger).toBeVisible({ timeout: 30000 });
+        await trigger.click();
+
+        const studentLink = this.page.getByRole('link', { name: expectedName });
+        await expect(studentLink).toBeVisible({ timeout: 30000 });
+        await studentLink.click();
+
+        await expect(this.selectedStudent).toContainText(expectedName, { ignoreCase: true });
+        await expect(this.gradeInput).toBeVisible({ timeout: 30000 });
     }
 
     /**

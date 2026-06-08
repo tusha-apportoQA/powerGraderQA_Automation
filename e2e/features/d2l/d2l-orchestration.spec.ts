@@ -20,6 +20,8 @@ import {
   C75511,
   C75529,
   C75645,
+  C78819,
+  C78820,
   C78823,
 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
@@ -93,6 +95,12 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       }
       if (assignmentConfig.submissionType === '.docx') {
         AllureHelper.label('testCaseId', C75645);
+      }
+      if (assignmentConfig.submissionType === '.csv' || assignmentConfig.submissionType === '.xlsx') {
+        AllureHelper.label('testCaseId', C78819);
+        AllureHelper.label('caseStatus', `${C78819.split(':')[0]}:not_reached`);
+        AllureHelper.label('testCaseId', C78820);
+        AllureHelper.label('caseStatus', `${C78820.split(':')[0]}:not_reached`);
       }
       if (assignmentConfig.teacherEdits?.length) {
         AllureHelper.label('testCaseId', C75511);

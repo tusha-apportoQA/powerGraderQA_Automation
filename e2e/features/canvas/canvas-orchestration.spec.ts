@@ -20,6 +20,8 @@ import {
   C75511,
   C75529,
   C75645,
+  C78819,
+  C78820,
   C78823,
 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
@@ -123,7 +125,7 @@ function parseCourseAndAssignmentIdsFromUrl(url: string): { courseId: string; as
 
 test.describe('Canvas Orchestration @canvas @orchestration', () => {
   const allConfigs = getCanvasAssignmentConfigs();
-  const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
+  const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 6);
 
   const studentUser = testUsers.find(u => u.role === 'student');
   if (!studentUser) throw new Error('Student user not found in test users configuration');
@@ -142,6 +144,12 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       }
       if (assignmentConfig.submissionType === '.docx') {
         AllureHelper.label('testCaseId', C75645);
+      }
+      if (assignmentConfig.submissionType === '.csv' || assignmentConfig.submissionType === '.xlsx') {
+        AllureHelper.label('testCaseId', C78819);
+        AllureHelper.label('caseStatus', `${C78819.split(':')[0]}:not_reached`);
+        AllureHelper.label('testCaseId', C78820);
+        AllureHelper.label('caseStatus', `${C78820.split(':')[0]}:not_reached`);
       }
       if (assignmentConfig.teacherEdits?.length) {
         AllureHelper.label('testCaseId', C75511);

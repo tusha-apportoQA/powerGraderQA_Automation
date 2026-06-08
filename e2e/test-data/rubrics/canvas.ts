@@ -95,6 +95,84 @@
                     ]
                 }
             ]
+        },
+        {
+            type: 'new',
+            title: 'Sales Data Rubric',
+            criteria: [
+                {
+                    description: 'Data Completeness',
+                    longDescription: 'Dataset contains all required rows, columns, and values',
+                    maxPoints: 10,
+                    ratings: [
+                        { points: 10, description: 'Excellent', longDescription: 'All required data is complete and accurate' },
+                        { points: 7, description: 'Good', longDescription: 'Minor missing values or formatting issues' },
+                        { points: 4, description: 'Fair', longDescription: 'Several missing values or incomplete rows' },
+                        { points: 0, description: 'Poor', longDescription: 'Large portions of data missing or unusable' }
+                    ]
+                },
+                {
+                    description: 'Data Accuracy',
+                    longDescription: 'Sales calculations and totals are logically correct',
+                    maxPoints: 15,
+                    ratings: [
+                        { points: 15, description: 'Excellent', longDescription: 'All calculations and totals are correct' },
+                        { points: 10, description: 'Good', longDescription: 'Minor calculation mistakes present' },
+                        { points: 5, description: 'Fair', longDescription: 'Multiple calculation inconsistencies' },
+                        { points: 0, description: 'Poor', longDescription: 'Data contains major logical or mathematical errors' }
+                    ]
+                },
+                {
+                    description: 'Organization and Formatting',
+                    longDescription: 'CSV is structured clearly with proper headers and formatting',
+                    maxPoints: 5,
+                    ratings: [
+                        { points: 5, description: 'Excellent', longDescription: 'Well-structured and easy to read' },
+                        { points: 3, description: 'Good', longDescription: 'Mostly organized with minor issues' },
+                        { points: 1, description: 'Fair', longDescription: 'Formatting inconsistencies reduce readability' },
+                        { points: 0, description: 'Poor', longDescription: 'Poorly formatted or difficult to interpret' }
+                    ]
+                }
+            ]
+        },
+        {
+            type: 'new',
+            title: 'Employee Performance Rubric',
+            criteria: [
+                {
+                    description: 'Spreadsheet Completeness',
+                    longDescription: 'Spreadsheet includes all required employee performance data',
+                    maxPoints: 10,
+                    ratings: [
+                        { points: 10, description: 'Excellent', longDescription: 'All employee records are complete' },
+                        { points: 7, description: 'Good', longDescription: 'Minor missing entries exist' },
+                        { points: 4, description: 'Fair', longDescription: 'Several incomplete records present' },
+                        { points: 0, description: 'Poor', longDescription: 'Spreadsheet lacks required data' }
+                    ]
+                },
+                {
+                    description: 'Performance Evaluation Accuracy',
+                    longDescription: 'Scores, averages, and ratings are logically correct',
+                    maxPoints: 15,
+                    ratings: [
+                        { points: 15, description: 'Excellent', longDescription: 'All evaluations and calculations are accurate' },
+                        { points: 10, description: 'Good', longDescription: 'Minor scoring inconsistencies found' },
+                        { points: 5, description: 'Fair', longDescription: 'Multiple scoring errors detected' },
+                        { points: 0, description: 'Poor', longDescription: 'Performance data is inaccurate or inconsistent' }
+                    ]
+                },
+                {
+                    description: 'Professional Structure',
+                    longDescription: 'Workbook is neatly organized and easy to understand',
+                    maxPoints: 5,
+                    ratings: [
+                        { points: 5, description: 'Excellent', longDescription: 'Highly organized and professional layout' },
+                        { points: 3, description: 'Good', longDescription: 'Generally organized with small issues' },
+                        { points: 1, description: 'Fair', longDescription: 'Some structural confusion present' },
+                        { points: 0, description: 'Poor', longDescription: 'Difficult to read or poorly arranged' }
+                    ]
+                }
+            ]
         }
         // Add more new rubric templates as needed
     ];

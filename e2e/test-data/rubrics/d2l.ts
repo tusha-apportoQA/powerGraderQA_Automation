@@ -543,6 +543,170 @@ export const D2L_NEW_RUBRICS: D2LNewRubricConfig[] = [
             { levelName: 'Beginning', score: 3 },
             { levelName: 'Unsatisfactory', score: 0 }
         ]
+    },
+    {
+        type: 'new',
+        title: 'Sales Data Rubric',
+        levels: [
+            { name: 'Excellent', points: 4 },
+            { name: 'Good', points: 3 },
+            { name: 'Fair', points: 2 },
+            { name: 'Poor', points: 0 }
+        ],
+        criterion: [
+            {
+                name: 'Data Completeness',
+                levelItems: [
+                    {
+                        description: 'All required data is complete and accurate',
+                        initialFeedback: 'Dataset contains all required rows, columns, and values'
+                    },
+                    {
+                        description: 'Minor missing values or formatting issues',
+                        initialFeedback: 'Mostly complete with minor gaps'
+                    },
+                    {
+                        description: 'Several missing values or incomplete rows',
+                        initialFeedback: 'Several incomplete rows or missing values'
+                    },
+                    {
+                        description: 'Large portions of data missing or unusable',
+                        initialFeedback: 'Dataset is largely incomplete or unusable'
+                    }
+                ]
+            },
+            {
+                name: 'Data Accuracy',
+                levelItems: [
+                    {
+                        description: 'All calculations and totals are correct',
+                        initialFeedback: 'Sales calculations and totals are logically correct'
+                    },
+                    {
+                        description: 'Minor calculation mistakes present',
+                        initialFeedback: 'Minor calculation inconsistencies found'
+                    },
+                    {
+                        description: 'Multiple calculation inconsistencies',
+                        initialFeedback: 'Multiple calculation errors detected'
+                    },
+                    {
+                        description: 'Data contains major logical or mathematical errors',
+                        initialFeedback: 'Data accuracy is poor'
+                    }
+                ]
+            },
+            {
+                name: 'Organization and Formatting',
+                levelItems: [
+                    {
+                        description: 'Well-structured and easy to read',
+                        initialFeedback: 'CSV is structured clearly with proper headers and formatting'
+                    },
+                    {
+                        description: 'Mostly organized with minor issues',
+                        initialFeedback: 'Generally organized with minor formatting issues'
+                    },
+                    {
+                        description: 'Formatting inconsistencies reduce readability',
+                        initialFeedback: 'Formatting needs improvement'
+                    },
+                    {
+                        description: 'Poorly formatted or difficult to interpret',
+                        initialFeedback: 'Organization and formatting are poor'
+                    }
+                ]
+            }
+        ],
+        overallLevels: [
+            { levelName: 'Exemplary', score: 30 },
+            { levelName: 'Proficient', score: 22 },
+            { levelName: 'Developing', score: 14 },
+            { levelName: 'Beginning', score: 7 },
+            { levelName: 'Unsatisfactory', score: 0 }
+        ]
+    },
+    {
+        type: 'new',
+        title: 'Employee Performance Rubric',
+        levels: [
+            { name: 'Excellent', points: 4 },
+            { name: 'Good', points: 3 },
+            { name: 'Fair', points: 2 },
+            { name: 'Poor', points: 0 }
+        ],
+        criterion: [
+            {
+                name: 'Spreadsheet Completeness',
+                levelItems: [
+                    {
+                        description: 'All employee records are complete',
+                        initialFeedback: 'Spreadsheet includes all required employee performance data'
+                    },
+                    {
+                        description: 'Minor missing entries exist',
+                        initialFeedback: 'Mostly complete with minor missing entries'
+                    },
+                    {
+                        description: 'Several incomplete records present',
+                        initialFeedback: 'Several incomplete employee records'
+                    },
+                    {
+                        description: 'Spreadsheet lacks required data',
+                        initialFeedback: 'Required performance data is missing'
+                    }
+                ]
+            },
+            {
+                name: 'Performance Evaluation Accuracy',
+                levelItems: [
+                    {
+                        description: 'All evaluations and calculations are accurate',
+                        initialFeedback: 'Scores, averages, and ratings are logically correct'
+                    },
+                    {
+                        description: 'Minor scoring inconsistencies found',
+                        initialFeedback: 'Minor scoring inconsistencies present'
+                    },
+                    {
+                        description: 'Multiple scoring errors detected',
+                        initialFeedback: 'Multiple scoring errors found'
+                    },
+                    {
+                        description: 'Performance data is inaccurate or inconsistent',
+                        initialFeedback: 'Performance evaluation accuracy is poor'
+                    }
+                ]
+            },
+            {
+                name: 'Professional Structure',
+                levelItems: [
+                    {
+                        description: 'Highly organized and professional layout',
+                        initialFeedback: 'Workbook is neatly organized and easy to understand'
+                    },
+                    {
+                        description: 'Generally organized with small issues',
+                        initialFeedback: 'Generally organized with minor structural issues'
+                    },
+                    {
+                        description: 'Some structural confusion present',
+                        initialFeedback: 'Structure could be clearer'
+                    },
+                    {
+                        description: 'Difficult to read or poorly arranged',
+                        initialFeedback: 'Professional structure needs major improvement'
+                    }
+                ]
+            }
+        ],
+        overallLevels: [
+            { levelName: 'Exemplary', score: 30 },
+            { levelName: 'Proficient', score: 22 },
+            { levelName: 'Developing', score: 14 },
+            { levelName: 'Beginning', score: 7 },
+            { levelName: 'Unsatisfactory', score: 0 }
+        ]
     }
     // Add more new rubric templates as needed
 ];
