@@ -13,17 +13,27 @@
         {
             type: 'existing',
             groupName: 'CS 202 (Course)',
-            rubricName: 'CS rubric'
+            rubricName: 'Code evaluation easy'
         },
         {
             type: 'existing',
-            groupName: 'Powergrader',
-            rubricName: 'Amit tes'
+            groupName: 'CS 202 (Course)',
+            rubricName: 'Code evaluation medium'
         },
         {
             type: 'existing',
-            groupName: 'Amit 1 (Course)',
-            rubricName: 'CS rubric'
+            groupName: 'CS 202 (Course)',
+            rubricName: 'Code evaluation hard'
+        },
+        {
+            type: 'existing',
+            groupName: 'CS 202 (Course)',
+            rubricName: 'ELC Essay Rubric'
+        },
+        {
+            type: 'existing',
+            groupName: 'CS 202 (Course)',
+            rubricName: 'Sales Data Rubric'
         }
         // Add more existing rubrics as needed
     ];

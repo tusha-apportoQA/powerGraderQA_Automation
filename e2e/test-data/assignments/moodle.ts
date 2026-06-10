@@ -4,8 +4,8 @@
  */
 
 import { MoodleAssignmentConfig } from '../../types';
+import { MOODLE_EXISTING_RUBRICS } from '../rubrics/moodle';
 import { getCanvasConfig } from '../../config/canvas.config';
-import { MOODLE_NEW_RUBRICS } from '../rubrics/moodle';
 
 function formatDate(date: Date): string {
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -44,86 +44,70 @@ export function getMoodleAssignmentConfigs(): MoodleAssignmentConfig[] {
     const dates = getAssignmentDates();
     // Use Canvas config for defaultPoints and studentNames (shared across LMS)
     const { defaultPoints, studentNames } = getCanvasConfig();
+
+    const elcDescription = `30-Minute Essay Prompt
+Identify one improvement that would make your city a better place to live for people your age and explain why people your age would benefit from this change. Use specific reasons and examples to support your opinion and describe the potential immediate and long-term consequences of this improvement. You have 30 minutes to write your response.`;
+
+    const assignAccess = {
+        students: studentNames,
+        availableFrom: dates.availableFrom,
+        dueDate: dates.dueDate,
+        until: dates.until
+    };
     
     return [
         {
-            title: 'Short Accurate No Rubric DOCX',
-            description: 'Write a brief essay about technology impact. Focus on accuracy and precision.',
+            title: 'Moodle ELC Poor docx',
+            description: elcDescription,
             points: defaultPoints,
             submissionType: '.docx',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: { type: 'no' }
+            submissionFile: 'files/auto_submission_elc_poor.docx',
+            assignAccess,
+            rubric: MOODLE_EXISTING_RUBRICS[0]
         },
         {
-            title: 'Long Accurate Existing Rubric PDF',
-            description: 'Write a comprehensive essay about the impact of technology in daily life. Discuss both positive and negative aspects in detail, provide multiple examples from personal experience, analyze long-term implications, and consider various perspectives including social, economic, and environmental factors. Ensure all information is accurate and well-researched.',
+            title: 'Moodle ELC Average pdf',
+            description: elcDescription,
             points: defaultPoints,
             submissionType: '.pdf',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: { type: 'existing', rubricName: 'Grading rubric' }
+            submissionFile: 'files/auto_submission_elc_average.pdf',
+            assignAccess,
+            rubric: MOODLE_EXISTING_RUBRICS[0]
         },
         {
-            title: 'Short Inaccurate New Rubric TXT',
-            description: 'Write about tech. Keep it short.',
+            title: 'Moodle ELC Above Average txt',
+            description: elcDescription,
             points: defaultPoints,
             submissionType: '.txt',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: MOODLE_NEW_RUBRICS[0]
+            submissionFile: 'files/auto_submission_elc_above_average.txt',
+            assignAccess,
+            rubric: MOODLE_EXISTING_RUBRICS[0]
         },
         {
-            title: 'Short Inaccurate Existing Rubric Text Entry',
-            description: 'Tech essay. Brief.',
+            title: 'Moodle ELC Excellent Text Entry',
+            description: elcDescription,
             points: defaultPoints,
             submissionType: 'Text Entry',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: { type: 'existing', rubricName: 'Grading rubric' }
+            assignAccess,
+            rubric: MOODLE_EXISTING_RUBRICS[0]
         },
         {
-            title: 'New Rubric CSV',
+            title: 'Moodle CSV submission',
             description: 'Upload a CSV file containing monthly sales data with columns for Product Name, Units Sold, Unit Price, and Total Revenue. The file should contain at least 5 product entries with logically correct calculations and properly formatted rows and headers. Ensure the dataset is complete, readable, and internally consistent so it can be evaluated for accuracy, completeness, and formatting quality.',
             points: defaultPoints,
             submissionType: '.csv',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: MOODLE_NEW_RUBRICS[2]
+            submissionFile: 'files/test_submission.csv',
+            assignAccess,
+            rubric: MOODLE_EXISTING_RUBRICS[1]
         },
         {
-            title: 'New RubricXLSX',
+            title: 'Moodle XLSX submission',
             description: 'Upload an Excel spreadsheet containing employee performance information with columns for Employee Name, Department, Performance Score, and Final Rating. The spreadsheet should include at least 5 employee records with logically correct scores and matching ratings. Organize the workbook clearly and ensure all information is complete, readable, and professionally structured for evaluation.',
             points: defaultPoints,
             submissionType: '.xlsx',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: MOODLE_NEW_RUBRICS[3]
+            submissionFile: 'files/test_submission.xlsx',
+            assignAccess,
+            rubric: { type: 'no' }
         }
     ];
 }
-

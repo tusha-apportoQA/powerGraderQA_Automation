@@ -6,6 +6,7 @@ export type FormatType =
   | '.docx' 
   | '.pdf' 
   | '.txt' 
+  | '.py'
   | '.csv'
   | '.xlsx'
   | 'Text Entry';
@@ -147,6 +148,8 @@ export interface CanvasAssignmentConfig {
   courseName?: string;
   assignAccess?: CanvasAssignmentData;
   rubric?: CanvasRubricConfig;
+  /** Path relative to e2e/test-data/submissions/files/ (e.g. "auto_submission_code_easy.py"). */
+  submissionFile?: string;
   /** Optional pre-defined teacher edit (criterion index, score, feedback). When workflow runs with teacherEdit arg, uses this if present. */
   teacherEdits?: CriterionEditEntry[];
 }
@@ -160,6 +163,8 @@ export interface D2LAssignmentConfig {
   courseName?: string;
   assignAccess?: CanvasAssignmentData;  // Reuse CanvasAssignmentData for date/student assignment
   rubric?: D2LRubricConfig;
+  /** Path relative to e2e/test-data/submissions/files/ (e.g. "test-submission.pdf"). */
+  submissionFile?: string;
   teacherEdits?: CriterionEditEntry[];
 }
 
@@ -172,6 +177,8 @@ title: string;
   courseName?: string;
   assignAccess?: CanvasAssignmentData;  
   rubric?: MoodleRubricConfig;
+  /** Path relative to e2e/test-data/submissions/files/ (e.g. "test-submission.pdf"). */
+  submissionFile?: string;
   teacherEdits?: CriterionEditEntry[];
 }
 

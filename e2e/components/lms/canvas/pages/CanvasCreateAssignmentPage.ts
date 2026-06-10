@@ -133,7 +133,8 @@ export class CanvasCreateAssignmentPage {
             if (
                 submissionType === '.docx' ||
                 submissionType === '.pdf' ||
-                submissionType === '.txt'
+                submissionType === '.txt' ||
+                submissionType === '.py'
             ) {
                 await expect(this.restrictFileExtensionsCheckbox).toBeVisible();
                 if (!(await this.restrictFileExtensionsCheckbox.isChecked())) {

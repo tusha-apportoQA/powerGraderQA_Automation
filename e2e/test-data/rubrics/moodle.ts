@@ -3,7 +3,22 @@
  * Same structure as Canvas new rubrics, but without maxPoints and longDescription on criteria and ratings.
  */
 
-import type { MoodleNewRubricConfig } from '../../types';
+import type { MoodleExistingRubricConfig, MoodleNewRubricConfig } from '../../types';
+
+/**
+ * Predefined existing rubric configurations for Moodle
+ * These rubrics should already exist in Moodle
+ */
+export const MOODLE_EXISTING_RUBRICS: MoodleExistingRubricConfig[] = [
+    {
+        type: 'existing',
+        rubricName: 'ELC Essay Rubric'
+    },
+    {
+        type: 'existing',
+        rubricName: 'Sales Data Rubric'
+    }
+];
 
 /**
  * Predefined new rubric configurations for Moodle

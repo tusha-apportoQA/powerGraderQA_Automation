@@ -346,6 +346,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
     // C68989 — non-blocking: apply flow and grades change after Apply Only Here
     try {
         await AllureHelper.step(caseTitle(C68989), async () => {
+            await page.reload({ waitUntil: 'networkidle' });
             console.log(`[IG Workflow] ▶ ${caseId(C68989)}: ${caseTitle(C68989)}`);
             AllureHelper.label('testCaseId', C68989);
             const summaryBeforeApply = await gradingPage.getGradingSummary();

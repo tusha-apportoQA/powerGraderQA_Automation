@@ -298,6 +298,7 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
       const student = new MoodleLMSStudent(moodleStudentPage.page);
 
       const submissionType = assignmentConfig.submissionType;
+      const submissionFile = assignmentConfig.submissionFile;
       const { courseName } = getMoodleConfig();
 
       // LMS verify runs inside workflow (teacher); same Allure case IDs as verifyLmsScoreTest
@@ -354,7 +355,7 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
           } else {
-            const filePath = getSubmissionFilePath(submissionType as any);
+            const filePath = getSubmissionFilePath(submissionFile);
             await student.verifyFileTypeAndSubmit(submissionType, filePath);
           }
           AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:reached`);

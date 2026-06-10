@@ -3,7 +3,6 @@
  * Shared across all LMSs (Canvas, D2L, etc.)
  */
 
-import { FormatType } from '../../types';
 import * as path from 'path';
 import { TEST_SUBMISSION_TEXT } from './text';
 
@@ -32,30 +31,17 @@ function getSubmissionFilesDir(): string {
 export { TEST_SUBMISSION_TEXT } from './text';
 
 /**
- * File paths for test submission files (absolute paths)
- * Files should be placed in: e2e/test-data/submissions/files/
- * This approach works in both local development and CI/CD environments
- * Handles both compiled (dist/) and source (e2e/) execution contexts
- */
-const filesDir = getSubmissionFilesDir();
-export const TEST_SUBMISSION_FILES = {
-    '.pdf': path.resolve(filesDir, 'test-submission.pdf'),
-    '.docx': path.resolve(filesDir, 'test-submission.docx'),
-    '.txt': path.resolve(filesDir, 'test-submission.txt'),
-    '.csv': path.resolve(filesDir, 'test_submission.csv'),
-    '.xlsx': path.resolve(filesDir, 'test_submission.xlsx'),
-} as const;
-
-/**
- * Get file path for a given submission type
- * @param submissionType - The submission format type
+ * Get file path for a submission file declared on assignment config.
+ * `submissionFile` is relative to e2e/test-data/submissions/files/
+ * (e.g. "auto_submission_code_easy.py" or "files/auto_submission_code_easy.py").
  * @returns {string} Absolute path to the test file
  */
-export function getSubmissionFilePath(submissionType: FormatType): string {
-    if (submissionType === 'Text Entry') {
-        throw new Error('Text Entry does not require a file path. Use getSubmissionText() instead.');
+export function getSubmissionFilePath(submissionFile?: string | null): string {
+    if (!submissionFile || submissionFile.trim() === '') {
+        throw new Error('Missing submissionFile on assignment config');
     }
-    return TEST_SUBMISSION_FILES[submissionType];
+    const relativePath = submissionFile.replace(/^files\//, '');
+    return path.resolve(getSubmissionFilesDir(), relativePath);
 }
 
 /**
@@ -65,4 +51,3 @@ export function getSubmissionFilePath(submissionType: FormatType): string {
 export function getSubmissionText(): string {
     return TEST_SUBMISSION_TEXT;
 }
-

@@ -4,7 +4,7 @@
  */
 
 import { D2LAssignmentConfig } from '../../types';
-import { D2L_EXISTING_RUBRICS, D2L_NEW_RUBRICS } from '../rubrics/d2l';
+import { D2L_EXISTING_RUBRICS } from '../rubrics/d2l';
 import { getD2LConfig } from '../../config/d2l.config';
 import { getCanvasConfig } from '../../config/canvas.config';
 
@@ -45,190 +45,70 @@ export function getD2LAssignmentConfigs(): D2LAssignmentConfig[] {
     const dates = getAssignmentDates();
     // Use Canvas config for defaultPoints and studentNames (shared across LMS)
     const { defaultPoints, studentNames } = getCanvasConfig();
+
+    const elcDescription = `30-Minute Essay Prompt
+Identify one improvement that would make your city a better place to live for people your age and explain why people your age would benefit from this change. Use specific reasons and examples to support your opinion and describe the potential immediate and long-term consequences of this improvement. You have 30 minutes to write your response.`;
+
+    const assignAccess = {
+        students: studentNames,
+        availableFrom: dates.availableFrom,
+        dueDate: dates.dueDate,
+        until: dates.until
+    };
     
     return [
         {
-            title: 'D2L DOCX No Rubric',
-            description: 'Write a brief essay about technology impact. Focus on accuracy and precision.',
+            title: 'D2L ELC Poor docx',
+            description: elcDescription,
             points: defaultPoints,
             submissionType: '.docx',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: { type: 'no' }
-        },
-        {
-            title: 'D2L DOCX Existing Rubric',
-            description: 'Write a brief essay about technology impact. Focus on accuracy and precision.',
-            points: defaultPoints,
-            submissionType: '.docx',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
+            submissionFile: 'files/auto_submission_elc_poor.docx',
+            assignAccess,
             rubric: D2L_EXISTING_RUBRICS[0]
         },
         {
-            title: 'D2L DOCX New Rubric',
-            description: 'Write a brief essay about technology impact. Focus on accuracy and precision.',
-            points: defaultPoints,
-            submissionType: '.docx',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_NEW_RUBRICS[0]
-        },
-        {
-            title: 'D2L PDF No Rubric',
-            description: 'Write a comprehensive essay about the impact of technology in daily life.',
+            title: 'D2L ELC Average pdf',
+            description: elcDescription,
             points: defaultPoints,
             submissionType: '.pdf',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: { type: 'no' }
+            submissionFile: 'files/auto_submission_elc_average.pdf',
+            assignAccess,
+            rubric: D2L_EXISTING_RUBRICS[0]
         },
         {
-            title: 'D2L PDF Existing Rubric',
-            description: 'Write a comprehensive essay about the impact of technology in daily life.',
-            points: defaultPoints,
-            submissionType: '.pdf',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_EXISTING_RUBRICS[1]
-        },
-        {
-            title: 'D2L PDF New Rubric',
-            description: 'Write a comprehensive essay about the impact of technology in daily life.',
-            points: defaultPoints,
-            submissionType: '.pdf',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_NEW_RUBRICS[1]
-        },
-        {
-            title: 'D2L TXT No Rubric',
-            description: 'Write about tech. Keep it short.',
+            title: 'D2L ELC Above Average txt',
+            description: elcDescription,
             points: defaultPoints,
             submissionType: '.txt',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: { type: 'no' }
+            submissionFile: 'files/auto_submission_elc_above_average.txt',
+            assignAccess,
+            rubric: D2L_EXISTING_RUBRICS[0]
         },
         {
-            title: 'D2L TXT Existing Rubric',
-            description: 'Write about tech. Keep it short.',
-            points: defaultPoints,
-            submissionType: '.txt',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_EXISTING_RUBRICS[2]
-        },
-        {
-            title: 'D2L TXT New Rubric',
-            description: 'Write about tech. Keep it short.',
-            points: defaultPoints,
-            submissionType: '.txt',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_NEW_RUBRICS[2]
-        },
-        {
-            title: 'D2L Text Entry No Rubric',
-            description: 'Tech essay. Brief.',
+            title: 'D2L ELC Excellent Text Entry',
+            description: elcDescription,
             points: defaultPoints,
             submissionType: 'Text Entry',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: { type: 'no' }
+            assignAccess,
+            rubric: D2L_EXISTING_RUBRICS[0]
         },
         {
-            title: 'D2L Text Entry Existing Rubric',
-            description: 'Tech essay. Brief.',
-            points: defaultPoints,
-            submissionType: 'Text Entry',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_EXISTING_RUBRICS[3]
-        },
-        {
-            title: 'D2L Text Entry New Rubric',
-            description: 'Tech essay. Brief.',
-            points: defaultPoints,
-            submissionType: 'Text Entry',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_NEW_RUBRICS[3]
-        },
-        {
-            title: 'New Rubric CSV',
+            title: 'D2L CSV submission',
             description: 'Upload a CSV file containing monthly sales data with columns for Product Name, Units Sold, Unit Price, and Total Revenue. The file should contain at least 5 product entries with logically correct calculations and properly formatted rows and headers. Ensure the dataset is complete, readable, and internally consistent so it can be evaluated for accuracy, completeness, and formatting quality.',
             points: defaultPoints,
             submissionType: '.csv',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_NEW_RUBRICS[4]
+            submissionFile: 'files/test_submission.csv',
+            assignAccess,
+            rubric: D2L_EXISTING_RUBRICS[1]
         },
         {
-            title: 'New RubricXLSX',
+            title: 'D2L XLSX submission',
             description: 'Upload an Excel spreadsheet containing employee performance information with columns for Employee Name, Department, Performance Score, and Final Rating. The spreadsheet should include at least 5 employee records with logically correct scores and matching ratings. Organize the workbook clearly and ensure all information is complete, readable, and professionally structured for evaluation.',
             points: defaultPoints,
             submissionType: '.xlsx',
-            assignAccess: {
-                students: studentNames,
-                availableFrom: dates.availableFrom,
-                dueDate: dates.dueDate,
-                until: dates.until
-            },
-            rubric: D2L_NEW_RUBRICS[5]
+            submissionFile: 'files/test_submission.xlsx',
+            assignAccess,
+            rubric: { type: 'no' }
         }
     ];
 }
-

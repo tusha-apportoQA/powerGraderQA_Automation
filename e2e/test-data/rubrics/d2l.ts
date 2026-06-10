@@ -18,27 +18,12 @@ export const D2L_EXISTING_RUBRICS: D2LExistingRubricConfig[] = [
     {
         type: 'existing',
         groupName: 'Powergrader',
-        rubricName: 'Peer Review'
+        rubricName: 'ELC Essay Rubric'
     },
     {
         type: 'existing',
         groupName: 'Powergrader',
-        rubricName: 'Online Discussion Participation'
-    },
-    {
-        type: 'existing',
-        groupName: 'Powergrader',
-        rubricName: 'Business Plan Creation'
-    },
-    {
-        type: 'existing',
-        groupName: 'Powergrader',
-        rubricName: 'Public Speaking'
-    },
-    {
-        type: 'existing',
-        groupName: 'Powergrader',
-        rubricName: 'Amit test'
+        rubricName: 'Sales Data Rubric'
     }
     // Add more existing rubrics as needed
 ];

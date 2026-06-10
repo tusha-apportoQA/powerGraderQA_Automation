@@ -397,6 +397,7 @@ export class CanvasAssignmentSubmissionPage {
             case '.pdf':
             case '.docx':
             case '.txt':
+            case '.py':
             case '.csv':
             case '.xlsx': {
                 if (!filePath) throw new Error(`File path required for ${submissionType}`);

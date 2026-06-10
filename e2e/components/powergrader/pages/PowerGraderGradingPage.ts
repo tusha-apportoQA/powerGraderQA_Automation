@@ -89,13 +89,13 @@ export class PowerGraderGradingPage {
         ).toBeVisible({ timeout: 10000 });
     }
 
-    /** Selected pills use inline style with --blue-accent-color (not aria-pressed). */
+    /** Selected pills use border-blue-500 / bg-blue-50 (not aria-pressed). */
     private async isIgPillSelected(pill: Locator): Promise<boolean> {
-        return pill.evaluate((el) => (el.getAttribute('style') ?? '').includes('--blue-accent-color'));
+        return pill.evaluate((el) => el.classList.contains('border-blue-500'));
     }
 
     /**
-     * Select an IG pill. Skips if style already shows selected.
+     * Select an IG pill. Skips if already selected.
      * In-browser click avoids Playwright "stable" wait while React remounts the node.
      */
     private async selectIgPill(name: string): Promise<void> {

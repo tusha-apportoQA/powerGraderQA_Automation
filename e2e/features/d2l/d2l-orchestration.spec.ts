@@ -125,6 +125,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
 
       const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
       const submissionType = assignmentConfig.submissionType;
+      const submissionFile = assignmentConfig.submissionFile;
 
       const teacher = new D2LLMS(d2lTeacherPage.page);
       const student = new D2LLMSStudent(d2lStudentPage.page);
@@ -192,7 +193,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit(uniqueTitle, 'Text Entry', undefined, getSubmissionText());
           } else {
-            const filePath = getSubmissionFilePath(submissionType as any);
+            const filePath = getSubmissionFilePath(submissionFile);
             await student.verifyFileTypeAndSubmit(uniqueTitle, submissionType, filePath);
           }
         });
