@@ -18,7 +18,10 @@ import {
   C69098,
   C69100,
   C75511,
+  C75529,
   C75645,
+  C78819,
+  C78820,
   C78823,
 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
@@ -93,6 +96,12 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       if (assignmentConfig.submissionType === '.docx') {
         AllureHelper.label('testCaseId', C75645);
       }
+      if (assignmentConfig.submissionType === '.csv' || assignmentConfig.submissionType === '.xlsx') {
+        AllureHelper.label('testCaseId', C78819);
+        AllureHelper.label('caseStatus', `${C78819.split(':')[0]}:not_reached`);
+        AllureHelper.label('testCaseId', C78820);
+        AllureHelper.label('caseStatus', `${C78820.split(':')[0]}:not_reached`);
+      }
       if (assignmentConfig.teacherEdits?.length) {
         AllureHelper.label('testCaseId', C75511);
       }
@@ -116,6 +125,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
 
       const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;
       const submissionType = assignmentConfig.submissionType;
+      const submissionFile = assignmentConfig.submissionFile;
 
       const teacher = new D2LLMS(d2lTeacherPage.page);
       const student = new D2LLMSStudent(d2lStudentPage.page);
@@ -132,6 +142,9 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
         AllureHelper.label('testCaseId', C69067);
         AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:not_reached`);
       }
+
+      AllureHelper.label('testCaseId', C75529);
+      AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
 
       console.log(`\n===== START: ${uniqueTitle} =====`);
       console.log(`[${uniqueTitle}] Config: rubric=${assignmentConfig.rubric?.type ?? 'unknown'} | submission=${submissionType ?? 'none'}`);
@@ -180,7 +193,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit(uniqueTitle, 'Text Entry', undefined, getSubmissionText());
           } else {
-            const filePath = getSubmissionFilePath(submissionType as any);
+            const filePath = getSubmissionFilePath(submissionFile);
             await student.verifyFileTypeAndSubmit(uniqueTitle, submissionType, filePath);
           }
         });

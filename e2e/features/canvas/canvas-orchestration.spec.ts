@@ -18,7 +18,10 @@ import {
   C69098,
   C69100,
   C75511,
+  C75529,
   C75645,
+  C78819,
+  C78820,
   C78823,
 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
@@ -122,7 +125,7 @@ function parseCourseAndAssignmentIdsFromUrl(url: string): { courseId: string; as
 
 test.describe('Canvas Orchestration @canvas @orchestration', () => {
   const allConfigs = getCanvasAssignmentConfigs();
-  const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
+  const ASSIGNMENT_CONFIGS = allConfigs;
 
   const studentUser = testUsers.find(u => u.role === 'student');
   if (!studentUser) throw new Error('Student user not found in test users configuration');
@@ -141,6 +144,12 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       }
       if (assignmentConfig.submissionType === '.docx') {
         AllureHelper.label('testCaseId', C75645);
+      }
+      if (assignmentConfig.submissionType === '.csv' || assignmentConfig.submissionType === '.xlsx') {
+        AllureHelper.label('testCaseId', C78819);
+        AllureHelper.label('caseStatus', `${C78819.split(':')[0]}:not_reached`);
+        AllureHelper.label('testCaseId', C78820);
+        AllureHelper.label('caseStatus', `${C78820.split(':')[0]}:not_reached`);
       }
       if (assignmentConfig.teacherEdits?.length) {
         AllureHelper.label('testCaseId', C75511);
@@ -167,6 +176,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       const teacher = new CanvasLMS(canvasTeacherPage.page);
       const student = new CanvasLMSStudent(canvasStudentPage.page);
       const submissionType = assignmentConfig.submissionType;
+      const submissionFile = assignmentConfig.submissionFile;
 
       // LMS verify runs inside workflow (teacher); same Allure case IDs as verifyLmsScoreTest
       AllureHelper.label('testCaseId', C69070);
@@ -176,6 +186,9 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
         AllureHelper.label('testCaseId', C69098);
         AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
       }
+
+      AllureHelper.label('testCaseId', C75529);
+      AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
 
       console.log(`\n===== START: ${uniqueTitle} =====`);
 
@@ -208,7 +221,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
           } else {
-            const filePath = getSubmissionFilePath(submissionType as any);
+            const filePath = getSubmissionFilePath(submissionFile);
             const text = submissionType === '.txt' ? getSubmissionText() : undefined;
             await student.verifyFileTypeAndSubmit(submissionType, filePath, text);
           }

@@ -122,7 +122,7 @@ export class CanvasLMS implements LmsTeacher {
         const speedGraderPage = await this.assignmentDetailsPage.openSpeedGrader();
         const canvasGradingPage = new CanvasGradingPage(speedGraderPage);
         await canvasGradingPage.waitForLoad();
-        await canvasGradingPage.expectSelectedStudent(studentName);
+        await canvasGradingPage.ensureSelectedStudent(studentName);
 
         const lmsSummary = await canvasGradingPage.getRubricSnapshot();
         console.log('[CanvasLMS] LMS GradingSummary (scraped):', lmsSummary);

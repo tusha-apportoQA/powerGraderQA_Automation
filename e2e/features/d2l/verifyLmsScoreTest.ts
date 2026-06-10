@@ -85,6 +85,7 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
         const teacher = new D2LLMS(d2lTeacherPage.page);
         const student = new D2LLMSStudent(d2lStudentPage.page);
         const submissionType = assignmentConfig.submissionType!;
+        const submissionFile = assignmentConfig.submissionFile;
 
         console.log(`\n===== D2L PG + LMS verify: ${uniqueTitle} (config index ${CONFIG_INDEX}) =====`);
 
@@ -106,7 +107,7 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
                     commentMeta
                 );
             } else {
-                const filePath = getSubmissionFilePath(submissionType as any);
+                const filePath = getSubmissionFilePath(submissionFile);
                 await student.verifyFileTypeAndSubmit(uniqueTitle, submissionType, filePath, undefined, commentMeta);
             }
         });

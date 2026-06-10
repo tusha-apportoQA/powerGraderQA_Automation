@@ -95,6 +95,7 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     const teacher = new CanvasLMS(canvasTeacherPage.page);
     const student = new CanvasLMSStudent(canvasStudentPage.page);
     const submissionType = assignmentConfig.submissionType!;
+    const submissionFile = assignmentConfig.submissionFile;
 
     console.log(`\n===== PG + LMS verify: ${uniqueTitle} (config index ${CONFIG_INDEX}) =====`);
 
@@ -114,7 +115,7 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
       if (submissionType === 'Text Entry') {
         await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText(), commentMeta);
       } else {
-        const filePath = getSubmissionFilePath(submissionType as any);
+        const filePath = getSubmissionFilePath(submissionFile);
         const text = submissionType === '.txt' ? getSubmissionText() : undefined;
         await student.verifyFileTypeAndSubmit(submissionType, filePath, text, commentMeta);
       }

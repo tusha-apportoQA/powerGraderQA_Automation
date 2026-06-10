@@ -46,7 +46,7 @@ test.describe('Component Test: Assignment Submission', () => {
             const submissionText = getSubmissionText();
             await studentLms.verifyFileTypeAndSubmit(config.submissionType, undefined, submissionText);
         } else if (config.submissionType) {
-            const filePath = getSubmissionFilePath(config.submissionType);
+            const filePath = getSubmissionFilePath(config.submissionFile);
             await studentLms.verifyFileTypeAndSubmit(config.submissionType, filePath);
         }
     });

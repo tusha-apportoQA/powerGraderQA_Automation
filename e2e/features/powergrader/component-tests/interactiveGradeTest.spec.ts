@@ -2,6 +2,7 @@ import { test, CanvasTeacherPage } from '../../../fixtures';
 import { CanvasLMS } from '../../../components/lms/canvas/CanvasLMS';
 import { PowerGrader } from '../../../components/powergrader/PowerGrader';
 import { executeIgWorkflow } from '../../../utils/ig-workflow';
+import { buildWorkflowFailures } from '../../../utils/workflow-failures';
 import testUsers from '../../../test_users';
 import { getCanvasConfig } from '../../../config/canvas.config';
 
@@ -34,9 +35,12 @@ test.describe('Component Test: Interactive grade (grading page entry)', () => {
 
         await powerGrader.gradingPage.expectPageLoaded();
         await powerGrader.gradingPage.verifyGradesAndFeedbackPopulated();
-        const igError = await executeIgWorkflow(powerGraderPage);
-        if (igError) {
-            throw igError;
+        const igFailures = await executeIgWorkflow(powerGraderPage);
+        const deferredErrors = buildWorkflowFailures(igFailures);
+        if (deferredErrors.length > 0) {
+            throw new Error(
+                `Interactive Grading workflow failed (${deferredErrors.length} ${deferredErrors.length === 1 ? 'failure' : 'failures'}):\n${deferredErrors.join('\n')}`,
+            );
         }
     });
 });

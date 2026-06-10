@@ -158,6 +158,8 @@ export class D2LAssignmentCreatePage {
             case '.docx':
             case '.pdf':
             case '.txt':
+            case '.csv':
+            case '.xlsx':
                 submissionValue = '0';
                 break;
             default:
