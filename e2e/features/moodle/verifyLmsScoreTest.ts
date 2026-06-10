@@ -75,6 +75,7 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
         const teacher = new MoodleLMS(moodleTeacherPage.page);
         const student = new MoodleLMSStudent(moodleStudentPage.page);
         const submissionType = assignmentConfig.submissionType!;
+        const submissionFile = assignmentConfig.submissionFile;
 
         console.log(`\n===== Moodle PG + LMS verify: ${uniqueTitle} (config index ${CONFIG_INDEX}) =====`);
 
@@ -91,7 +92,7 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
             if (submissionType === 'Text Entry') {
                 await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText(), commentMeta);
             } else {
-                const filePath = getSubmissionFilePath(submissionType as any);
+                const filePath = getSubmissionFilePath(submissionFile);
                 await student.verifyFileTypeAndSubmit(submissionType, filePath, undefined, commentMeta);
             }
         });

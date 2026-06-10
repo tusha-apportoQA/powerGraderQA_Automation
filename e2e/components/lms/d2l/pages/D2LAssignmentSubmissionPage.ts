@@ -118,6 +118,8 @@ export class D2LAssignmentSubmissionPage {
             case '.pdf':
             case '.docx':
             case '.txt':
+            case '.csv':
+            case '.xlsx':
                 if (!filePath) {
                     throw new Error(`File path is required for ${submissionType} submission type`);
                 }

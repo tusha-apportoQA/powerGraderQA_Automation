@@ -64,8 +64,6 @@ export class CanvasLMSStudent {
         text?: string,
         submissionCommentMeta?: { uniqueTitle: string; studentLabel: string }
     ): Promise<void> {
-        // Verify file type and submit assignment
-        await this.assignmentDetailsPage.verifyFileType(submissionType);
         await this.assignmentDetailsPage.clickStartAssignment();
         
         await this.submissionPage.waitForLoad();

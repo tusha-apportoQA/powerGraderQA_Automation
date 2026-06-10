@@ -48,7 +48,7 @@ test.describe('D2L Component Test: Submit Assignment', () => {
             const submissionText = getSubmissionText();
             await studentLms.verifyFileTypeAndSubmit(config.title, config.submissionType, undefined, submissionText);
         } else if (config.submissionType) {
-            const filePath = getSubmissionFilePath(config.submissionType);
+            const filePath = getSubmissionFilePath(config.submissionFile);
             await studentLms.verifyFileTypeAndSubmit(config.title, config.submissionType, filePath);
         }
     });

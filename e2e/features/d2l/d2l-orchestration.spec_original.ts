@@ -67,7 +67,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
                             if (assignmentConfig.submissionType === 'Text Entry') {
                                 await lms.verifyFileTypeAndSubmit(uniqueTitle, 'Text Entry', undefined, getSubmissionText());
                             } else {
-                                const filePath = getSubmissionFilePath(assignmentConfig.submissionType as any);
+                                const filePath = getSubmissionFilePath(assignmentConfig.submissionFile);
                                 await lms.verifyFileTypeAndSubmit(uniqueTitle, assignmentConfig.submissionType!, filePath);
                             }
                             console.log(`✅ [${uniqueTitle}] Submission Uploaded.`);
