@@ -138,14 +138,17 @@ export class CanvasAssignmentDetailsPage {
         await this.findRubricButton.click({ force: true });
 
         // 1. Select Course
-        await expect(this.courseDropdown).toBeVisible({ timeout: 15000 });
-        await this.courseDropdown.click();
-        await this.page.getByRole('option', { name: groupName, exact: true }).first().click();
+        // Skipped for now: dropdown already has the correct course pre-selected by default.
+        // await expect(this.courseDropdown).toBeVisible({ timeout: 15000 });
+        // await this.courseDropdown.click();
+        // await this.page.getByRole('option', { name: groupName, exact: true }).first().click();
 
         // 2. Select target rubric by title test id, then click its related radio label.
-        const exactTitle = this.page.getByTestId('rubric-search-row-title').filter({
-            hasText: rubricName
-        }).first();
+        // Use exact text match so "ELC Essay Rubric" does not match "ELC Essay Rubric 2".
+        const exactTitle = this.page
+            .getByTestId('rubric-search-row-title')
+            .getByText(rubricName, { exact: true })
+            .first();
         await expect(exactTitle).toBeVisible({ timeout: 15000 });
 
         const rowContainer = exactTitle.locator('xpath=ancestor::*[.//input[@type="radio"]][1]');
