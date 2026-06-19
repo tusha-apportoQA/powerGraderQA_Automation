@@ -145,7 +145,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
         await AllureHelper.step(caseTitle(C69008), async () => {
             console.log(`[IG Workflow] ▶ ${caseId(C69008)}: ${caseTitle(C69008)}`);
             AllureHelper.label('testCaseId', C69008);
-            const criterionSections = page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm');
+            const criterionSections = page.locator('div.overflow-visible.rounded-lg.shadow-sm');
             await expect(criterionSections.first()).toBeVisible({ timeout: 30000 });
 
             const criterionCount = await criterionSections.count();
@@ -154,7 +154,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 await page.waitForTimeout(1000);
                 const section = criterionSections.nth(i);
                 const criterionName = (
-                    await section.locator('h3.truncate.text-base.font-semibold.text-gray-900').innerText()
+                    await section.locator('h3.text-lg.font-semibold.text-gray-900').innerText()
                 ).trim();
 
                 const criterionIgButton = section.getByRole('button', { name: 'Interactive regrade' });
@@ -197,10 +197,10 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ▶ ${caseId(C69011)}: ${caseTitle(C69011)}`);
             AllureHelper.label('testCaseId', C69011);
             const section = page
-                .locator('div.overflow-visible.rounded-lg.p-3.shadow-sm')
+                .locator('div.overflow-visible.rounded-lg.shadow-sm')
                 .nth(firstCriterionIndex);
             const criterionName = (
-                await section.locator('h3.truncate.text-base.font-semibold.text-gray-900').innerText()
+                await section.locator('h3.text-lg.font-semibold.text-gray-900').innerText()
             ).trim();
 
             const criterionIgButton = section.getByRole('button', { name: 'Interactive regrade' });
@@ -277,7 +277,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 await AllureHelper.step(caseTitle(C68990), async () => {
                     console.log(`[IG Workflow] ▶ ${caseId(C68990)}: ${caseTitle(C68990)}`);
                     AllureHelper.label('testCaseId', C68990);
-                    const customScoreInput = page.getByPlaceholder('Score').first();
+                    const customScoreInput = page.locator('input[type="number"]').first();
                     await expect(
                         customScoreInput,
                         'Custom score input is not visible in Preview mode',

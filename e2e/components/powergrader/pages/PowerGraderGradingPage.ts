@@ -57,11 +57,11 @@ export class PowerGraderGradingPage {
         await expect(totalGradeHeader).toBeVisible({ timeout: 60000 });
 
         // At least one criterion section visible
-        const firstCriterion = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm').first();
+        const firstCriterion = this.page.locator('div.overflow-visible.rounded-lg.shadow-sm').first();
         await expect(firstCriterion).toBeVisible({ timeout: 60000 });
 
         // At least one AI Feedback block visible
-        const firstFeedback = this.page.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
+        const firstFeedback = this.page.locator('div.flex.min-h-28.flex-col.gap-2').first();
         await expect(firstFeedback).toBeVisible({ timeout: 60000 });
 
         console.log("[Grading Page] AI Results verified successfully.");
@@ -131,7 +131,7 @@ export class PowerGraderGradingPage {
         let igButton: Locator;
         if (criterionIndex !== undefined) {
             const section = this.page
-                .locator('div.overflow-visible.rounded-lg.p-3.shadow-sm')
+                .locator('div.overflow-visible.rounded-lg.shadow-sm')
                 .nth(criterionIndex);
             igButton = section.getByRole('button', { name: 'Interactive regrade' });
             await expect(
@@ -210,11 +210,11 @@ export class PowerGraderGradingPage {
     async getIndividualScore(): Promise<string> {
         // New UI: read from the selected card (border-blue-500) score div, fallback to custom input
         const selectedCard = this.page.locator('div.border-blue-500').first();
-        const scoreDiv = selectedCard.locator('div.inline-flex.h-9.min-w-9');
+        const scoreDiv = selectedCard.locator('div.relative.flex.h-7.w-7');
         if (await scoreDiv.count() > 0) {
             return (await scoreDiv.innerText()).trim();
         }
-        const customInput = selectedCard.locator('input[placeholder="Score"]');
+        const customInput = selectedCard.locator('input[type="number"]');
         return await customInput.inputValue();
     }
 
@@ -373,10 +373,10 @@ export class PowerGraderGradingPage {
     }*/
 
     async setCriterionResultByIndex(criterionIndex: number, score: number, feedback: string): Promise<void> {
-        const section = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm').nth(criterionIndex);
+        const section = this.page.locator('div.overflow-visible.rounded-lg.shadow-sm').nth(criterionIndex);
 
         // Always use custom score input — preset card clicks don't sync to custom input
-        const customInput = section.locator('input[placeholder="Score"]').first();
+        const customInput = section.locator('input[type="number"]').first();
         await expect(customInput).toBeVisible({ timeout: 10000 });
         await customInput.clear();
         await customInput.fill(String(score));
@@ -385,7 +385,7 @@ export class PowerGraderGradingPage {
         console.log(`[Grading Page] Score ${score} set via custom input for criterion index ${criterionIndex}`);
 
         // Edit feedback via the pencil button
-        const editBtn = section.locator('button._1iv3oxt3._1iv3oxt2').first();
+        const editBtn = section.getByLabel('Edit feedback').first();
         await expect(editBtn).toBeVisible({ timeout: 10000 });
         await editBtn.click();
         await this.page.waitForTimeout(200);
@@ -396,7 +396,7 @@ export class PowerGraderGradingPage {
         await editable.fill(feedback);
         await this.page.waitForTimeout(300);
 
-        const saveBtn = editable.locator('xpath=..').locator('button').nth(1);
+        const saveBtn = section.getByLabel('Save edits').first();
         await saveBtn.click();
         await this.page.waitForTimeout(300);
     }
@@ -452,16 +452,16 @@ export class PowerGraderGradingPage {
     //New UI Update - Tusha
     async verifyTeacherEditsApplied(edits: CriterionEditEntry[]): Promise<void> {
         for (const edit of edits) {
-            const section = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm').nth(edit.criterionIndex);
+            const section = this.page.locator('div.overflow-visible.rounded-lg.shadow-sm').nth(edit.criterionIndex);
 
             // Custom Score input always reflects the current score
-            const customInput = section.locator('input[placeholder="Score"]').first();
+            const customInput = section.locator('input[type="number"]').first();
             await expect(customInput).toBeVisible({ timeout: 10000 });
             await expect(customInput).toHaveValue(String(edit.score), { timeout: 10000 });
             console.log(`[Grading Page] Verified score ${edit.score} for criterion ${edit.criterionIndex}`);
 
             // Verify feedback
-            const feedbackLocator = section.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
+            const feedbackLocator = section.locator('div.flex.min-h-28.flex-col.gap-2').first();
             await expect(feedbackLocator).toContainText(edit.feedback, { timeout: 10000 });
             console.log(`[Grading Page] Verified feedback for criterion ${edit.criterionIndex}`);
         }
@@ -550,7 +550,7 @@ export class PowerGraderGradingPage {
     async getAllCriteriaScores(): Promise<CriterionScore[]> {
         console.log("[Grading Page] Extracting all criteria scores and feedback...");
 
-        const criterionSections = this.page.locator('div.overflow-visible.rounded-lg.p-3.shadow-sm');
+        const criterionSections = this.page.locator('div.overflow-visible.rounded-lg.shadow-sm');
         await expect(criterionSections.first()).toBeVisible({ timeout: 30000 });
 
         const criterionCount = await criterionSections.count();
@@ -562,7 +562,7 @@ export class PowerGraderGradingPage {
             const section = criterionSections.nth(i);
 
             // Criterion name
-            const nameEl = section.locator('h3.truncate.text-base.font-semibold.text-gray-900');
+            const nameEl = section.locator('h3.text-lg.font-semibold.text-gray-900')
             const criterionName = (await nameEl.innerText()).trim();
 
             // Selected score card: blue (Ai score) or amber highlight (custome score)
@@ -575,20 +575,20 @@ export class PowerGraderGradingPage {
 
             let score = 0;
             if (selectedCard) {
-                const scoreDiv = selectedCard.locator('div.inline-flex.h-9.min-w-9');
+                const scoreDiv = selectedCard.locator('div.relative.flex.h-7.w-7');
                 if (await scoreDiv.count() > 0) {
                     const scoreText = (await scoreDiv.innerText()).trim();
                     score = parseFloat(scoreText) || 0;
                 } else {
                     // Custom score input is selected
-                    const customInput = selectedCard.locator('input[placeholder="Score"]');
+                    const customInput = selectedCard.locator('input[type="number"]');
                     const val = await customInput.inputValue();
                     score = parseFloat(val) || 0;
                 }
             }
 
             // AI Feedback block
-            const feedbackLocator = section.locator('div.pl-3.pr-3.pt-3.pb-3.min-h-16').first();
+            const feedbackLocator = section.locator('div.flex.min-h-28.flex-col.gap-2').first();
             try {
                 await expect(feedbackLocator).not.toHaveText('', { timeout: 60000 });
             } catch (e) {
