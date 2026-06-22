@@ -8,7 +8,7 @@ const resultsDir = path.join(__dirname, 'allure-results');
 
 const testCmds = {
     canvas: `npx playwright test -c ${cfg} e2e/features/canvas`,
-    'canvas-quick': `npx playwright test -c ${cfg} e2e/features/canvas --grep "Short Accurate"`,
+    'canvas-quick': `npx playwright test -c ${cfg} e2e/features/canvas --grep "Canvas ELC Average pdf"`,
     d2l: `npx playwright test -c ${cfg} e2e/features/d2l`,
     moodle: `npx playwright test -c ${cfg} e2e/features/moodle`,
     'canvas-d2l': `npx playwright test -c ${cfg} e2e/features/canvas && npx playwright test -c ${cfg} e2e/features/d2l`,

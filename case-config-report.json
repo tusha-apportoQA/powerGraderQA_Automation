@@ -1,305 +1,87 @@
 {
-  "generatedAt": "2026-06-03T19:30:07.940Z",
+  "generatedAt": "2026-06-15T16:54:37.338Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
-  "totalCases": 30,
+  "totalCases": 10,
   "cases": [
-    {
-      "caseId": "C68976",
-      "caseName": "IG: 'Customize' Visibility (Header)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68985",
-      "caseName": "IG: Discard Functional Check",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68986",
-      "caseName": "IG: Discard Persistence",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68987",
-      "caseName": "IG: Navigation Warning/Discard",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68989",
-      "caseName": "IG: Apply Visibility",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68990",
-      "caseName": "IG: Custom Score Button Lock (POW-525)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68998",
-      "caseName": "Rubric: Button Visibility (No Rubric)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
     {
       "caseId": "C68999",
       "caseName": "Rubric: Button Hidden (Has Rubric)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69000",
-      "caseName": "Rubric: Transition to Grading",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "status": "not_reached",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "status": "not_reached"
+        }
+      ]
     },
     {
       "caseId": "C69002",
       "caseName": "Sync: Scoring Reflection in LMS",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT"
-      ],
+      "status": "failed",
+      "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Interactive Grading workflow failed (3 case(s)): - C69034: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C75537: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C69023: Published grading summary should match pre-publish summary after reopening submission expect(received).toBe(expected) // Object.is equality Expected: true Received: false",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "dcd72746-cff4-49ec-a3d3-82b45ae05a83-result.json",
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
           "status": "failed"
         }
       ]
-    },
-    {
-      "caseId": "C69008",
-      "caseName": "Verify Customize link is visible in each criteria in grading page in QA",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69011",
-      "caseName": "Main view: clicking \"Customize\" opens the Interactive Grading sidebar also its flow check",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69023",
-      "caseName": "Verify Interactive grading score is getting published",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
-          "error": "Published grading summary should match pre-publish summary after reopening submission \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
-          "resultFile": "44960923-54de-44e9-beda-5ee3d155f5b9-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "Published grading summary should match pre-publish summary after reopening submission \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "d8166e87-2f26-411a-a958-be7aff12e318-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Published grading summary should match pre-publish summary after reopening submission \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "dcd72746-cff4-49ec-a3d3-82b45ae05a83-result.json",
-          "status": "failed"
-        }
-      ]
-    },
-    {
-      "caseId": "C69034",
-      "caseName": "Verify interactive grading score is visible in UI after clicking on Apply",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
-          "error": "Applied grades should match preview-mode grades before Apply \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
-          "resultFile": "44960923-54de-44e9-beda-5ee3d155f5b9-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "Applied grades should match preview-mode grades before Apply \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "d8166e87-2f26-411a-a958-be7aff12e318-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Applied grades should match preview-mode grades before Apply \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "dcd72746-cff4-49ec-a3d3-82b45ae05a83-result.json",
-          "status": "failed"
-        }
-      ]
-    },
-    {
-      "caseId": "C69036",
-      "caseName": "Verify the status of the assignments with no Rubric in PowerGrader",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69038",
-      "caseName": "POW: Teacher should be able to create new Rubric with multiple criteria",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate New Rubric TXT"
-      ],
-      "failedConfigs": []
     },
     {
       "caseId": "C69039",
       "caseName": "POW: Teacher should be able to add pre-existing rubric",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
-      "failedConfigs": []
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C69070",
       "caseName": "POW - Canvas student should be able to submit assignment",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "status": "not_reached",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "status": "not_reached"
+        }
+      ]
     },
     {
       "caseId": "C69074",
       "caseName": "POW - Canvas all assignments in QA instance should show submission details",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69092",
-      "caseName": "Verify that Text Entry submission is successful",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69094",
-      "caseName": "Apply opens modal: \"Apply to this submission only, or all submissions?\" with two options",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69095",
-      "caseName": "Apply -> \"This submission only\": preview banner disappears; grade becomes official and publishable",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "status": "failed"
+        }
+      ]
     },
     {
       "caseId": "C69098",
@@ -308,27 +90,11 @@
       "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
-          "error": "Error: Interactive Grading workflow failed (3 case(s)): - C69034: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C75537: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C69023: Published grading summary should match pre-publish summary after reopening submission expect(received).toBe(expected) // Object.is equality Expected: true Received: false",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
-          "resultFile": "44960923-54de-44e9-beda-5ee3d155f5b9-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "Error: Interactive Grading workflow failed (3 case(s)): - C69034: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C75537: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C69023: Published grading summary should match pre-publish summary after reopening submission expect(received).toBe(expected) // Object.is equality Expected: true Received: false",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "d8166e87-2f26-411a-a958-be7aff12e318-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Error: Interactive Grading workflow failed (3 case(s)): - C69034: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C75537: Applied grades should match preview-mode grades before Apply expect(received).toBe(expected) // Object.is equality Expected: true Received: false - C69023: Published grading summary should match pre-publish summary after reopening submission expect(received).toBe(expected) // Object.is equality Expected: true Received: false",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "dcd72746-cff4-49ec-a3d3-82b45ae05a83-result.json",
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
           "status": "not_reached"
         }
       ]
@@ -336,103 +102,66 @@
     {
       "caseId": "C69100",
       "caseName": "On-time submission (before due date) is accepted and gradable",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69114",
-      "caseName": "Sidebar contains Grading Strictness options (More Strict  / More Lenient)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C75511",
-      "caseName": "Verify editing score/feedback gets published without explicitly clicking on Save",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C75526",
-      "caseName": "Verify SeeWhy disables or disappears when user clicks on it in QA",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C75537",
-      "caseName": "Verify interactive grading score is visible in UI after clicking on Apply",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry"
-      ],
+      "status": "failed",
+      "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Long Accurate Existing Rubric PDF",
-          "error": "Applied grades should match preview-mode grades before Apply \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Long Accurate Existing Rubric PDF",
-          "resultFile": "44960923-54de-44e9-beda-5ee3d155f5b9-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Short Inaccurate New Rubric TXT",
-          "error": "Applied grades should match preview-mode grades before Apply \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Inaccurate New Rubric TXT",
-          "resultFile": "d8166e87-2f26-411a-a958-be7aff12e318-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Short Accurate No Rubric DOCX",
-          "error": "Applied grades should match preview-mode grades before Apply \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32mtrue\u001b[39m Received: \u001b[31mfalse\u001b[39m",
-          "failedStep": "Wait for navigation",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Short Accurate No Rubric DOCX",
-          "resultFile": "dcd72746-cff4-49ec-a3d3-82b45ae05a83-result.json",
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
           "status": "failed"
         }
       ]
     },
     {
-      "caseId": "C75645",
-      "caseName": "Verify the docx file is ingested and graded",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "caseId": "C75511",
+      "caseName": "Verify editing score/feedback gets published without explicitly clicking on Save",
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "caseId": "C75529",
+      "caseName": "Verify OnTime is visible for Moodle, D2L, Canvas",
+      "status": "not_reached",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "status": "not_reached"
+        }
+      ]
     },
     {
       "caseId": "C78823",
       "caseName": "Verify Submission Review Page new UI",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Long Accurate Existing Rubric PDF",
-        "canvas|orchestration|Short Inaccurate Existing Rubric Text Entry",
-        "canvas|orchestration|Short Inaccurate New Rubric TXT",
-        "canvas|orchestration|Short Accurate No Rubric DOCX"
-      ],
-      "failedConfigs": []
+      "status": "failed",
+      "passedConfigs": [],
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Canvas ELC Average pdf",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
+          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "status": "failed"
+        }
+      ]
     }
   ]
 }

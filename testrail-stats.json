@@ -1,10 +1,10 @@
 {
-  "total": 160,
+  "total": 155,
   "automated": 39,
-  "not_automatable": 84,
+  "not_automatable": 79,
   "automation_in_progress": 16,
   "yet_to_automate": 21,
-  "lastUpdated": "6/3/2026, 12:30:07 PM",
-  "aiReliability": 84,
+  "lastUpdated": "6/15/2026, 9:54:37 AM",
+  "aiReliability": 0,
   "coveragePercent": "51.3%"
 }
