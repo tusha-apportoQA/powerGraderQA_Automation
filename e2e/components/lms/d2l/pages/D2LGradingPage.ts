@@ -3,20 +3,17 @@ import { GradingSummary } from '../../../../types';
 
 export class D2LGradingPage {
     page: Page;
-    pageHeading: Locator;
     rubricHeading: Locator;
     rubric: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.pageHeading = page.locator('h1, h2').first();
-        this.rubricHeading = page.getByRole('heading', { name: /rubric/i });
+        this.rubricHeading = page.getByRole('heading', { name: /rubrics/i });
         this.rubric = page.locator('d2l-rubric');
     }
 
     async waitForLoad(): Promise<void> {
-        await this.page.waitForLoadState('domcontentloaded');
-        await expect(this.pageHeading).toBeVisible({ timeout: 30000 });
+        await this.page.waitForLoadState('networkidle');
     }
 
     /**

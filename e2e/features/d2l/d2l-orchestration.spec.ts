@@ -74,7 +74,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
   const allConfigs = getD2LAssignmentConfigs();
 
   // keep small for deploy runs; bump in nightly runs
-  const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
+  const ASSIGNMENT_CONFIGS = allConfigs
 
   // Sequential flow (matches Canvas approach)
  // 
