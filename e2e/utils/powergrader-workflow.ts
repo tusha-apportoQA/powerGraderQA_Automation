@@ -96,7 +96,7 @@ export async function executeUniversalPGWorkflow(
    //const baselineSnapshot = baselineData?.snapshot || null;
     console.log("BASELINE KEY:", assignmentKey);
     const startTime = Date.now();
-    const INTERVAL = 30000; 
+    const INTERVAL = 30000;
     const NO_VALID_SUBMISSIONS_FAIL_MS = 10 * 60 * 1000; 
     let noValidSeenAt: number | null = null;
 
@@ -125,11 +125,10 @@ export async function executeUniversalPGWorkflow(
 
     await expect(async () => {
         console.log(`[${uniqueTitle}] Course Page Sync: Checking for assignment...`);
-        await powerGraderPage.reload({ waitUntil: 'networkidle' });
-        const coursePage = new PowerGraderCoursePage(powerGraderPage);
-        await coursePage.waitForLoad();
-        await powerGraderPage.waitForTimeout(2000);
-
+        await powerGraderPage.reload({ waitUntil: 'domcontentloaded', timeout: 60_000 });
+        await expect(
+            powerGraderPage.getByRole('link', { name: 'View details' }).first(),
+        ).toBeVisible({ timeout: 30_000 });
         // Search for the assignment by title
        // const searchInput = powerGraderPage.locator('input[placeholder="Search titles..."]');
         const searchInput = powerGraderPage.locator('input[placeholder*="Search titles"]');
@@ -146,7 +145,7 @@ export async function executeUniversalPGWorkflow(
             console.log(`[${uniqueTitle}] Assignment found. Clicking on "View details"...`);
             const viewBtn = row.getByRole('link', { name: 'View details', exact: true }).or(row.getByText('View details', { exact: true }));
             await Promise.all([
-                powerGraderPage.waitForNavigation({ waitUntil: 'networkidle' }).catch(() => {}),
+                powerGraderPage.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {}),
                 viewBtn.first().click()
             ]);
             await expect(powerGraderPage).not.toHaveURL(/.*dashboard.*/);
