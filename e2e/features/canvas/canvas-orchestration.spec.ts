@@ -5,6 +5,10 @@ import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
 import {
+  C68956,
+  C68958,
+  C68960,
+  C68962,
   C68998,
   C68999,
   C69000,
@@ -190,6 +194,22 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       AllureHelper.label('testCaseId', C75529);
       AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
 
+      if (assignmentConfig.title.toLowerCase().includes('elc')) {
+        if (submissionType === '.txt') {
+          AllureHelper.label('testCaseId', C68956);
+          AllureHelper.label('caseStatus', `${C68956.split(':')[0]}:not_reached`);
+        } else if (submissionType === '.pdf') {
+          AllureHelper.label('testCaseId', C68958);
+          AllureHelper.label('caseStatus', `${C68958.split(':')[0]}:not_reached`);
+        } else if (submissionType === '.docx') {
+          AllureHelper.label('testCaseId', C68960);
+          AllureHelper.label('caseStatus', `${C68960.split(':')[0]}:not_reached`);
+        } else if (submissionType === 'Text Entry') {
+          AllureHelper.label('testCaseId', C68962);
+          AllureHelper.label('caseStatus', `${C68962.split(':')[0]}:not_reached`);
+        }
+      }
+
       console.log(`\n===== START: ${uniqueTitle} =====`);
 
       // ---------------- CREATE ----------------
@@ -256,6 +276,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
               'canvas',
               teacherEdits,
               teacher,
+              submissionType,
             );
           });
           

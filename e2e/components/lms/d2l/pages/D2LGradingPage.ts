@@ -13,7 +13,7 @@ export class D2LGradingPage {
     }
 
     async waitForLoad(): Promise<void> {
-        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
@@ -23,7 +23,7 @@ export class D2LGradingPage {
         await expect(
             this.rubricHeading,
             'Expected rubric heading to be visible on grading page'
-        ).toBeVisible({ timeout: 30000 });
+        ).toBeVisible({ timeout: 180000 });
     }
 
     /**

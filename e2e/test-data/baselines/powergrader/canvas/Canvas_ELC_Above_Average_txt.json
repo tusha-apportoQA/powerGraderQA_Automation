@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-06-24T13:40:32.375Z",
+  "snapshot": {
+    "totalScore": 20,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 7,
+        "feedback": "Your essay is very well organized, with a clear introduction, well-developed body paragraphs, and a strong conclusion connected by logical transitions. This structure makes your writing easy to follow and demonstrates mastery of essay organization for this task."
+      },
+      {
+        "name": "Content",
+        "score": 7,
+        "feedback": "Your essay gives a clear, well-supported city improvement with strong examples and thoughtful discussion of both immediate and long-term impacts; to achieve a perfect score, aim for even deeper analysis and more nuanced details in your explanations."
+      },
+      {
+        "name": "Accuracy",
+        "score": 6,
+        "feedback": "Your argument is clearly explained and logically sound, with relevant examples and reasonable connections between your ideas, though adding more nuance and avoiding oversimplification could further strengthen your work."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

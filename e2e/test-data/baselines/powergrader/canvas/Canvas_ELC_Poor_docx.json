@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-06-24T12:53:32.621Z",
+  "snapshot": {
+    "totalScore": 4,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 1,
+        "feedback": "Your writing consists of several short, incomplete sentences without any paragraph or essay organization. For a better score, use complete sentences and organize your ideas into a clear introduction, body, and conclusion."
+      },
+      {
+        "name": "Content",
+        "score": 2,
+        "feedback": "Your response tried to address the topic but did not clearly name a specific city improvement or provide supporting reasons and examples. To improve, clearly state your suggested change and explain with examples and possible outcomes for people your age."
+      },
+      {
+        "name": "Accuracy",
+        "score": 1,
+        "feedback": "Your writing contains many spelling and grammar errors, and most sentences are incomplete, making your meaning very hard to understand. To improve, focus on writing clear, complete sentences and checking your spelling and grammar."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

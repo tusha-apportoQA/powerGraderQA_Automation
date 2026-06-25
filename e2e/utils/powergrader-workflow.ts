@@ -5,16 +5,31 @@ import { PowerGraderGradingPage } from '../components/powergrader/pages/PowerGra
 import { AllureHelper } from './allureHelper';
 import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
 import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
-import { GradingSummary, LmsTeacher, TeacherEditConfig } from '../types'; // Preserved from merge
+import { GradingSummary, LmsTeacher, TeacherEditConfig, CriterionEditEntry } from '../types'; // Preserved from merge
 import { executeIgWorkflow } from './ig-workflow';
 import {
     buildWorkflowFailureError,
     createWorkflowFailure,
     WorkflowFailure,
 } from './workflow-failures';
-import { C68998, C68999, C69000, C69002, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75529, C75645, C78816, C78820, C78823 } from '../test-data/testCaseIds';
+import { C68956, C68958, C68960, C68962, C68998, C68999, C69000, C69002, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75529, C75645, C78816, C78820, C78823 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
+
+function getIterativeRepublishCaseLabel(submissionType?: string): string | undefined {
+    switch (submissionType) {
+        case '.txt':
+            return C68956;
+        case '.pdf':
+            return C68958;
+        case '.docx':
+            return C68960;
+        case 'Text Entry':
+            return C68962;
+        default:
+            return undefined;
+    }
+}
 
 /**
  * Writes the latest test result to a JSON file for the dashboard.
@@ -85,6 +100,7 @@ export async function executeUniversalPGWorkflow(
     lms: string = "canvas",
     teacherEdits?: TeacherEditConfig, // Preserved from merge
     lmsTeacher?: LmsTeacher,
+    submissionType?: string,
 ) {
     const assignmentKey = uniqueTitle.replace(/\s*\[\d+\]\s*$/, "").trim();
 
@@ -223,6 +239,7 @@ export async function executeUniversalPGWorkflow(
             }
 
             const startBtn = powerGraderPage.locator('button').filter({ hasText: /^Review$/i });
+            const reopenBtn = powerGraderPage.getByRole('button', { name: 'View' }).first();
             if (await startBtn.isVisible({ timeout: 5000 })) {
                 if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69063:'))) {
                     AllureHelper.label('caseStatus', `${C69063.split(':')[0]}:passed`);
@@ -235,6 +252,9 @@ export async function executeUniversalPGWorkflow(
                 }
                 AllureHelper.label('caseStatus', `${C69100.split(':')[0]}:passed`);
                 await startBtn.click();
+            } else if (await reopenBtn.isVisible({ timeout: 5000 })) {
+                console.log(`[${uniqueTitle}] Already reviewed; reopening via View...`);
+                await reopenBtn.click();
             } else {
                 throw new Error('Waiting for "Review" button...');
             }
@@ -527,6 +547,58 @@ export async function executeUniversalPGWorkflow(
                     createWorkflowFailure(error, { tag: 'LMS', caseLabel: C69002 }),
                 );
             }
+            const iterativeRepublishCase = assignmentKey.toLowerCase().includes('elc')
+                ? getIterativeRepublishCaseLabel(submissionType)
+                : undefined;
+            if (iterativeRepublishCase) {
+                const iterativeCaseId = iterativeRepublishCase.split(':')[0];
+                await AllureHelper.step('Iterative Re-Publishing', async () => {
+                    AllureHelper.label('caseStatus', `${iterativeCaseId}:reached`);
+                    try {
+                        console.log(`[${uniqueTitle}] Starting iterative re-publish (${iterativeCaseId})...`);
+                        await detailsPage.reopenFirstStudentSubmission(uniqueTitle);
+                        await gradingPage.waitForLoad();
+                        const republishEdits: CriterionEditEntry[] = (publishedGradingSummary.criteria ?? []).map((_, index) => ({ criterionIndex: index, score: 0 }));
+                        await gradingPage.applyTeacherEdits(republishEdits);
+                        const republishGradingSummary = await gradingPage.getGradingSummary();
+                        await powerGraderPage.waitForTimeout(80000);
+                        await gradingPage.clickPublishButton();
+                        let republishPostPublishVerified = false;
+                        try {
+                            await detailsPage.waitForPostPublishAssignmentDetails(uniqueTitle);
+                            republishPostPublishVerified = true;
+                            console.log(`[${uniqueTitle}] Iterative re-publish redirect verified.`);
+                        } catch (error) {
+                            console.error(
+                                `[${uniqueTitle}] Iterative re-publish redirect was not confirmed:`,
+                                error instanceof Error ? error.message : String(error),
+                            );
+                        }
+                        if (!republishPostPublishVerified) {
+                            workflowFailures.push(
+                                createWorkflowFailure(
+                                    new Error('Post-publish redirect not confirmed after iterative re-publish'),
+                                    { tag: 'LMS', caseLabel: iterativeRepublishCase },
+                                ),
+                            );
+                            return;
+                        }
+                        try {
+                            await lmsTeacher.verifyLmsScore(uniqueTitle, republishGradingSummary as GradingSummary);
+                            console.log(`[${uniqueTitle}] Iterative re-publish LMS verification passed.`);
+                            AllureHelper.label('caseStatus', `${iterativeCaseId}:passed`);
+                        } catch (error) {
+                            workflowFailures.push(
+                                createWorkflowFailure(error, { tag: 'LMS', caseLabel: iterativeRepublishCase }),
+                            );
+                        }
+                    } catch (error) {
+                        workflowFailures.push(
+                            createWorkflowFailure(error, { tag: 'LMS', caseLabel: iterativeRepublishCase }),
+                        );
+                    }
+                });
+            }
         }
     }
 
@@ -537,10 +609,7 @@ export async function executeUniversalPGWorkflow(
         let igReady = false;
 
         if (postPublishVerified) {
-            console.log(`[${uniqueTitle}] Reopening first student submission for IG workflow...`);
-            const viewButton = powerGraderPage.getByRole('button', { name: 'View' }).first();
-            await expect(viewButton).toBeVisible({ timeout: 30000 });
-            await viewButton.click();
+            await detailsPage.reopenFirstStudentSubmission(uniqueTitle);
             await gradingPage.waitForLoad();
             igReady = true;
         } else {

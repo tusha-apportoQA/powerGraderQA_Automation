@@ -1,0 +1,29 @@
+{
+  "createdAt": "2026-06-24T14:17:35.194Z",
+  "snapshot": {
+    "totalScore": 6,
+    "criteria": [
+      {
+        "name": "Correctness",
+        "score": 2,
+        "feedback": "Your code works for some sample cases but may skip or miss duplicates in others due to removing elements while iterating, and the bonus function's test is commented out, suggesting it isn't fully functional. For higher scores, ensure your solution preserves correctness for all test cases and edge cases, including comprehensive unit testing."
+      },
+      {
+        "name": "Efficiency",
+        "score": 1,
+        "feedback": "Your approach uses 'count' and 'remove' inside a loop, resulting in O(n^2) time and inefficiency. For full credit, strive for a single-pass, linear-time (O(n)) solution, such as using pointers or indexes."
+      },
+      {
+        "name": "Followed constraints",
+        "score": 2,
+        "feedback": "You correctly used only Python's standard features and avoided outside packages in your main function, meeting the primary constraint. However, your bonus function includes list methods and assignments not allowed under the stricter bonus rules. For full credit in the future, ensure the bonus function avoids any list methods or standard functions entirely."
+      },
+      {
+        "name": "Bonus points",
+        "score": 1,
+        "feedback": "You made a genuine attempt at the bonus function and used only element-by-element indexing as required, but the logic does not correctly count or arrange unique elements. To improve, focus on ensuring your code correctly identifies and places unique values at the start of the array and returns the right count."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

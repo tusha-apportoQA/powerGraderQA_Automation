@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-06-24T15:04:18.368Z",
+  "snapshot": {
+    "totalScore": 25,
+    "criteria": [
+      {
+        "name": "Data Completeness",
+        "score": 10,
+        "feedback": "Your submission includes all required columns, at least five unique products, and every row is fully filled in with no missing values, demonstrating excellent completeness."
+      },
+      {
+        "name": "Data Accuracy",
+        "score": 10,
+        "feedback": "Your calculations were correct for almost all products, but there's a small error with the Keyboard row (3 × $30 should be $90, not $100). Double-checking each row's math will help you reach full marks next time."
+      },
+      {
+        "name": "Organization and Formatting",
+        "score": 5,
+        "feedback": "Your CSV is excellently structured, with clear headers, correct column order, and consistent formatting throughout, making it easy to read and well-suited for spreadsheet use."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}
