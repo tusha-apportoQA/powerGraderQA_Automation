@@ -172,6 +172,10 @@ import { MoodleLMS } from '../../components/lms/moodle/MoodleLMS';
 import { MoodleLMSStudent } from '../../components/lms/moodle/MoodleLMSStudent';
 import { getMoodleAssignmentConfigs } from '../../test-data/assignments/moodle';
 import {
+  C68956,
+  C68958,
+  C68960,
+  C68962,
   C68998,
   C68999,
   C69000,
@@ -315,6 +319,22 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
       AllureHelper.label('testCaseId', C75529);
       AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
 
+      if (assignmentConfig.title.toLowerCase().includes('elc')) {
+        if (submissionType === '.txt') {
+          AllureHelper.label('testCaseId', C68956);
+          AllureHelper.label('caseStatus', `${C68956.split(':')[0]}:not_reached`);
+        } else if (submissionType === '.pdf') {
+          AllureHelper.label('testCaseId', C68958);
+          AllureHelper.label('caseStatus', `${C68958.split(':')[0]}:not_reached`);
+        } else if (submissionType === '.docx') {
+          AllureHelper.label('testCaseId', C68960);
+          AllureHelper.label('caseStatus', `${C68960.split(':')[0]}:not_reached`);
+        } else if (submissionType === 'Text Entry') {
+          AllureHelper.label('testCaseId', C68962);
+          AllureHelper.label('caseStatus', `${C68962.split(':')[0]}:not_reached`);
+        }
+      }
+
       console.log(`\n===== START: ${uniqueTitle} =====`);
       console.log(`[${uniqueTitle}] Config: rubric=${assignmentConfig.rubric?.type ?? 'unknown'} | submission=${submissionType ?? 'none'}`);
 
@@ -399,6 +419,7 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
             'moodle',
             teacherEdits,
             teacher,
+            submissionType,
           );
           });
 

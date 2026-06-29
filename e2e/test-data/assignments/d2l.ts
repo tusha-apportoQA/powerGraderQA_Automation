@@ -21,6 +21,7 @@ function getAssignmentDates() {
     const now = new Date();
     
     const availableFrom = new Date(now);
+    availableFrom.setDate(availableFrom.getDate() - 1);
     availableFrom.setHours(0, 0, 0, 0);
 
     const dueDate = new Date(now);
@@ -64,7 +65,15 @@ Identify one improvement that would make your city a better place to live for pe
             submissionType: '.docx',
             submissionFile: 'files/auto_submission_elc_poor.docx',
             assignAccess,
-            rubric: D2L_EXISTING_RUBRICS[0]
+            rubric: D2L_EXISTING_RUBRICS[0],
+            teacherEdits: [
+                {
+                    criterionIndex: 2,
+                    score: 1,
+                    feedback:
+                        'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
+                },
+            ],
         },
         {
             title: 'D2L ELC Average pdf',
@@ -73,7 +82,15 @@ Identify one improvement that would make your city a better place to live for pe
             submissionType: '.pdf',
             submissionFile: 'files/auto_submission_elc_average.pdf',
             assignAccess,
-            rubric: D2L_EXISTING_RUBRICS[0]
+            rubric: D2L_EXISTING_RUBRICS[0],
+            teacherEdits: [
+                {
+                    criterionIndex: 1,
+                    score: 3,
+                    feedback:
+                        'You provide details about what makes Santiago appealing for young people, but to raise your score, clearly recommend a specific improvement for the city and explain both its immediate and long-term consequences.',
+                },
+            ],
         },
         {
             title: 'D2L ELC Above Average txt',
@@ -82,7 +99,15 @@ Identify one improvement that would make your city a better place to live for pe
             submissionType: '.txt',
             submissionFile: 'files/auto_submission_elc_above_average.txt',
             assignAccess,
-            rubric: D2L_EXISTING_RUBRICS[0]
+            rubric: D2L_EXISTING_RUBRICS[0],
+            teacherEdits: [
+                {
+                    criterionIndex: 2,
+                    score: 1,
+                    feedback:
+                        'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
+                },
+            ],
         },
         {
             title: 'D2L ELC Excellent Text Entry',
@@ -90,7 +115,15 @@ Identify one improvement that would make your city a better place to live for pe
             points: defaultPoints,
             submissionType: 'Text Entry',
             assignAccess,
-            rubric: D2L_EXISTING_RUBRICS[0]
+            rubric: D2L_EXISTING_RUBRICS[0],
+            teacherEdits: [
+                {
+                    criterionIndex: 2,
+                    score: 1,
+                    feedback:
+                        'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
+                },
+            ],
         },
         {
             title: 'D2L CSV submission',
@@ -102,7 +135,7 @@ Identify one improvement that would make your city a better place to live for pe
             rubric: D2L_EXISTING_RUBRICS[1]
         },
         {
-            title: 'D2L XLSX submission',
+            title: 'D2L XLSX No Rubric submission',
             description: 'Upload an Excel spreadsheet containing employee performance information with columns for Employee Name, Department, Performance Score, and Final Rating. The spreadsheet should include at least 5 employee records with logically correct scores and matching ratings. Organize the workbook clearly and ensure all information is complete, readable, and professionally structured for evaluation.',
             points: defaultPoints,
             submissionType: '.xlsx',

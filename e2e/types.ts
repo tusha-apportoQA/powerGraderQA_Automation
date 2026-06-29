@@ -234,11 +234,11 @@ export interface LmsTeacher {
     ): Promise<void>;
 }
 
-/** Per-criterion edit for teacher calibration. All three are required so the flow always starts from the score input (Tab then focuses the edit-feedback button). criterionIndex is 0-based, same order as getAllCriteriaScores. */
+/** Per-criterion edit for teacher calibration. criterionIndex is 0-based, same order as getAllCriteriaScores. score and/or feedback are optional — only provided fields are updated. */
 export interface CriterionEditEntry {
     criterionIndex: number;
-    score: number;
-    feedback: string;
+    score?: number;
+    feedback?: string;
 }
 
 /** Optional teacher edit to apply on the grading page before publish. When present, workflow will apply edits then publish (for calibration / adaptive flow). */

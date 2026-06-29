@@ -372,9 +372,10 @@ export class PowerGraderGradingPage {
         await this.page.waitForTimeout(300);
     }*/
 
-    async setCriterionResultByIndex(criterionIndex: number, score: number, feedback: string): Promise<void> {
+    async setCriterionResultByIndex(criterionIndex: number, score?: number, feedback?: string): Promise<void> {
         const section = this.page.locator('div.overflow-visible.rounded-lg.shadow-sm').nth(criterionIndex);
 
+        if (score !== undefined) {
         // Always use custom score input — preset card clicks don't sync to custom input
         const customInput = section.locator('input[type="number"]').first();
         await expect(customInput).toBeVisible({ timeout: 10000 });
@@ -383,7 +384,9 @@ export class PowerGraderGradingPage {
         await customInput.press('Tab');
         await this.page.waitForTimeout(300);
         console.log(`[Grading Page] Score ${score} set via custom input for criterion index ${criterionIndex}`);
+        }
 
+        if (feedback !== undefined) {
         // Edit feedback via the pencil button
         const editBtn = section.getByLabel('Edit feedback').first();
         await expect(editBtn).toBeVisible({ timeout: 10000 });
@@ -399,6 +402,7 @@ export class PowerGraderGradingPage {
         const saveBtn = section.getByLabel('Save edits').first();
         await saveBtn.click();
         await this.page.waitForTimeout(300);
+        }
     }
 
     /**
@@ -454,16 +458,20 @@ export class PowerGraderGradingPage {
         for (const edit of edits) {
             const section = this.page.locator('div.overflow-visible.rounded-lg.shadow-sm').nth(edit.criterionIndex);
 
+            if (edit.score !== undefined) {
             // Custom Score input always reflects the current score
             const customInput = section.locator('input[type="number"]').first();
             await expect(customInput).toBeVisible({ timeout: 10000 });
             await expect(customInput).toHaveValue(String(edit.score), { timeout: 10000 });
             console.log(`[Grading Page] Verified score ${edit.score} for criterion ${edit.criterionIndex}`);
+            }
 
+            if (edit.feedback !== undefined) {
             // Verify feedback
             const feedbackLocator = section.locator('div.flex.min-h-28.flex-col.gap-2').first();
             await expect(feedbackLocator).toContainText(edit.feedback, { timeout: 10000 });
             console.log(`[Grading Page] Verified feedback for criterion ${edit.criterionIndex}`);
+            }
         }
     }
 

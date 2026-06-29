@@ -25,6 +25,14 @@ export class PowerGraderAssignmentDetailsPage {
         console.log(`[${label}] Post-publish: assignment details + View confirmed.`);
     }
 
+    /** Reopens the first student submission from assignment details (post-publish View button). */
+    async reopenFirstStudentSubmission(label: string): Promise<void> {
+        const viewButton = this.page.getByRole('button', { name: 'View' }).first();
+        await expect(viewButton).toBeVisible({ timeout: 30_000 });
+        console.log(`[${label}] Reopening first student submission...`);
+        await viewButton.click();
+    }
+
     async waitForLoad(): Promise<void> {
         await this.page.waitForLoadState('networkidle', { timeout: 30000 });
         await this.page.waitForTimeout(1000);

@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-06-24T13:25:14.180Z",
+  "snapshot": {
+    "totalScore": 10,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 4,
+        "feedback": "You included an introduction, body paragraphs, and a short conclusion, but your essay is mostly organized at the paragraph level and lacks clear, logical flow and transitions. Focus on connecting your main ideas more smoothly and using clear topic sentences or transitions to improve overall essay organization."
+      },
+      {
+        "name": "Content",
+        "score": 4,
+        "feedback": "Your response provides some detailed examples about living in Santiago, but does not identify a specific improvement or discuss its benefits and consequences for people your age as the prompt requests. To improve, focus on clearly proposing one change, explain why it matters, and use supporting examples to show its impact."
+      },
+      {
+        "name": "Accuracy",
+        "score": 2,
+        "feedback": "Frequent grammar, vocabulary, and spelling errors (such as incorrect verb forms, articles, and prepositions) make your writing hard to understand at times, but you show that you can write simple and some compound sentences—keep working on correct sentence structure and verb forms to improve accuracy."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

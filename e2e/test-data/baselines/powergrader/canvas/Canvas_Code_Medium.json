@@ -1,0 +1,39 @@
+{
+  "createdAt": "2026-06-24T14:33:16.294Z",
+  "snapshot": {
+    "totalScore": 12,
+    "criteria": [
+      {
+        "name": "Big O",
+        "score": 3,
+        "feedback": "Your solution efficiently solves the problem in O(N) time using a single loop and only a constant number of variables, achieving the optimal approach for both time and space complexity."
+      },
+      {
+        "name": "Validity",
+        "score": 2,
+        "feedback": "Your solution correctly handles all required cases—including empty input, single values, and all-negative lists—demonstrating robust and valid logic throughout."
+      },
+      {
+        "name": "Organization",
+        "score": 3,
+        "feedback": "Your function is excellently organized, with clearly separated blocks for edge cases, initialization, and the main DP loop, making your code easy to read and follow."
+      },
+      {
+        "name": "Comments",
+        "score": 2,
+        "feedback": "You included a clear comment for the edge case handling, but the main dynamic programming logic is left uncommented; adding comments to clarify your approach, especially around the key steps of your algorithm, would strengthen your submission and help achieve a higher score."
+      },
+      {
+        "name": "Documentation",
+        "score": 0,
+        "feedback": "Your submission does not include a function-level docstring, which is required for documentation credit. To improve, add a docstring under your function that explains its purpose, parameters, return value, and assumptions."
+      },
+      {
+        "name": "Naming",
+        "score": 2,
+        "feedback": "All functions and variables are named clearly and appropriately for this problem, making your logic easy to follow. Excellent use of descriptive and standard naming throughout!"
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

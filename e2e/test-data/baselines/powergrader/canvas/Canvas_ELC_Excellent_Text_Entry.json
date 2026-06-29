@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-06-24T13:57:10.616Z",
+  "snapshot": {
+    "totalScore": 21,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 7,
+        "feedback": "Your essay is well-organized with clear introduction, body, and conclusion, and strong transitions make your ideas very easy to follow—excellent work on structure and coherence!"
+      },
+      {
+        "name": "Content",
+        "score": 7,
+        "feedback": "Your essay is detailed and persuasive, providing strong examples, clearly explaining how your proposals benefit people your age, and thoroughly discussing both immediate and long-term effects; to improve, focus on developing just one key improvement in depth to match the prompt's instructions."
+      },
+      {
+        "name": "Accuracy",
+        "score": 7,
+        "feedback": "Your submission demonstrates advanced grammar, varied sentence structures, and strong control of tense, though minor spelling and word choice errors appear more than once; focus on polishing these small mistakes to reach the highest level of accuracy."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

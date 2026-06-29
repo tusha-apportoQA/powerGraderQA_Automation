@@ -298,7 +298,7 @@ n does not have leading zeros or 0x.`,
             rubric: CANVAS_EXISTING_RUBRICS[4]
         },
         {
-            title: 'Canvas XLSX submission',
+            title: 'Canvas XLSX No Rubric submission',
             description: 'Upload an Excel spreadsheet containing employee performance information with columns for Employee Name, Department, Performance Score, and Final Rating. The spreadsheet should include at least 5 employee records with logically correct scores and matching ratings. Organize the workbook clearly and ensure all information is complete, readable, and professionally structured for evaluation.',
             points: defaultPoints,
             submissionType: '.xlsx',
