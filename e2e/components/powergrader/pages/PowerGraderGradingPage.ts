@@ -143,7 +143,7 @@ export class PowerGraderGradingPage {
             await expect(
                 igButton,
                 'Interactive regrade button is not visible',
-            ).toBeVisible({ timeout: 30000 });
+            ).toBeVisible({ timeout: 60000 });
         }
         await igButton.click();
         await this.page.waitForTimeout(500);

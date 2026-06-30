@@ -298,29 +298,6 @@ export async function executeUniversalPGWorkflow(
         }
     }).toPass({ timeout: 600000, intervals: [15000] });
 
-    try {
-        AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:reached`);
-        await AllureHelper.step(C75529.split(':').slice(1).join(':'), async () => {
-            AllureHelper.label('testCaseId', C75529);
-            console.log(`[${uniqueTitle}] C75529: Checking due date label is visible on grading page`);
-            await gradingPage.expectDueDateVisible();
-            AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:passed`);
-        });
-    } catch (error) {
-        try {
-            await AllureHelper.attachScreenshot(
-                powerGraderPage,
-                'C75529 | PG | Due date visibility failure',
-            );
-        } catch (screenshotError) {
-            console.warn(
-                `[${uniqueTitle}] C75529: Could not attach failure screenshot:`,
-                screenshotError,
-            );
-        }
-        workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C75529 }));
-    }
-
     const assignmentKeyLower = assignmentKey.toLowerCase();
     const isCsvOrXlsxAssignment =
         assignmentKeyLower.includes('csv') || assignmentKeyLower.includes('xlsx');
@@ -535,6 +512,7 @@ export async function executeUniversalPGWorkflow(
     if (lmsTeacher) {
         if (assignmentKey.toLowerCase().includes('no rubric')) {
             console.log(`[${uniqueTitle}] Skipping LMS rubric verification - No Rubric assignment.`);
+            AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:not_reached`);
         } else if (!postPublishVerified) {
             console.log(
                 `[${uniqueTitle}] Skipping LMS verification as post-publish state was not verified.`,
@@ -633,6 +611,44 @@ export async function executeUniversalPGWorkflow(
             igFailures = await executeIgWorkflow(powerGraderPage);
         }
     });
+
+    try {
+        AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:reached`);
+        await AllureHelper.step(C75529.split(':').slice(1).join(':'), async () => {
+            AllureHelper.label('testCaseId', C75529);
+            const onGradingPage = await powerGraderPage
+                .getByRole('button', { name: 'Publish' })
+                .isVisible({ timeout: 5000 })
+                .catch(() => false);
+            if (onGradingPage) {
+                console.log(
+                    `[${uniqueTitle}] C75529: On grading page (Publish visible); checking due date.`,
+                );
+            } else {
+                console.log(
+                    `[${uniqueTitle}] C75529: Publish not visible; reopening first student submission...`,
+                );
+                await detailsPage.reopenFirstStudentSubmission(uniqueTitle);
+                await gradingPage.waitForLoad();
+            }
+            console.log(`[${uniqueTitle}] C75529: Checking due date label is visible on grading page`);
+            await gradingPage.expectDueDateVisible();
+            AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:passed`);
+        });
+    } catch (error) {
+        try {
+            await AllureHelper.attachScreenshot(
+                powerGraderPage,
+                'C75529 | PG | Due date visibility failure',
+            );
+        } catch (screenshotError) {
+            console.warn(
+                `[${uniqueTitle}] C75529: Could not attach failure screenshot:`,
+                screenshotError,
+            );
+        }
+        workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C75529 }));
+    }
 
     const combinedError = buildWorkflowFailureError([...workflowFailures, ...igFailures]);
     if (combinedError) {

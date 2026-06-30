@@ -13,7 +13,7 @@ export class D2LGradingPage {
     }
 
     async waitForLoad(): Promise<void> {
-        await this.page.waitForLoadState('domcontentloaded');
+        await this.page.waitForLoadState('networkidle', { timeout: 30_000 }).catch(() => {});
     }
 
     /**
@@ -33,7 +33,7 @@ export class D2LGradingPage {
     async expandRubricAndExpectExpanded(): Promise<void> {
         await expect(this.rubric, 'Expected d2l-rubric to be visible').toBeVisible({ timeout: 30000 });
         await this.rubric.click();
-        await this.page.waitForLoadState('domcontentloaded');
+        await this.page.waitForLoadState('networkidle', { timeout: 30_000 }).catch(() => {});
         // compact-expanded is set when the rubric is expanded (boolean attribute)
         await expect(
             this.rubric,

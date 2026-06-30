@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-06-26T14:15:45.249Z",
+  "snapshot": {
+    "totalScore": 5,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 2,
+        "feedback": "Your writing consists of three short, unconnected sentences, without paragraph organization or transitions, making it difficult to follow your ideas. To improve your essay structure and score, try organizing your thoughts into clear paragraphs and use transitions to connect them."
+      },
+      {
+        "name": "Content",
+        "score": 2,
+        "feedback": "Your response does not clearly state a specific improvement or give clear reasons and examples, and the meaning is very difficult to understand. In future responses, try to clearly introduce your idea for improving the city and provide specific reasons or examples showing how it would benefit people your age."
+      },
+      {
+        "name": "Accuracy",
+        "score": 1,
+        "feedback": "Your submission was extremely brief and contained many grammar, spelling, and word choice errors, making your ideas hard to understand. In the future, try to write more and focus on using complete, accurate sentences to express your ideas clearly."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}
