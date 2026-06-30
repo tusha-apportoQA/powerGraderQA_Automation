@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T16:54:37.338Z",
+  "generatedAt": "2026-06-22T15:54:00.717Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
   "totalCases": 10,
   "cases": [
@@ -11,10 +11,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3165\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3165\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "resultFile": "1711c7d9-757b-4588-b086-8ce749afa305-result.json",
           "status": "not_reached"
         }
       ]
@@ -27,10 +27,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3165\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3165\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "resultFile": "1711c7d9-757b-4588-b086-8ce749afa305-result.json",
           "status": "failed"
         }
       ]
@@ -38,34 +38,20 @@
     {
       "caseId": "C69039",
       "caseName": "POW: Teacher should be able to add pre-existing rubric",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
-          "status": "failed"
-        }
-      ]
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Canvas ELC Average pdf"
+      ],
+      "failedConfigs": []
     },
     {
       "caseId": "C69070",
       "caseName": "POW - Canvas student should be able to submit assignment",
-      "status": "not_reached",
-      "passedConfigs": [],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
-          "status": "not_reached"
-        }
-      ]
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Canvas ELC Average pdf"
+      ],
+      "failedConfigs": []
     },
     {
       "caseId": "C69074",
@@ -75,10 +61,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3165\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3165\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "resultFile": "1711c7d9-757b-4588-b086-8ce749afa305-result.json",
           "status": "failed"
         }
       ]
@@ -91,10 +77,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3165\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3165\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "resultFile": "1711c7d9-757b-4588-b086-8ce749afa305-result.json",
           "status": "not_reached"
         }
       ]
@@ -107,10 +93,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3165\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3165\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "resultFile": "1711c7d9-757b-4588-b086-8ce749afa305-result.json",
           "status": "failed"
         }
       ]
@@ -123,10 +109,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3165\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3165\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "resultFile": "1711c7d9-757b-4588-b086-8ce749afa305-result.json",
           "status": "failed"
         }
       ]
@@ -139,10 +125,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3165\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3165\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "resultFile": "1711c7d9-757b-4588-b086-8ce749afa305-result.json",
           "status": "not_reached"
         }
       ]
@@ -155,10 +141,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Average pdf",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true }) Expected: visible Timeout: 15000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 15000ms - waiting for locator('#enhanced-rubric-assignment-edit-mount-point').getByText('ELC Essay Rubric', { exact: true })",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3165\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3165\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Average pdf",
-          "resultFile": "2f808af8-e3f6-49f2-a12e-bf8a31ddf53a-result.json",
+          "resultFile": "1711c7d9-757b-4588-b086-8ce749afa305-result.json",
           "status": "failed"
         }
       ]
