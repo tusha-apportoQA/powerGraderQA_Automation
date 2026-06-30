@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-06-29T14:50:47.947Z",
+  "snapshot": {
+    "totalScore": 93,
+    "criteria": [
+      {
+        "name": "Completeness of Required Information",
+        "score": 25,
+        "feedback": "Your submission includes all required columns and each of the five employee records is fully populated with valid data, meeting all assignment requirements for completeness. Excellent attention to detail—no required information is missing."
+      },
+      {
+        "name": "Data Accuracy and Logical Consistency",
+        "score": 33,
+        "feedback": "You included all required records and most matched scores to ratings accurately, but there are logical inconsistencies—such as your highest score (90) receiving only an 'Average' rating. Make sure higher scores always have higher ratings to improve your results."
+      },
+      {
+        "name": "File Submission Requirements",
+        "score": 10,
+        "feedback": "Your Excel file was submitted in the correct format, opened without issues, and has an appropriate filename. Great job following the file submission requirements!"
+      },
+      {
+        "name": "Organization and Clarity",
+        "score": 15,
+        "feedback": "Your sheet is clearly organized with well-labeled columns and a logical structure, making it easy to find and understand all employee information. Excellent work on overall clarity and navigation."
+      },
+      {
+        "name": "Professionalism and Formatting",
+        "score": 10,
+        "feedback": "Your spreadsheet is well-organized and easy to read, with clear headers and consistent, professional formatting throughout, meeting all expectations for a polished presentation."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

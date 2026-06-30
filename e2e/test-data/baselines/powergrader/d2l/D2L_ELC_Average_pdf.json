@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-06-26T14:38:00.321Z",
+  "snapshot": {
+    "totalScore": 13,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 5,
+        "feedback": "Your essay is organized into multiple paragraphs with topic sentences and a clear introduction, but it would benefit from stronger transitions and more obvious connections between your ideas to create smoother overall flow."
+      },
+      {
+        "name": "Content",
+        "score": 5,
+        "feedback": "Your essay gives clear reasons and examples about why Santiago is appealing for young people, but to score higher, you need to propose a specific city improvement and discuss its immediate and long-term effects as the prompt requests."
+      },
+      {
+        "name": "Accuracy",
+        "score": 3,
+        "feedback": "Your writing is mostly understandable, but frequent errors in grammar, word choice, and verb tenses make your meaning unclear at times. Focusing on sentence structure, subject-verb agreement, and word forms will help you communicate more clearly."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

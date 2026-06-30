@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-06-29T14:33:01.253Z",
+  "snapshot": {
+    "totalScore": 2,
+    "criteria": [
+      {
+        "name": "Data Completeness",
+        "score": 0,
+        "feedback": "Your submission includes all required columns and product entries, with no missing or incomplete data. Excellent job meeting all data completeness requirements for this assignment."
+      },
+      {
+        "name": "Data Accuracy",
+        "score": 2,
+        "feedback": "Most of your calculations are correct, but there is a small error in the 'Keyboard' row where Total Revenue does not match Units Sold times Unit Price. Be sure to double-check each row for simple mistakes to improve accuracy."
+      },
+      {
+        "name": "Organization and Formatting",
+        "score": 0,
+        "feedback": "Your CSV is well-organized and easy to read, with clear headers and consistently formatted rows that follow all required structure guidelines. Excellent work on ensuring readability and organization for sales data evaluation."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

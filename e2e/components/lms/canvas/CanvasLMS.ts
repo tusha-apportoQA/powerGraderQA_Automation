@@ -123,6 +123,7 @@ export class CanvasLMS implements LmsTeacher {
         const canvasGradingPage = new CanvasGradingPage(speedGraderPage);
         await canvasGradingPage.waitForLoad();
         await canvasGradingPage.ensureSelectedStudent(studentName);
+        await canvasGradingPage.waitForLoad();
 
         const lmsSummary = await canvasGradingPage.getRubricSnapshot();
         console.log('[CanvasLMS] LMS GradingSummary (scraped):', lmsSummary);
@@ -218,25 +219,40 @@ export class CanvasLMS implements LmsTeacher {
         //const powergraderQALink = this.page.locator('id=powergrader-qa-link');
         //const powergraderQALink = this.page.getByRole('link', { name: /Powergrader QA/i });
         const powergraderQALink = this.page.getByRole('link', { name: /Apporto AI Suite QA/i });
-        
-        await powergraderQALink.waitFor({ state: 'visible', timeout: 30000 });
-        
-        const [newPage] = await Promise.all([
-            this.page.context().waitForEvent('page'),
-            powergraderQALink.click()
-        ]);
-        
-        await newPage.waitForLoadState('domcontentloaded');
-        try {
-            const yesBtn = newPage.getByRole('button', { name: 'Yes' });
-            await expect(yesBtn).toBeVisible({ timeout: 10000 });
-            await yesBtn.click();
-            await newPage.waitForLoadState('networkidle');
-            console.log('[D2LLMS] D2L permission modal dismissed.');
-        } catch {
-            // no modal, continue
+
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            await powergraderQALink.waitFor({ state: 'visible', timeout: 30000 });
+
+            const [newPage] = await Promise.all([
+                this.page.context().waitForEvent('page'),
+                powergraderQALink.click()
+            ]);
+
+            await newPage.waitForLoadState('domcontentloaded');
+            try {
+                const yesBtn = newPage.getByRole('button', { name: 'Yes' });
+                await expect(yesBtn).toBeVisible({ timeout: 10000 });
+                await yesBtn.click();
+                await newPage.waitForLoadState('networkidle', { timeout: 30_000 }).catch(() => {});
+                console.log('[D2LLMS] D2L permission modal dismissed.');
+            } catch {
+                // no modal, continue
+            }
+
+            await newPage.waitForLoadState('networkidle', { timeout: 30_000 }).catch(() => {});
+
+            if (await newPage.getByText('An internal server error has occurred').isVisible().catch(() => false)) {
+                await newPage.close();
+                if (attempt === 3) {
+                    throw new Error('PowerGrader launch failed: internal server error persisted after retries');
+                }
+                continue;
+            }
+
+            return newPage;
         }
-        return newPage;
+
+        throw new Error('PowerGrader launch failed after retries');
     }
 
     /**

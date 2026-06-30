@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-06-26T13:57:27.852Z",
+  "snapshot": {
+    "totalScore": 74,
+    "criteria": [
+      {
+        "name": "Accuracy and Logical Consistency of Data",
+        "score": 30,
+        "feedback": "Your submission includes complete data and several logically consistent score-rating pairs, but the high score (90) for Mike paired with an 'Average' rating is a major inconsistency; ensure all ratings accurately reflect their corresponding performance scores."
+      },
+      {
+        "name": "Adherence to Assignment Instructions and Requirements",
+        "score": 5,
+        "feedback": "Your submission fully meets all assignment requirements: it is in Excel format, contains all four required columns with correct headers, and includes at least five complete employee records. Well done for carefully following the instructions."
+      },
+      {
+        "name": "Correct Application of Formulas and Functions",
+        "score": 2,
+        "feedback": "You entered 'Final Rating' values manually instead of using formulas to calculate them from the Performance Score; for a higher score, use Excel functions like IF or VLOOKUP to automate these calculations."
+      },
+      {
+        "name": "Presentation and Readability",
+        "score": 12,
+        "feedback": "Your table is clear and organized, making the data easy to read, but adding professional formatting elements such as bold headers, borders, or shading would make it look more polished and help you achieve full credit."
+      },
+      {
+        "name": "Workbook Organization and Structure",
+        "score": 25,
+        "feedback": "Your workbook is well organized, with a clearly named sheet and all required data arranged logically for easy navigation and comprehension."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

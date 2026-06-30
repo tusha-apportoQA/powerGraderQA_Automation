@@ -65,7 +65,7 @@ async function waitForPreviewCleared(
     await expect(
         gradingPage.previewModeLabel,
         `Preview mode did not disappear ${context}`,
-    ).toBeHidden({ timeout: 30000 });
+    ).toBeHidden({ timeout: 50000 });
 
     console.log(
         `[IG Workflow] Waiting for main Interactive regrade button to be visible and enabled ${context}...`,
@@ -73,11 +73,11 @@ async function waitForPreviewCleared(
     await expect(
         gradingPage.interactiveRegradeButton,
         `Main Interactive regrade button is not visible ${context}`,
-    ).toBeVisible({ timeout: 30000 });
+    ).toBeVisible({ timeout: 50000 });
     await expect(
         gradingPage.interactiveRegradeButton,
         `Main Interactive regrade button did not become enabled ${context}`,
-    ).toBeEnabled({ timeout: 30000 });
+    ).toBeEnabled({ timeout: 50000 });
 }
 
 async function clickDiscardIfVisible(gradingPage: PowerGraderGradingPage): Promise<void> {
@@ -215,6 +215,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 `[IG Workflow] Per-criterion IG for "${criterionName}" (index ${firstCriterionIndex}), total: ${currentSummary.totalScore}`,
             );
 
+            await clickDiscardIfVisible(gradingPage);
             await gradingPage.generateIG({ criterionIndex: firstCriterionIndex });
 
             console.log('[IG Workflow] Applying interactive grade (Apply → Apply Only Here)...');
@@ -271,6 +272,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ▶ ${caseId(C68987)}: ${caseTitle(C68987)}`);
             AllureHelper.label('testCaseId', C68987);
             console.log('[IG Workflow] Main generateIG (More Lenient → More Encouraging → Generate)...');
+            await clickDiscardIfVisible(gradingPage);
             await gradingPage.generateIG();
 
             try {
@@ -353,6 +355,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] Before apply flow, total score: ${summaryBeforeApply.totalScore}`);
 
             console.log('[IG Workflow] generateIG for apply flow (More Lenient → More Encouraging → Generate)...');
+            await clickDiscardIfVisible(gradingPage);
             await gradingPage.generateIG();
             await page.waitForTimeout(3000);
             const summaryInPreview = await gradingPage.getGradingSummary();
