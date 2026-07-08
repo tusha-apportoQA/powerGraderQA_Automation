@@ -138,6 +138,19 @@ export interface CanvasAssignmentData {
     until?: string;
 }
 
+/** Per-assignment flags controlling optional PowerGrader workflow steps. */
+export interface PgWorkflowFeatures {
+  verifyLms: boolean;
+  iterativeRepublish: boolean;
+  igWorkflow: boolean;
+  onTimeVisibility: boolean;
+}
+
+export type OrchestrationAssignmentConfig =
+  | CanvasAssignmentConfig
+  | D2LAssignmentConfig
+  | MoodleAssignmentConfig;
+
 // Canvas-specific assignment config
 export interface CanvasAssignmentConfig {
   title: string;
@@ -152,6 +165,7 @@ export interface CanvasAssignmentConfig {
   submissionFile?: string;
   /** Optional pre-defined teacher edit (criterion index, score, feedback). When workflow runs with teacherEdit arg, uses this if present. */
   teacherEdits?: CriterionEditEntry[];
+  workflow: PgWorkflowFeatures;
 }
 
 // D2L-specific assignment config
@@ -166,6 +180,7 @@ export interface D2LAssignmentConfig {
   /** Path relative to e2e/test-data/submissions/files/ (e.g. "test-submission.pdf"). */
   submissionFile?: string;
   teacherEdits?: CriterionEditEntry[];
+  workflow: PgWorkflowFeatures;
 }
 
 // Moodle-specific assignment config
@@ -180,6 +195,7 @@ title: string;
   /** Path relative to e2e/test-data/submissions/files/ (e.g. "test-submission.pdf"). */
   submissionFile?: string;
   teacherEdits?: CriterionEditEntry[];
+  workflow: PgWorkflowFeatures;
 }
 
 // Legacy type for backward compatibility

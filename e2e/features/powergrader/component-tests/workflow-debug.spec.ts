@@ -60,7 +60,6 @@ test.describe(`Component Test: PG workflow debug @${DEBUG_LMS} @debug`, () => {
     throw new Error(`Invalid ASSIGNMENT_CONFIG_INDEX: ${ASSIGNMENT_CONFIG_INDEX}`);
   }
 
-  const baselineKey = assignmentConfig.title;
   const uniqueTitle = `${assignmentConfig.title} [${TITLE_SUFFIX}]`;
   const submissionType = assignmentConfig.submissionType;
 
@@ -133,10 +132,6 @@ test.describe(`Component Test: PG workflow debug @${DEBUG_LMS} @debug`, () => {
     await AllureHelper.step('Navigate to PowerGrader', async () => {
       const pg = await teacher.navigateToPowerGrader();
 
-      const teacherEdits = assignmentConfig.teacherEdits?.length
-        ? { criteria: assignmentConfig.teacherEdits }
-        : undefined;
-
       await AllureHelper.step('Run Grade & Publish Workflow', async () => {
         console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
 
@@ -145,11 +140,9 @@ test.describe(`Component Test: PG workflow debug @${DEBUG_LMS} @debug`, () => {
             pg,
             uniqueTitle,
             studentEmail,
-            baselineKey,
+            assignmentConfig,
             DEBUG_LMS,
-            teacherEdits,
             teacher,
-            submissionType,
           );
         });
 

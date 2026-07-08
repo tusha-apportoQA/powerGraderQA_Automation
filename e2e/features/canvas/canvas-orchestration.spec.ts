@@ -28,6 +28,7 @@ import {
   C78820,
   C78823,
 } from '../../test-data/testCaseIds';
+import { getCanvasConfig } from '../../config/canvas.config';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -238,12 +239,13 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
+          const commentMeta = { uniqueTitle, studentLabel: getCanvasConfig().credentials.studentUsername };
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
           } else {
             const filePath = getSubmissionFilePath(submissionFile);
             const text = submissionType === '.txt' ? getSubmissionText() : undefined;
-            await student.verifyFileTypeAndSubmit(submissionType, filePath, text);
+            await student.verifyFileTypeAndSubmit(submissionType, filePath, text, commentMeta);
           }
         });
         submitMs = Date.now() - submitStart;
@@ -258,25 +260,17 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
       await AllureHelper.step('Navigate to PowerGrader', async () => {
         const pg = await teacher.navigateToPowerGrader();
 
-        // 🎯 FIX: teacherEdits defined here so it is in scope for the workflow call
-        const teacherEdits = assignmentConfig.teacherEdits?.length
-          ? { criteria: assignmentConfig.teacherEdits }
-          : undefined;
-
         await AllureHelper.step('Run Grade & Publish Workflow', async () => {
           console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
           
           await runPGOrSkipOnTimeout(async () => {
-            //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
             await executeUniversalPGWorkflow(
               pg,
               uniqueTitle,
               studentEmail,
-              baselineKey,
+              assignmentConfig,
               'canvas',
-              teacherEdits,
               teacher,
-              submissionType,
             );
           });
           

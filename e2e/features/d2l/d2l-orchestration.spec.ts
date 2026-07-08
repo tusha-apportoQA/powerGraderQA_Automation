@@ -32,8 +32,6 @@ import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submis
 import { getD2LConfig } from '../../config/d2l.config';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
-import { TeacherEditConfig } from '../../types';
-
 /**
  * Poll until the student can open the assignment details page.
  * This prevents "race" failures where the assignment exists but hasn't appeared for the student yet.
@@ -210,11 +208,13 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
+          const { credentials } = getD2LConfig();
+          const commentMeta = { uniqueTitle, studentLabel: credentials.studentUsername };
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit(uniqueTitle, 'Text Entry', undefined, getSubmissionText());
           } else {
             const filePath = getSubmissionFilePath(submissionFile);
-            await student.verifyFileTypeAndSubmit(uniqueTitle, submissionType, filePath);
+            await student.verifyFileTypeAndSubmit(uniqueTitle, submissionType, filePath, undefined, commentMeta);
           }
         });
 
@@ -245,28 +245,15 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
         await AllureHelper.step('Run Grade & Publish Workflow', async () => {
           console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
 
-          // Define teacher edits from config
-          /*const teacherEdits = assignmentConfig.teacherEdits?.length
-            ? { criteria: assignmentConfig.teacherEdits }
-            : undefined;*/
-          const teacherEdits: TeacherEditConfig | undefined = assignmentConfig.teacherEdits?.length
-            ? { criteria: assignmentConfig.teacherEdits }
-            : undefined
-
-          // Use the timeout wrapper to ensure JSON is written even on hang
           await runPGOrSkipOnTimeout(async () => {
-            //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
             await executeUniversalPGWorkflow(
               pg,
               uniqueTitle,
               studentEmail,
-              baselineKey,
+              assignmentConfig,
               'd2l',
-              teacherEdits,
               teacher,
-              submissionType,
             );
-
           });
 
           console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);

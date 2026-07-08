@@ -371,12 +371,14 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
+          const { credentials } = getMoodleConfig();
+          const commentMeta = { uniqueTitle, studentLabel: credentials.studentUsername };
           await student.navigateToAssignmentDetails(uniqueTitle, courseName);
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
           } else {
             const filePath = getSubmissionFilePath(submissionFile);
-            await student.verifyFileTypeAndSubmit(submissionType, filePath);
+            await student.verifyFileTypeAndSubmit(submissionType, filePath, undefined, commentMeta);
           }
           AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:reached`);
         });
@@ -398,29 +400,19 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
 
       await AllureHelper.step('Navigate to PowerGrader', async () => {
         const pg = await teacher.navigateToPowerGrader();
-        
-        // 🎯 FIX: Added teacherEdits logic to match Canvas
-        const teacherEdits = assignmentConfig.teacherEdits?.length
-          ? { criteria: assignmentConfig.teacherEdits }
-          : undefined;
 
         await AllureHelper.step('Run Grade & Workflow', async () => {
           console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
 
           await runPGOrSkipOnTimeout(async () => {
-            // 🎯 FIX: Passed teacherEdits as the 5th argument
-           // await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey, teacherEdits);
-           // Insert "moodle" as the 5th argument
-          await executeUniversalPGWorkflow(
-            pg,
-            uniqueTitle,
-            studentEmail,
-            baselineKey,
-            'moodle',
-            teacherEdits,
-            teacher,
-            submissionType,
-          );
+            await executeUniversalPGWorkflow(
+              pg,
+              uniqueTitle,
+              studentEmail,
+              assignmentConfig,
+              'moodle',
+              teacher,
+            );
           });
 
           console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
