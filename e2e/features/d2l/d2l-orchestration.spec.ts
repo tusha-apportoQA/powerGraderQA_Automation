@@ -5,9 +5,13 @@ import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
 import {
+  C68955,
   C68956,
+  C68957,
   C68958,
+  C68959,
   C68960,
+  C68961,
   C68962,
   C68998,
   C68999,
@@ -16,17 +20,22 @@ import {
   C69036,
   C69038,
   C69039,
+  C69041,
   C69065,
   C69067,
   C69092,
   C69098,
   C69100,
+  C69138,
   C75511,
   C75529,
   C75645,
+  C76730,
   C78819,
   C78820,
   C78823,
+  C78835,
+  C78990,
 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getD2LConfig } from '../../config/d2l.config';
@@ -121,6 +130,14 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       if (assignmentConfig.rubric?.type === 'existing') {
         AllureHelper.label('testCaseId', C69039);
       }
+      if (
+        assignmentConfig.rubric &&
+        assignmentConfig.rubric.type !== 'no' &&
+        assignmentConfig.rubric.criteriaOrder?.length
+      ) {
+        AllureHelper.label('testCaseId', C69041);
+        AllureHelper.label('caseStatus', `${C69041.split(':')[0]}:not_reached`);
+      }
 
       const runStart = Date.now();
       const baselineKey = assignmentConfig.title; // stable across runs
@@ -147,6 +164,30 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
 
       AllureHelper.label('testCaseId', C75529);
       AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
+      AllureHelper.label('testCaseId', C78835);
+      AllureHelper.label('caseStatus', `${C78835.split(':')[0]}:not_reached`);
+      AllureHelper.label('testCaseId', C78990);
+      AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:not_reached`);
+      AllureHelper.label('testCaseId', C76730);
+      AllureHelper.label('caseStatus', `${C76730.split(':')[0]}:not_reached`);
+      if (assignmentConfig.workflow.lmsVerifySave) {
+        AllureHelper.label('testCaseId', C69138);
+        AllureHelper.label('caseStatus', `${C69138.split(':')[0]}:not_reached`);
+      }
+
+      if (submissionType === '.txt') {
+        AllureHelper.label('testCaseId', C68955);
+        AllureHelper.label('caseStatus', `${C68955.split(':')[0]}:not_reached`);
+      } else if (submissionType === '.pdf') {
+        AllureHelper.label('testCaseId', C68957);
+        AllureHelper.label('caseStatus', `${C68957.split(':')[0]}:not_reached`);
+      } else if (submissionType === '.docx') {
+        AllureHelper.label('testCaseId', C68959);
+        AllureHelper.label('caseStatus', `${C68959.split(':')[0]}:not_reached`);
+      } else if (submissionType === 'Text Entry') {
+        AllureHelper.label('testCaseId', C68961);
+        AllureHelper.label('caseStatus', `${C68961.split(':')[0]}:not_reached`);
+      }
 
       if (assignmentConfig.title.toLowerCase().includes('elc')) {
         if (submissionType === '.txt') {
@@ -233,6 +274,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       });
 
       await AllureHelper.step('Navigate to PowerGrader', async () => {
+        AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:reached`);
         const pg = await teacher.navigateToPowerGrader();
 
        /* await AllureHelper.step('Run Grade & Publish Workflow', async () => {

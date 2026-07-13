@@ -6,6 +6,7 @@ import {
     C68985,
     C68986,
     C68987,
+    C69025,
     C68990,
     C68989,
     C69008,
@@ -18,8 +19,8 @@ import {
     C75537,
     C78819,
 } from '../test-data/testCaseIds';
-import { GradingSummary } from '../types';
 import { AllureHelper } from './allureHelper';
+import { gradingSummariesMatch } from './grading-summary';
 import { createWorkflowFailure, WorkflowFailure } from './workflow-failures';
 
 function caseTitle(caseLabel: string): string {
@@ -28,24 +29,6 @@ function caseTitle(caseLabel: string): string {
 
 function caseId(caseLabel: string): string {
     return caseLabel.split(':')[0];
-}
-
-function gradingSummariesMatch(a: GradingSummary, b: GradingSummary): boolean {
-    return JSON.stringify(normalizeGradingSummary(a)) === JSON.stringify(normalizeGradingSummary(b));
-}
-
-function normalizeGradingSummary(summary: GradingSummary): GradingSummary {
-    return {
-        totalScore: summary.totalScore.trim(),
-        overallFeedback: (summary.overallFeedback ?? '').trim(),
-        criteria: [...summary.criteria]
-            .sort((left, right) => left.name.localeCompare(right.name))
-            .map((criterion) => ({
-                name: criterion.name.trim(),
-                points: criterion.points,
-                feedback: criterion.feedback.trim(),
-            })),
-    };
 }
 
 async function clickCancelIfVisible(page: Page): Promise<void> {
@@ -264,13 +247,15 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
     const summaryBeforeGenerate = await gradingPage.getGradingSummary();
     console.log(`[IG Workflow] Baseline total score: ${summaryBeforeGenerate.totalScore}`);
 
-    // C68986 / C68987 — non-blocking: preview persists after reload (navigation)
+    // C68986 / C68987 / C69025 — non-blocking: preview persists after reload (navigation)
     try {
         await AllureHelper.step(caseTitle(C68986), async () => {
             console.log(`[IG Workflow] ▶ ${caseId(C68986)}: ${caseTitle(C68986)}`);
             AllureHelper.label('testCaseId', C68986);
             console.log(`[IG Workflow] ▶ ${caseId(C68987)}: ${caseTitle(C68987)}`);
             AllureHelper.label('testCaseId', C68987);
+            console.log(`[IG Workflow] ▶ ${caseId(C69025)}: ${caseTitle(C69025)}`);
+            AllureHelper.label('testCaseId', C69025);
             console.log('[IG Workflow] Main generateIG (More Lenient → More Encouraging → Generate)...');
             await clickDiscardIfVisible(gradingPage);
             await gradingPage.generateIG();
@@ -308,10 +293,13 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ✅ ${caseId(C68986)} PASSED`);
             AllureHelper.label('caseStatus', `${caseId(C68987)}:passed`);
             console.log(`[IG Workflow] ✅ ${caseId(C68987)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(C69025)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(C69025)} PASSED`);
         });
     } catch (error) {
         failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C68986 }));
         failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C68987 }));
+        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69025 }));
     }
 
     // C68985 — non-blocking: discard restores original grades

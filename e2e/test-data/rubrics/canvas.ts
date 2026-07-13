@@ -28,7 +28,8 @@
         {
             type: 'existing',
             groupName: 'CS 202 (Course)',
-            rubricName: 'ELC Essay Rubric'
+            rubricName: 'ELC Essay Rubric',
+            criteriaOrder: ['Text Type', 'Content', 'Accuracy'],
         },
         {
             type: 'existing',

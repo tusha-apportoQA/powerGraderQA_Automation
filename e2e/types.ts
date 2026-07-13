@@ -18,6 +18,8 @@ export type ExistingRubricConfig = {
   type: 'existing';
   groupName: string;
   rubricName: string;
+  /** Optional expected criterion names in display order (PowerGrader QA). */
+  criteriaOrder?: string[];
 };
 
 export type NoRubricConfig = { type: 'no' };
@@ -38,8 +40,10 @@ export type RubricCriterion = {
 
 export type NewRubricConfig = {
   type: 'new';
-    title: string;
-    criteria: RubricCriterion[];
+  title: string;
+  criteria: RubricCriterion[];
+  /** Optional expected criterion names in display order (PowerGrader QA). */
+  criteriaOrder?: string[];
 };
 
 // D2L-specific rubric types
@@ -47,6 +51,8 @@ export type D2LExistingRubricConfig = {
   type: 'existing';
   groupName: string;
   rubricName: string;
+  /** Optional expected criterion names in display order (PowerGrader QA). */
+  criteriaOrder?: string[];
 };
 
 export type D2LNoRubricConfig = { type: 'no' };
@@ -81,12 +87,16 @@ export type D2LNewRubricConfig = {
   levels: D2LRubricLevel[];  // Fixed levels that apply to all criteria [{name, points}]
   criterion: D2LRubricCriterion[];  // Criteria with description and initialFeedback array
   overallLevels: D2LOverallLevel[];  // Overall levels for rubric scoring [{levelName, score}]
+  /** Optional expected criterion names in display order (PowerGrader QA). */
+  criteriaOrder?: string[];
 };
 
 // Moodle-specific rubric types
 export type MoodleExistingRubricConfig = {
   type: 'existing';
   rubricName: string;
+  /** Optional expected criterion names in display order (PowerGrader QA). */
+  criteriaOrder?: string[];
 };
 
 export type MoodleNoRubricConfig = { type: 'no' };
@@ -108,6 +118,8 @@ export type MoodleNewRubricConfig = {
   title: string;
   description?: string;
   criteria: MoodleRubricCriterion[];
+  /** Optional expected criterion names in display order (PowerGrader QA). */
+  criteriaOrder?: string[];
 };
 
 export type MoodleRubricConfig = MoodleExistingRubricConfig | MoodleNoRubricConfig | MoodleNewRubricConfig;
@@ -144,6 +156,8 @@ export interface PgWorkflowFeatures {
   iterativeRepublish: boolean;
   igWorkflow: boolean;
   onTimeVisibility: boolean;
+  /** After teacher edits, Save draft before publish; pass C69138 after first LMS verify. */
+  lmsVerifySave: boolean;
 }
 
 export type OrchestrationAssignmentConfig =

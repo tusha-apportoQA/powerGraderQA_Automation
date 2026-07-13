@@ -18,7 +18,8 @@ export const D2L_EXISTING_RUBRICS: D2LExistingRubricConfig[] = [
     {
         type: 'existing',
         groupName: 'Powergrader',
-        rubricName: 'ELC Essay Rubric'
+        rubricName: 'ELC Essay Rubric',
+        criteriaOrder: ['Text Type', 'Content', 'Accuracy'],
     },
     {
         type: 'existing',

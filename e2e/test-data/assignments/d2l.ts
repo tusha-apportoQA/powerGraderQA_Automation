@@ -74,7 +74,7 @@ Identify one improvement that would make your city a better place to live for pe
                         'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
                 },
             ],
-            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: true, onTimeVisibility: true },
+            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: true, onTimeVisibility: true, lmsVerifySave: true },
         },
         {
             title: 'D2L ELC Average pdf',
@@ -92,7 +92,7 @@ Identify one improvement that would make your city a better place to live for pe
                         'You provide details about what makes Santiago appealing for young people, but to raise your score, clearly recommend a specific improvement for the city and explain both its immediate and long-term consequences.',
                 },
             ],
-            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true },
+            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'D2L ELC Above Average txt',
@@ -110,7 +110,7 @@ Identify one improvement that would make your city a better place to live for pe
                         'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
                 },
             ],
-            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true },
+            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'D2L ELC Excellent Text Entry',
@@ -127,7 +127,7 @@ Identify one improvement that would make your city a better place to live for pe
                         'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
                 },
             ],
-            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true },
+            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'D2L CSV submission',
@@ -137,7 +137,7 @@ Identify one improvement that would make your city a better place to live for pe
             submissionFile: 'files/test_submission.csv',
             assignAccess,
             rubric: D2L_EXISTING_RUBRICS[1],
-            workflow: { verifyLms: true, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: true },
+            workflow: { verifyLms: true, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'D2L XLSX No Rubric submission',
@@ -147,7 +147,7 @@ Identify one improvement that would make your city a better place to live for pe
             submissionFile: 'files/test_submission.xlsx',
             assignAccess,
             rubric: { type: 'no' },
-            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: false },
+            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: false, lmsVerifySave: false },
         }
     ];
 }

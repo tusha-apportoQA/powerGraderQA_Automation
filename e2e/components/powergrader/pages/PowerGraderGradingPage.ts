@@ -8,6 +8,7 @@ export class PowerGraderGradingPage {
     applyButton: Locator;
     discardButton: Locator;
     previewModeLabel: Locator;
+    backButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -17,6 +18,7 @@ export class PowerGraderGradingPage {
         this.applyButton = page.getByRole('button', { name: 'Apply' });
         this.discardButton = page.getByRole('button', { name: 'Discard' });
         this.previewModeLabel = page.getByText('Preview mode', { exact: true });
+        this.backButton = page.getByTestId('grading-back-btn');
     }
 
     async waitForLoad(): Promise<void> {
@@ -73,6 +75,38 @@ export class PowerGraderGradingPage {
             timeout: 10000,
         });
         await expect(dueDateLabel, 'Due date label should resolve to a single element').toHaveCount(1);
+    }
+
+    async expectBackButtonVisible(): Promise<void> {
+        await expect(
+            this.backButton,
+            'Grading page Back button (grading-back-btn) is not visible',
+        ).toBeVisible({ timeout: 15000 });
+    }
+
+    /** Clicks Save draft and waits until the button is disabled (draft persisted). */
+    async clickSaveDraftAndWaitUntilDisabled(): Promise<void> {
+        const saveDraftButton = this.page.getByRole('button', { name: 'Save draft' });
+        await expect(saveDraftButton, 'Save draft button is not visible').toBeVisible({
+            timeout: 15000,
+        });
+        await expect(saveDraftButton, 'Save draft button should be enabled before save').toBeEnabled({
+            timeout: 15000,
+        });
+        console.log('[Grading Page] Clicking Save draft...');
+        await saveDraftButton.click();
+        await expect(
+            saveDraftButton,
+            'Save draft button did not become disabled after save',
+        ).toBeDisabled({ timeout: 60000 });
+        console.log('[Grading Page] Save draft confirmed (button disabled).');
+    }
+
+    /** Clicks Back and leaves the grading page for the assignment submissions/details list. */
+    async clickBackToSubmissionsList(): Promise<void> {
+        await this.expectBackButtonVisible();
+        console.log('[Grading Page] Clicking Back (grading-back-btn) to return to submissions list...');
+        await this.backButton.click();
     }
 
     async expectSubmissionFileDisplayed(): Promise<void> {
@@ -210,7 +244,7 @@ export class PowerGraderGradingPage {
     async getIndividualScore(): Promise<string> {
         // New UI: read from the selected card (border-blue-500) score div, fallback to custom input
         const selectedCard = this.page.locator('div.border-blue-500').first();
-        const scoreDiv = selectedCard.locator('div.relative.flex.h-7.w-7');
+        const scoreDiv = selectedCard.locator('div.relative.flex.h-7.min-w-7');
         if (await scoreDiv.count() > 0) {
             return (await scoreDiv.innerText()).trim();
         }
@@ -583,7 +617,7 @@ export class PowerGraderGradingPage {
 
             let score = 0;
             if (selectedCard) {
-                const scoreDiv = selectedCard.locator('div.relative.flex.h-7.w-7');
+                const scoreDiv = selectedCard.locator('div.relative.flex.h-7.min-w-7');
                 if (await scoreDiv.count() > 0) {
                     const scoreText = (await scoreDiv.innerText()).trim();
                     score = parseFloat(scoreText) || 0;
