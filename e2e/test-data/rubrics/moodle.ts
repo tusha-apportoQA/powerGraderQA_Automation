@@ -12,7 +12,8 @@ import type { MoodleExistingRubricConfig, MoodleNewRubricConfig } from '../../ty
 export const MOODLE_EXISTING_RUBRICS: MoodleExistingRubricConfig[] = [
     {
         type: 'existing',
-        rubricName: 'ELC Essay Rubric'
+        rubricName: 'ELC Essay Rubric',
+        criteriaOrder: ['Text Type', 'Content', 'Accuracy'],
     },
     {
         type: 'existing',

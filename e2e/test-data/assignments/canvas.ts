@@ -103,6 +103,7 @@ Identify one improvement that would make your city a better place to live for pe
                         'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
                 },
             ],
+            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: true, onTimeVisibility: true, lmsVerifySave: true },
         },
         {
             title: 'Canvas ELC Average pdf',
@@ -125,6 +126,7 @@ Identify one improvement that would make your city a better place to live for pe
                         'You provide details about what makes Santiago appealing for young people, but to raise your score, clearly recommend a specific improvement for the city and explain both its immediate and long-term consequences.',
                 },
             ],
+            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'Canvas ELC Above Average txt',
@@ -147,6 +149,7 @@ Identify one improvement that would make your city a better place to live for pe
                         'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
                 },
             ],
+            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'Canvas ELC Excellent Text Entry',
@@ -168,6 +171,7 @@ Identify one improvement that would make your city a better place to live for pe
                         'Your writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy.',
                 },
             ],
+            workflow: { verifyLms: true, iterativeRepublish: true, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         // Orchestration test configs
         {
@@ -219,7 +223,8 @@ assert nums == expectedNums;\`\`\``,
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: CANVAS_EXISTING_RUBRICS[0]
+            rubric: CANVAS_EXISTING_RUBRICS[0],
+            workflow: { verifyLms: true, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'Canvas Code Medium',
@@ -241,7 +246,8 @@ For your submission, create a python function which accepts a single list of int
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: CANVAS_EXISTING_RUBRICS[1]
+            rubric: CANVAS_EXISTING_RUBRICS[1],
+            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'Canvas Code Hard',
@@ -281,7 +287,8 @@ n does not have leading zeros or 0x.`,
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: CANVAS_EXISTING_RUBRICS[2]
+            rubric: CANVAS_EXISTING_RUBRICS[2],
+            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'Canvas CSV submission',
@@ -295,7 +302,8 @@ n does not have leading zeros or 0x.`,
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: CANVAS_EXISTING_RUBRICS[4]
+            rubric: CANVAS_EXISTING_RUBRICS[4],
+            workflow: { verifyLms: true, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         },
         {
             title: 'Canvas XLSX No Rubric submission',
@@ -309,7 +317,8 @@ n does not have leading zeros or 0x.`,
                 dueDate: dates.dueDate,
                 until: dates.until
             },
-            rubric: { type: 'no' }
+            rubric: { type: 'no' },
+            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: false, lmsVerifySave: false },
         }
     ];
 }

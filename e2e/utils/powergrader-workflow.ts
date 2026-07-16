@@ -5,14 +5,15 @@ import { PowerGraderGradingPage } from '../components/powergrader/pages/PowerGra
 import { AllureHelper } from './allureHelper';
 import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
 import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
-import { GradingSummary, LmsTeacher, TeacherEditConfig, CriterionEditEntry } from '../types'; // Preserved from merge
+import { GradingSummary, LmsTeacher, OrchestrationAssignmentConfig, CriterionEditEntry } from '../types'; // Preserved from merge
 import { executeIgWorkflow } from './ig-workflow';
+import { gradingSummariesMatch } from './grading-summary';
 import {
     buildWorkflowFailureError,
     createWorkflowFailure,
     WorkflowFailure,
 } from './workflow-failures';
-import { C68956, C68958, C68960, C68962, C68998, C68999, C69000, C69002, C69036, C69063, C69074, C69092, C69100, C75511, C75526, C75529, C75645, C78816, C78820, C78823 } from '../test-data/testCaseIds';
+import { C68955, C68956, C68957, C68958, C68959, C68960, C68961, C68962, C68998, C68999, C69000, C69002, C69036, C69041, C69063, C69074, C69092, C69100, C69138, C75511, C75526, C75529, C75645, C76730, C78816, C78820, C78823, C78835 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
 
@@ -29,6 +30,41 @@ function getIterativeRepublishCaseLabel(submissionType?: string): string | undef
         default:
             return undefined;
     }
+}
+
+function getStandardPublishCaseLabel(submissionType?: string): string | undefined {
+    switch (submissionType) {
+        case '.txt':
+            return C68955;
+        case '.pdf':
+            return C68957;
+        case '.docx':
+            return C68959;
+        case 'Text Entry':
+            return C68961;
+        default:
+            return undefined;
+    }
+}
+
+/** Ready grading page if Publish is visible; otherwise reopen first submission from details. */
+async function ensureOnGradingPage(
+    page: Page,
+    detailsPage: PowerGraderAssignmentDetailsPage,
+    gradingPage: PowerGraderGradingPage,
+    label: string,
+): Promise<void> {
+    const onGradingPage = await page
+        .getByRole('button', { name: 'Publish' })
+        .isVisible({ timeout: 5000 })
+        .catch(() => false);
+    if (onGradingPage) {
+        console.log(`[${label}] Already on grading page (Publish visible).`);
+        return;
+    }
+    console.log(`[${label}] Not on grading page; reopening first student submission...`);
+    await detailsPage.reopenFirstStudentSubmission(label);
+    await gradingPage.waitForLoad();
 }
 
 /**
@@ -96,13 +132,17 @@ export async function executeUniversalPGWorkflow(
     powerGraderPage: Page, 
     uniqueTitle: string, 
     studentEmail: string,
-    baselineKey: string,
+    assignmentConfig: OrchestrationAssignmentConfig,
     lms: string = "canvas",
-    teacherEdits?: TeacherEditConfig, // Preserved from merge
     lmsTeacher?: LmsTeacher,
-    submissionType?: string,
 ) {
-    const assignmentKey = uniqueTitle.replace(/\s*\[\d+\]\s*$/, "").trim();
+    const assignmentKey = assignmentConfig.title;
+    const { workflow } = assignmentConfig;
+    const submissionType = assignmentConfig.submissionType;
+    const isNoRubric = assignmentConfig.rubric?.type === 'no';
+    const teacherEdits = assignmentConfig.teacherEdits?.length
+        ? { criteria: assignmentConfig.teacherEdits }
+        : undefined;
 
     //const baselineData = loadBaseline(assignmentKey);
     //const baselineSnapshot = baselineData?.snapshot || null;
@@ -145,6 +185,10 @@ export async function executeUniversalPGWorkflow(
         await expect(
             powerGraderPage.getByRole('link', { name: 'View details' }).first(),
         ).toBeVisible({ timeout: 30_000 });
+
+        const coursePage = new PowerGraderCoursePage(powerGraderPage);
+        await coursePage.clickSyncNowIfAvailable(uniqueTitle);
+
         // Search for the assignment by title
        // const searchInput = powerGraderPage.locator('input[placeholder="Search titles..."]');
         const searchInput = powerGraderPage.locator('input[placeholder*="Search titles"]');
@@ -349,9 +393,9 @@ export async function executeUniversalPGWorkflow(
     // --- CASE 3: COMPARISON RUN ---
     if (baselineSnapshot) {
             const totalScoreDiff = Math.abs(baselineSnapshot.totalScore - currentSnapshot.totalScore);
-             // Skip SBERT for No Rubric tests - rubric regenerates each run so criterion names change
-            if (assignmentKey.toLowerCase().includes('no rubric')) {
-                console.log(`[${uniqueTitle}] Skipping SBERT comparison - No Rubric test, rubric regenerates each run.`);
+             // Skip SBERT for no-rubric assignments — rubric regenerates each run so criterion names change
+            if (isNoRubric) {
+                console.log(`[${uniqueTitle}] Skipping SBERT comparison - No Rubric assignment, rubric regenerates each run.`);
                 writeLatestRunJson({
                     uniqueTitle,
                     assignmentKey,
@@ -473,10 +517,56 @@ export async function executeUniversalPGWorkflow(
         });
     }
 
+    // C69041 — non-blocking: rubric criterion order matches config (when criteriaOrder is set)
+    const expectedCriteriaOrder =
+        assignmentConfig.rubric &&
+        assignmentConfig.rubric.type !== 'no' &&
+        assignmentConfig.rubric.criteriaOrder?.length
+            ? assignmentConfig.rubric.criteriaOrder
+            : undefined;
+    if (expectedCriteriaOrder) {
+        try {
+            AllureHelper.label('caseStatus', `${C69041.split(':')[0]}:reached`);
+            await AllureHelper.step(C69041.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', C69041);
+                const actualOrder = (gradingSummary.criteria ?? []).map(
+                    (c: { name: string }) => c.name.trim(),
+                );
+                console.log(
+                    `[${uniqueTitle}] C69041: Expected criteria order=[${expectedCriteriaOrder.join(', ')}]`,
+                );
+                console.log(
+                    `[${uniqueTitle}] C69041: Actual criteria order=[${actualOrder.join(', ')}]`,
+                );
+                expect(
+                    actualOrder,
+                    'Rubric criterion order in PowerGrader should match criteriaOrder from assignment config',
+                ).toEqual(expectedCriteriaOrder);
+                AllureHelper.label('caseStatus', `${C69041.split(':')[0]}:passed`);
+                console.log(`[${uniqueTitle}] C69041: Rubric criterion order matches expected.`);
+            });
+        } catch (error) {
+            workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C69041 }));
+        }
+    }
+
     // Apply Teacher Edits (Preserved from merge)
     if (teacherEdits?.criteria?.length) {
         console.log(`[${uniqueTitle}] Applying teacher edits...`);
         await gradingPage.applyTeacherEdits(teacherEdits.criteria);
+    }
+
+    if (workflow.lmsVerifySave) {
+        if (!teacherEdits?.criteria?.length) {
+            console.warn(
+                `[${uniqueTitle}] C69138: lmsVerifySave is true but no teacherEdits; skipping Save draft.`,
+            );
+        } else {
+            AllureHelper.label('caseStatus', `${C69138.split(':')[0]}:reached`);
+            console.log(`[${uniqueTitle}] C69138: Saving draft after teacher edits...`);
+            await gradingPage.clickSaveDraftAndWaitUntilDisabled();
+            console.log(`[${uniqueTitle}] C69138: Draft saved; continuing to publish + LMS verify.`);
+        }
     }
 
     const publishedGradingSummary = await gradingPage.getGradingSummary();
@@ -509,9 +599,83 @@ export async function executeUniversalPGWorkflow(
         );
     }
 
+    // Standard Grading & Publish — non-blocking: published scores persist after reopen
+    // (.txt / .pdf / .docx / Text Entry). Leaves PG on grading; later steps use ensureOnGradingPage.
+    const standardPublishCase = getStandardPublishCaseLabel(submissionType);
+    if (standardPublishCase) {
+        const standardCaseId = standardPublishCase.split(':')[0];
+        try {
+            AllureHelper.label('caseStatus', `${standardCaseId}:reached`);
+            await AllureHelper.step(standardPublishCase.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', standardPublishCase);
+                console.log(`[${uniqueTitle}] ${standardCaseId}: Verifying published scores after reopen...`);
+                await ensureOnGradingPage(powerGraderPage, detailsPage, gradingPage, uniqueTitle);
+                const reopenedSummary = await gradingPage.getGradingSummary();
+                console.log(
+                    `[${uniqueTitle}] ${standardCaseId}: Pre-publish total=${publishedGradingSummary.totalScore}; reopened total=${reopenedSummary.totalScore}`,
+                );
+                expect(
+                    gradingSummariesMatch(
+                        publishedGradingSummary as GradingSummary,
+                        reopenedSummary,
+                    ),
+                    'Published grading summary should match after reopening the first submission',
+                ).toBe(true);
+                AllureHelper.label('caseStatus', `${standardCaseId}:passed`);
+                console.log(`[${uniqueTitle}] ${standardCaseId}: Published scores match after reopen.`);
+            });
+        } catch (error) {
+            try {
+                await AllureHelper.attachScreenshot(
+                    powerGraderPage,
+                    `${standardCaseId} | PG | Standard publish score persistence failure`,
+                );
+            } catch (screenshotError) {
+                console.warn(
+                    `[${uniqueTitle}] ${standardCaseId}: Could not attach failure screenshot:`,
+                    screenshotError,
+                );
+            }
+            workflowFailures.push(
+                createWorkflowFailure(error, { tag: 'PG', caseLabel: standardPublishCase }),
+            );
+        }
+    }
+
+    // C78835 — non-blocking: Back returns to submissions/details list (restores details page before LMS/IG).
+    try {
+        AllureHelper.label('caseStatus', `${C78835.split(':')[0]}:reached`);
+        await AllureHelper.step(C78835.split(':').slice(1).join(':'), async () => {
+            AllureHelper.label('testCaseId', C78835);
+            console.log(`[${uniqueTitle}] C78835: Ensuring grading page, then verifying Back navigation...`);
+            await ensureOnGradingPage(powerGraderPage, detailsPage, gradingPage, uniqueTitle);
+            await gradingPage.clickBackToSubmissionsList();
+            const viewButton = powerGraderPage.getByRole('button', { name: 'View' }).first();
+            await expect(
+                viewButton,
+                'View button should be visible on assignment details after clicking Back',
+            ).toBeVisible({ timeout: 30000 });
+            AllureHelper.label('caseStatus', `${C78835.split(':')[0]}:passed`);
+            console.log(`[${uniqueTitle}] C78835: Back button returned to submissions list (View visible).`);
+        });
+    } catch (error) {
+        try {
+            await AllureHelper.attachScreenshot(
+                powerGraderPage,
+                'C78835 | PG | Grading Back button failure',
+            );
+        } catch (screenshotError) {
+            console.warn(
+                `[${uniqueTitle}] C78835: Could not attach failure screenshot:`,
+                screenshotError,
+            );
+        }
+        workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C78835 }));
+    }
+
     if (lmsTeacher) {
-        if (assignmentKey.toLowerCase().includes('no rubric')) {
-            console.log(`[${uniqueTitle}] Skipping LMS rubric verification - No Rubric assignment.`);
+        if (!workflow.verifyLms) {
+            console.log(`[${uniqueTitle}] Skipping LMS rubric verification - disabled in assignment workflow config.`);
             AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:not_reached`);
         } else if (!postPublishVerified) {
             console.log(
@@ -520,12 +684,23 @@ export async function executeUniversalPGWorkflow(
         } else {
             try {
                 await lmsTeacher.verifyLmsScore(uniqueTitle, publishedGradingSummary as GradingSummary);
+                if (workflow.lmsVerifySave) {
+                    AllureHelper.label('caseStatus', `${C69138.split(':')[0]}:passed`);
+                    console.log(
+                        `[${uniqueTitle}] C69138: LMS reflects saved/published teacher edits.`,
+                    );
+                }
             } catch (error) {
                 workflowFailures.push(
                     createWorkflowFailure(error, { tag: 'LMS', caseLabel: C69002 }),
                 );
+                if (workflow.lmsVerifySave) {
+                    workflowFailures.push(
+                        createWorkflowFailure(error, { tag: 'LMS', caseLabel: C69138 }),
+                    );
+                }
             }
-            const iterativeRepublishCase = assignmentKey.toLowerCase().includes('elc')
+            const iterativeRepublishCase = workflow.iterativeRepublish
                 ? getIterativeRepublishCaseLabel(submissionType)
                 : undefined;
             if (iterativeRepublishCase) {
@@ -534,8 +709,8 @@ export async function executeUniversalPGWorkflow(
                     AllureHelper.label('caseStatus', `${iterativeCaseId}:reached`);
                     try {
                         console.log(`[${uniqueTitle}] Starting iterative re-publish (${iterativeCaseId})...`);
-                        await detailsPage.reopenFirstStudentSubmission(uniqueTitle);
-                        await gradingPage.waitForLoad();
+                        // ensureOnGradingPage: after C78835 we are on details; after a failed Back we may still be on grading
+                        await ensureOnGradingPage(powerGraderPage, detailsPage, gradingPage, uniqueTitle);
                         const republishEdits: CriterionEditEntry[] = (publishedGradingSummary.criteria ?? []).map((_, index) => ({ criterionIndex: index, score: 0 }));
                         await gradingPage.applyTeacherEdits(republishEdits);
                         const republishGradingSummary = await gradingPage.getGradingSummary();
@@ -583,28 +758,22 @@ export async function executeUniversalPGWorkflow(
     let igFailures: WorkflowFailure[] = [];
 
     await AllureHelper.step('Interactive Grading workflow', async () => {
+        if (!workflow.igWorkflow) {
+            console.log(`[${uniqueTitle}] Skipping Interactive Grading workflow - disabled in assignment workflow config.`);
+            return;
+        }
+
         console.log(`[${uniqueTitle}] Starting Interactive Grading workflow...`);
         let igReady = false;
 
-        if (postPublishVerified) {
-            await detailsPage.reopenFirstStudentSubmission(uniqueTitle);
-            await gradingPage.waitForLoad();
+        try {
+            await ensureOnGradingPage(powerGraderPage, detailsPage, gradingPage, uniqueTitle);
             igReady = true;
-        } else {
-            const onSubmissionGradingPage = await powerGraderPage
-                .getByRole('button', { name: 'Publish' })
-                .isVisible({ timeout: 5000 })
-                .catch(() => false);
-            if (onSubmissionGradingPage) {
-                console.log(
-                    `[${uniqueTitle}] Still on submission grading page; running IG workflow directly.`,
-                );
-                igReady = true;
-            } else {
-                console.error(
-                    `[${uniqueTitle}] Cannot start IG workflow: post-publish redirect failed and Publish button is not visible.`,
-                );
-            }
+        } catch (error) {
+            console.error(
+                `[${uniqueTitle}] Cannot start IG workflow: could not reach grading page:`,
+                error instanceof Error ? error.message : String(error),
+            );
         }
 
         if (igReady) {
@@ -612,42 +781,56 @@ export async function executeUniversalPGWorkflow(
         }
     });
 
-    try {
-        AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:reached`);
-        await AllureHelper.step(C75529.split(':').slice(1).join(':'), async () => {
-            AllureHelper.label('testCaseId', C75529);
-            const onGradingPage = await powerGraderPage
-                .getByRole('button', { name: 'Publish' })
-                .isVisible({ timeout: 5000 })
-                .catch(() => false);
-            if (onGradingPage) {
-                console.log(
-                    `[${uniqueTitle}] C75529: On grading page (Publish visible); checking due date.`,
+    if (!workflow.onTimeVisibility) {
+        console.log(`[${uniqueTitle}] Skipping on time check - disabled in assignment workflow config.`);
+        AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
+    } else {
+        try {
+            AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:reached`);
+            await AllureHelper.step(C75529.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', C75529);
+                await ensureOnGradingPage(powerGraderPage, detailsPage, gradingPage, uniqueTitle);
+                console.log(`[${uniqueTitle}] C75529: Checking due date label is visible on grading page`);
+                await gradingPage.expectDueDateVisible();
+                AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:passed`);
+            });
+        } catch (error) {
+            try {
+                await AllureHelper.attachScreenshot(
+                    powerGraderPage,
+                    'C75529 | PG | Due date visibility failure',
                 );
-            } else {
-                console.log(
-                    `[${uniqueTitle}] C75529: Publish not visible; reopening first student submission...`,
+            } catch (screenshotError) {
+                console.warn(
+                    `[${uniqueTitle}] C75529: Could not attach failure screenshot:`,
+                    screenshotError,
                 );
-                await detailsPage.reopenFirstStudentSubmission(uniqueTitle);
-                await gradingPage.waitForLoad();
             }
-            console.log(`[${uniqueTitle}] C75529: Checking due date label is visible on grading page`);
-            await gradingPage.expectDueDateVisible();
-            AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:passed`);
+            workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C75529 }));
+        }
+    }
+
+    // C76730 — non-blocking: Logout from PowerGrader (any page)
+    try {
+        AllureHelper.label('caseStatus', `${C76730.split(':')[0]}:reached`);
+        await AllureHelper.step(C76730.split(':').slice(1).join(':'), async () => {
+            AllureHelper.label('testCaseId', C76730);
+            console.log(`[${uniqueTitle}] C76730: Clicking Logout...`);
+            const logoutControl = powerGraderPage.getByTitle('Logout');
+            await expect(logoutControl, 'Logout control is not visible').toBeVisible({
+                timeout: 15000,
+            });
+            await logoutControl.click();
+            console.log(`[${uniqueTitle}] C76730: Waiting for logout confirmation...`);
+            await expect(
+                powerGraderPage.getByText('You have been successfully logged out'),
+                'Logout success message is not visible',
+            ).toBeVisible({ timeout: 60000 });
+            AllureHelper.label('caseStatus', `${C76730.split(':')[0]}:passed`);
+            console.log(`[${uniqueTitle}] C76730: Logout confirmed.`);
         });
     } catch (error) {
-        try {
-            await AllureHelper.attachScreenshot(
-                powerGraderPage,
-                'C75529 | PG | Due date visibility failure',
-            );
-        } catch (screenshotError) {
-            console.warn(
-                `[${uniqueTitle}] C75529: Could not attach failure screenshot:`,
-                screenshotError,
-            );
-        }
-        workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C75529 }));
+        workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C76730 }));
     }
 
     const combinedError = buildWorkflowFailureError([...workflowFailures, ...igFailures]);

@@ -55,8 +55,8 @@ export class CanvasLMSStudent {
      * @param submissionType - Expected submission type from assignment config
      * @param filePath - Path to file (required for file types)
      * @param text - Text content (required for Text Entry)
-     * @param submissionCommentMeta - Optional; used by Canvas verify-LMS spec only. When set, fills
-     *   "Comments..." with `submission for {uniqueTitle} by {studentLabel}`.
+     * @param submissionCommentMeta - Optional; when set, fills
+     *   "Comments..." with `submission for {uniqueTitle} by {studentLabel}` (non-blocking).
      */
     async verifyFileTypeAndSubmit(
         submissionType: FormatType,

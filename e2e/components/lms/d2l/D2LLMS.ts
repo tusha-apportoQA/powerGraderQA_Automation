@@ -8,7 +8,7 @@ import { D2LGradingPage } from './pages/D2LGradingPage';
 import { D2LAssignmentConfig, GradingSummary, LmsTeacher } from '../../../types';
 import { getD2LConfig } from '../../../config/d2l.config';
 import { expect } from '@playwright/test';
-import { C69002, C69065, C69067 } from '../../../test-data/testCaseIds';
+import { C69002, C69065, C69067, C78990 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
 
@@ -231,6 +231,12 @@ export class D2LLMS implements LmsTeacher {
         } catch {
             // no modal, continue
         }
+        await expect(
+            pgPage.getByTestId('assignments-filters-search-input'),
+            'PowerGrader QA launch failed: assignments search input not visible',
+        ).toBeVisible({ timeout: 120_000 });
+        AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:passed`);
+        console.log('[D2LLMS] C78990: PowerGrader QA instance launched (assignments search visible).');
         // Return the NEW page object
         return pgPage; 
     }

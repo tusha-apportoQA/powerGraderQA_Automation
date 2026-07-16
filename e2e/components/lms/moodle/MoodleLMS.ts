@@ -8,7 +8,7 @@ import { MoodleGradingPage } from './pages/MoodleGradingPage';
 import { GradingSummary, LmsTeacher, MoodleAssignmentConfig } from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { getMoodleConfig } from '../../../config/moodle.config';
-import { C69002 } from '../../../test-data/testCaseIds';
+import { C69002, C78990 } from '../../../test-data/testCaseIds';
 import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
@@ -146,6 +146,12 @@ export class MoodleLMS implements LmsTeacher {
         ]);
 
         await newPage.waitForLoadState('domcontentloaded');
+        await expect(
+            newPage.getByTestId('assignments-filters-search-input'),
+            'PowerGrader QA launch failed: assignments search input not visible',
+        ).toBeVisible({ timeout: 120_000 });
+        AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:passed`);
+        console.log('[MoodleLMS] C78990: PowerGrader QA instance launched (assignments search visible).');
         return newPage;
     }
 

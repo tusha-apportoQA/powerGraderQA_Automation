@@ -53,6 +53,29 @@ export class PowerGraderCoursePage {
         await this.waitForLoad();
     }
 
+    /** Non-blocking: clicks "Sync now" when visible and enabled; skips on cooldown or failure. */
+    async clickSyncNowIfAvailable(label = 'Course Page'): Promise<void> {
+        try {
+            const syncNowBtn = this.page.getByRole('button', { name: 'Sync now' });
+            const syncNowVisible = await syncNowBtn.isVisible({ timeout: 5000 });
+            const syncNowEnabled = syncNowVisible && await syncNowBtn.isEnabled();
+            if (syncNowVisible && syncNowEnabled) {
+                console.log(`[${label}] "Sync now" is visible and enabled. Triggering immediate LMS sync...`);
+                await syncNowBtn.click();
+                console.log(`[${label}] "Sync now" clicked.`);
+            } else {
+                console.log(
+                    `[${label}] "Sync now" skipped (visible: ${syncNowVisible}, enabled: ${syncNowEnabled}). Continuing with normal sync polling...`,
+                );
+            }
+        } catch (error) {
+            console.log(
+                `[${label}] "Sync now" step failed (non-blocking):`,
+                error instanceof Error ? error.message : String(error),
+            );
+        }
+    }
+
     /**
      * Rows whose first `td` contains a base title: if progress parses and is `> 0` → delete list; else → pool.
      * After all bases, the pool is sorted by timestamp (from title, else 0); newest `KEEP_LATEST_IN_POOL` stay,

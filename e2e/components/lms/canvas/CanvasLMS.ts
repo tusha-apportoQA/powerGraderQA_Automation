@@ -8,7 +8,7 @@ import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage
 import { CanvasGradingPage } from './pages/CanvasGradingPage';
 import { AssignmentConfig, GradingSummary, LmsTeacher } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
-import { C69002, C69070 } from '../../../test-data/testCaseIds';
+import { C69002, C69070, C78990 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
 
@@ -249,6 +249,12 @@ export class CanvasLMS implements LmsTeacher {
                 continue;
             }
 
+            await expect(
+                newPage.getByTestId('assignments-filters-search-input'),
+                'PowerGrader QA launch failed: assignments search input not visible',
+            ).toBeVisible({ timeout: 120_000 });
+            AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:passed`);
+            console.log('[CanvasLMS] C78990: PowerGrader QA instance launched (assignments search visible).');
             return newPage;
         }
 
