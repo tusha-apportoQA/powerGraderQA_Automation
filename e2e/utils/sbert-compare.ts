@@ -27,6 +27,19 @@ export type CompareResult = {
   };
 };
 
+export type CriterionNameSimilarity = {
+  firstName: string;
+  secondName: string;
+  similarity: number;
+};
+
+export type CriterionNameUniquenessResult = {
+  isUnique: boolean;
+  threshold: number;
+  comparisons: CriterionNameSimilarity[];
+  duplicates: CriterionNameSimilarity[];
+};
+
 let extractorPromise: ReturnType<typeof pipeline> | null = null;
 
 /*async function getExtractor() {
@@ -120,6 +133,45 @@ async function similarityText(a?: string, b?: string): Promise<number | undefine
 
   const [ea, eb] = await Promise.all([embed(ta), embed(tb)]);
   return cosineSimilarity(ea, eb);
+}
+
+/**
+ * Compares every pair of criterion names and reports pairs whose semantic
+ * similarity meets or exceeds the duplicate threshold.
+ */
+export async function compareCriterionNameUniqueness(
+  names: string[],
+  threshold = 0.8
+): Promise<CriterionNameUniquenessResult> {
+  if (threshold < 0 || threshold > 1) {
+    throw new Error(`Criterion name similarity threshold must be between 0 and 1; received ${threshold}.`);
+  }
+
+  const trimmedNames = names.map(name => name.trim());
+  if (trimmedNames.some(name => !name)) {
+    throw new Error('Generated criterion names must not be empty.');
+  }
+
+  const embeddings = await Promise.all(trimmedNames.map(name => embed(name)));
+  const comparisons: CriterionNameSimilarity[] = [];
+
+  for (let firstIndex = 0; firstIndex < trimmedNames.length; firstIndex += 1) {
+    for (let secondIndex = firstIndex + 1; secondIndex < trimmedNames.length; secondIndex += 1) {
+      comparisons.push({
+        firstName: trimmedNames[firstIndex],
+        secondName: trimmedNames[secondIndex],
+        similarity: cosineSimilarity(embeddings[firstIndex], embeddings[secondIndex]),
+      });
+    }
+  }
+
+  const duplicates = comparisons.filter(({ similarity }) => similarity >= threshold);
+  return {
+    isUnique: duplicates.length === 0,
+    threshold,
+    comparisons,
+    duplicates,
+  };
 }
 
 export async function compareRubricSnapshots(
