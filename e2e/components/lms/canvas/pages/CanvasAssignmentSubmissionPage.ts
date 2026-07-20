@@ -399,7 +399,8 @@ export class CanvasAssignmentSubmissionPage {
             case '.txt':
             case '.py':
             case '.csv':
-            case '.xlsx': {
+            case '.xlsx':
+            case 'file': {
                 if (!filePath) throw new Error(`File path required for ${submissionType}`);
                 await this.uploadFile(filePath);
                 break;

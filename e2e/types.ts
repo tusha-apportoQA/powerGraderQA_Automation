@@ -9,6 +9,7 @@ export type FormatType =
   | '.py'
   | '.csv'
   | '.xlsx'
+  | 'file'
   | 'Text Entry';
 
 export type RubricType = 'existing' | 'new' | 'no';
@@ -158,6 +159,8 @@ export interface PgWorkflowFeatures {
   onTimeVisibility: boolean;
   /** After teacher edits, Save draft before publish; pass C69138 after first LMS verify. */
   lmsVerifySave: boolean;
+  /** Kill switch: skip normal grading workflow; verify invalid document types cannot be graded (C75466). */
+  invalidSubmission?: boolean;
 }
 
 export type OrchestrationAssignmentConfig =

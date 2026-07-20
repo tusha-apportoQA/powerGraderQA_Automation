@@ -4,7 +4,11 @@ import { PowerGraderAssignmentDetailsPage } from '../components/powergrader/page
 import { PowerGraderGradingPage } from '../components/powergrader/pages/PowerGraderGradingPage';
 import { AllureHelper } from './allureHelper';
 import { baselineExists, createBaseline, loadBaseline } from '../utils/powergrader-baseline';
-import { compareRubricSnapshots, normCriterionName } from '../utils/sbert-compare';
+import {
+    compareCriterionNameUniqueness,
+    compareRubricSnapshots,
+    normCriterionName,
+} from '../utils/sbert-compare';
 import { GradingSummary, LmsTeacher, OrchestrationAssignmentConfig, CriterionEditEntry } from '../types'; // Preserved from merge
 import { executeIgWorkflow } from './ig-workflow';
 import { gradingSummariesMatch } from './grading-summary';
@@ -13,7 +17,7 @@ import {
     createWorkflowFailure,
     WorkflowFailure,
 } from './workflow-failures';
-import { C68955, C68956, C68957, C68958, C68959, C68960, C68961, C68962, C68998, C68999, C69000, C69002, C69036, C69041, C69063, C69074, C69092, C69100, C69138, C75511, C75526, C75529, C75645, C76730, C78816, C78820, C78823, C78835 } from '../test-data/testCaseIds';
+import { C68955, C68956, C68957, C68958, C68959, C68960, C68961, C68962, C68998, C68999, C69000, C69002, C69036, C69041, C69063, C69074, C69092, C69100, C69138, C69209, C75466, C75511, C75526, C75529, C75645, C75673, C76730, C78816, C78820, C78823, C78835 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
 
@@ -44,6 +48,50 @@ function getStandardPublishCaseLabel(submissionType?: string): string | undefine
             return C68961;
         default:
             return undefined;
+    }
+}
+
+async function executeInvalidSubmissionWorkflow(
+    powerGraderPage: Page,
+    uniqueTitle: string,
+): Promise<void> {
+    const workflowFailures: WorkflowFailure[] = [];
+
+    try {
+        await AllureHelper.step(C75466.split(':').slice(1).join(':'), async () => {
+            AllureHelper.label('testCaseId', C75466);
+            AllureHelper.label('caseStatus', `${C75466.split(':')[0]}:reached`);
+            console.log(`[${uniqueTitle}] C75466: Waiting for invalid submission grading block...`);
+
+            await expect(async () => {
+                console.log(`[${uniqueTitle}] C75466: Checking for "Cannot be graded" button...`);
+                await powerGraderPage.reload({ waitUntil: 'domcontentloaded', timeout: 60_000 });
+
+                const cannotBeGradedBtn = powerGraderPage.getByRole('button', { name: 'Cannot be graded' });
+                if (!(await cannotBeGradedBtn.isVisible({ timeout: 2000 }).catch(() => false))) {
+                    throw new Error('Waiting for "Cannot be graded" button...');
+                }
+            }).toPass({ timeout: 10 * 60 * 1000, intervals: [30000] });
+
+            console.log(`[${uniqueTitle}] C75466: "Cannot be graded" visible — clicking and verifying modal.`);
+            await powerGraderPage.getByRole('button', { name: 'Cannot be graded' }).click();
+
+            const allowGradingBtn = powerGraderPage.getByRole('button', { name: 'Allow Grading' });
+            await expect(
+                allowGradingBtn,
+                '"Allow Grading" button should be visible after clicking "Cannot be graded"',
+            ).toBeVisible({ timeout: 10000 });
+            await expect(
+                allowGradingBtn,
+                '"Allow Grading" button should be disabled for invalid document types',
+            ).toBeDisabled();
+
+            AllureHelper.label('caseStatus', `${C75466.split(':')[0]}:passed`);
+            console.log(`[${uniqueTitle}] C75466: Invalid submission modal verified.`);
+        });
+    } catch (error) {
+        workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C75466 }));
+        throw buildWorkflowFailureError(workflowFailures);
     }
 }
 
@@ -216,6 +264,13 @@ export async function executeUniversalPGWorkflow(
             throw new Error(`[${uniqueTitle}] Syncing... assignment row not visible yet.`);
         }
     }).toPass({ timeout: 1200000, intervals: [INTERVAL] });
+
+    if (workflow.invalidSubmission) {
+        await executeInvalidSubmissionWorkflow(powerGraderPage, uniqueTitle);
+        const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(2);
+        console.log(`✅ [FINISH] Invalid submission workflow successful after ${duration} minutes.`);
+        return;
+    }
 
     const gradeStart = Date.now();
 
@@ -517,6 +572,43 @@ export async function executeUniversalPGWorkflow(
         });
     }
 
+    // No-rubric assignments: generated criterion names must describe distinct concepts.
+    if (isNoRubric) {
+        const criterionNameSimilarityThreshold = 0.8;
+        try {
+            AllureHelper.label('caseStatus', `${C69209.split(':')[0]}:reached`);
+            await AllureHelper.step(C69209.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', C69209);
+                const criterionNames = (gradingSummary?.criteria ?? []).map(
+                    (criterion: { name?: string }) => criterion.name ?? '',
+                );
+                const uniqueness = await compareCriterionNameUniqueness(
+                    criterionNames,
+                    criterionNameSimilarityThreshold,
+                );
+
+                const duplicateDetails = uniqueness.duplicates
+                    .map(
+                        ({ firstName, secondName, similarity }) =>
+                            `"${firstName}" / "${secondName}" (${similarity.toFixed(3)})`,
+                    )
+                    .join(', ');
+
+                expect(
+                    uniqueness.isUnique,
+                    `Generated criterion names must be semantically unique. Duplicate pairs at cosine similarity >= ${criterionNameSimilarityThreshold}: ${duplicateDetails}`,
+                ).toBe(true);
+
+                AllureHelper.label('caseStatus', `${C69209.split(':')[0]}:passed`);
+                console.log(
+                    `[${uniqueTitle}] C69209: Generated criterion names are semantically unique (all pairwise similarities < ${criterionNameSimilarityThreshold}).`,
+                );
+            });
+        } catch (error) {
+            workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C69209 }));
+        }
+    }
+
     // C69041 — non-blocking: rubric criterion order matches config (when criteriaOrder is set)
     const expectedCriteriaOrder =
         assignmentConfig.rubric &&
@@ -596,6 +688,23 @@ export async function executeUniversalPGWorkflow(
         console.error(
             `[${uniqueTitle}] Post-publish redirect was not confirmed:`,
             error instanceof Error ? error.message : String(error),
+        );
+    }
+
+    if (isNoRubric && postPublishVerified) {
+        try {
+            AllureHelper.label('caseStatus', `${C75673.split(':')[0]}:reached`);
+            await AllureHelper.step(C75673.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', C75673);
+                await detailsPage.editAiRubricAndVerifyPersistence();
+                AllureHelper.label('caseStatus', `${C75673.split(':')[0]}:passed`);
+            });
+        } catch (error) {
+            workflowFailures.push(createWorkflowFailure(error, { tag: 'PG', caseLabel: C75673 }));
+        }
+    } else if (isNoRubric) {
+        console.log(
+            `[${uniqueTitle}] C75673: Skipped because post-publish assignment details were not verified.`,
         );
     }
 

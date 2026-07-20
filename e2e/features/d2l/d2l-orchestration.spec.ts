@@ -27,9 +27,12 @@ import {
   C69098,
   C69100,
   C69138,
+  C69209,
+  C75466,
   C75511,
   C75529,
   C75645,
+  C75673,
   C76730,
   C78819,
   C78820,
@@ -99,8 +102,13 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       test.setTimeout(1_800_000);
       AllureHelper.label('lms', 'd2l');
       AllureHelper.label('caseConfig', `d2l|orchestration|${assignmentConfig.title}`);
-      AllureHelper.label('testCaseId', C69100);
-      AllureHelper.label('testCaseId', C78823);
+
+      const isInvalidSubmission = !!assignmentConfig.workflow.invalidSubmission;
+
+      if (!isInvalidSubmission) {
+        AllureHelper.label('testCaseId', C69100);
+        AllureHelper.label('testCaseId', C78823);
+      }
       if (assignmentConfig.submissionType === 'Text Entry') {
         AllureHelper.label('testCaseId', C69092);
       }
@@ -120,7 +128,15 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
         AllureHelper.label('testCaseId', C69036);
         AllureHelper.label('testCaseId', C68998);
         AllureHelper.label('testCaseId', C69000);
-      } else {
+        AllureHelper.label('testCaseId', C69209);
+        if (!isInvalidSubmission) {
+          AllureHelper.label('caseStatus', `${C69209.split(':')[0]}:not_reached`);
+        }
+        AllureHelper.label('testCaseId', C75673);
+        if (!isInvalidSubmission) {
+          AllureHelper.label('caseStatus', `${C75673.split(':')[0]}:not_reached`);
+        }
+      } else if (!isInvalidSubmission) {
         AllureHelper.label('testCaseId', C68999);
         AllureHelper.label('caseStatus', `${C68999.split(':')[0]}:not_reached`);
       }
@@ -131,12 +147,17 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
         AllureHelper.label('testCaseId', C69039);
       }
       if (
+        !isInvalidSubmission &&
         assignmentConfig.rubric &&
         assignmentConfig.rubric.type !== 'no' &&
         assignmentConfig.rubric.criteriaOrder?.length
       ) {
         AllureHelper.label('testCaseId', C69041);
         AllureHelper.label('caseStatus', `${C69041.split(':')[0]}:not_reached`);
+      }
+      if (isInvalidSubmission) {
+        AllureHelper.label('testCaseId', C75466);
+        AllureHelper.label('caseStatus', `${C75466.split(':')[0]}:not_reached`);
       }
 
       const runStart = Date.now();
@@ -152,7 +173,9 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
       // LMS verify runs inside workflow (teacher); same Allure case IDs as verifyLmsScoreTest
       AllureHelper.label('testCaseId', C69065);
       AllureHelper.label('caseStatus', `${C69065.split(':')[0]}:not_reached`);
-      AllureHelper.label('testCaseId', C69002);
+      if (!isInvalidSubmission) {
+        AllureHelper.label('testCaseId', C69002);
+      }
       if (submissionType && submissionType !== 'Text Entry') {
         AllureHelper.label('testCaseId', C69098);
         AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
@@ -162,46 +185,50 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
         AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:not_reached`);
       }
 
-      AllureHelper.label('testCaseId', C75529);
-      AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
-      AllureHelper.label('testCaseId', C78835);
-      AllureHelper.label('caseStatus', `${C78835.split(':')[0]}:not_reached`);
+      if (!isInvalidSubmission) {
+        AllureHelper.label('testCaseId', C75529);
+        AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
+        AllureHelper.label('testCaseId', C78835);
+        AllureHelper.label('caseStatus', `${C78835.split(':')[0]}:not_reached`);
+      }
       AllureHelper.label('testCaseId', C78990);
       AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:not_reached`);
-      AllureHelper.label('testCaseId', C76730);
-      AllureHelper.label('caseStatus', `${C76730.split(':')[0]}:not_reached`);
-      if (assignmentConfig.workflow.lmsVerifySave) {
-        AllureHelper.label('testCaseId', C69138);
-        AllureHelper.label('caseStatus', `${C69138.split(':')[0]}:not_reached`);
-      }
+      if (!isInvalidSubmission) {
+        AllureHelper.label('testCaseId', C76730);
+        AllureHelper.label('caseStatus', `${C76730.split(':')[0]}:not_reached`);
+        if (assignmentConfig.workflow.lmsVerifySave) {
+          AllureHelper.label('testCaseId', C69138);
+          AllureHelper.label('caseStatus', `${C69138.split(':')[0]}:not_reached`);
+        }
 
-      if (submissionType === '.txt') {
-        AllureHelper.label('testCaseId', C68955);
-        AllureHelper.label('caseStatus', `${C68955.split(':')[0]}:not_reached`);
-      } else if (submissionType === '.pdf') {
-        AllureHelper.label('testCaseId', C68957);
-        AllureHelper.label('caseStatus', `${C68957.split(':')[0]}:not_reached`);
-      } else if (submissionType === '.docx') {
-        AllureHelper.label('testCaseId', C68959);
-        AllureHelper.label('caseStatus', `${C68959.split(':')[0]}:not_reached`);
-      } else if (submissionType === 'Text Entry') {
-        AllureHelper.label('testCaseId', C68961);
-        AllureHelper.label('caseStatus', `${C68961.split(':')[0]}:not_reached`);
-      }
-
-      if (assignmentConfig.title.toLowerCase().includes('elc')) {
         if (submissionType === '.txt') {
-          AllureHelper.label('testCaseId', C68956);
-          AllureHelper.label('caseStatus', `${C68956.split(':')[0]}:not_reached`);
+          AllureHelper.label('testCaseId', C68955);
+          AllureHelper.label('caseStatus', `${C68955.split(':')[0]}:not_reached`);
         } else if (submissionType === '.pdf') {
-          AllureHelper.label('testCaseId', C68958);
-          AllureHelper.label('caseStatus', `${C68958.split(':')[0]}:not_reached`);
+          AllureHelper.label('testCaseId', C68957);
+          AllureHelper.label('caseStatus', `${C68957.split(':')[0]}:not_reached`);
         } else if (submissionType === '.docx') {
-          AllureHelper.label('testCaseId', C68960);
-          AllureHelper.label('caseStatus', `${C68960.split(':')[0]}:not_reached`);
+          AllureHelper.label('testCaseId', C68959);
+          AllureHelper.label('caseStatus', `${C68959.split(':')[0]}:not_reached`);
         } else if (submissionType === 'Text Entry') {
-          AllureHelper.label('testCaseId', C68962);
-          AllureHelper.label('caseStatus', `${C68962.split(':')[0]}:not_reached`);
+          AllureHelper.label('testCaseId', C68961);
+          AllureHelper.label('caseStatus', `${C68961.split(':')[0]}:not_reached`);
+        }
+
+        if (assignmentConfig.title.toLowerCase().includes('elc')) {
+          if (submissionType === '.txt') {
+            AllureHelper.label('testCaseId', C68956);
+            AllureHelper.label('caseStatus', `${C68956.split(':')[0]}:not_reached`);
+          } else if (submissionType === '.pdf') {
+            AllureHelper.label('testCaseId', C68958);
+            AllureHelper.label('caseStatus', `${C68958.split(':')[0]}:not_reached`);
+          } else if (submissionType === '.docx') {
+            AllureHelper.label('testCaseId', C68960);
+            AllureHelper.label('caseStatus', `${C68960.split(':')[0]}:not_reached`);
+          } else if (submissionType === 'Text Entry') {
+            AllureHelper.label('testCaseId', C68962);
+            AllureHelper.label('caseStatus', `${C68962.split(':')[0]}:not_reached`);
+          }
         }
       }
 

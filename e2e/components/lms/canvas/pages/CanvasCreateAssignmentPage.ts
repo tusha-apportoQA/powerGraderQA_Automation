@@ -149,7 +149,7 @@ export class CanvasCreateAssignmentPage {
                 await this.allowedExtensionsField.clear();
                 await this.allowedExtensionsField.fill(extension);
             } else {
-                // .csv / .xlsx: unrestricted file upload (Canvas does not restrict these cleanly)
+                // file / .csv / .xlsx: unrestricted file upload
                 await expect(this.restrictFileExtensionsCheckbox).toBeVisible();
                 if (await this.restrictFileExtensionsCheckbox.isChecked()) {
                     await this.restrictFileExtensionsCheckbox.uncheck();
