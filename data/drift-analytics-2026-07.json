@@ -1,0 +1,942 @@
+[
+  {
+    "run_date": "2026-07-16T17:44:55.692Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Average pdf [1784223765300]",
+    "sbert_similarity": 0.6766983357796008,
+    "drift": {
+      "sbert_similarity": 0.6766983357796008,
+      "score_delta": 1
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 4,
+          "feedback": "You included an introduction, body paragraphs, and a short conclusion, but your essay is mostly organized at the paragraph level and lacks clear, logical flow and transitions. Focus on connecting your main ideas more smoothly and using clear topic sentences or transitions to improve overall essay organization."
+        },
+        {
+          "name": "Content",
+          "score": 4,
+          "feedback": "Your response provides some detailed examples about living in Santiago, but does not identify a specific improvement or discuss its benefits and consequences for people your age as the prompt requests. To improve, focus on clearly proposing one change, explain why it matters, and use supporting examples to show its impact."
+        },
+        {
+          "name": "Accuracy",
+          "score": 2,
+          "feedback": "Frequent grammar, vocabulary, and spelling errors (such as incorrect verb forms, articles, and prepositions) make your writing hard to understand at times, but you show that you can write simple and some compound sentences—keep working on correct sentence structure and verb forms to improve accuracy."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 11,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 5,
+          "feedback": "Your essay shows good organizational effort, with multiple paragraphs, a clear introduction, and attempts at conclusion, but stronger transitions and more structured connections between ideas would help you reach the next level."
+        },
+        {
+          "name": "Content",
+          "score": 3,
+          "feedback": "Your submission describes positive features of Santiago using some concrete details, but to more fully meet the assignment, you need to propose a specific improvement for your city and explain both its immediate and long-term effects."
+        },
+        {
+          "name": "Accuracy",
+          "score": 3,
+          "feedback": "Frequent errors with verb forms, agreement, and sentence structure often make your writing difficult to follow, though your ideas can usually be understood; reviewing subject-verb agreement and breaking ideas into simpler sentences will help you improve clarity and accuracy."
+        }
+      ]
+    },
+    "grade_time_mins": "0.61",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T17:55:14.643Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Above Average txt [1784224321358]",
+    "sbert_similarity": 0.6709243358385351,
+    "drift": {
+      "sbert_similarity": 0.6709243358385351,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 20,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay is very well organized, with a clear introduction, well-developed body paragraphs, and a strong conclusion connected by logical transitions. This structure makes your writing easy to follow and demonstrates mastery of essay organization for this task."
+        },
+        {
+          "name": "Content",
+          "score": 7,
+          "feedback": "Your essay gives a clear, well-supported city improvement with strong examples and thoughtful discussion of both immediate and long-term impacts; to achieve a perfect score, aim for even deeper analysis and more nuanced details in your explanations."
+        },
+        {
+          "name": "Accuracy",
+          "score": 6,
+          "feedback": "Your argument is clearly explained and logically sound, with relevant examples and reasonable connections between your ideas, though adding more nuance and avoiding oversimplification could further strengthen your work."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 20,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay is well organized, with a clear introduction, body, and conclusion, and each section is logically structured, but smoother transitions between ideas would make your writing even easier to follow and help you reach full mastery."
+        },
+        {
+          "name": "Content",
+          "score": 6,
+          "feedback": "Your essay provides a clear improvement (technology), supports it with specific examples and reasons, and considers both immediate and long-term consequences. To score higher, try to add more detailed explanations and deeper analysis of impacts."
+        },
+        {
+          "name": "Accuracy",
+          "score": 7,
+          "feedback": "Your response is accurate and uses logical, realistic examples to support your claims. For an even higher score, focus on developing more nuanced reasoning and avoid minor overstatements."
+        }
+      ]
+    },
+    "grade_time_mins": "1.64",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T18:04:25.284Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Excellent Text Entry [1784224936050]",
+    "sbert_similarity": 0.6883686735949199,
+    "drift": {
+      "sbert_similarity": 0.6883686735949199,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 21,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay is well-organized with clear introduction, body, and conclusion, and strong transitions make your ideas very easy to follow—excellent work on structure and coherence!"
+        },
+        {
+          "name": "Content",
+          "score": 7,
+          "feedback": "Your essay is detailed and persuasive, providing strong examples, clearly explaining how your proposals benefit people your age, and thoroughly discussing both immediate and long-term effects; to improve, focus on developing just one key improvement in depth to match the prompt's instructions."
+        },
+        {
+          "name": "Accuracy",
+          "score": 7,
+          "feedback": "Your submission demonstrates advanced grammar, varied sentence structures, and strong control of tense, though minor spelling and word choice errors appear more than once; focus on polishing these small mistakes to reach the highest level of accuracy."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 21,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay demonstrates excellent structure, with a clear introduction, well-developed body paragraphs organized by effective transitions, and a strong conclusion, fully meeting the expectations for mastery of essay form and organization."
+        },
+        {
+          "name": "Content",
+          "score": 7,
+          "feedback": "Your response clearly identifies a relevant improvement with strong, specific examples, thoroughly explains benefits for people your age, and skillfully discusses both immediate and long-term consequences."
+        },
+        {
+          "name": "Accuracy",
+          "score": 7,
+          "feedback": "Your submission demonstrates excellent accuracy and logical reasoning in describing causes, effects, and solutions, though minor exaggerations and small word choice errors are present—being precise with facts and language will bring your work to the highest level."
+        }
+      ]
+    },
+    "grade_time_mins": "0.58",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T18:14:08.404Z",
+    "lms": "canvas",
+    "student_file": "Canvas Code Easy [1784225487624]",
+    "sbert_similarity": 0.44149379565451086,
+    "drift": {
+      "sbert_similarity": 0.44149379565451086,
+      "score_delta": -1
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 6,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Correctness",
+          "score": 2,
+          "feedback": "Your code works for some sample cases but may skip or miss duplicates in others due to removing elements while iterating, and the bonus function's test is commented out, suggesting it isn't fully functional. For higher scores, ensure your solution preserves correctness for all test cases and edge cases, including comprehensive unit testing."
+        },
+        {
+          "name": "Efficiency",
+          "score": 1,
+          "feedback": "Your approach uses 'count' and 'remove' inside a loop, resulting in O(n^2) time and inefficiency. For full credit, strive for a single-pass, linear-time (O(n)) solution, such as using pointers or indexes."
+        },
+        {
+          "name": "Followed constraints",
+          "score": 2,
+          "feedback": "You correctly used only Python's standard features and avoided outside packages in your main function, meeting the primary constraint. However, your bonus function includes list methods and assignments not allowed under the stricter bonus rules. For full credit in the future, ensure the bonus function avoids any list methods or standard functions entirely."
+        },
+        {
+          "name": "Bonus points",
+          "score": 1,
+          "feedback": "You made a genuine attempt at the bonus function and used only element-by-element indexing as required, but the logic does not correctly count or arrange unique elements. To improve, focus on ensuring your code correctly identifies and places unique values at the start of the array and returns the right count."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Correctness",
+          "score": 1,
+          "feedback": "Your function does not reliably remove all duplicates due to altering the list while iterating, causing it to fail required unit tests and not always produce the correct output. To improve, review the logic for in-place duplicate removal and ensure that your implementation passes all test cases as specified."
+        },
+        {
+          "name": "Efficiency",
+          "score": 1,
+          "feedback": "Your implementation is inefficient because it repeatedly scans and modifies the list within a loop, resulting in much slower (O(n^2)) performance than the expected single-pass (O(n)) solution. For future improvements, try to loop through the list once, overwriting duplicates in place, rather than scanning and removing elements repeatedly."
+        },
+        {
+          "name": "Followed constraints",
+          "score": 2,
+          "feedback": "You followed all constraints for both functions: you used only allowed list methods in removeDuplicates and avoided restricted methods and operators in removeDuplicates2. Excellent job adhering strictly to the requirements!"
+        },
+        {
+          "name": "Bonus points",
+          "score": 1,
+          "feedback": "You made a genuine effort and followed the bonus constraints by only manipulating the array element by element, but your function's logic does not reliably produce the correct output. To improve, review your deduplication approach to ensure unique elements appear at the start and the correct count is returned."
+        }
+      ]
+    },
+    "grade_time_mins": "1.12",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T18:21:01.527Z",
+    "lms": "canvas",
+    "student_file": "Canvas Code Medium [1784225867283]",
+    "sbert_similarity": 0.6744842773334851,
+    "drift": {
+      "sbert_similarity": 0.6744842773334851,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Big O",
+          "score": 3,
+          "feedback": "Your solution efficiently solves the problem in O(N) time using a single loop and only a constant number of variables, achieving the optimal approach for both time and space complexity."
+        },
+        {
+          "name": "Validity",
+          "score": 2,
+          "feedback": "Your solution correctly handles all required cases—including empty input, single values, and all-negative lists—demonstrating robust and valid logic throughout."
+        },
+        {
+          "name": "Organization",
+          "score": 3,
+          "feedback": "Your function is excellently organized, with clearly separated blocks for edge cases, initialization, and the main DP loop, making your code easy to read and follow."
+        },
+        {
+          "name": "Comments",
+          "score": 2,
+          "feedback": "You included a clear comment for the edge case handling, but the main dynamic programming logic is left uncommented; adding comments to clarify your approach, especially around the key steps of your algorithm, would strengthen your submission and help achieve a higher score."
+        },
+        {
+          "name": "Documentation",
+          "score": 0,
+          "feedback": "Your submission does not include a function-level docstring, which is required for documentation credit. To improve, add a docstring under your function that explains its purpose, parameters, return value, and assumptions."
+        },
+        {
+          "name": "Naming",
+          "score": 2,
+          "feedback": "All functions and variables are named clearly and appropriately for this problem, making your logic easy to follow. Excellent use of descriptive and standard naming throughout!"
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Big O",
+          "score": 3,
+          "feedback": "Your code uses a single loop and constant space for state updates, efficiently achieving O(N) time as required—excellent work! For even greater clarity next time, you could add a brief comment stating the runtime complexity."
+        },
+        {
+          "name": "Validity",
+          "score": 2,
+          "feedback": "Your solution is fully correct and robust, handling all sample and edge cases (including empty, all-negative, and single-element lists) as required. Excellent job implementing the expected logic and thoroughly addressing all scenarios!"
+        },
+        {
+          "name": "Organization",
+          "score": 3,
+          "feedback": "Your function is well organized, with a clear structure: edge cases are neatly handled at the top, and the main logic flows cleanly in a single function with no unnecessary or repeated code."
+        },
+        {
+          "name": "Comments",
+          "score": 2,
+          "feedback": "You have a helpful comment for edge case handling, but your dynamic programming steps and variable roles are not commented, making the main logic harder to follow. Brief inline comments explaining your recurrence and main loop would make your code clearer and boost your score."
+        },
+        {
+          "name": "Documentation",
+          "score": 0,
+          "feedback": "Your function lacks any docstring documenting its purpose, parameters, or return value, which is required for documentation points. To improve, add a brief docstring under your function header describing what it does, its inputs, and the output."
+        },
+        {
+          "name": "Naming",
+          "score": 2,
+          "feedback": "All function and variable names are clear, descriptive, and follow Python naming conventions, making your code easy to read and understand."
+        }
+      ]
+    },
+    "grade_time_mins": "1.66",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T18:26:51.479Z",
+    "lms": "canvas",
+    "student_file": "Canvas Code Hard [1784226249490]",
+    "sbert_similarity": 0.39564410045686205,
+    "drift": {
+      "sbert_similarity": 0.39564410045686205,
+      "score_delta": 10
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 25,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Specifications",
+          "score": 10,
+          "feedback": "Your submission always returns a valid palindrome and handles some edge cases, but does not consistently find the numerically closest palindrome as required; reviewing your method for comparing candidates will improve your results."
+        },
+        {
+          "name": "Efficiency",
+          "score": 5,
+          "feedback": "Your solution efficiently constructs palindromes in O(n) time and avoids brute-force methods, but the center adjustment does not always yield the closest palindrome or account for all hexadecimal edge cases, so there is room for further optimization."
+        },
+        {
+          "name": "Modularity",
+          "score": 5,
+          "feedback": "Your code shows an effort toward modularity, with a dedicated helper and well-isolated testing code, but much of the palindrome logic is still grouped in one large function; consider refactoring checking, construction, and tie handling into separate functions for improved clarity and reusability."
+        },
+        {
+          "name": "Code Clarity",
+          "score": 5,
+          "feedback": "Your code uses clear and descriptive names, and logic is easy to follow overall, but minor issues like the misspelled 'adjascent_digit' and some sections (such as the negative-index palindrome logic) could be clarified with brief comments for full marks. Consider correcting minor naming errors and adding short comments to unintuitive sections to further improve readability."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 35,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Specifications",
+          "score": 15,
+          "feedback": "Your submission correctly handles most simple palindrome generation cases and avoids returning the input itself, but it does not always guarantee the closest palindrome or handle tie-breaks for the smallest result. For full marks, you would need to check both higher and lower palindromes and compare their distances before returning the answer."
+        },
+        {
+          "name": "Efficiency",
+          "score": 5,
+          "feedback": "Your code efficiently constructs the palindrome with direct mirroring and avoids brute-force searches or unnecessary computation, resulting in optimal O(n) time and space complexity for large inputs."
+        },
+        {
+          "name": "Modularity",
+          "score": 10,
+          "feedback": "Your code is well organized, with the main palindrome logic and digit adjustment clearly separated into functions, and test code kept outside the logic using the '__main__' guard—this matches best practices for modularity and earns full marks."
+        },
+        {
+          "name": "Code Clarity",
+          "score": 5,
+          "feedback": "Your code is easy to follow, with clear and descriptive function and variable names, no redundant variables, and concise comments only where needed. For even more clarity, consider slightly more descriptive parameter names, but overall your code structure and readability are excellent."
+        }
+      ]
+    },
+    "grade_time_mins": "1.11",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T18:33:26.348Z",
+    "lms": "canvas",
+    "student_file": "Canvas CSV submission [1784226599633]",
+    "sbert_similarity": 0.7512591474292668,
+    "drift": {
+      "sbert_similarity": 0.7512591474292668,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 25,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Data Completeness",
+          "score": 10,
+          "feedback": "Your submission includes all required columns, at least five unique products, and every row is fully filled in with no missing values, demonstrating excellent completeness."
+        },
+        {
+          "name": "Data Accuracy",
+          "score": 10,
+          "feedback": "Your calculations were correct for almost all products, but there's a small error with the Keyboard row (3 × $30 should be $90, not $100). Double-checking each row's math will help you reach full marks next time."
+        },
+        {
+          "name": "Organization and Formatting",
+          "score": 5,
+          "feedback": "Your CSV is excellently structured, with clear headers, correct column order, and consistent formatting throughout, making it easy to read and well-suited for spreadsheet use."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 25,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Data Completeness",
+          "score": 10,
+          "feedback": "Your file contains all four required columns and at least five fully completed product entries, with no missing or blank fields. Excellent work meeting all data completeness requirements for this assignment."
+        },
+        {
+          "name": "Data Accuracy",
+          "score": 10,
+          "feedback": "You calculated Total Revenue correctly for almost all entries, but made a small arithmetic mistake in the 'Keyboard' row (3 × 30 should be 90, not 100). Review your calculations carefully for full points next time."
+        },
+        {
+          "name": "Organization and Formatting",
+          "score": 5,
+          "feedback": "Your CSV is very well-organized, with clear headers, consistent row structure, and logical formatting that makes your data easy to read and ready for evaluation."
+        }
+      ]
+    },
+    "grade_time_mins": "1.81",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T21:28:01.407Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Poor docx [1784237150328]",
+    "sbert_similarity": 0.5071808610619225,
+    "drift": {
+      "sbert_similarity": 0.5071808610619225,
+      "score_delta": -1
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 4,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 1,
+          "feedback": "Your writing consists of several short, incomplete sentences without any paragraph or essay organization. For a better score, use complete sentences and organize your ideas into a clear introduction, body, and conclusion."
+        },
+        {
+          "name": "Content",
+          "score": 2,
+          "feedback": "Your response tried to address the topic but did not clearly name a specific city improvement or provide supporting reasons and examples. To improve, clearly state your suggested change and explain with examples and possible outcomes for people your age."
+        },
+        {
+          "name": "Accuracy",
+          "score": 1,
+          "feedback": "Your writing contains many spelling and grammar errors, and most sentences are incomplete, making your meaning very hard to understand. To improve, focus on writing clear, complete sentences and checking your spelling and grammar."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 3,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 1,
+          "feedback": "Your response consists of several short, unconnected sentences without any essay or paragraph structure; to achieve a higher score, write your ideas in full paragraphs with a clear introduction, body, and conclusion."
+        },
+        {
+          "name": "Content",
+          "score": 1,
+          "feedback": "Your response does not clearly identify a specific improvement or explain how it would benefit people your age, and it lacks detailed reasons, examples, and discussion of consequences. In future responses, focus on clearly stating your proposed improvement and supporting it with concrete reasons, examples, and an explanation of both immediate and long-term effects."
+        },
+        {
+          "name": "Accuracy",
+          "score": 1,
+          "feedback": "Frequent grammatical and spelling errors make your sentences very difficult to understand, and there isn't enough clear writing to show accuracy. Focus on writing simple, complete sentences and checking your grammar to improve your score next time."
+        }
+      ]
+    },
+    "grade_time_mins": "0.59",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T21:42:38.955Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Average pdf [1784238024154]",
+    "sbert_similarity": 0.5859185300080778,
+    "drift": {
+      "sbert_similarity": 0.5859185300080778,
+      "score_delta": 2
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 4,
+          "feedback": "You included an introduction, body paragraphs, and a short conclusion, but your essay is mostly organized at the paragraph level and lacks clear, logical flow and transitions. Focus on connecting your main ideas more smoothly and using clear topic sentences or transitions to improve overall essay organization."
+        },
+        {
+          "name": "Content",
+          "score": 4,
+          "feedback": "Your response provides some detailed examples about living in Santiago, but does not identify a specific improvement or discuss its benefits and consequences for people your age as the prompt requests. To improve, focus on clearly proposing one change, explain why it matters, and use supporting examples to show its impact."
+        },
+        {
+          "name": "Accuracy",
+          "score": 2,
+          "feedback": "Frequent grammar, vocabulary, and spelling errors (such as incorrect verb forms, articles, and prepositions) make your writing hard to understand at times, but you show that you can write simple and some compound sentences—keep working on correct sentence structure and verb forms to improve accuracy."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 5,
+          "feedback": "Your essay includes an introduction, multiple body paragraphs, and a conclusion, showing clear organization, but transitions and essay-level structure could be stronger and more consistent. Focusing on clearer connections between ideas and developing your conclusion further will help improve your organization."
+        },
+        {
+          "name": "Content",
+          "score": 4,
+          "feedback": "Your essay provides several good examples of places for young people in your city, but to score higher, you needed to clearly propose an improvement and discuss its immediate and long-term effects."
+        },
+        {
+          "name": "Accuracy",
+          "score": 3,
+          "feedback": "Your writing shows you can express ideas in simple sentences and sometimes try more complex ones, but frequent grammar and word errors sometimes make it hard to understand. To improve, keep practicing subject-verb agreement, verb tenses, and forming clear, complete sentences."
+        }
+      ]
+    },
+    "grade_time_mins": "0.58",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T21:53:04.414Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Above Average txt [1784238588422]",
+    "sbert_similarity": 0.5334376578960687,
+    "drift": {
+      "sbert_similarity": 0.5334376578960687,
+      "score_delta": -2
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 20,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay is very well organized, with a clear introduction, well-developed body paragraphs, and a strong conclusion connected by logical transitions. This structure makes your writing easy to follow and demonstrates mastery of essay organization for this task."
+        },
+        {
+          "name": "Content",
+          "score": 7,
+          "feedback": "Your essay gives a clear, well-supported city improvement with strong examples and thoughtful discussion of both immediate and long-term impacts; to achieve a perfect score, aim for even deeper analysis and more nuanced details in your explanations."
+        },
+        {
+          "name": "Accuracy",
+          "score": 6,
+          "feedback": "Your argument is clearly explained and logically sound, with relevant examples and reasonable connections between your ideas, though adding more nuance and avoiding oversimplification could further strengthen your work."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 18,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay demonstrates excellent structure, with a clear introduction, well-organized body paragraphs, and explicit transitions such as 'First,' 'Second,' and 'In conclusion,' making your argument easy to follow and well organized."
+        },
+        {
+          "name": "Content",
+          "score": 6,
+          "feedback": "Your essay clearly identifies a specific improvement, gives relevant examples for its benefits, and addresses both immediate and long-term effects; for an even stronger score, aim to expand on your ideas with more detailed explanations or examples."
+        },
+        {
+          "name": "Accuracy",
+          "score": 5,
+          "feedback": "Your writing is clear and communicates your ideas, with some strong attempts at complex sentences and academic vocabulary, but frequent grammar, spelling, and word form errors affect accuracy. Focus on reviewing articles, indirect object phrases, and correct word forms to improve future essays."
+        }
+      ]
+    },
+    "grade_time_mins": "1.66",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T22:02:31.658Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Excellent Text Entry [1784239216916]",
+    "sbert_similarity": 0.6358003062802686,
+    "drift": {
+      "sbert_similarity": 0.6358003062802686,
+      "score_delta": -1
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 21,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay is well-organized with clear introduction, body, and conclusion, and strong transitions make your ideas very easy to follow—excellent work on structure and coherence!"
+        },
+        {
+          "name": "Content",
+          "score": 7,
+          "feedback": "Your essay is detailed and persuasive, providing strong examples, clearly explaining how your proposals benefit people your age, and thoroughly discussing both immediate and long-term effects; to improve, focus on developing just one key improvement in depth to match the prompt's instructions."
+        },
+        {
+          "name": "Accuracy",
+          "score": 7,
+          "feedback": "Your submission demonstrates advanced grammar, varied sentence structures, and strong control of tense, though minor spelling and word choice errors appear more than once; focus on polishing these small mistakes to reach the highest level of accuracy."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 20,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay features a clear introduction, well-organized body paragraphs with strong transitions, and a conclusion that wraps up your argument, making your writing easy to follow and meeting all structural expectations for a top score."
+        },
+        {
+          "name": "Content",
+          "score": 7,
+          "feedback": "Your response thoroughly identifies and explains a single city improvement relevant to people your age, supports your argument with strong, concrete examples, and thoughtfully addresses both immediate and long-term consequences, fully meeting the expectations for the highest content score."
+        },
+        {
+          "name": "Accuracy",
+          "score": 6,
+          "feedback": "Your writing shows strong command of grammar and sentence structure, with clear and logical ideas, but a few minor spelling and word choice errors (like 'sorrounded', 'lightening', 'belongins', and 'agressor') keep it from a perfect score. Careful proofreading for these small mistakes will further improve your accuracy."
+        }
+      ]
+    },
+    "grade_time_mins": "0.58",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T22:11:56.174Z",
+    "lms": "canvas",
+    "student_file": "Canvas Code Easy [1784239781478]",
+    "sbert_similarity": 0.47403515083809233,
+    "drift": {
+      "sbert_similarity": 0.47403515083809233,
+      "score_delta": -1
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 6,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Correctness",
+          "score": 2,
+          "feedback": "Your code works for some sample cases but may skip or miss duplicates in others due to removing elements while iterating, and the bonus function's test is commented out, suggesting it isn't fully functional. For higher scores, ensure your solution preserves correctness for all test cases and edge cases, including comprehensive unit testing."
+        },
+        {
+          "name": "Efficiency",
+          "score": 1,
+          "feedback": "Your approach uses 'count' and 'remove' inside a loop, resulting in O(n^2) time and inefficiency. For full credit, strive for a single-pass, linear-time (O(n)) solution, such as using pointers or indexes."
+        },
+        {
+          "name": "Followed constraints",
+          "score": 2,
+          "feedback": "You correctly used only Python's standard features and avoided outside packages in your main function, meeting the primary constraint. However, your bonus function includes list methods and assignments not allowed under the stricter bonus rules. For full credit in the future, ensure the bonus function avoids any list methods or standard functions entirely."
+        },
+        {
+          "name": "Bonus points",
+          "score": 1,
+          "feedback": "You made a genuine attempt at the bonus function and used only element-by-element indexing as required, but the logic does not correctly count or arrange unique elements. To improve, focus on ensuring your code correctly identifies and places unique values at the start of the array and returns the right count."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 5,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Correctness",
+          "score": 1,
+          "feedback": "Your function doesn't work reliably because it removes elements from the list while you're iterating over it, which skips some duplicates and leads to incorrect results in many cases. To improve, consider not modifying the list in place during iteration, and make sure your solution passes both the count and content checks for all inputs."
+        },
+        {
+          "name": "Efficiency",
+          "score": 1,
+          "feedback": "Your submission processes the array with repeated calls to nums.count(num) and nums.remove(num) inside a loop, resulting in inefficient O(n^2) performance. For full marks, use a single-pass, linear-time (O(n)) approach that avoids extra iterations over the list."
+        },
+        {
+          "name": "Followed constraints",
+          "score": 2,
+          "feedback": "You fully followed all constraints for both functions: only standard Python was used, no outside packages or disallowed list methods were present, and named parameters were correctly implemented. Great job adhering strictly to the assignment requirements."
+        },
+        {
+          "name": "Bonus points",
+          "score": 1,
+          "feedback": "You made an earnest attempt at the bonus function using direct indexing as required, but the logic does not correctly deduplicate the array or return the right count. To improve, focus on simpler, step-by-step logic that places each unique element at the front and accurately tracks the number of uniques."
+        }
+      ]
+    },
+    "grade_time_mins": "0.60",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T22:17:50.892Z",
+    "lms": "canvas",
+    "student_file": "Canvas Code Medium [1784240138561]",
+    "sbert_similarity": 0.7145725137298199,
+    "drift": {
+      "sbert_similarity": 0.7145725137298199,
+      "score_delta": 0
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Big O",
+          "score": 3,
+          "feedback": "Your solution efficiently solves the problem in O(N) time using a single loop and only a constant number of variables, achieving the optimal approach for both time and space complexity."
+        },
+        {
+          "name": "Validity",
+          "score": 2,
+          "feedback": "Your solution correctly handles all required cases—including empty input, single values, and all-negative lists—demonstrating robust and valid logic throughout."
+        },
+        {
+          "name": "Organization",
+          "score": 3,
+          "feedback": "Your function is excellently organized, with clearly separated blocks for edge cases, initialization, and the main DP loop, making your code easy to read and follow."
+        },
+        {
+          "name": "Comments",
+          "score": 2,
+          "feedback": "You included a clear comment for the edge case handling, but the main dynamic programming logic is left uncommented; adding comments to clarify your approach, especially around the key steps of your algorithm, would strengthen your submission and help achieve a higher score."
+        },
+        {
+          "name": "Documentation",
+          "score": 0,
+          "feedback": "Your submission does not include a function-level docstring, which is required for documentation credit. To improve, add a docstring under your function that explains its purpose, parameters, return value, and assumptions."
+        },
+        {
+          "name": "Naming",
+          "score": 2,
+          "feedback": "All functions and variables are named clearly and appropriately for this problem, making your logic easy to follow. Excellent use of descriptive and standard naming throughout!"
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Big O",
+          "score": 3,
+          "feedback": "Your solution efficiently uses a single loop for O(N) time and a fixed number of variables for O(1) space, fully meeting the assignment's performance requirements."
+        },
+        {
+          "name": "Validity",
+          "score": 2,
+          "feedback": "Your solution produces correct results for all main and edge cases, including negatives and empty lists, fully matching the assignment's requirements."
+        },
+        {
+          "name": "Organization",
+          "score": 3,
+          "feedback": "Your code is exceptionally well organized, with clear edge case handling, a straightforward loop for main logic, and an overall structure that is easy to read and understand. Excellent work meeting all organization expectations for this problem."
+        },
+        {
+          "name": "Comments",
+          "score": 2,
+          "feedback": "You provide a clear and helpful comment for handling edge cases, but to achieve full marks, you should also comment on your dynamic programming initialization and update logic to clarify the core of your solution."
+        },
+        {
+          "name": "Documentation",
+          "score": 0,
+          "feedback": "Your function does not include a docstring or any function-level documentation describing its purpose, inputs, or outputs, which is required for credit. Adding a brief docstring right after the function definition would help you earn full points for documentation in the future."
+        },
+        {
+          "name": "Naming",
+          "score": 2,
+          "feedback": "Your function and variable names are clear, descriptive, and closely reflect the problem requirements, making your code easy to follow and understand."
+        }
+      ]
+    },
+    "grade_time_mins": "0.58",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T22:23:12.688Z",
+    "lms": "canvas",
+    "student_file": "Canvas Code Hard [1784240458784]",
+    "sbert_similarity": 0.4725340986546903,
+    "drift": {
+      "sbert_similarity": 0.4725340986546903,
+      "score_delta": 5
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 25,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Specifications",
+          "score": 10,
+          "feedback": "Your submission always returns a valid palindrome and handles some edge cases, but does not consistently find the numerically closest palindrome as required; reviewing your method for comparing candidates will improve your results."
+        },
+        {
+          "name": "Efficiency",
+          "score": 5,
+          "feedback": "Your solution efficiently constructs palindromes in O(n) time and avoids brute-force methods, but the center adjustment does not always yield the closest palindrome or account for all hexadecimal edge cases, so there is room for further optimization."
+        },
+        {
+          "name": "Modularity",
+          "score": 5,
+          "feedback": "Your code shows an effort toward modularity, with a dedicated helper and well-isolated testing code, but much of the palindrome logic is still grouped in one large function; consider refactoring checking, construction, and tie handling into separate functions for improved clarity and reusability."
+        },
+        {
+          "name": "Code Clarity",
+          "score": 5,
+          "feedback": "Your code uses clear and descriptive names, and logic is easy to follow overall, but minor issues like the misspelled 'adjascent_digit' and some sections (such as the negative-index palindrome logic) could be clarified with brief comments for full marks. Consider correcting minor naming errors and adding short comments to unintuitive sections to further improve readability."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 30,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Specifications",
+          "score": 10,
+          "feedback": "Your code handles some cases correctly and attempts to address single digits, palindromic inputs, and general cases, but it often fails to find the actual closest palindrome or handle ties as required. To improve, ensure you always generate and compare candidate palindromes (both smaller and larger than the input) and consistently return the closest, smaller one in case of a tie."
+        },
+        {
+          "name": "Efficiency",
+          "score": 5,
+          "feedback": "Your solution efficiently checks for palindromes and constructs the closest one using only O(n) time and space, with no brute-force search and direct, linear operations. This makes your approach well-suited to handle large input sizes, earning full marks for efficiency."
+        },
+        {
+          "name": "Modularity",
+          "score": 10,
+          "feedback": "Your code shows clear modular structure, separating core logic and a helper function, but nesting 'adjascent_digit' limits its reusability—consider making helpers top-level for even better modularity."
+        },
+        {
+          "name": "Code Clarity",
+          "score": 5,
+          "feedback": "Your code is very clear and easy to follow, with well-chosen variable and function names and helpful comments where needed. The only detractor is a minor spelling mistake ('adjascent' instead of 'adjacent'), which slightly affected overall clarity but does not significantly diminish your otherwise strong work."
+        }
+      ]
+    },
+    "grade_time_mins": "0.60",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-07-16T22:28:43.263Z",
+    "lms": "canvas",
+    "student_file": "Canvas CSV submission [1784240780980]",
+    "sbert_similarity": 0.636616442201781,
+    "drift": {
+      "sbert_similarity": 0.636616442201781,
+      "score_delta": 5
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 25,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Data Completeness",
+          "score": 10,
+          "feedback": "Your submission includes all required columns, at least five unique products, and every row is fully filled in with no missing values, demonstrating excellent completeness."
+        },
+        {
+          "name": "Data Accuracy",
+          "score": 10,
+          "feedback": "Your calculations were correct for almost all products, but there's a small error with the Keyboard row (3 × $30 should be $90, not $100). Double-checking each row's math will help you reach full marks next time."
+        },
+        {
+          "name": "Organization and Formatting",
+          "score": 5,
+          "feedback": "Your CSV is excellently structured, with clear headers, correct column order, and consistent formatting throughout, making it easy to read and well-suited for spreadsheet use."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 30,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Data Completeness",
+          "score": 10,
+          "feedback": "Your submission includes all required columns and at least five complete product entries, with every row fully filled out and nothing missing—great work on completeness!"
+        },
+        {
+          "name": "Data Accuracy",
+          "score": 15,
+          "feedback": "Most of your sales calculations are accurate, but there is one minor mistake in the 'Keyboard' row, where 'Total Revenue' should be 90 instead of 100. Double-checking each calculation will help you achieve a perfect score next time."
+        },
+        {
+          "name": "Organization and Formatting",
+          "score": 5,
+          "feedback": "Your CSV is clearly organized and well-formatted, with properly labeled headers, consistent column and row structure, and no formatting errors. Excellent work—this meets all expectations for clarity and organization."
+        }
+      ]
+    },
+    "grade_time_mins": "0.75",
+    "status": "passed"
+  }
+]
