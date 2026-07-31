@@ -4,7 +4,7 @@ import { MoodleLMS } from '../../components/lms/moodle/MoodleLMS';
 import { MoodleLMSStudent } from '../../components/lms/moodle/MoodleLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getMoodleAssignmentConfigs } from '../../test-data/assignments/moodle';
-import { C69002, C69060, C69061, C69098 } from '../../test-data/testCaseIds';
+import { POW1005, POW902, POW903, POW922 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getMoodleConfig } from '../../config/moodle.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -61,14 +61,14 @@ test.describe('Moodle: PowerGrader grade + LMS verify @moodle @component', () =>
         test.setTimeout(1_200_000);
         AllureHelper.label('lms', 'moodle');
         AllureHelper.label('caseConfig', `moodle|verify-lms|${assignmentConfig.title}`);
-        AllureHelper.label('testCaseId', C69060);
-        AllureHelper.label('caseStatus', `${C69060.split(':')[0]}:not_reached`);
-        AllureHelper.label('testCaseId', C69061);
-        AllureHelper.label('caseStatus', `${C69061.split(':')[0]}:not_reached`);
-        AllureHelper.label('testCaseId', C69002);
+        AllureHelper.label('testCaseId', POW902);
+        AllureHelper.label('caseStatus', `${POW902.split(':')[0]}:not_reached`);
+        AllureHelper.label('testCaseId', POW903);
+        AllureHelper.label('caseStatus', `${POW903.split(':')[0]}:not_reached`);
+        AllureHelper.label('testCaseId', POW1005);
         if (assignmentConfig.submissionType !== 'Text Entry') {
-            AllureHelper.label('testCaseId', C69098);
-      AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
+            AllureHelper.label('testCaseId', POW922);
+      AllureHelper.label('caseStatus', `${POW922.split(':')[0]}:not_reached`);
         }
 
         const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;

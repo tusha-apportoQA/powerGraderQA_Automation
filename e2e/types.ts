@@ -157,9 +157,9 @@ export interface PgWorkflowFeatures {
   iterativeRepublish: boolean;
   igWorkflow: boolean;
   onTimeVisibility: boolean;
-  /** After teacher edits, Save draft before publish; pass C69138 after first LMS verify. */
+  /** After teacher edits, Save draft before publish; pass POW893 (TestRail: C69138) after first LMS verify. */
   lmsVerifySave: boolean;
-  /** Kill switch: skip normal grading workflow; verify invalid document types cannot be graded (C75466). */
+  /** Kill switch: skip normal grading workflow; verify invalid document types cannot be graded (POW936, TestRail: C75466). */
   invalidSubmission?: boolean;
 }
 

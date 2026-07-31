@@ -8,7 +8,7 @@ import { MoodleGradingPage } from './pages/MoodleGradingPage';
 import { GradingSummary, LmsTeacher, MoodleAssignmentConfig } from '../../../types';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { getMoodleConfig } from '../../../config/moodle.config';
-import { C69002, C78990 } from '../../../test-data/testCaseIds';
+import { POW1005, POW949 } from '../../../test-data/testCaseIds';
 import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
 import { getMoodleAssignmentConfigs } from '../../../test-data/assignments/moodle';
 
@@ -151,8 +151,8 @@ export class MoodleLMS implements LmsTeacher {
             newPage.getByTestId('assignments-filters-search-input'),
             'PowerGrader QA launch failed: assignments search input not visible',
         ).toBeVisible({ timeout: 120_000 });
-        AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:passed`);
-        console.log('[MoodleLMS] C78990: PowerGrader QA instance launched (assignments search visible).');
+        AllureHelper.label('caseStatus', `${POW949.split(':')[0]}:passed`);
+        console.log('[MoodleLMS] POW949: PowerGrader QA instance launched (assignments search visible).');
         return newPage;
     }
 
@@ -272,12 +272,12 @@ export class MoodleLMS implements LmsTeacher {
                     });
                 }
 
-                AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
+                AllureHelper.label('caseStatus', `${POW1005.split(':')[0]}:passed`);
             });
         } catch (error) {
             await AllureHelper.attachFailureDiagnostics(
                 this.page,
-                'C69002|LMS|Verify LMS score',
+                'POW1005|LMS|Verify LMS score',
                 { error: error instanceof Error ? error.message : String(error) },
             );
             throw error;

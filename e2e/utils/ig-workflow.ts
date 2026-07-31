@@ -2,22 +2,20 @@ import { expect, Page } from '@playwright/test';
 import { PowerGraderAssignmentDetailsPage } from '../components/powergrader/pages/PowerGraderAssignmentDetailsPage';
 import { PowerGraderGradingPage } from '../components/powergrader/pages/PowerGraderGradingPage';
 import {
-    C68976,
-    C68985,
-    C68986,
-    C68987,
-    C69025,
-    C68990,
-    C68989,
-    C69008,
-    C69011,
-    C69023,
-    C69034,
-    C69094,
-    C69095,
-    C69114,
-    C75537,
-    C78819,
+    POW957,
+    POW966,
+    POW967,
+    POW968,
+    POW980,
+    POW970,
+    POW969,
+    POW971,
+    POW972,
+    POW978,
+    POW984,
+    POW991,
+    POW992,
+    POW986,
 } from '../test-data/testCaseIds';
 import { AllureHelper } from './allureHelper';
 import { gradingSummariesMatch } from './grading-summary';
@@ -82,26 +80,25 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
 
     const workflowStart = Date.now();
     console.log('[IG Workflow] 🚀 START Interactive Grading workflow');
-    AllureHelper.label('caseStatus', `${caseId(C78819)}:reached`);
 
     const gradingPage = new PowerGraderGradingPage(page);
     const cancelButton = page.getByRole('button', { name: 'Cancel' });
 
-    // C68976 — blocking : Verify 'Customize' Visibility (Header)
-    console.log(`[IG Workflow] ▶ ${caseId(C68976)}: ${caseTitle(C68976)}`);
-    AllureHelper.label('testCaseId', C68976);
+    // POW957 — blocking : Verify 'Customize' Visibility (Header)
+    console.log(`[IG Workflow] ▶ ${caseId(POW957)}: ${caseTitle(POW957)}`);
+    AllureHelper.label('testCaseId', POW957);
     await expect(
         gradingPage.interactiveRegradeButton,
         'Interactive regrade button is not visible',
     ).toBeVisible({ timeout: 30000 });
-    AllureHelper.label('caseStatus', `${caseId(C68976)}:passed`);
-    console.log(`[IG Workflow] ✅ ${caseId(C68976)} PASSED`);
+    AllureHelper.label('caseStatus', `${caseId(POW957)}:passed`);
+    console.log(`[IG Workflow] ✅ ${caseId(POW957)} PASSED`);
 
-    // C69114 — non-blocking: strictness options visible in IG sidebar
+    // POW986 — non-blocking: strictness options visible in IG sidebar
     try {
-        await AllureHelper.step(caseTitle(C69114), async () => {
-            console.log(`[IG Workflow] ▶ ${caseId(C69114)}: ${caseTitle(C69114)}`);
-            AllureHelper.label('testCaseId', C69114);
+        await AllureHelper.step(caseTitle(POW986), async () => {
+            console.log(`[IG Workflow] ▶ ${caseId(POW986)}: ${caseTitle(POW986)}`);
+            AllureHelper.label('testCaseId', POW986);
             console.log('[IG Workflow] Opening main Interactive regrade sidebar...');
             await gradingPage.interactiveRegradeButton.click();
             await page.waitForTimeout(500);
@@ -114,20 +111,20 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 page.getByRole('button', { name: 'More Lenient' }),
                 'More Lenient button is not visible',
             ).toBeVisible({ timeout: 30000 });
-            AllureHelper.label('caseStatus', `${caseId(C69114)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C69114)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW986)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW986)} PASSED`);
         });
     } catch (error) {
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69114, page }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW986, page }));
     } finally {
         await clickCancelIfVisible(page);
     }
 
-    // C69008 — non-blocking: customize opens per criterion
+    // POW971 — non-blocking: customize opens per criterion
     try {
-        await AllureHelper.step(caseTitle(C69008), async () => {
-            console.log(`[IG Workflow] ▶ ${caseId(C69008)}: ${caseTitle(C69008)}`);
-            AllureHelper.label('testCaseId', C69008);
+        await AllureHelper.step(caseTitle(POW971), async () => {
+            console.log(`[IG Workflow] ▶ ${caseId(POW971)}: ${caseTitle(POW971)}`);
+            AllureHelper.label('testCaseId', POW971);
             const criterionSections = page.locator('div.overflow-visible.rounded-lg.shadow-sm');
             await expect(criterionSections.first()).toBeVisible({ timeout: 30000 });
 
@@ -163,22 +160,22 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 }
             }
 
-            AllureHelper.label('caseStatus', `${caseId(C69008)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C69008)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW971)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW971)} PASSED`);
         });
     } catch (error) {
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69008, page }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW971, page }));
     } finally {
         await clickCancelIfVisible(page);
     }
 
     const firstCriterionIndex = 0;
 
-    // C69011 — non-blocking: per-criterion IG generate + apply changes that criterion
+    // POW972 — non-blocking: per-criterion IG generate + apply changes that criterion
     try {
-        await AllureHelper.step(caseTitle(C69011), async () => {
-            console.log(`[IG Workflow] ▶ ${caseId(C69011)}: ${caseTitle(C69011)}`);
-            AllureHelper.label('testCaseId', C69011);
+        await AllureHelper.step(caseTitle(POW972), async () => {
+            console.log(`[IG Workflow] ▶ ${caseId(POW972)}: ${caseTitle(POW972)}`);
+            AllureHelper.label('testCaseId', POW972);
             const section = page
                 .locator('div.overflow-visible.rounded-lg.shadow-sm')
                 .nth(firstCriterionIndex);
@@ -235,11 +232,11 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 criterionChanged,
                 `Score or feedback for "${criterionName}" should change after applying interactive grade`,
             ).toBe(true);
-            AllureHelper.label('caseStatus', `${caseId(C69011)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C69011)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW972)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW972)} PASSED`);
         });
     } catch (error) {
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69011, page }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW972, page }));
         await clickDiscardIfVisible(gradingPage);
     }
 
@@ -247,23 +244,23 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
     const summaryBeforeGenerate = await gradingPage.getGradingSummary();
     console.log(`[IG Workflow] Baseline total score: ${summaryBeforeGenerate.totalScore}`);
 
-    // C68986 / C68987 / C69025 — non-blocking: preview persists after reload (navigation)
+    // POW967 / POW968 / POW980 — non-blocking: preview persists after reload (navigation)
     try {
-        await AllureHelper.step(caseTitle(C68986), async () => {
-            console.log(`[IG Workflow] ▶ ${caseId(C68986)}: ${caseTitle(C68986)}`);
-            AllureHelper.label('testCaseId', C68986);
-            console.log(`[IG Workflow] ▶ ${caseId(C68987)}: ${caseTitle(C68987)}`);
-            AllureHelper.label('testCaseId', C68987);
-            console.log(`[IG Workflow] ▶ ${caseId(C69025)}: ${caseTitle(C69025)}`);
-            AllureHelper.label('testCaseId', C69025);
+        await AllureHelper.step(caseTitle(POW967), async () => {
+            console.log(`[IG Workflow] ▶ ${caseId(POW967)}: ${caseTitle(POW967)}`);
+            AllureHelper.label('testCaseId', POW967);
+            console.log(`[IG Workflow] ▶ ${caseId(POW968)}: ${caseTitle(POW968)}`);
+            AllureHelper.label('testCaseId', POW968);
+            console.log(`[IG Workflow] ▶ ${caseId(POW980)}: ${caseTitle(POW980)}`);
+            AllureHelper.label('testCaseId', POW980);
             console.log('[IG Workflow] Main generateIG (More Lenient → More Encouraging → Generate)...');
             await clickDiscardIfVisible(gradingPage);
             await gradingPage.generateIG();
 
             try {
-                await AllureHelper.step(caseTitle(C68990), async () => {
-                    console.log(`[IG Workflow] ▶ ${caseId(C68990)}: ${caseTitle(C68990)}`);
-                    AllureHelper.label('testCaseId', C68990);
+                await AllureHelper.step(caseTitle(POW970), async () => {
+                    console.log(`[IG Workflow] ▶ ${caseId(POW970)}: ${caseTitle(POW970)}`);
+                    AllureHelper.label('testCaseId', POW970);
                     const customScoreInput = page.locator('input[type="number"]').first();
                     await expect(
                         customScoreInput,
@@ -273,11 +270,11 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                         customScoreInput,
                         'Custom score input should be disabled in Preview mode',
                     ).toBeDisabled({ timeout: 30000 });
-                    AllureHelper.label('caseStatus', `${caseId(C68990)}:passed`);
-                    console.log(`[IG Workflow] ✅ ${caseId(C68990)} PASSED`);
+                    AllureHelper.label('caseStatus', `${caseId(POW970)}:passed`);
+                    console.log(`[IG Workflow] ✅ ${caseId(POW970)} PASSED`);
                 });
             } catch (error) {
-                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68990, page }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW970, page }));
             }
 
             console.log('[IG Workflow] Reloading page to verify Preview mode persists...');
@@ -289,24 +286,24 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 gradingPage.previewModeLabel,
                 'Preview mode not visible after reload',
             ).toBeVisible({ timeout: 30000 });
-            AllureHelper.label('caseStatus', `${caseId(C68986)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C68986)} PASSED`);
-            AllureHelper.label('caseStatus', `${caseId(C68987)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C68987)} PASSED`);
-            AllureHelper.label('caseStatus', `${caseId(C69025)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C69025)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW967)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW967)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW968)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW968)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW980)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW980)} PASSED`);
         });
     } catch (error) {
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68986, page }));
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68987 }));
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69025 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW967, page }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW968 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW980 }));
     }
 
-    // C68985 — non-blocking: discard restores original grades
+    // POW966 — non-blocking: discard restores original grades
     try {
-        await AllureHelper.step(caseTitle(C68985), async () => {
-            console.log(`[IG Workflow] ▶ ${caseId(C68985)}: ${caseTitle(C68985)}`);
-            AllureHelper.label('testCaseId', C68985);
+        await AllureHelper.step(caseTitle(POW966), async () => {
+            console.log(`[IG Workflow] ▶ ${caseId(POW966)}: ${caseTitle(POW966)}`);
+            AllureHelper.label('testCaseId', POW966);
             console.log('[IG Workflow] Clicking Discard to restore original grades...');
             await gradingPage.discardButton.click();
             await page.waitForTimeout(500);
@@ -325,20 +322,20 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 summariesMatch,
                 'Grading summary changed after discarding interactive grade preview',
             ).toBe(true);
-            AllureHelper.label('caseStatus', `${caseId(C68985)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C68985)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW966)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW966)} PASSED`);
         });
     } catch (error) {
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68985, page }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW966, page }));
         await clickDiscardIfVisible(gradingPage);
     }
 
-    // C68989 — non-blocking: apply flow and grades change after Apply Only Here
+    // POW969 — non-blocking: apply flow and grades change after Apply Only Here
     try {
-        await AllureHelper.step(caseTitle(C68989), async () => {
+        await AllureHelper.step(caseTitle(POW969), async () => {
             await page.reload({ waitUntil: 'networkidle' });
-            console.log(`[IG Workflow] ▶ ${caseId(C68989)}: ${caseTitle(C68989)}`);
-            AllureHelper.label('testCaseId', C68989);
+            console.log(`[IG Workflow] ▶ ${caseId(POW969)}: ${caseTitle(POW969)}`);
+            AllureHelper.label('testCaseId', POW969);
             const summaryBeforeApply = await gradingPage.getGradingSummary();
             console.log(`[IG Workflow] Before apply flow, total score: ${summaryBeforeApply.totalScore}`);
 
@@ -357,49 +354,45 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             const applyOnlyHereButton = page.getByRole('button', { name: 'Apply Only Here' });
 
             try {
-                await AllureHelper.step(caseTitle(C69094), async () => {
-                    console.log(`[IG Workflow] ▶ ${caseId(C69094)}: ${caseTitle(C69094)}`);
-                    AllureHelper.label('testCaseId', C69094);
+                await AllureHelper.step(caseTitle(POW991), async () => {
+                    console.log(`[IG Workflow] ▶ ${caseId(POW991)}: ${caseTitle(POW991)}`);
+                    AllureHelper.label('testCaseId', POW991);
                     await expect(applyToAllButton, 'Apply to All button is not visible').toBeVisible({
                         timeout: 30000,
                     });
                     await expect(applyOnlyHereButton, 'Apply Only Here button is not visible').toBeVisible({
                         timeout: 30000,
                     });
-                    AllureHelper.label('caseStatus', `${caseId(C69094)}:passed`);
-                    console.log(`[IG Workflow] ✅ ${caseId(C69094)} PASSED`);
+                    AllureHelper.label('caseStatus', `${caseId(POW991)}:passed`);
+                    console.log(`[IG Workflow] ✅ ${caseId(POW991)} PASSED`);
                 });
             } catch (error) {
-                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69094, page }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW991, page }));
             }
 
             try {
-                await AllureHelper.step(caseTitle(C69095), async () => {
-                    console.log(`[IG Workflow] ▶ ${caseId(C69095)}: ${caseTitle(C69095)}`);
-                    AllureHelper.label('testCaseId', C69095);
+                await AllureHelper.step(caseTitle(POW992), async () => {
+                    console.log(`[IG Workflow] ▶ ${caseId(POW992)}: ${caseTitle(POW992)}`);
+                    AllureHelper.label('testCaseId', POW992);
                     console.log('[IG Workflow] Clicking Apply Only Here...');
                     await applyOnlyHereButton.click();
                     await page.waitForTimeout(500);
                     await waitForPreviewCleared(gradingPage, 'after Apply Only Here');
                     await page.waitForTimeout(3000);
-                    AllureHelper.label('caseStatus', `${caseId(C69095)}:passed`);
-                    console.log(`[IG Workflow] ✅ ${caseId(C69095)} PASSED`);
-                    AllureHelper.label('caseStatus', `${caseId(C78819)}:passed`);
-                    console.log(`[IG Workflow] ✅ ${caseId(C78819)} PASSED`);
+                    AllureHelper.label('caseStatus', `${caseId(POW992)}:passed`);
+                    console.log(`[IG Workflow] ✅ ${caseId(POW992)} PASSED`);
                 });
             } catch (error) {
-                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69095, page }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW992, page }));
             }
 
             const summaryAfterApply = await gradingPage.getGradingSummary();
             console.log(`[IG Workflow] After Apply Only Here, total score: ${summaryAfterApply.totalScore}`);
 
             try {
-                await AllureHelper.step(caseTitle(C69034), async () => {
-                    console.log(`[IG Workflow] ▶ ${caseId(C69034)}: ${caseTitle(C69034)}`);
-                    AllureHelper.label('testCaseId', C69034);
-                    console.log(`[IG Workflow] ▶ ${caseId(C75537)}: ${caseTitle(C75537)}`);
-                    AllureHelper.label('testCaseId', C75537);
+                await AllureHelper.step(caseTitle(POW984), async () => {
+                    console.log(`[IG Workflow] ▶ ${caseId(POW984)}: ${caseTitle(POW984)}`);
+                    AllureHelper.label('testCaseId', POW984);
                     const previewMatchesApplied = gradingSummariesMatch(
                         summaryInPreview,
                         summaryAfterApply,
@@ -412,14 +405,11 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                         previewMatchesApplied,
                         'Applied grades should match preview-mode grades before Apply',
                     ).toBe(true);
-                    AllureHelper.label('caseStatus', `${caseId(C69034)}:passed`);
-                    console.log(`[IG Workflow] ✅ ${caseId(C69034)} PASSED`);
-                    AllureHelper.label('caseStatus', `${caseId(C75537)}:passed`);
-                    console.log(`[IG Workflow] ✅ ${caseId(C75537)} PASSED`);
+                    AllureHelper.label('caseStatus', `${caseId(POW984)}:passed`);
+                    console.log(`[IG Workflow] ✅ ${caseId(POW984)} PASSED`);
                 });
             } catch (error) {
-                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69034, page }));
-                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C75537 }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW984, page }));
             }
 
             const differsFromBaseline = !gradingSummariesMatch(summaryBeforeApply, summaryAfterApply);
@@ -431,21 +421,21 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 differsFromBaseline,
                 'Grading summary should differ from original after applying interactive grade',
             ).toBe(true);
-            AllureHelper.label('caseStatus', `${caseId(C68989)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C68989)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW969)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW969)} PASSED`);
         });
     } catch (error) {
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68989, page }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW969, page }));
         await clickDiscardIfVisible(gradingPage);
     }
 
     const assignmentDetailsPage = new PowerGraderAssignmentDetailsPage(page);
 
-    // C69023 — non-blocking: publish IG score persists after reopening submission
+    // POW978 — non-blocking: publish IG score persists after reopening submission
     try {
-        await AllureHelper.step(caseTitle(C69023), async () => {
-            console.log(`[IG Workflow] ▶ ${caseId(C69023)}: ${caseTitle(C69023)}`);
-            AllureHelper.label('testCaseId', C69023);
+        await AllureHelper.step(caseTitle(POW978), async () => {
+            console.log(`[IG Workflow] ▶ ${caseId(POW978)}: ${caseTitle(POW978)}`);
+            AllureHelper.label('testCaseId', POW978);
             const summaryBeforePublish = await gradingPage.getGradingSummary();
             console.log(
                 `[IG Workflow] Pre-publish total score: ${summaryBeforePublish.totalScore}`,
@@ -461,6 +451,8 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             await viewButton.click();
             await page.waitForTimeout(500);
             await gradingPage.waitForLoad();
+
+            await AllureHelper.attachScreenshot(page, `${caseId(POW978)} | reopened after ig score publish`);
 
             const summaryAfterPublish = await gradingPage.getGradingSummary();
             console.log(
@@ -479,11 +471,11 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                 publishedScorePersisted,
                 'Published grading summary should match pre-publish summary after reopening submission',
             ).toBe(true);
-            AllureHelper.label('caseStatus', `${caseId(C69023)}:passed`);
-            console.log(`[IG Workflow] ✅ ${caseId(C69023)} PASSED`);
+            AllureHelper.label('caseStatus', `${caseId(POW978)}:passed`);
+            console.log(`[IG Workflow] ✅ ${caseId(POW978)} PASSED`);
         });
     } catch (error) {
-        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69023, page }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: POW978, page }));
     }
 
     const durationMin = ((Date.now() - workflowStart) / 60000).toFixed(1);

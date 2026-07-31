@@ -4,7 +4,7 @@ import { CanvasLMS } from '../../components/lms/canvas/CanvasLMS';
 import { CanvasLMSStudent } from '../../components/lms/canvas/CanvasLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getCanvasAssignmentConfigs } from '../../test-data/assignments/canvas';
-import { C69002, C69070, C69098 } from '../../test-data/testCaseIds';
+import { POW1005, POW910, POW922 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getCanvasConfig } from '../../config/canvas.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -41,8 +41,8 @@ async function waitForStudentAssignmentToAppearByUrl(
 
       await student.page.goto(url, { waitUntil: 'domcontentloaded' });
       await student.assignmentDetailsPage.waitForLoad();
-      if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69070:'))) {
-        AllureHelper.label('caseStatus', `${C69070.split(':')[0]}:reached`);
+      if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-910:'))) {
+        AllureHelper.label('caseStatus', `${POW910.split(':')[0]}:reached`);
       }
 
       console.log(`[${labelForLogs}] Student Sync: assignment page opened ✅`);
@@ -83,12 +83,12 @@ test.describe('Canvas: PowerGrader grade + LMS verify @canvas @component', () =>
     test.setTimeout(1_200_000);
     AllureHelper.label('lms', 'canvas');
     AllureHelper.label('caseConfig', `canvas|verify-lms|${assignmentConfig.title}`);
-    AllureHelper.label('testCaseId', C69070);
-    AllureHelper.label('caseStatus', `${C69070.split(':')[0]}:not_reached`);
-    AllureHelper.label('testCaseId', C69002);
+    AllureHelper.label('testCaseId', POW910);
+    AllureHelper.label('caseStatus', `${POW910.split(':')[0]}:not_reached`);
+    AllureHelper.label('testCaseId', POW1005);
     if (assignmentConfig.submissionType !== 'Text Entry') {
-      AllureHelper.label('testCaseId', C69098);
-      AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
+      AllureHelper.label('testCaseId', POW922);
+      AllureHelper.label('caseStatus', `${POW922.split(':')[0]}:not_reached`);
     }
 
     const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;

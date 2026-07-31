@@ -8,7 +8,7 @@ import { CanvasAssignmentDetailsPage } from './pages/CanvasAssignmentDetailsPage
 import { CanvasGradingPage } from './pages/CanvasGradingPage';
 import { AssignmentConfig, GradingSummary, LmsTeacher } from '../../../types';
 import { getCanvasConfig } from '../../../config/canvas.config';
-import { C69002, C69070, C78990 } from '../../../test-data/testCaseIds';
+import { POW1005, POW949 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
 import { getCanvasAssignmentConfigs } from '../../../test-data/assignments/canvas';
@@ -203,12 +203,12 @@ export class CanvasLMS implements LmsTeacher {
                     });
                 }
 
-                AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
+                AllureHelper.label('caseStatus', `${POW1005.split(':')[0]}:passed`);
             });
         } catch (error) {
             await AllureHelper.attachFailureDiagnostics(
                 diagnosticsPage,
-                'C69002|LMS|Verify LMS score',
+                'POW1005|LMS|Verify LMS score',
                 { error: error instanceof Error ? error.message : String(error) },
             );
             throw error;
@@ -286,8 +286,8 @@ export class CanvasLMS implements LmsTeacher {
                 newPage.getByTestId('assignments-filters-search-input'),
                 'PowerGrader QA launch failed: assignments search input not visible',
             ).toBeVisible({ timeout: 120_000 });
-            AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:passed`);
-            console.log('[CanvasLMS] C78990: PowerGrader QA instance launched (assignments search visible).');
+            AllureHelper.label('caseStatus', `${POW949.split(':')[0]}:passed`);
+            console.log('[CanvasLMS] POW949: PowerGrader QA instance launched (assignments search visible).');
             return newPage;
         }
 
