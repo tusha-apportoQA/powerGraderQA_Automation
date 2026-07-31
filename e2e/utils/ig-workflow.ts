@@ -118,7 +118,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ✅ ${caseId(C69114)} PASSED`);
         });
     } catch (error) {
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69114 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69114, page }));
     } finally {
         await clickCancelIfVisible(page);
     }
@@ -167,7 +167,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ✅ ${caseId(C69008)} PASSED`);
         });
     } catch (error) {
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69008 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69008, page }));
     } finally {
         await clickCancelIfVisible(page);
     }
@@ -239,7 +239,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ✅ ${caseId(C69011)} PASSED`);
         });
     } catch (error) {
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69011 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69011, page }));
         await clickDiscardIfVisible(gradingPage);
     }
 
@@ -277,7 +277,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                     console.log(`[IG Workflow] ✅ ${caseId(C68990)} PASSED`);
                 });
             } catch (error) {
-                failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C68990 }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68990, page }));
             }
 
             console.log('[IG Workflow] Reloading page to verify Preview mode persists...');
@@ -297,9 +297,9 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ✅ ${caseId(C69025)} PASSED`);
         });
     } catch (error) {
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C68986 }));
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C68987 }));
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69025 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68986, page }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68987 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69025 }));
     }
 
     // C68985 — non-blocking: discard restores original grades
@@ -329,7 +329,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ✅ ${caseId(C68985)} PASSED`);
         });
     } catch (error) {
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C68985 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68985, page }));
         await clickDiscardIfVisible(gradingPage);
     }
 
@@ -370,7 +370,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                     console.log(`[IG Workflow] ✅ ${caseId(C69094)} PASSED`);
                 });
             } catch (error) {
-                failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69094 }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69094, page }));
             }
 
             try {
@@ -388,7 +388,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                     console.log(`[IG Workflow] ✅ ${caseId(C78819)} PASSED`);
                 });
             } catch (error) {
-                failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69095 }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69095, page }));
             }
 
             const summaryAfterApply = await gradingPage.getGradingSummary();
@@ -418,8 +418,8 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
                     console.log(`[IG Workflow] ✅ ${caseId(C75537)} PASSED`);
                 });
             } catch (error) {
-                failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69034 }));
-                failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C75537 }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69034, page }));
+                failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C75537 }));
             }
 
             const differsFromBaseline = !gradingSummariesMatch(summaryBeforeApply, summaryAfterApply);
@@ -435,7 +435,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ✅ ${caseId(C68989)} PASSED`);
         });
     } catch (error) {
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C68989 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C68989, page }));
         await clickDiscardIfVisible(gradingPage);
     }
 
@@ -483,7 +483,7 @@ export async function executeIgWorkflow(page: Page): Promise<WorkflowFailure[]> 
             console.log(`[IG Workflow] ✅ ${caseId(C69023)} PASSED`);
         });
     } catch (error) {
-        failures.push(createWorkflowFailure(error, { tag: 'IG', caseLabel: C69023 }));
+        failures.push(await createWorkflowFailure(error, { tag: 'IG', caseLabel: C69023, page }));
     }
 
     const durationMin = ((Date.now() - workflowStart) / 60000).toFixed(1);

@@ -4,7 +4,7 @@ import { allure } from 'allure-playwright';
 
 export class AllureHelper {
     static async attachScreenshot(page: Page, name: string): Promise<void> {
-        const screenshot = await page.screenshot();
+        const screenshot = await page.screenshot({ fullPage: false });
         await test.info().attach(name, {
             body: screenshot,
             contentType: 'image/png'
@@ -25,7 +25,40 @@ export class AllureHelper {
         });
     }
 
-    static step(name: string, body: () => Promise<void> | void): Promise<void> {
+    /**
+     * Failure-only diagnostics for deploy/hub: screenshot + URL/context text.
+     * Safe to call when page may be closed; never throws.
+     */
+    static async attachFailureDiagnostics(
+        page: Page | undefined,
+        label: string,
+        extra?: { error?: string; waitingFor?: string },
+    ): Promise<void> {
+        const safeLabel = label.replace(/[^\w.\-| ]+/g, '_').slice(0, 140);
+        try {
+            if (!page || page.isClosed()) {
+                console.warn(`[AllureHelper] Skipping failure diagnostics for "${safeLabel}" (page missing/closed)`);
+                return;
+            }
+            const lines = [
+                `label: ${safeLabel}`,
+                `url: ${page.url()}`,
+                `timestamp: ${new Date().toISOString()}`,
+            ];
+            if (extra?.waitingFor) {
+                lines.push(`waitingFor: ${extra.waitingFor}`);
+            }
+            if (extra?.error) {
+                lines.push(`error: ${extra.error}`);
+            }
+            await this.attachText(`${safeLabel} | context`, lines.join('\n'));
+            await this.attachScreenshot(page, `${safeLabel} | screenshot`);
+        } catch (e) {
+            console.warn(`[AllureHelper] Could not attach failure diagnostics for "${safeLabel}":`, e);
+        }
+    }
+
+    static step<T>(name: string, body: () => Promise<T> | T): Promise<T> {
         return test.step(name, body);
     }
 
@@ -65,4 +98,3 @@ export class AllureHelper {
         test.info().annotations.push({ type: 'severity', description: severity });
     }
 }
-

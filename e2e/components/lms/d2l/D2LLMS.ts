@@ -11,6 +11,7 @@ import { expect } from '@playwright/test';
 import { C69002, C69065, C69067, C78990 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
+import { getD2LAssignmentConfigs } from '../../../test-data/assignments/d2l';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
     const s = String(totalScore).trim();
@@ -130,72 +131,91 @@ export class D2LLMS implements LmsTeacher {
         gradingSummary: GradingSummary,
         expectedSubmissionComment?: string
     ): Promise<void> {
-        const { studentDisplayName } = getD2LConfig();
-        console.log(`[D2LLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
-        console.log('[D2LLMS] Expected GradingSummary:', gradingSummary);
+        try {
+            await AllureHelper.step('Verify LMS score', async () => {
+                const { studentDisplayName } = getD2LConfig();
+                console.log(`[D2LLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
+                console.log('[D2LLMS] Expected GradingSummary:', gradingSummary);
 
-        await this.navigateToCourse();
+                let gradingPage!: D2LGradingPage;
+                await AllureHelper.step('Navigate to student evaluation', async () => {
+                    await this.navigateToCourse();
 
-        await this.coursePage.clickAssignments();
-        await this.assignmentListPage.expectAssignmentListPageLoaded();
+                    await this.coursePage.clickAssignments();
+                    await this.assignmentListPage.expectAssignmentListPageLoaded();
 
-        await this.assignmentListPage.clickAssignment(assignmentName);
-        await this.assignmentDetailsPage.waitForLoad();
-        await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
+                    await this.assignmentListPage.clickAssignment(assignmentName);
+                    await this.assignmentDetailsPage.waitForLoad();
+                    await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
 
-        // Open evaluation for the specific student on the submissions list
-        await this.assignmentDetailsPage.openEvaluationForStudent(studentDisplayName);
+                    // Open evaluation for the specific student on the submissions list
+                    await this.assignmentDetailsPage.openEvaluationForStudent(studentDisplayName);
 
-        const gradingPage = new D2LGradingPage(this.page);
-        const lmsSummary = await gradingPage.getRubricSnapshot();
+                    gradingPage = new D2LGradingPage(this.page);
+                });
 
-        const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
-        const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
-        console.log(
-            `[D2LLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
-        );
-        await expect(lmsEarned).toBe(expEarned);
+                await AllureHelper.step('Compare LMS scores with expected', async () => {
+                    const lmsSummary = await gradingPage.getRubricSnapshot();
 
-        const expectedCriteria = gradingSummary.criteria ?? [];
-        const lmsCriteria = lmsSummary.criteria ?? [];
-        await expect(lmsCriteria.length).toBe(expectedCriteria.length);
-
-        for (let i = 0; i < expectedCriteria.length; i++) {
-            const expCrit = expectedCriteria[i];
-            const lmsCrit = lmsCriteria[i];
-            if (!lmsCrit) throw new Error(`Criterion at index ${i} missing in LMS`);
-
-            const normalize = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
-            console.log(
-                `[D2LLMS] Criterion index ${i} -> expected name="${expCrit.name}", LMS name="${lmsCrit.name}"`
-            );
-            await expect(normalize(lmsCrit.name)).toBe(normalize(expCrit.name));
-
-            console.log(
-                `[D2LLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
-            );
-            await expect(lmsCrit.points).toBe(expCrit.points);
-
-            console.log(`[D2LLMS] Criterion index ${i} -> comparing feedback`);
-            await expect(lmsCrit.feedback).toBe(expCrit.feedback);
-        }
-
-        if (expectedSubmissionComment) {
-            try {
-                const found = await gradingPage.hasVisibleExactText(expectedSubmissionComment);
-                if (!found) {
-                    console.warn(
-                        `[D2LLMS] Submission comment not found on grading page (non-blocking). Expected exact: "${expectedSubmissionComment}"`
+                    const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
+                    const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
+                    console.log(
+                        `[D2LLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
                     );
-                } else {
-                    console.log('[D2LLMS] Submission comment found on grading page.');
-                }
-            } catch (error) {
-                console.warn('[D2LLMS] Submission comment check failed (non-blocking):', error);
-            }
-        }
+                    await expect(lmsEarned).toBe(expEarned);
 
-        AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
+                    const expectedCriteria = gradingSummary.criteria ?? [];
+                    const lmsCriteria = lmsSummary.criteria ?? [];
+                    await expect(lmsCriteria.length).toBe(expectedCriteria.length);
+
+                    for (let i = 0; i < expectedCriteria.length; i++) {
+                        const expCrit = expectedCriteria[i];
+                        const lmsCrit = lmsCriteria[i];
+                        if (!lmsCrit) throw new Error(`Criterion at index ${i} missing in LMS`);
+
+                        const normalize = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
+                        console.log(
+                            `[D2LLMS] Criterion index ${i} -> expected name="${expCrit.name}", LMS name="${lmsCrit.name}"`
+                        );
+                        await expect(normalize(lmsCrit.name)).toBe(normalize(expCrit.name));
+
+                        console.log(
+                            `[D2LLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
+                        );
+                        await expect(lmsCrit.points).toBe(expCrit.points);
+
+                        console.log(`[D2LLMS] Criterion index ${i} -> comparing feedback`);
+                        await expect(lmsCrit.feedback).toBe(expCrit.feedback);
+                    }
+                });
+
+                if (expectedSubmissionComment) {
+                    await AllureHelper.step('Verify submission comment', async () => {
+                        try {
+                            const found = await gradingPage.hasVisibleExactText(expectedSubmissionComment);
+                            if (!found) {
+                                console.warn(
+                                    `[D2LLMS] Submission comment not found on grading page (non-blocking). Expected exact: "${expectedSubmissionComment}"`
+                                );
+                            } else {
+                                console.log('[D2LLMS] Submission comment found on grading page.');
+                            }
+                        } catch (error) {
+                            console.warn('[D2LLMS] Submission comment check failed (non-blocking):', error);
+                        }
+                    });
+                }
+
+                AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
+            });
+        } catch (error) {
+            await AllureHelper.attachFailureDiagnostics(
+                this.page,
+                'C69002|LMS|Verify LMS score',
+                { error: error instanceof Error ? error.message : String(error) },
+            );
+            throw error;
+        }
     }
 
     /*async navigateToPowerGrader(): Promise<Page> {
@@ -253,14 +273,9 @@ export class D2LLMS implements LmsTeacher {
         await powerGraderCoursePage.page.waitForLoadState('networkidle', {timeout: 180000});
         await powerGraderPage.waitForTimeout(2000);
 
-        const d2lAutomationCleanupBaseTitles: string[] = [
-            'D2L DOCX No Rubric',
-            'D2L DOCX Existing Rubric',
-            'D2L DOCX New Rubric',
-            'D2L PDF No Rubric',
-        ];
+        const d2lAssignmentTitles = getD2LAssignmentConfigs().map(config => config.title);
         const cleanupTitles = await powerGraderCoursePage.getAutomationCleanupAssignmentTitles(
-            d2lAutomationCleanupBaseTitles,
+            d2lAssignmentTitles,
         );
         console.log(`[cleanup][d2l] assignments to delete (${cleanupTitles.length}):`, cleanupTitles);
 

@@ -11,6 +11,7 @@ import { getCanvasConfig } from '../../../config/canvas.config';
 import { C69002, C69070, C78990 } from '../../../test-data/testCaseIds';
 import { AllureHelper } from '../../../utils/allureHelper';
 import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
+import { getCanvasAssignmentConfigs } from '../../../test-data/assignments/canvas';
 
 /** Earned points from a total string, e.g. "13/15" -> 13. */
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
@@ -50,38 +51,47 @@ export class CanvasLMS implements LmsTeacher {
     }
 
         async createAssignment(config: AssignmentConfig): Promise<void> {
-            await this.dashboardPage.goto(this.baseURL);
-            await this.dashboardPage.expectDashboardLoaded();
-            
+            await AllureHelper.step('Open Canvas Dashboard', async () => {
+                await this.dashboardPage.goto(this.baseURL);
+                await this.dashboardPage.expectDashboardLoaded();
+            });
+
             const { courseName, defaultPoints } = getCanvasConfig();
-            await this.dashboardPage.selectCourse(courseName);
 
-            await this.coursePage.expectCoursePageLoaded();
-            await this.coursePage.clickAssignments();
-            
-            await this.assignmentListPage.expectAssignmentsListLoaded();
-            await this.assignmentListPage.clickCreateAssignment();
-            
-            await this.createAssignmentPage.expectCreateAssignmentPageLoaded();
-            await this.createAssignmentPage.fillTitle(config.title);
-            
-            if (config.description) {
-                await this.createAssignmentPage.fillDescription(config.description);
-            }
-            
-            await this.createAssignmentPage.fillPoints(config.points || defaultPoints);
-            
-            if (config.submissionType) {
-                await this.createAssignmentPage.setSubmissionType(config.submissionType);
-            }
-            
-            if (config.assignAccess) {
-                await this.createAssignmentPage.setAssignmentAccess(config.assignAccess);
-            }
-            
-            await this.createAssignmentPage.clickSaveAndPublish();
+            await AllureHelper.step(`Select Course : "${courseName}"`, async () => {
+                await this.dashboardPage.selectCourse(courseName);
+                await this.coursePage.expectCoursePageLoaded();
+            })
 
-            await this.assignmentDetailsPage.waitForLoad();
+            await AllureHelper.step('Open create assignment page', async () => {
+                await this.coursePage.clickAssignments();
+                await this.assignmentListPage.expectAssignmentsListLoaded();
+                await this.assignmentListPage.clickCreateAssignment();
+                await this.createAssignmentPage.expectCreateAssignmentPageLoaded();
+            })
+            
+            await AllureHelper.step(`Fill Assignment detials and save"`, async () => {
+                await this.createAssignmentPage.fillTitle(config.title);
+
+                if (config.description) {
+                    await this.createAssignmentPage.fillDescription(config.description);
+                }
+
+                await this.createAssignmentPage.fillPoints(config.points || defaultPoints);
+
+                if (config.submissionType) {
+                    await this.createAssignmentPage.setSubmissionType(config.submissionType);
+                }
+
+                if (config.assignAccess) {
+                    await this.createAssignmentPage.setAssignmentAccess(config.assignAccess);
+                }
+
+                await this.createAssignmentPage.clickSaveAndPublish();
+
+                await this.assignmentDetailsPage.waitForLoad();
+
+            })
             
             // Set rubric BEFORE final verification to ensure page state is settled
             if (config.rubric && config.rubric.type !== 'no') {
@@ -107,79 +117,101 @@ export class CanvasLMS implements LmsTeacher {
         gradingSummary: GradingSummary,
         expectedSubmissionComment?: string
     ): Promise<void> {
-        const { studentDisplayName: studentName } = getCanvasConfig();
-        console.log(`[CanvasLMS] verifyLmsScore for student=${studentName}, assignment="${assignmentName}"`);
-        console.log('[CanvasLMS] Expected GradingSummary:', gradingSummary);
+        let diagnosticsPage: Page = this.page;
+        try {
+            await AllureHelper.step('Verify LMS score', async () => {
+                const { studentDisplayName: studentName } = getCanvasConfig();
+                console.log(`[CanvasLMS] verifyLmsScore for student=${studentName}, assignment="${assignmentName}"`);
+                console.log('[CanvasLMS] Expected GradingSummary:', gradingSummary);
 
-        await this.navigateToCourse();
+                let canvasGradingPage!: CanvasGradingPage;
+                await AllureHelper.step('Navigate to SpeedGrader', async () => {
+                    await this.navigateToCourse();
 
-        await this.coursePage.clickAssignments();
-        await this.assignmentListPage.expectAssignmentsListLoaded();
+                    await this.coursePage.clickAssignments();
+                    await this.assignmentListPage.expectAssignmentsListLoaded();
 
-        await this.assignmentListPage.clickAssignment(assignmentName);
-        await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
+                    await this.assignmentListPage.clickAssignment(assignmentName);
+                    await this.assignmentDetailsPage.verifyAssignmentTitle(assignmentName);
 
-        const speedGraderPage = await this.assignmentDetailsPage.openSpeedGrader();
-        const canvasGradingPage = new CanvasGradingPage(speedGraderPage);
-        await canvasGradingPage.waitForLoad();
-        await canvasGradingPage.ensureSelectedStudent(studentName);
-        await canvasGradingPage.waitForLoad();
+                    const speedGraderPage = await this.assignmentDetailsPage.openSpeedGrader();
+                    diagnosticsPage = speedGraderPage;
+                    canvasGradingPage = new CanvasGradingPage(speedGraderPage);
+                    await canvasGradingPage.waitForLoad();
+                    await canvasGradingPage.ensureSelectedStudent(studentName);
+                    await canvasGradingPage.waitForLoad();
+                });
 
-        const lmsSummary = await canvasGradingPage.getRubricSnapshot();
-        console.log('[CanvasLMS] LMS GradingSummary (scraped):', lmsSummary);
+                let lmsSummary!: GradingSummary;
+                await AllureHelper.step('Compare LMS scores with expected', async () => {
+                    lmsSummary = await canvasGradingPage.getRubricSnapshot();
+                    console.log('[CanvasLMS] LMS GradingSummary (scraped):', lmsSummary);
 
-        const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
-        const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
-        console.log(
-            `[CanvasLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
-        );
-        await expect(lmsEarned).toBe(expEarned);
-
-        const expMax = parseMaxPointsFromTotalScore(gradingSummary.totalScore);
-        const lmsMax = parseMaxPointsFromTotalScore(lmsSummary.totalScore);
-        if (expMax != null && lmsMax != null && !Number.isNaN(expMax) && !Number.isNaN(lmsMax)) {
-            console.log(`[CanvasLMS] Total max -> expected=${expMax}, LMS=${lmsMax}`);
-            await expect(lmsMax).toBe(expMax);
-        }
-
-        const expectedCriteria = gradingSummary.criteria ?? [];
-        const lmsCriteria = lmsSummary.criteria ?? [];
-
-        await expect(lmsCriteria.length).toBe(expectedCriteria.length);
-
-        for (let i = 0; i < expectedCriteria.length; i++) {
-            const expCrit = expectedCriteria[i];
-            const lmsCrit = lmsCriteria[i];
-            if (lmsCrit === undefined) {
-                throw new Error(`Criterion at index ${i} missing in LMS`);
-            }
-
-            console.log(
-                `[CanvasLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
-            );
-            await expect(lmsCrit.points).toBe(expCrit.points);
-
-            console.log(`[CanvasLMS] Criterion index ${i} -> comparing feedback`);
-            await expect(lmsCrit.feedback).toBe(expCrit.feedback);
-        }
-
-        if (expectedSubmissionComment) {
-            try {
-                const actualComment = await canvasGradingPage.getSubmissionCommentText();
-                if (actualComment === null) {
-                    console.warn('[CanvasLMS] Submission comment element not visible (data-testid="comment-0-text").');
-                } else if (actualComment !== expectedSubmissionComment) {
-                    console.warn(
-                        `[CanvasLMS] Submission comment mismatch (non-blocking). Expected="${expectedSubmissionComment}" | Actual="${actualComment}"`
+                    const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
+                    const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
+                    console.log(
+                        `[CanvasLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
                     );
-                } else {
-                    console.log('[CanvasLMS] Submission comment matches expected text.');
+                    await expect(lmsEarned).toBe(expEarned);
+
+                    const expMax = parseMaxPointsFromTotalScore(gradingSummary.totalScore);
+                    const lmsMax = parseMaxPointsFromTotalScore(lmsSummary.totalScore);
+                    if (expMax != null && lmsMax != null && !Number.isNaN(expMax) && !Number.isNaN(lmsMax)) {
+                        console.log(`[CanvasLMS] Total max -> expected=${expMax}, LMS=${lmsMax}`);
+                        await expect(lmsMax).toBe(expMax);
+                    }
+
+                    const expectedCriteria = gradingSummary.criteria ?? [];
+                    const lmsCriteria = lmsSummary.criteria ?? [];
+
+                    await expect(lmsCriteria.length).toBe(expectedCriteria.length);
+
+                    for (let i = 0; i < expectedCriteria.length; i++) {
+                        const expCrit = expectedCriteria[i];
+                        const lmsCrit = lmsCriteria[i];
+                        if (lmsCrit === undefined) {
+                            throw new Error(`Criterion at index ${i} missing in LMS`);
+                        }
+
+                        console.log(
+                            `[CanvasLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
+                        );
+                        await expect(lmsCrit.points).toBe(expCrit.points);
+
+                        console.log(`[CanvasLMS] Criterion index ${i} -> comparing feedback`);
+                        await expect(lmsCrit.feedback).toBe(expCrit.feedback);
+                    }
+                });
+
+                if (expectedSubmissionComment) {
+                    await AllureHelper.step('Verify submission comment', async () => {
+                        try {
+                            const actualComment = await canvasGradingPage.getSubmissionCommentText();
+                            if (actualComment === null) {
+                                console.warn('[CanvasLMS] Submission comment element not visible (data-testid="comment-0-text").');
+                            } else if (actualComment !== expectedSubmissionComment) {
+                                console.warn(
+                                    `[CanvasLMS] Submission comment mismatch (non-blocking). Expected="${expectedSubmissionComment}" | Actual="${actualComment}"`
+                                );
+                            } else {
+                                console.log('[CanvasLMS] Submission comment matches expected text.');
+                            }
+                        } catch (error) {
+                            console.warn('[CanvasLMS] Could not verify submission comment (non-blocking):', error);
+                        }
+                    });
                 }
-            } catch (error) {
-                console.warn('[CanvasLMS] Could not verify submission comment (non-blocking):', error);
-            }
+
+                AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
+            });
+        } catch (error) {
+            await AllureHelper.attachFailureDiagnostics(
+                diagnosticsPage,
+                'C69002|LMS|Verify LMS score',
+                { error: error instanceof Error ? error.message : String(error) },
+            );
+            throw error;
         }
-        AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
     }
 
     /**
@@ -273,7 +305,9 @@ export class CanvasLMS implements LmsTeacher {
         await powerGraderCoursePage.page.waitForLoadState('networkidle', {timeout: 180000});
         await powerGraderPage.waitForTimeout(2000);
 
-        const cleanupTitles = await powerGraderCoursePage.getAutomationCleanupAssignmentTitles();
+        const assignmentTitles = getCanvasAssignmentConfigs().map(config => config.title);
+
+        const cleanupTitles = await powerGraderCoursePage.getAutomationCleanupAssignmentTitles(assignmentTitles);
         console.log(`[cleanup][canvas] assignments to delete (${cleanupTitles.length}):`, cleanupTitles);
 
         await this.coursePage.expectCoursePageLoaded();

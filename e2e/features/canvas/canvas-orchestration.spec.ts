@@ -45,6 +45,7 @@ import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submis
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
 import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout";
+import { Page } from '@playwright/test';
 
 /**
  * Poll until the student can open the assignment details page by direct URL.
@@ -325,26 +326,27 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
         await teacher.navigateToCourse();
       });
 
+      let pg!: Page;
       await AllureHelper.step('Navigate to PowerGrader', async () => {
         AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:reached`);
-        const pg = await teacher.navigateToPowerGrader();
+        pg = await teacher.navigateToPowerGrader();
+      });
 
-        await AllureHelper.step('Run Grade & Publish Workflow', async () => {
-          console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
-          
-          await runPGOrSkipOnTimeout(async () => {
-            await executeUniversalPGWorkflow(
-              pg,
-              uniqueTitle,
-              studentEmail,
-              assignmentConfig,
-              'canvas',
-              teacher,
-            );
-          });
-          
-          console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
+      await AllureHelper.step('Run Universal PG Workflow', async () => {
+        console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
+
+        await runPGOrSkipOnTimeout(async () => {
+          await executeUniversalPGWorkflow(
+            pg,
+            uniqueTitle,
+            studentEmail,
+            assignmentConfig,
+            'canvas',
+            teacher,
+          );
         });
+
+        console.log(`[${uniqueTitle}] ✅ [END] Universal PG Workflow`);
       });
 
       const gradeMs = Date.now() - gradeStart;

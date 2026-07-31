@@ -255,11 +255,14 @@ export class D2LAssignmentCreatePage {
         await this.expandEvalFeedbackSection();
 
         await expect(this.addRubricBtn).toBeVisible({ timeout: 30000 });
+        await this.addRubricBtn.scrollIntoViewIfNeeded();
         await this.addRubricBtn.click();
         await this.page.waitForLoadState('networkidle', { timeout: 120000 }).catch(() => {});
 
         await expect(this.addExistingRubricMenuItem).toBeVisible({ timeout: 10000 });
-        await this.addExistingRubricMenuItem.click();
+        await this.addExistingRubricMenuItem.click({ timeout: 5000 }).catch(() =>
+            this.addExistingRubricMenuItem.click({ force: true, timeout: 30000 }),
+        );
         await this.page.waitForTimeout(500);
 
         await this.rubricDialog.waitForAddAssociationsDialogOpen();

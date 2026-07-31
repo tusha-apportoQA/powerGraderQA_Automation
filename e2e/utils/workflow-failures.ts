@@ -1,3 +1,4 @@
+import { Page } from '@playwright/test';
 import { AllureHelper } from './allureHelper';
 
 export type WorkflowFailure = {
@@ -11,6 +12,8 @@ export type CreateWorkflowFailureOptions = {
     tag: string;
     caseId?: string;
     caseLabel?: string;
+    /** Page to screenshot + attach URL context (deferred failures skip Playwright auto-screenshots). */
+    page?: Page;
 };
 
 function resolveCaseId(options: CreateWorkflowFailureOptions): string | undefined {
@@ -37,10 +40,14 @@ function logDeferredWorkflowFailure(
     }
 }
 
-export function createWorkflowFailure(
+/**
+ * Records a deferred workflow failure (labels + log) and optionally attaches screenshot/URL
+ * diagnostics for Allure. Prefer passing `page` for UI failures so hub reports show the stuck state.
+ */
+export async function createWorkflowFailure(
     error: unknown,
     options: CreateWorkflowFailureOptions,
-): WorkflowFailure {
+): Promise<WorkflowFailure> {
     const resolvedCaseId = resolveCaseId(options);
     const failure: WorkflowFailure = {
         message: error instanceof Error ? error.message : String(error),
@@ -54,6 +61,13 @@ export function createWorkflowFailure(
     if (resolvedCaseId) {
         AllureHelper.label('caseStatus', `${resolvedCaseId}:failed`);
         AllureHelper.label('caseError', `${resolvedCaseId}:${failure.message}`);
+    }
+
+    if (options.page) {
+        const diagLabel = [resolvedCaseId, options.tag, 'failure'].filter(Boolean).join('|');
+        await AllureHelper.attachFailureDiagnostics(options.page, diagLabel, {
+            error: failure.message,
+        });
     }
 
     return failure;
