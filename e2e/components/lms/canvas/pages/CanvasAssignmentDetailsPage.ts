@@ -1,5 +1,6 @@
 import { expect, Page, Locator } from '@playwright/test';
 import { AssignmentRubricConfig, NewRubricConfig } from '../../../../types';
+import { AllureHelper } from '../../../../utils/allureHelper';
 
 export class CanvasAssignmentDetailsPage {
     page: Page;
@@ -134,49 +135,51 @@ export class CanvasAssignmentDetailsPage {
     // 3) Uses new Add button test id: `save-rubric-assessment-button`.
     // 4) Keeps strict post-add verification for the chosen rubric title.
     private async attachExistingRubric(groupName: string, rubricName: string): Promise<void> {
-        console.log(`[CanvasLMS] Searching for Rubric: "${rubricName}" in Context: "${groupName}"`);
-        await this.findRubricButton.click({ force: true });
+        await AllureHelper.step(`Attach existing rubric : "${rubricName}" in Context: "${groupName}"`, async () => {
+            console.log(`[CanvasLMS] Searching for Rubric: "${rubricName}" in Context: "${groupName}"`);
+            await this.findRubricButton.click({ force: true });
 
-        // 1. Select Course
-        // Skipped for now: dropdown already has the correct course pre-selected by default.
-        // await expect(this.courseDropdown).toBeVisible({ timeout: 15000 });
-        // await this.courseDropdown.click();
-        // await this.page.getByRole('option', { name: groupName, exact: true }).first().click();
+            // 1. Select Course
+            // Skipped for now: dropdown already has the correct course pre-selected by default.
+            // await expect(this.courseDropdown).toBeVisible({ timeout: 15000 });
+            // await this.courseDropdown.click();
+            // await this.page.getByRole('option', { name: groupName, exact: true }).first().click();
 
-        // 2. Select target rubric by title test id, then click its related radio label.
-        // Use exact text match so "ELC Essay Rubric" does not match "ELC Essay Rubric 2".
-        const exactTitle = this.page
-            .getByTestId('rubric-search-row-title')
-            .getByText(rubricName, { exact: true })
-            .first();
-        await expect(exactTitle).toBeVisible({ timeout: 15000 });
+            // 2. Select target rubric by title test id, then click its related radio label.
+            // Use exact text match so "ELC Essay Rubric" does not match "ELC Essay Rubric 2".
+            const exactTitle = this.page
+                .getByTestId('rubric-search-row-title')
+                .getByText(rubricName, { exact: true })
+                .first();
+            await expect(exactTitle).toBeVisible({ timeout: 15000 });
 
-        const rowContainer = exactTitle.locator('xpath=ancestor::*[.//input[@type="radio"]][1]');
-        const radioInput = rowContainer.locator('input[type="radio"]').first();
-        await expect(radioInput).toBeAttached({ timeout: 10000 });
+            const rowContainer = exactTitle.locator('xpath=ancestor::*[.//input[@type="radio"]][1]');
+            const radioInput = rowContainer.locator('input[type="radio"]').first();
+            await expect(radioInput).toBeAttached({ timeout: 10000 });
 
-        const radioId = await radioInput.getAttribute('id');
-        if (radioId) {
-            await this.page.locator(`label[for="${radioId}"]`).first().click({ force: true });
-        } else {
-            // Fallback for unexpected markup: click available label inside the same row container.
-            await rowContainer.locator('label[for], label').first().click({ force: true });
-        }
+            const radioId = await radioInput.getAttribute('id');
+            if (radioId) {
+                await this.page.locator(`label[for="${radioId}"]`).first().click({ force: true });
+            } else {
+                // Fallback for unexpected markup: click available label inside the same row container.
+                await rowContainer.locator('label[for], label').first().click({ force: true });
+            }
 
-        console.log(`[DEBUG] Successfully selected rubric: ${rubricName}`);
+            console.log(`[DEBUG] Successfully selected rubric: ${rubricName}`);
 
-        // 3. Click "+ Add" (Wait for it to become enabled naturally)
-        const addButton = this.page.getByTestId('save-rubric-assessment-button');
-        
-        await expect(addButton).toBeVisible({ timeout: 10000 });
-        // This line is critical: it ensures the selection click actually worked
-        await expect(addButton).toBeEnabled({ timeout: 10000 });
-        await addButton.click();
+            // 3. Click "+ Add" (Wait for it to become enabled naturally)
+            const addButton = this.page.getByTestId('save-rubric-assessment-button');
 
-        // 4. Verification
-        await expect(this.rubricTitleOnPage).toBeVisible({ timeout: 15000 });
-        // Precise verification: ensure the exact rubric name text is visible inside the mount point.
-        await expect(this.rubricTitleOnPage.getByText(rubricName, { exact: true })).toBeVisible({ timeout: 15000 });
+            await expect(addButton).toBeVisible({ timeout: 10000 });
+            // This line is critical: it ensures the selection click actually worked
+            await expect(addButton).toBeEnabled({ timeout: 10000 });
+            await addButton.click();
+
+            // 4. Verification
+            await expect(this.rubricTitleOnPage).toBeVisible({ timeout: 15000 });
+            // Precise verification: ensure the exact rubric name text is visible inside the mount point.
+            await expect(this.rubricTitleOnPage.getByText(rubricName, { exact: true })).toBeVisible({ timeout: 15000 });
+        });
     }
 
     /*
@@ -210,48 +213,50 @@ export class CanvasAssignmentDetailsPage {
     // 2) Dynamically matches rating-row count to config by remove/add actions.
     // 3) Fills each rating level using `rating-name` and `rating-points`.
     private async createNewRubric(rubric: NewRubricConfig): Promise<void> {
-        await this.addRubricButton.click();
-        await expect(this.newRubricTitleInput).toBeVisible();
-        await this.newRubricTitleInput.fill(rubric.title);
+        await AllureHelper.step(`Create new rubric : "${rubric.title}"`, async () => {
+            await this.addRubricButton.click();
+            await expect(this.newRubricTitleInput).toBeVisible();
+            await this.newRubricTitleInput.fill(rubric.title);
 
-        for (let i = 0; i < rubric.criteria.length; i++) {
-            const criterion = rubric.criteria[i];
-            await this.draftNewCriterionButton.last().click();
-            await expect(this.criterionDialog).toBeVisible();
+            for (let i = 0; i < rubric.criteria.length; i++) {
+                const criterion = rubric.criteria[i];
+                await this.draftNewCriterionButton.last().click();
+                await expect(this.criterionDialog).toBeVisible();
 
-            await this.criterionNameInput.fill(criterion.description);
-            await this.criterionDescriptionInput.fill(criterion.longDescription || '');
-            await this.criterionPointsInput.fill(criterion.maxPoints.toString());
+                await this.criterionNameInput.fill(criterion.description);
+                await this.criterionDescriptionInput.fill(criterion.longDescription || '');
+                await this.criterionPointsInput.fill(criterion.maxPoints.toString());
 
-            // Align number of rating rows with config. Detailed rating field edits come next.
-            const targetRatingCount = criterion.ratings.length;
-            let currentRatingCount = await this.removeRatingButton.count();
+                // Align number of rating rows with config. Detailed rating field edits come next.
+                const targetRatingCount = criterion.ratings.length;
+                let currentRatingCount = await this.removeRatingButton.count();
 
-            while (currentRatingCount > targetRatingCount) {
-                await this.removeRatingButton.first().click();
-                await this.page.waitForTimeout(200);
-                currentRatingCount = await this.removeRatingButton.count();
+                while (currentRatingCount > targetRatingCount) {
+                    await this.removeRatingButton.first().click();
+                    await this.page.waitForTimeout(200);
+                    currentRatingCount = await this.removeRatingButton.count();
+                }
+
+                while (currentRatingCount < targetRatingCount) {
+                    await this.addRatingRowButton.last().click();
+                    await this.page.waitForTimeout(200);
+                    currentRatingCount = await this.removeRatingButton.count();
+                }
+
+                // Fill rating levels by index (0-based) using current modal fields.
+                for (let j = 0; j < targetRatingCount; j++) {
+                    const rating = criterion.ratings[j];
+                    await this.ratingNameInput.nth(j).fill(rating.description);
+                    await this.ratingPointsInput.nth(j).fill(rating.points.toString());
+                }
+
+                await this.saveCriterionButton.click();
+                await expect(this.criterionDialog).toBeHidden();
             }
 
-            while (currentRatingCount < targetRatingCount) {
-                await this.addRatingRowButton.last().click();
-                await this.page.waitForTimeout(200);
-                currentRatingCount = await this.removeRatingButton.count();
-            }
-
-            // Fill rating levels by index (0-based) using current modal fields.
-            for (let j = 0; j < targetRatingCount; j++) {
-                const rating = criterion.ratings[j];
-                await this.ratingNameInput.nth(j).fill(rating.description);
-                await this.ratingPointsInput.nth(j).fill(rating.points.toString());
-            }
-
-            await this.saveCriterionButton.click();
-            await expect(this.criterionDialog).toBeHidden();
-        }
-
-        await this.saveRubricButton.click();
-        await expect(this.rubricTitleOnPage).toBeVisible();
+            await this.saveRubricButton.click();
+            await expect(this.rubricTitleOnPage).toBeVisible();
+        });
     }
 
     async verifyFileType(expectedSubmissionType: string): Promise<void> {

@@ -213,6 +213,7 @@ import { getMoodleConfig } from '../../config/moodle.config';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
 import { runPGOrSkipOnTimeout } from "../../utils/skip-on-workflow-timeout";
+import { Page } from '@playwright/test';
 
 const studentUser = testUsers.find(u => u.role === 'student');
 const studentEmail = studentUser?.username ?? '';
@@ -466,26 +467,27 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
         await teacher.navigateToCourse();
       });
 
+      let pg!: Page;
       await AllureHelper.step('Navigate to PowerGrader', async () => {
         AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:reached`);
-        const pg = await teacher.navigateToPowerGrader();
+        pg = await teacher.navigateToPowerGrader();
+      });
 
-        await AllureHelper.step('Run Grade & Workflow', async () => {
-          console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
+      await AllureHelper.step('Run Universal PG Workflow', async () => {
+        console.log(`[${uniqueTitle}] 🚀 [START] Grade and Publish Workflow`);
 
-          await runPGOrSkipOnTimeout(async () => {
-            await executeUniversalPGWorkflow(
-              pg,
-              uniqueTitle,
-              studentEmail,
-              assignmentConfig,
-              'moodle',
-              teacher,
-            );
-          });
-
-          console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
+        await runPGOrSkipOnTimeout(async () => {
+          await executeUniversalPGWorkflow(
+            pg,
+            uniqueTitle,
+            studentEmail,
+            assignmentConfig,
+            'moodle',
+            teacher,
+          );
         });
+
+        console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
       });
       const gradeMs = Date.now() - gradeStart;
       const totalMs = Date.now() - runStart;

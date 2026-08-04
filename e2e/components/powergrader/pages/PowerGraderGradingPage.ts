@@ -228,11 +228,13 @@ export class PowerGraderGradingPage {
 
     //new UI update - Tusha
     async getTotalScore(): Promise<string> {
-        const totalGradeHeader = this.page.locator('h2.text-2xl.font-bold.text-gray-900.tabular-nums');
-        await expect(totalGradeHeader).toBeVisible({ timeout: 30000 });
-        const scoreText = await totalGradeHeader.innerText();
-        console.log(`[Grading Page] Found Total Score Text: ${scoreText}`);
-        return scoreText.trim();
+        return AllureHelper.step('Get total score', async () => {
+            const totalGradeHeader = this.page.locator('h2.text-2xl.font-bold.text-gray-900.tabular-nums');
+            await expect(totalGradeHeader).toBeVisible({ timeout: 30000 });
+            const scoreText = await totalGradeHeader.innerText();
+            console.log(`[Grading Page] Found Total Score Text: ${scoreText}`);
+            return scoreText.trim();
+        });
     }
 
     /*async getIndividualScore(): Promise<string> {
@@ -590,98 +592,100 @@ export class PowerGraderGradingPage {
 
     //new UI update - Tusha
     async getAllCriteriaScores(): Promise<CriterionScore[]> {
-        console.log("[Grading Page] Extracting all criteria scores and feedback...");
+        return AllureHelper.step('Get all criteria scores', async () => {
+            console.log("[Grading Page] Extracting all criteria scores and feedback...");
 
-        const criterionSections = this.page.locator('div.overflow-visible.rounded-lg.shadow-sm');
-        await expect(criterionSections.first()).toBeVisible({ timeout: 30000 });
+            const criterionSections = this.page.locator('div.overflow-visible.rounded-lg.shadow-sm');
+            await expect(criterionSections.first()).toBeVisible({ timeout: 30000 });
 
-        const criterionCount = await criterionSections.count();
-        console.log(`[Grading Page] Found ${criterionCount} criterion sections...`);
+            const criterionCount = await criterionSections.count();
+            console.log(`[Grading Page] Found ${criterionCount} criterion sections...`);
 
-        const criteriaScores: CriterionScore[] = [];
+            const criteriaScores: CriterionScore[] = [];
 
-        for (let i = 0; i < criterionCount; i++) {
-            const section = criterionSections.nth(i);
+            for (let i = 0; i < criterionCount; i++) {
+                const section = criterionSections.nth(i);
 
-            // Criterion name
-            const nameEl = section.locator('h3.text-lg.font-semibold.text-gray-900')
-            const criterionName = (await nameEl.innerText()).trim();
+                // Criterion name
+                const nameEl = section.locator('h3.text-lg.font-semibold.text-gray-900')
+                const criterionName = (await nameEl.innerText()).trim();
 
-            // Selected score card: blue (Ai score) or amber highlight (custome score)
-            const blueCard = section.locator('div.border-blue-500');
-            const amberCard = section.locator('div.border-amber-500');
-            const blueCount = await blueCard.count();
-            const amberCount = await amberCard.count();
-            const selectedCard =
-                blueCount > 0 ? blueCard.first() : amberCount > 0 ? amberCard.first() : null;
+                // Selected score card: blue (Ai score) or amber highlight (custome score)
+                const blueCard = section.locator('div.border-blue-500');
+                const amberCard = section.locator('div.border-amber-500');
+                const blueCount = await blueCard.count();
+                const amberCount = await amberCard.count();
+                const selectedCard =
+                    blueCount > 0 ? blueCard.first() : amberCount > 0 ? amberCard.first() : null;
 
-            let score = 0;
-            if (selectedCard) {
-                const scoreDiv = selectedCard.locator('div.relative.flex.h-7.min-w-7');
-                if (await scoreDiv.count() > 0) {
-                    const scoreText = (await scoreDiv.innerText()).trim();
-                    score = parseFloat(scoreText) || 0;
-                } else {
-                    // Custom score input is selected
-                    const customInput = selectedCard.locator('input[type="number"]');
-                    const val = await customInput.inputValue();
-                    score = parseFloat(val) || 0;
+                let score = 0;
+                if (selectedCard) {
+                    const scoreDiv = selectedCard.locator('div.relative.flex.h-7.min-w-7');
+                    if (await scoreDiv.count() > 0) {
+                        const scoreText = (await scoreDiv.innerText()).trim();
+                        score = parseFloat(scoreText) || 0;
+                    } else {
+                        // Custom score input is selected
+                        const customInput = selectedCard.locator('input[type="number"]');
+                        const val = await customInput.inputValue();
+                        score = parseFloat(val) || 0;
+                    }
                 }
+
+                // AI Feedback block
+                const feedbackLocator = section.locator('div.flex.min-h-28.flex-col.gap-2').first();
+                try {
+                    await expect(feedbackLocator).not.toHaveText('', { timeout: 60000 });
+                } catch (e) {
+                    console.log(`⚠️ Warning: Feedback not populated in time for "${criterionName}".`);
+                }
+                const feedbackText = await feedbackLocator.innerText().catch(() => '');
+                const normalizedFeedback = feedbackText
+                    .replace(/^AI FEEDBACK\s*/i, '')
+                    .trim();
+
+                console.log(`[DEBUG] Criterion: "${criterionName}" | Score: ${score} | Feedback length: ${feedbackText.length}`);
+
+                await AllureHelper.attachText('student-feedback', JSON.stringify({
+                    criterion_name: criterionName,
+                    criterion_feedback: normalizedFeedback
+                }));
+
+                criteriaScores.push({
+                    name: criterionName,
+                    points: score,
+                    feedback: normalizedFeedback
+                });
             }
 
-            // AI Feedback block
-            const feedbackLocator = section.locator('div.flex.min-h-28.flex-col.gap-2').first();
-            try {
-                await expect(feedbackLocator).not.toHaveText('', { timeout: 60000 });
-            } catch (e) {
-                console.log(`⚠️ Warning: Feedback not populated in time for "${criterionName}".`);
-            }
-            const feedbackText = await feedbackLocator.innerText().catch(() => '');
-            const normalizedFeedback = feedbackText
-                .replace(/^AI FEEDBACK\s*/i, '')
-                .trim();
-
-            console.log(`[DEBUG] Criterion: "${criterionName}" | Score: ${score} | Feedback length: ${feedbackText.length}`);
-
-            await AllureHelper.attachText('student-feedback', JSON.stringify({
-                criterion_name: criterionName,
-                criterion_feedback: normalizedFeedback
-            }));
-
-            criteriaScores.push({
-                name: criterionName,
-                points: score,
-                feedback: normalizedFeedback
-            });
-        }
-
-        console.log(`[Grading Page] Successfully extracted ${criteriaScores.length} criteria scores`);
-        return criteriaScores;
+            console.log(`[Grading Page] Successfully extracted ${criteriaScores.length} criteria scores`);
+            return criteriaScores;
+        });
     }
 
     async getGradingSummary(): Promise<GradingSummary> {
-        console.log("[Grading Page] Generating complete grading summary...");
-        
-        // 1. Get total score
-        const totalScore = await this.getTotalScore();
-        
-        // 2. Get all criteria scores
-        const criteria = await this.getAllCriteriaScores();
+        return AllureHelper.step('Get grading summary', async () => {
+            console.log("[Grading Page] Generating complete grading summary...");
 
-        // 3. Get Overall Feedback text
-        // Adjust this selector if your overall feedback isn't inside a span with text-primary-color
-        const feedbackSections = await this.getAllFeedback();
-        const overallFeedback = feedbackSections.length > 0 
-            ? feedbackSections.join('\n\n') 
-            : "No overall feedback recorded.";
-        
-        const summary: GradingSummary = {
-            totalScore,
-            criteria,
-            overallFeedback 
-        };
-        
-        return summary;
+            // 1. Get total score
+            const totalScore = await this.getTotalScore();
+
+            // 2. Get all criteria scores
+            const criteria = await this.getAllCriteriaScores();
+
+            // 3. Get Overall Feedback text
+            // Adjust this selector if your overall feedback isn't inside a span with text-primary-color
+            const feedbackSections = await this.getAllFeedback();
+            const overallFeedback = feedbackSections.length > 0
+                ? feedbackSections.join('\n\n')
+                : "No overall feedback recorded.";
+
+            return {
+                totalScore,
+                criteria,
+                overallFeedback
+            };
+        });
     }
 
     /**

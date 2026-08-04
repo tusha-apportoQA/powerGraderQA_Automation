@@ -44,6 +44,7 @@ import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submis
 import { getD2LConfig } from '../../config/d2l.config';
 import testUsers from '../../test_users';
 import { AllureHelper } from '../../utils/allureHelper';
+import { Page } from '@playwright/test';
 /**
  * Poll until the student can open the assignment details page.
  * This prevents "race" failures where the assignment exists but hasn't appeared for the student yet.
@@ -300,34 +301,27 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
         await teacher.navigateToCourse();
       });
 
+      let pg!: Page;
       await AllureHelper.step('Navigate to PowerGrader', async () => {
         AllureHelper.label('caseStatus', `${C78990.split(':')[0]}:reached`);
-        const pg = await teacher.navigateToPowerGrader();
+        pg = await teacher.navigateToPowerGrader();
+      });
 
-       /* await AllureHelper.step('Run Grade & Publish Workflow', async () => {
-          console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
-          //await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail);
-          await executeUniversalPGWorkflow(pg, uniqueTitle, studentEmail, baselineKey);
-          console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);
-        });*/
+      await AllureHelper.step('Run Universal PG Workflow', async () => {
+        console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
 
-        await AllureHelper.step('Run Grade & Publish Workflow', async () => {
-          console.log(`🚀 [START] Grade and Publish Workflow for: ${uniqueTitle}`);
-
-          await runPGOrSkipOnTimeout(async () => {
-            await executeUniversalPGWorkflow(
-              pg,
-              uniqueTitle,
-              studentEmail,
-              assignmentConfig,
-              'd2l',
-              teacher,
-            );
-          });
-
-          console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);
+        await runPGOrSkipOnTimeout(async () => {
+          await executeUniversalPGWorkflow(
+            pg,
+            uniqueTitle,
+            studentEmail,
+            assignmentConfig,
+            'd2l',
+            teacher,
+          );
         });
 
+        console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);
       });
 
       const gradeMs = Date.now() - gradeStart;

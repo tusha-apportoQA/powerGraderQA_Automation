@@ -1,6 +1,7 @@
-import { test } from "@playwright/test";
+import { Page, test } from "@playwright/test";
+import { AllureHelper } from "./allureHelper";
 
-export async function runPGOrSkipOnTimeout(fn: () => Promise<void>) {
+export async function runPGOrSkipOnTimeout(fn: () => Promise<void>, page?: Page) {
   try {
     await fn();
   } catch (e: any) {
@@ -14,6 +15,10 @@ export async function runPGOrSkipOnTimeout(fn: () => Promise<void>) {
       msg.includes("Timeout 600000ms exceeded while waiting on the predicate");
 
     if (isWorkflowTimeout) {
+      await AllureHelper.attachFailureDiagnostics(page, 'Workflow timeout', {
+        error: msg,
+        waitingFor: 'AI grading / Review readiness',
+      });
       test.skip(true, `Skipping due to workflow timeout: ${msg}`);
     }
 

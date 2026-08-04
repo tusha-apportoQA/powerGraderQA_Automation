@@ -10,6 +10,7 @@ import { AllureHelper } from '../../../utils/allureHelper';
 import { getMoodleConfig } from '../../../config/moodle.config';
 import { C69002, C78990 } from '../../../test-data/testCaseIds';
 import { PowerGraderCoursePage } from '../../powergrader/pages/PowerGraderCoursePage';
+import { getMoodleAssignmentConfigs } from '../../../test-data/assignments/moodle';
 
 function parseEarnedPointsFromTotalScore(totalScore: string): number {
     const s = String(totalScore).trim();
@@ -167,14 +168,9 @@ export class MoodleLMS implements LmsTeacher {
         await powerGraderCoursePage.page.waitForLoadState('networkidle', {timeout: 180000});
         await powerGraderPage.waitForTimeout(2000);
 
-        const moodleAutomationCleanupBaseTitles: string[] = [
-            'Short Accurate No Rubric DOCX',
-            'Long Accurate Existing Rubric PDF',
-            'Short Inaccurate New Rubric TXT',
-            'Short Inaccurate Existing Rubric Text Entry',
-        ];
+        const moodleAssignmentTitles = getMoodleAssignmentConfigs().map(config => config.title);
         const cleanupTitles = await powerGraderCoursePage.getAutomationCleanupAssignmentTitles(
-            moodleAutomationCleanupBaseTitles,
+            moodleAssignmentTitles,
         );
         console.log(`[cleanup][moodle] assignments to delete (${cleanupTitles.length}):`, cleanupTitles);
 
@@ -191,75 +187,91 @@ export class MoodleLMS implements LmsTeacher {
         gradingSummary: GradingSummary,
         expectedSubmissionComment?: string
     ): Promise<void> {
-        const { studentDisplayName } = getMoodleConfig();
-        console.log(`[MoodleLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
-        console.log('[MoodleLMS] Expected GradingSummary:', gradingSummary);
+        try {
+            await AllureHelper.step('Verify LMS score', async () => {
+                const { studentDisplayName } = getMoodleConfig();
+                console.log(`[MoodleLMS] verifyLmsScore for student=${studentDisplayName}, assignment="${assignmentName}"`);
+                console.log('[MoodleLMS] Expected GradingSummary:', gradingSummary);
 
-        await AllureHelper.step('Navigate to course page', async () => {
-            await this.navigateToCourse();
-        });
+                await AllureHelper.step('Navigate to course page', async () => {
+                    await this.navigateToCourse();
+                });
 
-        await AllureHelper.step(`Navigate to assignment details page for "${assignmentName}"`, async () => {
-            await this.coursePage.clickAssignment(assignmentName);
-            await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
-            await this.page.getByRole('link', { name: 'View all submissions' }).click();
-        });
+                await AllureHelper.step(`Navigate to assignment details page for "${assignmentName}"`, async () => {
+                    await this.coursePage.clickAssignment(assignmentName);
+                    await this.assignmentDetailsPage.expectAssignmentDetailsLoaded();
+                    await this.page.getByRole('link', { name: 'View all submissions' }).click();
+                });
 
-        await AllureHelper.step(`Navigate to grading page for student "${studentDisplayName}"`, async () => {
-            const studentRow = this.page.locator('tr').filter({ hasText: studentDisplayName }).first();
-            const gradeButton = studentRow.getByRole('link', { name: 'Grade' });
-            await gradeButton.click();
-            await this.moodleGradingPage.expectMoodleGradingPageLoaded();
-            const lmsSummary = await this.moodleGradingPage.getRubricSnapshot();
+                await AllureHelper.step(`Navigate to grading page for student "${studentDisplayName}"`, async () => {
+                    const studentRow = this.page.locator('tr').filter({ hasText: studentDisplayName }).first();
+                    const gradeButton = studentRow.getByRole('link', { name: 'Grade' });
+                    await gradeButton.click();
+                    await this.moodleGradingPage.expectMoodleGradingPageLoaded();
+                });
 
-            const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
-            const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
-            console.log(
-                `[MoodleLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
-            );
-            await expect(lmsEarned).toBe(expEarned);
+                await AllureHelper.step('Compare LMS scores with expected', async () => {
+                    const lmsSummary = await this.moodleGradingPage.getRubricSnapshot();
 
-            const expectedCriteria = gradingSummary.criteria ?? [];
-            const lmsCriteria = lmsSummary.criteria ?? [];
-            await expect(lmsCriteria.length).toBe(expectedCriteria.length);
+                    const expEarned = parseEarnedPointsFromTotalScore(gradingSummary.totalScore);
+                    const lmsEarned = parseEarnedPointsFromTotalScore(lmsSummary.totalScore);
+                    console.log(
+                        `[MoodleLMS] Total earned -> expected=${expEarned} (from "${gradingSummary.totalScore}"), LMS=${lmsEarned} (from "${lmsSummary.totalScore}")`
+                    );
+                    await expect(lmsEarned).toBe(expEarned);
 
-            for (let i = 0; i < expectedCriteria.length; i++) {
-                const expCrit = expectedCriteria[i];
-                const lmsCrit = lmsCriteria[i];
-                if (!lmsCrit) throw new Error(`Criterion at index ${i} missing in LMS`);
+                    const expectedCriteria = gradingSummary.criteria ?? [];
+                    const lmsCriteria = lmsSummary.criteria ?? [];
+                    await expect(lmsCriteria.length).toBe(expectedCriteria.length);
 
-                const normalize = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
-                console.log(
-                    `[MoodleLMS] Criterion index ${i} -> expected name="${expCrit.name}", LMS name="${lmsCrit.name}"`
-                );
-                await expect(normalize(lmsCrit.name)).toBe(normalize(expCrit.name));
+                    for (let i = 0; i < expectedCriteria.length; i++) {
+                        const expCrit = expectedCriteria[i];
+                        const lmsCrit = lmsCriteria[i];
+                        if (!lmsCrit) throw new Error(`Criterion at index ${i} missing in LMS`);
 
-                console.log(
-                    `[MoodleLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
-                );
-                await expect(lmsCrit.points).toBe(expCrit.points);
-
-                console.log(`[MoodleLMS] Criterion index ${i} -> comparing feedback`);
-                await expect(lmsCrit.feedback).toBe(expCrit.feedback);
-            }
-
-            if (expectedSubmissionComment) {
-                try {
-                    const found = await this.moodleGradingPage.hasSubmissionCommentVisible(expectedSubmissionComment);
-                    if (!found) {
-                        console.warn(
-                            `[MoodleLMS] Submission comment not found on grading page (non-blocking). Expected exact: "${expectedSubmissionComment}"`
+                        const normalize = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
+                        console.log(
+                            `[MoodleLMS] Criterion index ${i} -> expected name="${expCrit.name}", LMS name="${lmsCrit.name}"`
                         );
-                    } else {
-                        console.log('[MoodleLMS] Submission comment found on grading page.');
-                    }
-                } catch (error) {
-                    console.warn('[MoodleLMS] Submission comment check failed (non-blocking):', error);
-                }
-            }
+                        await expect(normalize(lmsCrit.name)).toBe(normalize(expCrit.name));
 
-            AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
-        });
+                        console.log(
+                            `[MoodleLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
+                        );
+                        await expect(lmsCrit.points).toBe(expCrit.points);
+
+                        console.log(`[MoodleLMS] Criterion index ${i} -> comparing feedback`);
+                        await expect(lmsCrit.feedback).toBe(expCrit.feedback);
+                    }
+                });
+
+                if (expectedSubmissionComment) {
+                    await AllureHelper.step('Verify submission comment', async () => {
+                        try {
+                            const found = await this.moodleGradingPage.hasSubmissionCommentVisible(expectedSubmissionComment);
+                            if (!found) {
+                                console.warn(
+                                    `[MoodleLMS] Submission comment not found on grading page (non-blocking). Expected exact: "${expectedSubmissionComment}"`
+                                );
+                            } else {
+                                console.log('[MoodleLMS] Submission comment found on grading page.');
+                            }
+                        } catch (error) {
+                            console.warn('[MoodleLMS] Submission comment check failed (non-blocking):', error);
+                        }
+                    });
+                }
+
+                AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:passed`);
+            });
+        } catch (error) {
+            await AllureHelper.attachFailureDiagnostics(
+                this.page,
+                'C69002|LMS|Verify LMS score',
+                { error: error instanceof Error ? error.message : String(error) },
+            );
+            throw error;
+        }
     }
 }
 
