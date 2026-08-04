@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-16T23:06:46.559Z",
+  "generatedAt": "2026-08-03T00:00:51.900Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
-  "totalCases": 48,
+  "totalCases": 33,
   "cases": [
     {
       "caseId": "C68955",
@@ -10,32 +10,21 @@
       "passedConfigs": [
         "canvas|orchestration|Canvas ELC Above Average txt"
       ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C68956",
       "caseName": "Iterative Re-Publishing: .txt",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Above Average txt"
-      ],
+      "status": "failed",
+      "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
+          "config": "canvas|orchestration|Canvas ELC Above Average txt",
+          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m6\u001b[39m Received: \u001b[31m3\u001b[39m",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Above Average txt",
+          "resultFile": "b142be23-9365-45c1-b1be-9f0f588c4bcf-result.json",
+          "status": "failed"
         }
       ]
     },
@@ -46,16 +35,7 @@
       "passedConfigs": [
         "canvas|orchestration|Canvas ELC Average pdf"
       ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
-          "status": "not_reached"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C68958",
@@ -64,31 +44,20 @@
       "passedConfigs": [
         "canvas|orchestration|Canvas ELC Average pdf"
       ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
-          "status": "not_reached"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C68959",
       "caseName": "Standard Grading & Publish: .docx",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
+      "status": "not_reached",
+      "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         }
       ]
@@ -96,17 +65,15 @@
     {
       "caseId": "C68960",
       "caseName": "Iterative Re-Publishing: .docx",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
+      "status": "not_reached",
+      "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         }
       ]
@@ -114,17 +81,15 @@
     {
       "caseId": "C68961",
       "caseName": "Standard Grading & Publish: Text Entry",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Excellent Text Entry"
-      ],
+      "status": "not_reached",
+      "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
           "status": "not_reached"
         }
       ]
@@ -132,146 +97,48 @@
     {
       "caseId": "C68962",
       "caseName": "Iterative Re-Publishing: Text Entry",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Excellent Text Entry"
-      ],
+      "status": "not_reached",
+      "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
           "status": "not_reached"
         }
       ]
     },
     {
-      "caseId": "C68976",
-      "caseName": "IG: 'Customize' Visibility (Header)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68985",
-      "caseName": "IG: Discard Functional Check",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68986",
-      "caseName": "IG: Discard Persistence",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68987",
-      "caseName": "IG: Navigation Warning/Discard",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68989",
-      "caseName": "IG: Apply Visibility",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C68990",
-      "caseName": "IG: Custom Score Button Lock (POW-525)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
       "caseId": "C68998",
       "caseName": "Rubric: Button Visibility (No Rubric)",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
         "canvas|orchestration|Canvas XLSX No Rubric submission"
       ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
-          "status": "failed"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C68999",
       "caseName": "Rubric: Button Hidden (Has Rubric)",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
         "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         }
       ]
@@ -279,224 +146,115 @@
     {
       "caseId": "C69000",
       "caseName": "Rubric: Transition to Grading",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
         "canvas|orchestration|Canvas XLSX No Rubric submission"
       ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
-          "status": "failed"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C69002",
       "caseName": "Sync: Scoring Reflection in LMS",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas CSV submission",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas ELC Average pdf"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Canvas Code Hard",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3477\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3477\"",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
-          "resultFile": "3ba260b9-57e8-4517-8aad-fe3742e98505-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Canvas Code Medium",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3476\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3476\"",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Medium",
-          "resultFile": "4603be7d-1e49-4573-97b7-25145987f60d-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "failed"
         },
         {
           "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3479\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3479\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3633\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3633\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
-          "resultFile": "7803bdc9-fec9-44e3-b7e4-0fa9f09107a3-result.json",
+          "resultFile": "61fae6d9-990f-40db-83d3-2f78f9313405-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
+          "config": "canvas|orchestration|Canvas Code Hard",
+          "error": "Error: Orchestration failed (2 failures): - SBERT: ❌ DRIFT DETECTED: criteriaFeedback:Specifications has 100.0% drift. - C75529: Due date label is not visible on grading page expect(locator).toBeVisible() failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: - Due date label is not visible on grading page with timeout 10000ms - waiting for getByText('Due:')",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
+          "resultFile": "7b0b2b45-c8d9-41c2-9e1e-9672ef78ea65-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
           "status": "failed"
         },
         {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
+          "config": "canvas|orchestration|Canvas ELC Above Average txt",
+          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m6\u001b[39m Received: \u001b[31m3\u001b[39m",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Above Average txt",
+          "resultFile": "b142be23-9365-45c1-b1be-9f0f588c4bcf-result.json",
           "status": "failed"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Canvas Code Medium",
+          "error": "Error: Orchestration failed (2 failures): - SBERT: ❌ DRIFT DETECTED: criteriaFeedback:Big O has 100.0% drift. - C75529: Due date label is not visible on grading page expect(locator).toBeVisible() failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: - Due date label is not visible on grading page with timeout 10000ms - waiting for getByText('Due:')",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Medium",
+          "resultFile": "d819eb16-05f0-4f8c-be24-32c51b5a9b38-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas Code Easy",
+          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m5\u001b[39m Received: \u001b[31m4\u001b[39m",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
+          "resultFile": "eed7452b-9059-45ca-988c-ea3468a03493-result.json",
           "status": "failed"
         }
       ]
-    },
-    {
-      "caseId": "C69008",
-      "caseName": "Verify Customize link is visible in each criteria in grading page in QA",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69011",
-      "caseName": "Main view: clicking \"Customize\" opens the Interactive Grading sidebar also its flow check",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69023",
-      "caseName": "Verify Interactive grading score is getting published",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69025",
-      "caseName": "Navigate away without Apply: interactive grades are not saved as official",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69034",
-      "caseName": "Verify interactive grading score is visible in UI after clicking on Apply",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
     },
     {
       "caseId": "C69036",
       "caseName": "Verify the status of the assignments with no Rubric in PowerGrader",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
         "canvas|orchestration|Canvas XLSX No Rubric submission"
       ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
-          "status": "failed"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C69039",
       "caseName": "POW: Teacher should be able to add pre-existing rubric",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
         "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "failed"
         }
       ]
@@ -504,110 +262,33 @@
     {
       "caseId": "C69041",
       "caseName": "POW:ALL-LMS Verify Rubric order is as expected in QA instance",
-      "status": "passed",
+      "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas ELC Average pdf"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "not_reached"
+          "config": "canvas|orchestration|Canvas ELC Above Average txt",
+          "error": "Rubric criterion order in PowerGrader should match criteriaOrder from assignment config \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m \u001b[32m- Expected - 3\u001b[39m \u001b[31m+ Received + 6\u001b[39m \u001b[2m Array [\u001b[22m \u001b[32m- \"Text Type\",\u001b[39m \u001b[32m- \"Content\",\u001b[39m \u001b[32m- \"Accuracy\",\u001b[39m \u001b[31m+ \"Analysis of Immediate and Long-term Consequences\",\u001b[39m \u001b[31m+ \"Explanation of Benefits to Peers\",\u001b[39m \u001b[31m+ \"Identification of a Relevant City Improvement\",\u001b[39m \u001b[31m+ \"Language Use and Mechanics\",\u001b[39m \u001b[31m+ \"Organization and Clarity\",\u001b[39m \u001b[31m+ \"Use of Specific Reasoning and Examples\",\u001b[39m \u001b[2m ]\u001b[22m",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Above Average txt",
+          "resultFile": "b142be23-9365-45c1-b1be-9f0f588c4bcf-result.json",
+          "status": "failed"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
-          "status": "not_reached"
-        }
-      ]
-    },
-    {
-      "caseId": "C69065",
-      "caseName": "POW - D2L student should be able to submit assignment",
-      "status": "passed",
-      "passedConfigs": [
-        "d2l|orchestration|D2L XLSX No Rubric submission"
-      ],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
-          "status": "not_reached"
-        }
-      ]
-    },
-    {
-      "caseId": "C69067",
-      "caseName": "POW - D2L student should be able to submit text entry assignment",
-      "status": "not_reached",
-      "passedConfigs": [],
-      "failedConfigs": [
-        {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
           "status": "not_reached"
         }
       ]
@@ -617,68 +298,57 @@
       "caseName": "POW - Canvas student should be able to submit assignment",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas XLSX No Rubric submission",
+        "canvas|orchestration|Canvas Code Hard",
         "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
-      "failedConfigs": []
+      "failedConfigs": [
+        {
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "status": "not_reached"
+        }
+      ]
     },
     {
       "caseId": "C69074",
       "caseName": "POW - Canvas all assignments in QA instance should show submission details",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas CSV submission",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69092",
-      "caseName": "Verify that Text Entry submission is successful",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Excellent Text Entry"
+        "canvas|orchestration|Canvas XLSX No Rubric submission",
+        "canvas|orchestration|Canvas Code Hard",
+        "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "failed"
         }
       ]
     },
     {
-      "caseId": "C69094",
-      "caseName": "Apply opens modal: \"Apply to this submission only, or all submissions?\" with two options",
+      "caseId": "C69092",
+      "caseName": "Verify that Text Entry submission is successful",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
-    },
-    {
-      "caseId": "C69095",
-      "caseName": "Apply -> \"This submission only\": preview banner disappears; grade becomes official and publishable",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas ELC Excellent Text Entry"
       ],
       "failedConfigs": []
     },
@@ -687,47 +357,21 @@
       "caseName": "All LMS: Student submits files (.docx/.txt/.pdf) with comments",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "d2l|orchestration|D2L XLSX No Rubric submission",
+        "canvas|orchestration|Canvas Code Hard",
         "canvas|orchestration|Canvas CSV submission",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         }
       ]
@@ -737,141 +381,74 @@
       "caseName": "On-time submission (before due date) is accepted and gradable",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas XLSX No Rubric submission",
+        "canvas|orchestration|Canvas Code Hard",
         "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "failed"
         }
       ]
-    },
-    {
-      "caseId": "C69114",
-      "caseName": "Sidebar contains Grading Strictness options (More Strict  / More Lenient)",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
     },
     {
       "caseId": "C69138",
       "caseName": "Verify Updated comments and score that are published after saving are reflecting on LMS",
-      "status": "failed",
+      "status": "not_reached",
       "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "not_reached"
-        },
-        {
           "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m\"\u001b[7mYour writing has many serious grammar, spelling, and sentence structure mistakes that make it very difficult to follow; to strengthen this area, focus on forming clear, complete sentences with correct spelling and basic grammatical accuracy\u001b[27m.\"\u001b[39m Received: \u001b[31m\"\u001b[7mFrequent grammatical and spelling errors make your sentences very difficult to understand, and there isn't enough clear writing to show accuracy. Focus on writing simple, complete sentences and checking your grammar to improve your score next time\u001b[27m.\"\u001b[39m",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "ed807756-9197-4874-b797-4db35a88dfc4-result.json",
-          "status": "failed"
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "status": "not_reached"
         }
       ]
+    },
+    {
+      "caseId": "C69209",
+      "caseName": "Verify unique rubric criteria created by AI",
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Canvas XLSX No Rubric submission"
+      ],
+      "failedConfigs": []
     },
     {
       "caseId": "C75511",
       "caseName": "Verify editing score/feedback gets published without explicitly clicking on Save",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas ELC Average pdf"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "failed"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
           "status": "failed"
         }
       ]
@@ -879,165 +456,137 @@
     {
       "caseId": "C75529",
       "caseName": "Verify OnTime is visible for Moodle, D2L, Canvas",
-      "status": "passed",
+      "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas CSV submission",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas ELC Average pdf"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         },
         {
           "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3479\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3479\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3633\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3633\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
-          "resultFile": "7803bdc9-fec9-44e3-b7e4-0fa9f09107a3-result.json",
+          "resultFile": "61fae6d9-990f-40db-83d3-2f78f9313405-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
+          "config": "canvas|orchestration|Canvas Code Hard",
+          "error": "Due date label is not visible on grading page \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: \u001b[2m - Due date label is not visible on grading page with timeout 10000ms\u001b[22m \u001b[2m - waiting for getByText('Due:')\u001b[22m",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
+          "resultFile": "7b0b2b45-c8d9-41c2-9e1e-9672ef78ea65-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
+          "config": "canvas|orchestration|Canvas ELC Above Average txt",
+          "error": "Due date label is not visible on grading page \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: \u001b[2m - Due date label is not visible on grading page with timeout 10000ms\u001b[22m \u001b[2m - waiting for getByText('Due:')\u001b[22m",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Above Average txt",
+          "resultFile": "b142be23-9365-45c1-b1be-9f0f588c4bcf-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
-          "status": "not_reached"
+          "config": "canvas|orchestration|Canvas Code Medium",
+          "error": "Due date label is not visible on grading page \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: \u001b[2m - Due date label is not visible on grading page with timeout 10000ms\u001b[22m \u001b[2m - waiting for getByText('Due:')\u001b[22m",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Medium",
+          "resultFile": "d819eb16-05f0-4f8c-be24-32c51b5a9b38-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Canvas Code Easy",
+          "error": "Due date label is not visible on grading page \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: \u001b[2m - Due date label is not visible on grading page with timeout 10000ms\u001b[22m \u001b[2m - waiting for getByText('Due:')\u001b[22m",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
+          "resultFile": "eed7452b-9059-45ca-988c-ea3468a03493-result.json",
+          "status": "failed"
         }
       ]
-    },
-    {
-      "caseId": "C75537",
-      "caseName": "Verify interactive grading score is visible in UI after clicking on Apply",
-      "status": "passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
-      "failedConfigs": []
     },
     {
       "caseId": "C75645",
       "caseName": "Verify the docx file is ingested and graded",
-      "status": "partially_passed",
-      "passedConfigs": [
-        "canvas|orchestration|Canvas ELC Poor docx"
-      ],
+      "status": "failed",
+      "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "failed"
         }
       ]
+    },
+    {
+      "caseId": "C75673",
+      "caseName": "Verify AI generated rubric should update new levels when submit is clicked",
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Canvas XLSX No Rubric submission"
+      ],
+      "failedConfigs": []
     },
     {
       "caseId": "C76730",
       "caseName": "Verify Logout works",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas CSV submission",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas Code Hard",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
           "status": "not_reached"
         }
       ]
@@ -1047,8 +596,7 @@
       "caseName": "Verify XLSX and CSV files get displayed",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas CSV submission"
+        "canvas|orchestration|Canvas XLSX No Rubric submission"
       ],
       "failedConfigs": []
     },
@@ -1059,35 +607,19 @@
       "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "not_reached"
-        },
-        {
           "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3479\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3479\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3633\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3633\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
-          "resultFile": "7803bdc9-fec9-44e3-b7e4-0fa9f09107a3-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
+          "resultFile": "61fae6d9-990f-40db-83d3-2f78f9313405-result.json",
           "status": "not_reached"
         },
         {
           "config": "canvas|orchestration|Canvas CSV submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3478\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3478\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
-          "resultFile": "b50309c0-4f14-4af7-95d7-1edad8df4d8f-result.json",
+          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
           "status": "not_reached"
         }
       ]
@@ -1097,24 +629,15 @@
       "caseName": "Verify XLSX and CSV files get published",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas CSV submission"
+        "canvas|orchestration|Canvas XLSX No Rubric submission"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
           "status": "not_reached"
         }
       ]
@@ -1124,63 +647,36 @@
       "caseName": "Verify Submission Review Page new UI",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas CSV submission",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas Code Hard",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "failed"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
           "status": "failed"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
           "status": "failed"
         }
       ]
@@ -1190,63 +686,36 @@
       "caseName": "Verify Back button is present in grading page to go back to submissions list page",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas CSV submission",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas Code Hard",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
           "status": "not_reached"
         },
         {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L XLSX No Rubric submission",
-          "error": "Error: Test is skipped: Skipping due to workflow timeout: [D2L XLSX No Rubric submission [1784241959785]] Syncing... assignment row not visible yet. Call Log: - Timeout 1200000ms exceeded while waiting on the predicate",
-          "failedStep": "Navigate to PowerGrader",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L XLSX No Rubric submission",
-          "resultFile": "b24ea533-7efd-4b42-bd53-1a5b59e16940-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
           "status": "not_reached"
         }
       ]
@@ -1256,56 +725,22 @@
       "caseName": "Verify ALL LMS can launch QA instance",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Easy",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Above Average txt",
         "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "d2l|orchestration|D2L XLSX No Rubric submission",
+        "canvas|orchestration|Canvas Code Hard",
         "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas ELC Above Average txt",
+        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas ELC Excellent Text Entry",
-        "canvas|orchestration|Canvas ELC Poor docx"
+        "canvas|orchestration|Canvas Code Medium",
+        "canvas|orchestration|Canvas Code Easy"
       ],
       "failedConfigs": [
         {
-          "config": "d2l|orchestration|D2L CSV submission",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('Sales Data Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L CSV submission",
-          "resultFile": "3b50d86a-5b72-4d80-8e54-7fd247becba7-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Poor docx",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Poor docx",
-          "resultFile": "3de68b85-6aa1-457f-9a53-5f64564430ba-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Excellent Text Entry",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Excellent Text Entry",
-          "resultFile": "588d704f-9ffd-44ac-987a-48a0268bdbcc-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Above Average txt",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Above Average txt",
-          "resultFile": "8986511c-32cb-45fa-9833-26df7738ca02-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "d2l|orchestration|D2L ELC Average pdf",
-          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded. Call log: - waiting for getByText('ELC Essay Rubric', { exact: true }).first()",
-          "failedStep": "Create assignment in D2L",
-          "test": "features/d2l/d2l-orchestration.spec.ts#D2L LMS Orchestration [POW-471] @d2l @orchestration D2L Orchestration: D2L ELC Average pdf",
-          "resultFile": "edd7fc70-5ad8-4fe3-a50a-0fafab34260c-result.json",
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
+          "failedStep": "Create assignment in Canvas",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
           "status": "not_reached"
         }
       ]
