@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-08-13T08:18:51.628Z",
+  "snapshot": {
+    "totalScore": 3,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 1,
+        "feedback": "Your submission did not meet the requirements of an argumentative essay, as it did not include an introduction, thesis, organized body, or conclusion. For next time, try writing full sentences and clear paragraphs that introduce your topic, present reasons, and end with a conclusion."
+      },
+      {
+        "name": "Content",
+        "score": 1,
+        "feedback": "Your response does not clearly identify a specific improvement or explain how it would benefit people your age, and it lacks examples or discussion of consequences. In future essays, be sure to clearly state your idea, explain it in detail, and provide examples or reasons to support your opinion."
+      },
+      {
+        "name": "Accuracy",
+        "score": 1,
+        "feedback": "Frequent and severe grammar, spelling, and vocabulary errors made your writing very hard to understand. Focus on improving basic grammar and sentence structure to communicate your ideas more clearly next time."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

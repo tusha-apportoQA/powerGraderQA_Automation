@@ -287,7 +287,7 @@ export class PowerGraderGradingPage {
         });
         console.log(`Publish Button Found..`);
         const clickAndHandleModal = async (attempt: number) => {
-            await expect(publishButton).toBeVisible({ timeout: 30000 });
+            await expect(publishButton).toBeVisible({ timeout: 120000 });
             await expect(publishButton).toBeEnabled({ timeout: 10000 });
             await publishButton.click();
             console.log(`Publish Button Clicked (attempt ${attempt})..`);

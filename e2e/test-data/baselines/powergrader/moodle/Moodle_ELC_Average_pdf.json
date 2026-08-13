@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-08-13T08:36:26.195Z",
+  "snapshot": {
+    "totalScore": 10.5,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 4,
+        "feedback": "Your essay shows some basic organization with an introduction, body, and conclusion, but it does not clearly identify an improvement for your city as required, leading to weak essay focus and organization. To improve, ensure you directly address the prompt by proposing a specific change and organizing your essay around that idea."
+      },
+      {
+        "name": "Content",
+        "score": 4,
+        "feedback": "You offer some relevant examples about work, living, and entertainment options in Santiago, but your response mostly describes current strengths rather than proposing one clear improvement and explaining its specific benefits for people your age. For a higher score, focus on suggesting a single change, give deeper reasons, and discuss its immediate and long-term effects."
+      },
+      {
+        "name": "Accuracy",
+        "score": 2.5,
+        "feedback": "Your writing shows persistent grammar and vocabulary errors—such as incorrect verb forms, article use, and word order—that often make your ideas difficult to follow. To improve, focus on practicing basic sentence structure and verb forms for clearer communication."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

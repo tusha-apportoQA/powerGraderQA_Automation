@@ -4,23 +4,21 @@ export class MoodleCoursePage {
     page: Page;
     courseContent: Locator;
     navigationBar: Locator;
-    turnEditingOnButton: Locator;
-    turnEditingOffButton: Locator;
+    editModeCheckbox: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.courseContent = page.locator('body');
         this.navigationBar = page.locator('.navbar, nav, [role="navigation"]').first();
-        this.turnEditingOnButton = page.getByRole('button', { name: 'Turn editing on' });
-        this.turnEditingOffButton = page.getByRole('button', { name: 'Turn editing off' });
+        this.editModeCheckbox = page.getByRole('checkbox', { name: 'Edit mode' });
     }
 
     async waitForLoad(): Promise<void> {
         // Wait for course page to load - check for URL pattern
         await this.page.waitForURL(/\/course\/view\.php\?id=\d+/, { timeout: 30000 });
-        await this.page.waitForLoadState('domcontentloaded');
+        await this.page.waitForLoadState('networkidle');
         // Wait a bit for content to render
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForTimeout(5000);
     }
 
     async expectCoursePageLoaded(): Promise<void> {
@@ -36,40 +34,30 @@ export class MoodleCoursePage {
 
     async turnEditingOn(): Promise<void> {
         await this.waitForLoad();
-        
-        // Check if editing is already on
-        const isEditingOn = await this.turnEditingOffButton.isVisible({ timeout: 2000 }).catch(() => false);
-        if (isEditingOn) {
+
+        await expect(this.editModeCheckbox).toBeVisible({ timeout: 10000 });
+        if (await this.editModeCheckbox.isChecked()) {
             console.log('Editing is already turned on');
             return;
         }
 
-        // Turn editing on
-        await expect(this.turnEditingOnButton).toBeVisible({ timeout: 10000 });
-        await this.turnEditingOnButton.click();
-        
-        // Wait for editing mode to be enabled (button should change to "Turn editing off")
-        await expect(this.turnEditingOffButton).toBeVisible({ timeout: 10000 });
-        await this.page.waitForLoadState('domcontentloaded');
+        await this.editModeCheckbox.check();
+        await expect(this.editModeCheckbox).toBeChecked({ timeout: 10000 });
+        await this.waitForLoad();
     }
 
     async turnEditingOff(): Promise<void> {
         await this.waitForLoad();
-        
-        // Check if editing is already off
-        const isEditingOff = await this.turnEditingOnButton.isVisible({ timeout: 2000 }).catch(() => false);
-        if (isEditingOff) {
+
+        await expect(this.editModeCheckbox).toBeVisible({ timeout: 10000 });
+        if (!(await this.editModeCheckbox.isChecked())) {
             console.log('Editing is already turned off');
             return;
         }
 
-        // Turn editing off
-        await expect(this.turnEditingOffButton).toBeVisible({ timeout: 10000 });
-        await this.turnEditingOffButton.click();
-        
-        // Wait for editing mode to be disabled (button should change to "Turn editing on")
-        await expect(this.turnEditingOnButton).toBeVisible({ timeout: 10000 });
-        await this.page.waitForLoadState('domcontentloaded');
+        await this.editModeCheckbox.uncheck();
+        await expect(this.editModeCheckbox).not.toBeChecked({ timeout: 10000 });
+        await this.waitForLoad();
     }
 
     async clickAddActivityOrResource(): Promise<void> {
@@ -139,9 +127,8 @@ export class MoodleCoursePage {
 
     /**
      * Deletes each assignment from the course page (editing mode on, Edit → Delete → Yes per item).
-     * Before each delete: `networkidle` (timeout 0) is only a best-effort quiet window — it does not mean the
-     * delete XHR has finished. After **Yes**, we wait until the activity link is **detached** or **hidden**
-     * (timeout 0), which matches when Moodle’s UI reflects the completed delete before the next iteration.
+     * Targets `.activity-item[data-activityname="..."]` directly. After **Yes**, wait until that
+     * activity item is **detached** or **hidden** before the next iteration.
      */
     async deleteAssignmentsByNames(assignmentTitles: string[]): Promise<void> {
         if (assignmentTitles.length === 0) {
@@ -155,24 +142,24 @@ export class MoodleCoursePage {
             await this.page.waitForLoadState('networkidle');
             await this.waitForLoad();
 
-            const assignmentLink = this.page.getByRole('link', { name: assignmentTitle }).first();
+            const assignmentContainer = this.page.locator(`.activity-item[data-activityname="${assignmentTitle}"]`);
             await expect(
-                assignmentLink,
+                assignmentContainer,
                 `Assignment "${assignmentTitle}" not found on Moodle course list page`,
             ).toBeVisible({ timeout: 30000 });
 
-            const assignmentContainer = assignmentLink.locator('xpath=ancestor::li[1]');
-            const editButton = assignmentContainer.getByRole('button', { name: 'Edit' });
+            const editButton = assignmentContainer.getByRole('button').filter({
+                has: this.page.getByTitle('Edit'),
+            });
             await expect(editButton, `Edit button not found for assignment "${assignmentTitle}"`).toBeVisible({
                 timeout: 30000,
             });
             await editButton.click();
 
-            const editButtonParent = editButton.locator('xpath=parent::*');
-            const deleteMenuItem = editButtonParent.getByRole('menuitem', { name: 'Delete' });
+            const deleteMenuItem = assignmentContainer.getByRole('menuitem', { name: 'Delete' });
             await expect(
                 deleteMenuItem,
-                `Delete menuitem not found near Edit button for assignment "${assignmentTitle}"`,
+                `Delete menuitem not found for assignment "${assignmentTitle}"`,
             ).toBeVisible({ timeout: 30000 });
             await deleteMenuItem.click();
 
@@ -183,9 +170,9 @@ export class MoodleCoursePage {
             await confirmYesButton.click();
 
             try {
-                await this.page.getByRole('link', { name: assignmentTitle }).first().waitFor({ state: 'detached', timeout: 0 });
+                await assignmentContainer.waitFor({ state: 'detached', timeout: 0 });
             } catch {
-                await this.page.getByRole('link', { name: assignmentTitle }).first().waitFor({ state: 'hidden', timeout: 0 });
+                await assignmentContainer.waitFor({ state: 'hidden', timeout: 0 });
             }
 
             console.log(`[MoodleCoursePage] Assignment "${assignmentTitle}" delete confirmed.`);

@@ -303,6 +303,16 @@ export async function executeUniversalPGWorkflow(
                 // logic to handle "No Rubric" state
                 const generateBtn = powerGraderPage.locator('button').filter({ hasText: "Generate Compatible Rubric" });
                 if (await generateBtn.isVisible({ timeout: 2000 })) {
+                    if (!isNoRubric) {
+                        // Has-rubric: button can briefly appear while LMS rubric ingests — never click Generate.
+                        console.log(
+                            `[${uniqueTitle}] Generate Compatible Rubric still visible; waiting for LMS rubric ingest...`,
+                        );
+                        throw new Error(
+                            'Waiting for LMS rubric to ingest (Generate Compatible Rubric still visible)...',
+                        );
+                    }
+
                     await AllureHelper.step('Generate Compatible Rubric', async () => {
                         if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C68998:'))) {
                             AllureHelper.label('caseStatus', `${C68998.split(':')[0]}:passed`);
@@ -417,6 +427,10 @@ export async function executeUniversalPGWorkflow(
                 throw error;
             }
         }).toPass({ timeout: 600000, intervals: [15000] });
+        await AllureHelper.attachScreenshot(
+            powerGraderPage,
+            'Checkpoint|AI score present',
+        );
     });
 
     const assignmentKeyLower = assignmentKey.toLowerCase();

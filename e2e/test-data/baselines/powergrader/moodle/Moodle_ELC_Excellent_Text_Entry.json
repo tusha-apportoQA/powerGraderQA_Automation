@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-08-13T08:59:35.146Z",
+  "snapshot": {
+    "totalScore": 21,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 7,
+        "feedback": "Your essay demonstrates a clear and effective argumentative structure, with a strong introduction, well-organized body paragraphs, and a concise conclusion, making your writing easy to follow and fully meeting expectations for this task."
+      },
+      {
+        "name": "Content",
+        "score": 7,
+        "feedback": "Your essay clearly identifies a specific, well-supported improvement to city safety, provides strong examples and reasoning relevant to your age group, and thoroughly considers both the immediate and long-term benefits—exceeding the content expectations for this assignment."
+      },
+      {
+        "name": "Accuracy",
+        "score": 7,
+        "feedback": "Your proposed improvements are realistic and thoughtfully justified with clear, relevant examples, and you effectively explain both immediate and long-term benefits for people your age, demonstrating excellent accuracy and logical consistency."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

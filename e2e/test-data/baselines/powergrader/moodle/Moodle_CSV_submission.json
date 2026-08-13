@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-08-13T09:11:59.075Z",
+  "snapshot": {
+    "totalScore": 19,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 7,
+        "feedback": "Your CSV file is excellently formatted, with clear headers, consistent comma delimiters, and all required columns and rows cleanly and professionally presented. This strong attention to structure and readability earns full marks for formatting and presentation."
+      },
+      {
+        "name": "Content",
+        "score": 7,
+        "feedback": "You included at least five unique products with all required columns and no missing values, fully satisfying all content and completeness requirements for this assignment. Excellent job ensuring every entry was complete and properly structured."
+      },
+      {
+        "name": "Accuracy",
+        "score": 5,
+        "feedback": "Most of your rows are calculated accurately, but there is a single calculation error in the Keyboard entry (3 × 30 should be 90, not 100); double-check all calculations to ensure full accuracy next time."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

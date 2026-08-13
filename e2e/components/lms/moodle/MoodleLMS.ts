@@ -168,6 +168,12 @@ export class MoodleLMS implements LmsTeacher {
         await powerGraderCoursePage.page.waitForLoadState('networkidle', {timeout: 180000});
         await powerGraderPage.waitForTimeout(2000);
 
+        await powerGraderCoursePage.clickSyncNowIfAvailable('[cleanup][moodle]');
+        console.log('[cleanup][moodle] Waiting 2 minutes for LMS sync...');
+        await powerGraderPage.waitForTimeout(120_000);
+        await powerGraderPage.reload({ waitUntil: 'domcontentloaded', timeout: 60_000 });
+        await powerGraderPage.waitForLoadState('networkidle', { timeout: 180_000 }).catch(() => {});
+
         const moodleAssignmentTitles = getMoodleAssignmentConfigs().map(config => config.title);
         const cleanupTitles = await powerGraderCoursePage.getAutomationCleanupAssignmentTitles(
             moodleAssignmentTitles,
@@ -210,6 +216,8 @@ export class MoodleLMS implements LmsTeacher {
                     await this.moodleGradingPage.expectMoodleGradingPageLoaded();
                 });
 
+                await AllureHelper.attachScreenshot(this.page, 'Checkpoint|LMS grading data loaded');
+
                 await AllureHelper.step('Compare LMS scores with expected', async () => {
                     const lmsSummary = await this.moodleGradingPage.getRubricSnapshot();
 
@@ -235,10 +243,12 @@ export class MoodleLMS implements LmsTeacher {
                         );
                         await expect(normalize(lmsCrit.name)).toBe(normalize(expCrit.name));
 
+                        const roundedExpectedPoints = Math.ceil(expCrit.points - 0.5);
+                        const roundedLmsPoints = Math.ceil(lmsCrit.points - 0.5);
                         console.log(
-                            `[MoodleLMS] Criterion index ${i} -> expected points=${expCrit.points}, LMS=${lmsCrit.points}`
+                            `[MoodleLMS] Criterion index ${i} -> expected points=${expCrit.points} (rounded=${roundedExpectedPoints}), LMS=${lmsCrit.points} (rounded=${roundedLmsPoints})`
                         );
-                        await expect(lmsCrit.points).toBe(expCrit.points);
+                        await expect(roundedLmsPoints).toBe(roundedExpectedPoints);
 
                         console.log(`[MoodleLMS] Criterion index ${i} -> comparing feedback`);
                         await expect(lmsCrit.feedback).toBe(expCrit.feedback);

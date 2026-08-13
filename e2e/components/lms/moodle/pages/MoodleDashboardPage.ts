@@ -3,14 +3,10 @@ import { expect, Page, Locator } from '@playwright/test';
 export class MoodleDashboardPage {
     page: Page;
     dashboardContent: Locator;
-    availableCoursesHeading: Locator;
-    courseLinks: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.dashboardContent = page.locator('body');
-        this.availableCoursesHeading = page.getByRole('heading', { name: /available courses/i });
-        this.courseLinks = page.locator('a[href*="/course/view.php"]');
     }
 
     async goto(baseURL: string): Promise<void> {
@@ -40,21 +36,18 @@ export class MoodleDashboardPage {
     async selectCourse(courseName: string): Promise<void> {
         await this.waitForLoad();
 
-        // Dashboard: each course is a listitem whose element has data-course-id on it (same node).
-        // Find that listitem that contains the course name (exact), then click its first "Course image" link.
-        const courseListItem = this.page
-            .locator('[role="listitem"][data-course-id]')
-            .filter({ has: this.page.getByText(courseName, { exact: true }) })
-            .first();
+        await this.page.getByRole('menuitem', { name: 'My courses' }).click();
 
-        await expect(courseListItem, `Course "${courseName}" not found on dashboard`).toBeVisible({ timeout: 30000 });
+        await this.page.waitForURL(/\/my\/courses\.php/, { timeout: 30000 });
+        await expect(this.page.getByRole('heading', { name: 'My courses' })).toBeVisible({ timeout: 30000 });
 
-        const courseImageLink = courseListItem.getByRole('link', { name: 'Course image' }).first();
-        await expect(courseImageLink).toBeVisible({ timeout: 10000 });
-        await courseImageLink.click();
+        const courseLink = this.page.locator('a').filter({ hasText: courseName }).first();
+        await expect(courseLink, `Course "${courseName}" not found on My courses page`).toBeVisible({ timeout: 30000 });
+        await courseLink.click();
 
         await this.page.waitForURL(/\/course\/view\.php\?id=\d+/, { timeout: 30000 });
         await this.page.waitForLoadState('domcontentloaded');
+        await expect(this.page.getByRole('heading', { name: courseName })).toBeVisible({ timeout: 30000 });
     }
 }
 

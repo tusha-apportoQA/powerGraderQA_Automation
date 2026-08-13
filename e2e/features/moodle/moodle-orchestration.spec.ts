@@ -264,7 +264,7 @@ async function waitForAssignmentToAppearOnCoursePage(
 
 test.describe('Moodle Orchestration @moodle @orchestration', () => {
   const allConfigs = getMoodleAssignmentConfigs();
-  const ASSIGNMENT_CONFIGS = allConfigs.slice(0, 4);
+  const ASSIGNMENT_CONFIGS = allConfigs
 
   //test.describe.configure({ mode: 'serial' });
 
@@ -485,7 +485,7 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
             'moodle',
             teacher,
           );
-        });
+        }, pg);
 
         console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
       });

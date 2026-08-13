@@ -319,7 +319,7 @@ test.describe('D2L LMS Orchestration [POW-471] @d2l @orchestration', () => {
             'd2l',
             teacher,
           );
-        });
+        }, pg);
 
         console.log(`✅ [END] Grade and Publish Workflow for: ${uniqueTitle}`);
       });

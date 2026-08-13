@@ -344,7 +344,7 @@ test.describe('Canvas Orchestration @canvas @orchestration', () => {
             'canvas',
             teacher,
           );
-        });
+        }, pg);
 
         console.log(`[${uniqueTitle}] ✅ [END] Universal PG Workflow`);
       });

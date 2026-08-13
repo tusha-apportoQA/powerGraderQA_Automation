@@ -213,7 +213,7 @@ test.describe(`Component Test: PG workflow debug @${DEBUG_LMS} @debug`, () => {
             DEBUG_LMS,
             teacher,
           );
-        });
+        }, pg);
 
         console.log(`[${uniqueTitle}] ✅ [END] Grade and Publish Workflow`);
       });
