@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-08-13T09:22:29.430Z",
+  "snapshot": {
+    "totalScore": 77,
+    "criteria": [
+      {
+        "name": "Accuracy of Data",
+        "score": 24,
+        "feedback": "Your spreadsheet entries are generally accurate and plausible, but one record (Mike: 90 score, 'Average' rating) showed a minor logical mismatch; ensure future ratings always reflect performance scores consistently to achieve full marks."
+      },
+      {
+        "name": "Completeness of Records",
+        "score": 20,
+        "feedback": "Your spreadsheet includes at least five employee records, and every field is fully completed with no missing or blank entries. This demonstrates careful attention to completeness as required by the assignment."
+      },
+      {
+        "name": "Logical Rating Consistency",
+        "score": 7,
+        "feedback": "Some entries—such as rating a score of 90 as 'Average' or a score of 60 as 'Good'—do not logically align with the Performance Scores, which undermines consistency. To improve, ensure Final Ratings always match the logic of the scores unless there's a clear rationale."
+      },
+      {
+        "name": "Organization & Readability",
+        "score": 15,
+        "feedback": "Your spreadsheet is exceptionally well-organized, with clear headers and a single, logically structured sheet that makes all information easy to find and understand."
+      },
+      {
+        "name": "Professional Presentation",
+        "score": 11,
+        "feedback": "Your spreadsheet is clear and organized with readable headers, but adding formatting touches such as bold headers, cell borders, and improved alignment would create a more polished and professional presentation."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

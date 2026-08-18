@@ -318,7 +318,7 @@ n does not have leading zeros or 0x.`,
                 until: dates.until
             },
             rubric: { type: 'no' },
-            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: false, lmsVerifySave: false },
+            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
         }
     ];
 }

@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-08-13T08:48:02.032Z",
+  "snapshot": {
+    "totalScore": 19,
+    "criteria": [
+      {
+        "name": "Text Type",
+        "score": 6.5,
+        "feedback": "Your essay demonstrates clear organization with a well-structured introduction, body, and conclusion, using appropriate formal language. For an even higher score, you might focus on making transitions and paragraph development more sophisticated."
+      },
+      {
+        "name": "Content",
+        "score": 6,
+        "feedback": "Your essay clearly states one specific improvement and logically explains how it would benefit people your age, with supporting examples; to strengthen your work, provide more detailed analysis of long-term consequences next time."
+      },
+      {
+        "name": "Accuracy",
+        "score": 6.5,
+        "feedback": "Your essay presents accurate and logical reasoning about how technology can improve education and job opportunities, but a more nuanced discussion of how technology might affect employment (such as the potential for automation to reduce some jobs) would strengthen your argument further."
+      }
+    ],
+    "overallFeedback": "No overall feedback recorded."
+  }
+}

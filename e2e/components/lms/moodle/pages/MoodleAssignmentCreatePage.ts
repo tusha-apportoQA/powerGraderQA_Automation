@@ -50,15 +50,20 @@ export class MoodleAssignmentCreatePage {
     }
 
     /**
-     * Ensure all sections are expanded using "Expand all". If "Expand all" is visible, not all are expanded; click it.
-     * If "Collapse all" is visible, all are already expanded.
+     * Ensure all form sections are expanded via the collapse/expand control.
+     * Click "Expand all" when visible; otherwise confirm "Collapse all" is shown.
      */
     async expandAll(): Promise<void> {
-        const expandAllBtn = this.page.getByText('Expand all', { exact: true });
-        if (await expandAllBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
-            await expandAllBtn.click();
-            await this.page.waitForTimeout(500);
+        const expandAll = this.page.getByText('Expand all', { exact: true });
+        const collapseAll = this.page.getByText('Collapse all', { exact: true });
+
+        if (await expandAll.isVisible({ timeout: 3000 }).catch(() => false)) {
+            await expandAll.click();
+            await expect(collapseAll).toBeVisible({ timeout: 10000 });
+            return;
         }
+
+        await expect(collapseAll, 'Form sections are not fully expanded').toBeVisible({ timeout: 10000 });
     }
 
     async expectAssignmentCreatePageLoaded(): Promise<void> {
@@ -71,6 +76,7 @@ export class MoodleAssignmentCreatePage {
         // Check for main content and form
         await expect(this.mainContent).toBeVisible({ timeout: 10000 });
         await expect(this.form).toBeVisible({ timeout: 10000 });
+        await this.expandAll();
     }
 
     async fillTitle(title: string): Promise<void> {

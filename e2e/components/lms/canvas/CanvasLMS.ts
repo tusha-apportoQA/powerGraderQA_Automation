@@ -140,6 +140,7 @@ export class CanvasLMS implements LmsTeacher {
                     await canvasGradingPage.waitForLoad();
                     await canvasGradingPage.ensureSelectedStudent(studentName);
                     await canvasGradingPage.waitForLoad();
+                    await AllureHelper.attachScreenshot(speedGraderPage, 'Checkpoint|LMS grading data loaded');
                 });
 
                 let lmsSummary!: GradingSummary;

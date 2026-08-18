@@ -152,6 +152,8 @@ export class D2LLMS implements LmsTeacher {
                     await this.assignmentDetailsPage.openEvaluationForStudent(studentDisplayName);
 
                     gradingPage = new D2LGradingPage(this.page);
+                    await gradingPage.waitForLoad();
+                    await AllureHelper.attachScreenshot(this.page, 'Checkpoint|LMS grading data loaded');
                 });
 
                 await AllureHelper.step('Compare LMS scores with expected', async () => {

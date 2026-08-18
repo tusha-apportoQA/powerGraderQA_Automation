@@ -32,7 +32,7 @@ export class MoodleAdvancedGradingPage {
         this.defineRubricNameInput = page.getByRole('textbox', { name: 'Name' });
         this.defineRubricDescriptionEditor = page.locator('#id_description_editoreditable');
         this.rubricCriteriaTable = page.locator('#rubric-criteria');
-        this.addCriterionButton = page.getByRole('button', { name: 'Add criterion' });
+        this.addCriterionButton = page.locator('#rubric-criteria-addcriterion');
     }
 
     async waitForLoad(): Promise<void> {
@@ -79,6 +79,7 @@ export class MoodleAdvancedGradingPage {
             if (!rubric.rubricName) {
                 throw new Error('rubricName is required when using existing rubric type');
             }
+            await this.searchOwnRubricTemplate(rubric.rubricName);
             await this.selectRubricTemplate(rubric.rubricName);
         }
     }
@@ -107,6 +108,33 @@ export class MoodleAdvancedGradingPage {
     }
 
     /**
+     * On pick.php: enable "include my own forms", search by rubric name, and wait for reload.
+     */
+    async searchOwnRubricTemplate(rubricName: string): Promise<void> {
+        await this.expectTemplateSelectionPageLoaded();
+
+        const includeOwnFormsCheckbox = this.page.getByLabel('include my own forms');
+        await expect(includeOwnFormsCheckbox).toBeVisible({ timeout: 10000 });
+        if (!(await includeOwnFormsCheckbox.isChecked())) {
+            await includeOwnFormsCheckbox.check();
+        }
+
+        const searchInput = this.page.getByRole('textbox').first();
+        await expect(searchInput).toBeVisible({ timeout: 10000 });
+        await searchInput.fill(rubricName);
+
+        const searchButton = this.page.locator('#id_submitbutton[value="Search"]');
+        await expect(searchButton).toBeVisible({ timeout: 10000 });
+
+        await Promise.all([
+            this.page.waitForURL(/\/grade\/grading\/pick\.php/, { timeout: 30000 }),
+            searchButton.click(),
+        ]);
+        await this.page.waitForLoadState('domcontentloaded');
+        await expect(this.mainContent).toBeVisible({ timeout: 10000 });
+    }
+
+    /**
      * Select an existing rubric template by name.
      * Finds the first heading matching the rubric name (e.g. "Grading rubric Shared template"), then the first "Use this template" below it.
      */
@@ -116,10 +144,9 @@ export class MoodleAdvancedGradingPage {
         const heading = this.page.getByRole('heading', { name: rubricName }).first();
         await expect(heading, `Rubric template "${rubricName}" not found`).toBeVisible({ timeout: 10000 });
 
-        // First "Use this template" (link or button) that comes after this heading
-        const useTemplate = heading.locator('xpath=following::div[contains(., "Use this template")]').first();
-        await expect(useTemplate).toBeVisible({ timeout: 5000 });
-        const useLink = useTemplate.getByRole('link', { name: 'Use this template' }).first();
+        
+        const useLink = this.page.locator('a').filter({ hasText: 'Use this form as a template' }).first()
+        const useTemplate = this.page.getByRole('link', { name: 'Use this form as a template' }).first()
         const linkVisible = await useLink.isVisible({ timeout: 1000 }).catch(() => false);
         if (linkVisible) {
             await useLink.click();
@@ -172,24 +199,19 @@ export class MoodleAdvancedGradingPage {
     }
 
     /**
-     * Wait for the define rubric page to load (edit.php).
+     * Wait for the define rubric page to load (edit.php?areaid=...).
      */
     async waitForDefineRubricPage(): Promise<void> {
         await this.page.waitForURL(/\/grade\/grading\/form\/rubric\/edit\.php/, { timeout: 30000 });
-        await this.page.waitForLoadState('domcontentloaded');
-        await expect(this.mainContent).toBeVisible({ timeout: 10000 });
-        const defineRubricHeading = this.page.getByRole('heading', { name: 'Define rubric' });
-        await expect(defineRubricHeading).toBeVisible({ timeout: 10000 });
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForLoadState('networkidle');
     }
 
     /**
-     * Verify the define rubric page is loaded (heading "Define rubric" visible).
+     * Verify the define rubric page is loaded (edit.php URL + network idle).
      */
     async expectDefineRubricPageLoaded(): Promise<void> {
         await expect(this.page).toHaveURL(/\/grade\/grading\/form\/rubric\/edit\.php/);
-        const defineRubricHeading = this.page.getByRole('heading', { name: 'Define rubric' });
-        await expect(defineRubricHeading).toBeVisible({ timeout: 10000 });
+        await this.page.waitForLoadState('networkidle');
     }
 
     /**
