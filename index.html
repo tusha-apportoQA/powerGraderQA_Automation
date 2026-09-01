@@ -197,8 +197,8 @@
         let monthlyData = [];
         let showAll = false; // 🎯 Tracks toggle state
 
-        // 1. Fetch TestRail Stats
-        fetch('./testrail-stats.json')
+        // 1. Fetch Agile (Jira) test-case stats
+        fetch('./agile-stats.json')
             .then(res => res.json())
             .then(data => {
                 //document.getElementById('total').innerText = data.total || 0;

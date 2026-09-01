@@ -7,7 +7,7 @@ import { D2LAssignmentSubmissionPage } from './pages/D2LAssignmentSubmissionPage
 import { FormatType } from '../../../types';
 import { getD2LConfig } from '../../../config/d2l.config';
 import { AllureHelper } from '../../../utils/allureHelper';
-import { C69065, C69067, C69098 } from '../../../test-data/testCaseIds';
+import { POW906, POW908, POW922 } from '../../../test-data/testCaseIds';
 
 export class D2LLMSStudent {
     page: Page;
@@ -87,14 +87,14 @@ export class D2LLMSStudent {
         
         await this.submissionPage.prepareSubmission(submissionType, filePath, text);
         if (submissionCommentMeta) {
-            if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
-                AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:reached`);
+            if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-922:'))) {
+                AllureHelper.label('caseStatus', `${POW922.split(':')[0]}:reached`);
             }
             try {
                 const comment = `submission for ${submissionCommentMeta.uniqueTitle} by ${submissionCommentMeta.studentLabel}`;
                 await this.submissionPage.fillComments(comment);
-                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69098:'))) {
-                    AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:passed`);
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-922:'))) {
+                    AllureHelper.label('caseStatus', `${POW922.split(':')[0]}:passed`);
                 }
             } catch (error) {
                 console.warn('[D2LLMSStudent] Submission comment step failed — continuing without it (non-blocking):', error);
@@ -105,11 +105,11 @@ export class D2LLMSStudent {
         await this.submissionPage.submitAssignment();
         
         await this.submissionPage.verifySubmissionSuccess();
-        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69065:'))) {
-            AllureHelper.label('caseStatus', `${C69065.split(':')[0]}:passed`);
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-906:'))) {
+            AllureHelper.label('caseStatus', `${POW906.split(':')[0]}:passed`);
         }
-        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69067:'))) {
-            AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:passed`);
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-908:'))) {
+            AllureHelper.label('caseStatus', `${POW908.split(':')[0]}:passed`);
         }
     }
 }

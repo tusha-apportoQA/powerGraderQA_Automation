@@ -4,7 +4,7 @@ import { D2LLMS } from '../../components/lms/d2l/D2LLMS';
 import { D2LLMSStudent } from '../../components/lms/d2l/D2LLMSStudent';
 import { PowerGrader } from '../../components/powergrader/PowerGrader';
 import { getD2LAssignmentConfigs } from '../../test-data/assignments/d2l';
-import { C69002, C69065, C69067, C69098 } from '../../test-data/testCaseIds';
+import { POW1005, POW906, POW908, POW922 } from '../../test-data/testCaseIds';
 import { getSubmissionFilePath, getSubmissionText } from '../../test-data/submissions';
 import { getD2LConfig } from '../../config/d2l.config';
 import { AllureHelper } from '../../utils/allureHelper';
@@ -32,11 +32,11 @@ async function waitForStudentAssignmentToAppear(
             await student.dashboardPage.selectCourse(courseName);
             await student.coursePage.clickAssignments();
             await student.assignmentListPage.clickAssignment(assignmentTitle);
-            if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69065:'))) {
-                AllureHelper.label('caseStatus', `${C69065.split(':')[0]}:reached`);
+            if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-906:'))) {
+                AllureHelper.label('caseStatus', `${POW906.split(':')[0]}:reached`);
             }
-            if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69067:'))) {
-                AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:reached`);
+            if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-908:'))) {
+                AllureHelper.label('caseStatus', `${POW908.split(':')[0]}:reached`);
             }
             console.log(`[${assignmentTitle}] Student Sync: assignment is visible to student ✅`);
             return;
@@ -69,16 +69,16 @@ test.describe('D2L: PowerGrader grade + LMS verify @d2l @component', () => {
         test.setTimeout(1_200_000);
         AllureHelper.label('lms', 'd2l');
         AllureHelper.label('caseConfig', `d2l|verify-lms|${assignmentConfig.title}`);
-        AllureHelper.label('testCaseId', C69065);
-        AllureHelper.label('caseStatus', `${C69065.split(':')[0]}:not_reached`);
-        AllureHelper.label('testCaseId', C69002);
+        AllureHelper.label('testCaseId', POW906);
+        AllureHelper.label('caseStatus', `${POW906.split(':')[0]}:not_reached`);
+        AllureHelper.label('testCaseId', POW1005);
         if (assignmentConfig.submissionType !== 'Text Entry') {
-            AllureHelper.label('testCaseId', C69098);
-      AllureHelper.label('caseStatus', `${C69098.split(':')[0]}:not_reached`);
+            AllureHelper.label('testCaseId', POW922);
+      AllureHelper.label('caseStatus', `${POW922.split(':')[0]}:not_reached`);
         }
         if (assignmentConfig.submissionType === 'Text Entry') {
-            AllureHelper.label('testCaseId', C69067);
-            AllureHelper.label('caseStatus', `${C69067.split(':')[0]}:not_reached`);
+            AllureHelper.label('testCaseId', POW908);
+            AllureHelper.label('caseStatus', `${POW908.split(':')[0]}:not_reached`);
         }
 
         const uniqueTitle = `${assignmentConfig.title} [${Date.now()}]`;

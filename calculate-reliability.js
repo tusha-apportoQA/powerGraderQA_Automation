@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const resultsDir = './allure-results';
-const statsFile = './testrail-stats.json';
+const statsFile = './agile-stats.json';
 
 try {
     if (!fs.existsSync(resultsDir)) {

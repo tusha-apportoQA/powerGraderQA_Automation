@@ -17,20 +17,20 @@ import {
     createWorkflowFailure,
     WorkflowFailure,
 } from './workflow-failures';
-import { C68955, C68956, C68957, C68958, C68959, C68960, C68961, C68962, C68998, C68999, C69000, C69002, C69036, C69041, C69063, C69074, C69092, C69100, C69138, C69209, C75466, C75511, C75526, C75529, C75645, C75673, C76730, C78816, C78820, C78823, C78835 } from '../test-data/testCaseIds';
+import { POW891, POW892, POW894, POW895, POW896, POW897, POW898, POW899, POW1001, POW1002, POW1003, POW1005, POW1006, POW1009, POW904, POW913, POW920, POW998, POW893, POW1012, POW936, POW937, POW929, POW997, POW931, POW1018, POW1035, POW940, POW942, POW944, POW948 } from '../test-data/testCaseIds';
 import fs from "fs";
 import path from "path";
 
 function getIterativeRepublishCaseLabel(submissionType?: string): string | undefined {
     switch (submissionType) {
         case '.txt':
-            return C68956;
+            return POW892;
         case '.pdf':
-            return C68958;
+            return POW895;
         case '.docx':
-            return C68960;
+            return POW897;
         case 'Text Entry':
-            return C68962;
+            return POW899;
         default:
             return undefined;
     }
@@ -39,13 +39,13 @@ function getIterativeRepublishCaseLabel(submissionType?: string): string | undef
 function getStandardPublishCaseLabel(submissionType?: string): string | undefined {
     switch (submissionType) {
         case '.txt':
-            return C68955;
+            return POW891;
         case '.pdf':
-            return C68957;
+            return POW894;
         case '.docx':
-            return C68959;
+            return POW896;
         case 'Text Entry':
-            return C68961;
+            return POW898;
         default:
             return undefined;
     }
@@ -58,13 +58,13 @@ async function executeInvalidSubmissionWorkflow(
     const workflowFailures: WorkflowFailure[] = [];
 
     try {
-        await AllureHelper.step(C75466.split(':').slice(1).join(':'), async () => {
-            AllureHelper.label('testCaseId', C75466);
-            AllureHelper.label('caseStatus', `${C75466.split(':')[0]}:reached`);
-            console.log(`[${uniqueTitle}] C75466: Waiting for invalid submission grading block...`);
+        await AllureHelper.step(POW936.split(':').slice(1).join(':'), async () => {
+            AllureHelper.label('testCaseId', POW936);
+            AllureHelper.label('caseStatus', `${POW936.split(':')[0]}:reached`);
+            console.log(`[${uniqueTitle}] POW936: Waiting for invalid submission grading block...`);
 
             await expect(async () => {
-                console.log(`[${uniqueTitle}] C75466: Checking for "Cannot be graded" button...`);
+                console.log(`[${uniqueTitle}] POW936: Checking for "Cannot be graded" button...`);
                 await powerGraderPage.reload({ waitUntil: 'domcontentloaded', timeout: 60_000 });
 
                 const cannotBeGradedBtn = powerGraderPage.getByRole('button', { name: 'Cannot be graded' });
@@ -73,7 +73,7 @@ async function executeInvalidSubmissionWorkflow(
                 }
             }).toPass({ timeout: 10 * 60 * 1000, intervals: [30000] });
 
-            console.log(`[${uniqueTitle}] C75466: "Cannot be graded" visible — clicking and verifying modal.`);
+            console.log(`[${uniqueTitle}] POW936: "Cannot be graded" visible — clicking and verifying modal.`);
             await powerGraderPage.getByRole('button', { name: 'Cannot be graded' }).click();
 
             const allowGradingBtn = powerGraderPage.getByRole('button', { name: 'Allow Grading' });
@@ -86,11 +86,11 @@ async function executeInvalidSubmissionWorkflow(
                 '"Allow Grading" button should be disabled for invalid document types',
             ).toBeDisabled();
 
-            AllureHelper.label('caseStatus', `${C75466.split(':')[0]}:passed`);
-            console.log(`[${uniqueTitle}] C75466: Invalid submission modal verified.`);
+            AllureHelper.label('caseStatus', `${POW936.split(':')[0]}:passed`);
+            console.log(`[${uniqueTitle}] POW936: Invalid submission modal verified.`);
         });
     } catch (error) {
-        workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: C75466, page: powerGraderPage }));
+        workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW936, page: powerGraderPage }));
         throw buildWorkflowFailureError(workflowFailures);
     }
 }
@@ -231,36 +231,23 @@ export async function executeUniversalPGWorkflow(
         await expect(async () => {
             console.log(`[${uniqueTitle}] Course Page Sync: Checking for assignment...`);
             await powerGraderPage.reload({ waitUntil: 'domcontentloaded', timeout: 60_000 });
-            const viewDetailsFirst = powerGraderPage.getByRole('link', { name: 'View details' }).first();
-            const viewDetailsVisible = await viewDetailsFirst
-                .waitFor({ state: 'visible', timeout: 30_000 })
-                .then(() => true)
-                .catch(() => false);
-            if (!viewDetailsVisible) {
-                const yesBtn = powerGraderPage.getByRole('button', { name: 'Yes' });
-                if (await yesBtn.waitFor({ state: 'visible', timeout: 60_000 }).then(() => true).catch(() => false)) {
-                    await yesBtn.click();
-                    await powerGraderPage.waitForLoadState('networkidle').catch(() => { });
-                }
-                await expect(viewDetailsFirst).toBeVisible({ timeout: 30_000 });
-            }
-
-            const coursePage = new PowerGraderCoursePage(powerGraderPage);
-            await coursePage.clickSyncNowIfAvailable(uniqueTitle);
 
             // Search for the assignment by title
             // const searchInput = powerGraderPage.locator('input[placeholder="Search titles..."]');
             const searchInput = powerGraderPage.locator('input[placeholder*="Search titles"]');
-            await expect(searchInput).toBeVisible({ timeout: 10000 });
+            await expect(searchInput).toBeVisible({ timeout: 30000 });
             await searchInput.clear();
             await searchInput.fill(uniqueTitle);
             console.log(`[${uniqueTitle}] Search filled with: ${uniqueTitle}`);
             await powerGraderPage.waitForTimeout(1000);
 
-            const row = powerGraderPage.locator('tr, div[role="row"]').filter({ hasText: uniqueTitle }).last();
-            const isVisible = await row.isVisible();
+            const row = powerGraderPage.locator('tr, div[role="row"]').filter({ hasText: uniqueTitle }).first();
+            const isVisible = await row
+                .waitFor({ state: 'visible', timeout: 8000 })
+                .then(() => true)
+                .catch(() => false);
             console.log(`[${uniqueTitle}] Row visible: ${isVisible}`);
-            if (await row.isVisible()) {
+            if (isVisible) {
                 console.log(`[${uniqueTitle}] Assignment found. Clicking on "View details"...`);
                 const viewBtn = row.getByRole('link', { name: 'View details', exact: true }).or(row.getByText('View details', { exact: true }));
                 await Promise.all([
@@ -268,10 +255,17 @@ export async function executeUniversalPGWorkflow(
                     viewBtn.first().click()
                 ]);
                 await expect(powerGraderPage).not.toHaveURL(/.*dashboard.*/);
-                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69074:'))) {
-                    AllureHelper.label('caseStatus', `${C69074.split(':')[0]}:passed`);
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-913:'))) {
+                    AllureHelper.label('caseStatus', `${POW913.split(':')[0]}:passed`);
                 }
             } else {
+                const yesBtn = powerGraderPage.getByRole('button', { name: 'Yes' });
+                if (await yesBtn.waitFor({ state: 'visible', timeout: 5_000 }).then(() => true).catch(() => false)) {
+                    await yesBtn.click();
+                    await powerGraderPage.waitForLoadState('networkidle').catch(() => { });
+                }
+                const coursePage = new PowerGraderCoursePage(powerGraderPage);
+                await coursePage.clickSyncNowIfAvailable(uniqueTitle);
                 throw new Error(`[${uniqueTitle}] Syncing... assignment row not visible yet.`);
             }
         }).toPass({ timeout: 1200000, intervals: [INTERVAL] });
@@ -296,8 +290,8 @@ export async function executeUniversalPGWorkflow(
             await expect(async () => {
                 console.log(`[${uniqueTitle}] Waiting for AI Grading to Complete...`);
                 await powerGraderPage.reload({ waitUntil: 'networkidle' });
-                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C68999:'))) {
-                    AllureHelper.label('caseStatus', `${C68999.split(':')[0]}:reached`);
+                if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-1002:'))) {
+                    AllureHelper.label('caseStatus', `${POW1002.split(':')[0]}:reached`);
                 }
 
                 // logic to handle "No Rubric" state
@@ -314,11 +308,11 @@ export async function executeUniversalPGWorkflow(
                     }
 
                     await AllureHelper.step('Generate Compatible Rubric', async () => {
-                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C68998:'))) {
-                            AllureHelper.label('caseStatus', `${C68998.split(':')[0]}:passed`);
+                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-1001:'))) {
+                            AllureHelper.label('caseStatus', `${POW1001.split(':')[0]}:passed`);
                         }
-                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69036:'))) {
-                            AllureHelper.label('caseStatus', `${C69036.split(':')[0]}:passed`);
+                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-1006:'))) {
+                            AllureHelper.label('caseStatus', `${POW1006.split(':')[0]}:passed`);
                         }
                         console.log(`[${uniqueTitle}] No rubric found. Clicking "Generate Compatible Rubric"...`);
                         /*await generateBtn.click();
@@ -326,16 +320,16 @@ export async function executeUniversalPGWorkflow(
                         await powerGraderPage.reload({ waitUntil: 'networkidle' });
                         throw new Error('Rubric generated. Reloading to check AI grading status...');*/
                         await generateBtn.click();
-                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69000:'))) {
-                            AllureHelper.label('caseStatus', `${C69000.split(':')[0]}:passed`);
+                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-1003:'))) {
+                            AllureHelper.label('caseStatus', `${POW1003.split(':')[0]}:passed`);
                         }
                         console.log(`[${uniqueTitle}] Rubric generated. Waiting for AI grading to begin...`);
                         await powerGraderPage.waitForTimeout(5000);
                         throw new Error('Waiting for AI grading after rubric generation...');
                     });
                 } else {
-                    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C68999:'))) {
-                        AllureHelper.label('caseStatus', `${C68999.split(':')[0]}:passed`);
+                    if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-1002:'))) {
+                        AllureHelper.label('caseStatus', `${POW1002.split(':')[0]}:passed`);
                     }
                 }
 
@@ -345,7 +339,7 @@ export async function executeUniversalPGWorkflow(
                         console.log(`[${uniqueTitle}] Banner detected: "PowerGrader may not be able to grade..."`);
                         const isShortAssignment = assignmentKey.toLowerCase().includes('short');
                         if (isShortAssignment) {
-                            AllureHelper.label('testCaseId', C75526);
+                            AllureHelper.label('testCaseId', POW929);
                         }
                         await seeWhyBtn.click();
                         console.log(`[${uniqueTitle}] Clicked "See Why" button.`);
@@ -358,7 +352,7 @@ export async function executeUniversalPGWorkflow(
                         await gradeAnywayBtn.click();
                         console.log(`[${uniqueTitle}] Clicked "Grade Anyway". Waiting for AI grading...`);
                         if (isShortAssignment) {
-                            AllureHelper.label('caseStatus', `${C75526.split(':')[0]}:passed`);
+                            AllureHelper.label('caseStatus', `${POW929.split(':')[0]}:passed`);
                         }
                         await powerGraderPage.waitForTimeout(5000);
                         throw new Error('Waiting for AI grading after Grade Anyway...');
@@ -369,16 +363,16 @@ export async function executeUniversalPGWorkflow(
                     const startBtn = powerGraderPage.locator('button').filter({ hasText: /^Review$/i });
                     const reopenBtn = powerGraderPage.getByRole('button', { name: 'View' }).first();
                     if (await startBtn.isVisible({ timeout: 5000 })) {
-                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69063:'))) {
-                            AllureHelper.label('caseStatus', `${C69063.split(':')[0]}:passed`);
+                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-904:'))) {
+                            AllureHelper.label('caseStatus', `${POW904.split(':')[0]}:passed`);
                         }
-                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C69092:'))) {
-                            AllureHelper.label('caseStatus', `${C69092.split(':')[0]}:passed`);
+                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-920:'))) {
+                            AllureHelper.label('caseStatus', `${POW920.split(':')[0]}:passed`);
                         }
-                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75645:'))) {
-                            AllureHelper.label('caseStatus', `${C75645.split(':')[0]}:passed`);
+                        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-931:'))) {
+                            AllureHelper.label('caseStatus', `${POW931.split(':')[0]}:passed`);
                         }
-                        AllureHelper.label('caseStatus', `${C69100.split(':')[0]}:passed`);
+                        AllureHelper.label('caseStatus', `${POW998.split(':')[0]}:passed`);
                         await startBtn.click();
                     } else if (await reopenBtn.isVisible({ timeout: 5000 })) {
                         console.log(`[${uniqueTitle}] Already reviewed; reopening via View...`);
@@ -438,16 +432,16 @@ export async function executeUniversalPGWorkflow(
         assignmentKeyLower.includes('csv') || assignmentKeyLower.includes('xlsx');
     if (isCsvOrXlsxAssignment) {
         try {
-            await AllureHelper.step(C78816.split(':').slice(1).join(':'), async () => {
-                AllureHelper.label('testCaseId', C78816);
+            await AllureHelper.step(POW940.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', POW940);
                 console.log(
-                    `[${uniqueTitle}] C78816: Checking submission file is visible on Submission tab`,
+                    `[${uniqueTitle}] POW940: Checking submission file is visible on Submission tab`,
                 );
                 await gradingPage.expectSubmissionFileDisplayed();
-                AllureHelper.label('caseStatus', `${C78816.split(':')[0]}:passed`);
+                AllureHelper.label('caseStatus', `${POW940.split(':')[0]}:passed`);
             });
         } catch (error) {
-            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: C78816, page: powerGraderPage }));
+            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW940, page: powerGraderPage }));
         }
     }
 
@@ -616,9 +610,9 @@ export async function executeUniversalPGWorkflow(
     if (isNoRubric) {
         const criterionNameSimilarityThreshold = 0.8;
         try {
-            AllureHelper.label('caseStatus', `${C69209.split(':')[0]}:reached`);
-            await AllureHelper.step(C69209.split(':').slice(1).join(':'), async () => {
-                AllureHelper.label('testCaseId', C69209);
+            AllureHelper.label('caseStatus', `${POW1012.split(':')[0]}:reached`);
+            await AllureHelper.step(POW1012.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', POW1012);
                 const criterionNames = (gradingSummary?.criteria ?? []).map(
                     (criterion: { name?: string }) => criterion.name ?? '',
                 );
@@ -639,17 +633,17 @@ export async function executeUniversalPGWorkflow(
                     `Generated criterion names must be semantically unique. Duplicate pairs at cosine similarity >= ${criterionNameSimilarityThreshold}: ${duplicateDetails}`,
                 ).toBe(true);
 
-                AllureHelper.label('caseStatus', `${C69209.split(':')[0]}:passed`);
+                AllureHelper.label('caseStatus', `${POW1012.split(':')[0]}:passed`);
                 console.log(
-                    `[${uniqueTitle}] C69209: Generated criterion names are semantically unique (all pairwise similarities < ${criterionNameSimilarityThreshold}).`,
+                    `[${uniqueTitle}] POW1012: Generated criterion names are semantically unique (all pairwise similarities < ${criterionNameSimilarityThreshold}).`,
                 );
             });
         } catch (error) {
-            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: C69209, page: powerGraderPage }));
+            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW1012, page: powerGraderPage }));
         }
     }
 
-    // C69041 — non-blocking: rubric criterion order matches config (when criteriaOrder is set)
+    // POW1009 — non-blocking: rubric criterion order matches config (when criteriaOrder is set)
     const expectedCriteriaOrder =
         assignmentConfig.rubric &&
         assignmentConfig.rubric.type !== 'no' &&
@@ -658,27 +652,27 @@ export async function executeUniversalPGWorkflow(
             : undefined;
     if (expectedCriteriaOrder) {
         try {
-            AllureHelper.label('caseStatus', `${C69041.split(':')[0]}:reached`);
-            await AllureHelper.step(C69041.split(':').slice(1).join(':'), async () => {
-                AllureHelper.label('testCaseId', C69041);
+            AllureHelper.label('caseStatus', `${POW1009.split(':')[0]}:reached`);
+            await AllureHelper.step(POW1009.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', POW1009);
                 const actualOrder = (gradingSummary.criteria ?? []).map(
                     (c: { name: string }) => c.name.trim(),
                 );
                 console.log(
-                    `[${uniqueTitle}] C69041: Expected criteria order=[${expectedCriteriaOrder.join(', ')}]`,
+                    `[${uniqueTitle}] POW1009: Expected criteria order=[${expectedCriteriaOrder.join(', ')}]`,
                 );
                 console.log(
-                    `[${uniqueTitle}] C69041: Actual criteria order=[${actualOrder.join(', ')}]`,
+                    `[${uniqueTitle}] POW1009: Actual criteria order=[${actualOrder.join(', ')}]`,
                 );
                 expect(
                     actualOrder,
                     'Rubric criterion order in PowerGrader should match criteriaOrder from assignment config',
                 ).toEqual(expectedCriteriaOrder);
-                AllureHelper.label('caseStatus', `${C69041.split(':')[0]}:passed`);
-                console.log(`[${uniqueTitle}] C69041: Rubric criterion order matches expected.`);
+                AllureHelper.label('caseStatus', `${POW1009.split(':')[0]}:passed`);
+                console.log(`[${uniqueTitle}] POW1009: Rubric criterion order matches expected.`);
             });
         } catch (error) {
-            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: C69041, page: powerGraderPage }));
+            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW1009, page: powerGraderPage }));
         }
     }
 
@@ -694,13 +688,13 @@ export async function executeUniversalPGWorkflow(
         await AllureHelper.step('Save draft', async () => {
             if (!teacherEdits?.criteria?.length) {
                 console.warn(
-                    `[${uniqueTitle}] C69138: lmsVerifySave is true but no teacherEdits; skipping Save draft.`,
+                    `[${uniqueTitle}] POW893: lmsVerifySave is true but no teacherEdits; skipping Save draft.`,
                 );
             } else {
-                AllureHelper.label('caseStatus', `${C69138.split(':')[0]}:reached`);
-                console.log(`[${uniqueTitle}] C69138: Saving draft after teacher edits...`);
+                AllureHelper.label('caseStatus', `${POW893.split(':')[0]}:reached`);
+                console.log(`[${uniqueTitle}] POW893: Saving draft after teacher edits...`);
                 await gradingPage.clickSaveDraftAndWaitUntilDisabled();
-                console.log(`[${uniqueTitle}] C69138: Draft saved; continuing to publish + LMS verify.`);
+                console.log(`[${uniqueTitle}] POW893: Draft saved; continuing to publish + LMS verify.`);
             }
         });
     }
@@ -710,18 +704,18 @@ export async function executeUniversalPGWorkflow(
     await AllureHelper.step('Publish grades', async () => {
         await powerGraderPage.waitForTimeout(80000);
 
-        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C78820:'))) {
-            AllureHelper.label('caseStatus', `${C78820.split(':')[0]}:reached`);
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-942:'))) {
+            AllureHelper.label('caseStatus', `${POW942.split(':')[0]}:reached`);
         }
 
         await gradingPage.clickPublishButton();
-        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C75511:'))) {
-            AllureHelper.label('caseStatus', `${C75511.split(':')[0]}:passed`);
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-937:'))) {
+            AllureHelper.label('caseStatus', `${POW937.split(':')[0]}:passed`);
         }
-        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('C78820:'))) {
-            AllureHelper.label('caseStatus', `${C78820.split(':')[0]}:passed`);
+        if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-942:'))) {
+            AllureHelper.label('caseStatus', `${POW942.split(':')[0]}:passed`);
         }
-        AllureHelper.label('caseStatus', `${C78823.split(':')[0]}:passed`);
+        AllureHelper.label('caseStatus', `${POW944.split(':')[0]}:passed`);
         //await powerGraderPage.waitForURL(/.*assignments\/RegisterAssignment.*/, { timeout: 30000 });
         // console.log(`✅ [FINISH] Workflow successful.`);
     });
@@ -746,18 +740,18 @@ export async function executeUniversalPGWorkflow(
 
     if (isNoRubric && postPublishVerified) {
         try {
-            AllureHelper.label('caseStatus', `${C75673.split(':')[0]}:reached`);
-            await AllureHelper.step(C75673.split(':').slice(1).join(':'), async () => {
-                AllureHelper.label('testCaseId', C75673);
+            AllureHelper.label('caseStatus', `${POW1018.split(':')[0]}:reached`);
+            await AllureHelper.step(POW1018.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', POW1018);
                 await detailsPage.editAiRubricAndVerifyPersistence();
-                AllureHelper.label('caseStatus', `${C75673.split(':')[0]}:passed`);
+                AllureHelper.label('caseStatus', `${POW1018.split(':')[0]}:passed`);
             });
         } catch (error) {
-            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: C75673, page: powerGraderPage }));
+            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW1018, page: powerGraderPage }));
         }
     } else if (isNoRubric) {
         console.log(
-            `[${uniqueTitle}] C75673: Skipped because post-publish assignment details were not verified.`,
+            `[${uniqueTitle}] POW1018: Skipped because post-publish assignment details were not verified.`,
         );
     }
 
@@ -793,12 +787,12 @@ export async function executeUniversalPGWorkflow(
         }
     }
 
-    // C78835 — non-blocking: Back returns to submissions/details list (restores details page before LMS/IG).
+    // POW948 — non-blocking: Back returns to submissions/details list (restores details page before LMS/IG).
     try {
-        AllureHelper.label('caseStatus', `${C78835.split(':')[0]}:reached`);
-        await AllureHelper.step(C78835.split(':').slice(1).join(':'), async () => {
-            AllureHelper.label('testCaseId', C78835);
-            console.log(`[${uniqueTitle}] C78835: Ensuring grading page, then verifying Back navigation...`);
+        AllureHelper.label('caseStatus', `${POW948.split(':')[0]}:reached`);
+        await AllureHelper.step(POW948.split(':').slice(1).join(':'), async () => {
+            AllureHelper.label('testCaseId', POW948);
+            console.log(`[${uniqueTitle}] POW948: Ensuring grading page, then verifying Back navigation...`);
             await ensureOnGradingPage(powerGraderPage, detailsPage, gradingPage, uniqueTitle);
             await gradingPage.clickBackToSubmissionsList();
             const viewButton = powerGraderPage.getByRole('button', { name: 'View' }).first();
@@ -806,17 +800,17 @@ export async function executeUniversalPGWorkflow(
                 viewButton,
                 'View button should be visible on assignment details after clicking Back',
             ).toBeVisible({ timeout: 30000 });
-            AllureHelper.label('caseStatus', `${C78835.split(':')[0]}:passed`);
-            console.log(`[${uniqueTitle}] C78835: Back button returned to submissions list (View visible).`);
+            AllureHelper.label('caseStatus', `${POW948.split(':')[0]}:passed`);
+            console.log(`[${uniqueTitle}] POW948: Back button returned to submissions list (View visible).`);
         });
     } catch (error) {
-        workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: C78835, page: powerGraderPage }));
+        workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW948, page: powerGraderPage }));
     }
 
     if (lmsTeacher) {
         if (!workflow.verifyLms) {
             console.log(`[${uniqueTitle}] Skipping LMS rubric verification - disabled in assignment workflow config.`);
-            AllureHelper.label('caseStatus', `${C69002.split(':')[0]}:not_reached`);
+            AllureHelper.label('caseStatus', `${POW1005.split(':')[0]}:not_reached`);
         } else if (!postPublishVerified) {
             console.log(
                 `[${uniqueTitle}] Skipping LMS verification as post-publish state was not verified.`,
@@ -825,18 +819,18 @@ export async function executeUniversalPGWorkflow(
             try {
                 await lmsTeacher.verifyLmsScore(uniqueTitle, publishedGradingSummary as GradingSummary);
                 if (workflow.lmsVerifySave) {
-                    AllureHelper.label('caseStatus', `${C69138.split(':')[0]}:passed`);
+                    AllureHelper.label('caseStatus', `${POW893.split(':')[0]}:passed`);
                     console.log(
-                        `[${uniqueTitle}] C69138: LMS reflects saved/published teacher edits.`,
+                        `[${uniqueTitle}] POW893: LMS reflects saved/published teacher edits.`,
                     );
                 }
             } catch (error) {
                 workflowFailures.push(
-                    await createWorkflowFailure(error, { tag: 'LMS', caseLabel: C69002 }),
+                    await createWorkflowFailure(error, { tag: 'LMS', caseLabel: POW1005 }),
                 );
                 if (workflow.lmsVerifySave) {
                     workflowFailures.push(
-                        await createWorkflowFailure(error, { tag: 'LMS', caseLabel: C69138 }),
+                        await createWorkflowFailure(error, { tag: 'LMS', caseLabel: POW893 }),
                     );
                 }
             }
@@ -849,7 +843,7 @@ export async function executeUniversalPGWorkflow(
                     AllureHelper.label('caseStatus', `${iterativeCaseId}:reached`);
                     try {
                         console.log(`[${uniqueTitle}] Starting iterative re-publish (${iterativeCaseId})...`);
-                        // ensureOnGradingPage: after C78835 we are on details; after a failed Back we may still be on grading
+                        // ensureOnGradingPage: after POW948 we are on details; after a failed Back we may still be on grading
                         await ensureOnGradingPage(powerGraderPage, detailsPage, gradingPage, uniqueTitle);
                         const republishEdits: CriterionEditEntry[] = (publishedGradingSummary.criteria ?? []).map((_, index) => ({ criterionIndex: index, score: 0 }));
                         await gradingPage.applyTeacherEdits(republishEdits);
@@ -931,43 +925,43 @@ export async function executeUniversalPGWorkflow(
 
     if (!workflow.onTimeVisibility) {
         console.log(`[${uniqueTitle}] Skipping on time check - disabled in assignment workflow config.`);
-        AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:not_reached`);
+        AllureHelper.label('caseStatus', `${POW997.split(':')[0]}:not_reached`);
     } else {
         try {
-            AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:reached`);
-            await AllureHelper.step(C75529.split(':').slice(1).join(':'), async () => {
-                AllureHelper.label('testCaseId', C75529);
+            AllureHelper.label('caseStatus', `${POW997.split(':')[0]}:reached`);
+            await AllureHelper.step(POW997.split(':').slice(1).join(':'), async () => {
+                AllureHelper.label('testCaseId', POW997);
                 await ensureOnGradingPage(powerGraderPage, detailsPage, gradingPage, uniqueTitle);
-                console.log(`[${uniqueTitle}] C75529: Checking due date label is visible on grading page`);
+                console.log(`[${uniqueTitle}] POW997: Checking due date label is visible on grading page`);
                 await gradingPage.expectDueDateVisible();
-                AllureHelper.label('caseStatus', `${C75529.split(':')[0]}:passed`);
+                AllureHelper.label('caseStatus', `${POW997.split(':')[0]}:passed`);
             });
         } catch (error) {
-            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: C75529, page: powerGraderPage }));
+            workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW997, page: powerGraderPage }));
         }
     }
 
-    // C76730 — non-blocking: Logout from PowerGrader (any page)
+    // POW1035 — non-blocking: Logout from PowerGrader (any page)
     try {
-        AllureHelper.label('caseStatus', `${C76730.split(':')[0]}:reached`);
-        await AllureHelper.step(C76730.split(':').slice(1).join(':'), async () => {
-            AllureHelper.label('testCaseId', C76730);
-            console.log(`[${uniqueTitle}] C76730: Clicking Logout...`);
+        AllureHelper.label('caseStatus', `${POW1035.split(':')[0]}:reached`);
+        await AllureHelper.step(POW1035.split(':').slice(1).join(':'), async () => {
+            AllureHelper.label('testCaseId', POW1035);
+            console.log(`[${uniqueTitle}] POW1035: Clicking Logout...`);
             const logoutControl = powerGraderPage.getByTitle('Logout');
             await expect(logoutControl, 'Logout control is not visible').toBeVisible({
                 timeout: 15000,
             });
             await logoutControl.click();
-            console.log(`[${uniqueTitle}] C76730: Waiting for logout confirmation...`);
+            console.log(`[${uniqueTitle}] POW1035: Waiting for logout confirmation...`);
             await expect(
                 powerGraderPage.getByText('You have been successfully logged out'),
                 'Logout success message is not visible',
             ).toBeVisible({ timeout: 60000 });
-            AllureHelper.label('caseStatus', `${C76730.split(':')[0]}:passed`);
-            console.log(`[${uniqueTitle}] C76730: Logout confirmed.`);
+            AllureHelper.label('caseStatus', `${POW1035.split(':')[0]}:passed`);
+            console.log(`[${uniqueTitle}] POW1035: Logout confirmed.`);
         });
     } catch (error) {
-        workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: C76730, page: powerGraderPage }));
+        workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW1035, page: powerGraderPage }));
     }
 
     const combinedError = buildWorkflowFailureError([...workflowFailures, ...igFailures]);

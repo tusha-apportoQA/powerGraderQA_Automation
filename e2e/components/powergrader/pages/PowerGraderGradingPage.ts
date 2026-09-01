@@ -25,7 +25,8 @@ export class PowerGraderGradingPage {
        // Force wait for the grading room URL pattern before proceeding
         await this.page.waitForURL(/\/RegisterSubmissionPublicUUID--/, { timeout: 30000 });
         await this.page.waitForLoadState('networkidle');
-        console.log("[Grading Page] URL detected, network idle. Proceeding to score check.");
+        await expect(this.page.getByText('Submission', { exact: true })).toBeVisible({ timeout: 0 });
+        console.log("[Grading Page] URL detected, network idle, Submission tab visible. Proceeding to score check.");
     }
 
     async expectPageLoaded(studentName?: string): Promise<void> {
@@ -621,15 +622,27 @@ export class PowerGraderGradingPage {
                 let score = 0;
                 if (selectedCard) {
                     const scoreDiv = selectedCard.locator('div.relative.flex.h-7.min-w-7');
+                    let rawValue: string;
                     if (await scoreDiv.count() > 0) {
-                        const scoreText = (await scoreDiv.innerText()).trim();
-                        score = parseFloat(scoreText) || 0;
+                        rawValue = (await scoreDiv.innerText()).trim();
                     } else {
                         // Custom score input is selected
                         const customInput = selectedCard.locator('input[type="number"]');
-                        const val = await customInput.inputValue();
-                        score = parseFloat(val) || 0;
+                        rawValue = (await customInput.inputValue()).trim();
                     }
+
+                    if (rawValue === '') {
+                        await section.scrollIntoViewIfNeeded();
+                        await selectedCard.scrollIntoViewIfNeeded();
+                        await AllureHelper.attachScreenshot(
+                            this.page,
+                            `Blank score selection | ${criterionName}`,
+                        );
+                        throw new Error(
+                            `Criterion "${criterionName}" has a highlighted score card with no value selected`,
+                        );
+                    }
+                    score = parseFloat(rawValue) || 0;
                 }
 
                 // AI Feedback block
