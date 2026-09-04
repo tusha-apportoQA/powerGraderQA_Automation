@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T00:00:51.900Z",
+  "generatedAt": "2026-08-04T19:03:11.091Z",
   "sourceDir": "C:\\Users\\tusha\\powerGraderQA_Automation\\allure-results",
   "totalCases": 33,
   "cases": [
@@ -20,10 +20,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Above Average txt",
-          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m6\u001b[39m Received: \u001b[31m3\u001b[39m",
+          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m5\u001b[39m Received: \u001b[31m3\u001b[39m",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Above Average txt",
-          "resultFile": "b142be23-9365-45c1-b1be-9f0f588c4bcf-result.json",
+          "resultFile": "12738926-a41b-4b49-9389-6b6386f400e8-result.json",
           "status": "failed"
         }
       ]
@@ -54,10 +54,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "not_reached"
         }
       ]
@@ -70,10 +70,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "not_reached"
         }
       ]
@@ -86,10 +86,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
           "status": "not_reached"
         }
       ]
@@ -102,10 +102,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
           "status": "not_reached"
         }
       ]
@@ -124,24 +124,16 @@
       "caseName": "Rubric: Button Hidden (Has Rubric)",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas CSV submission",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Easy",
+        "canvas|orchestration|Canvas ELC Poor docx",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Hard"
       ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "not_reached"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C69000",
@@ -161,51 +153,27 @@
       ],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3633\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3633\"",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
-          "resultFile": "61fae6d9-990f-40db-83d3-2f78f9313405-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "canvas|orchestration|Canvas Code Hard",
-          "error": "Error: Orchestration failed (2 failures): - SBERT: ❌ DRIFT DETECTED: criteriaFeedback:Specifications has 100.0% drift. - C75529: Due date label is not visible on grading page expect(locator).toBeVisible() failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: - Due date label is not visible on grading page with timeout 10000ms - waiting for getByText('Due:')",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
-          "resultFile": "7b0b2b45-c8d9-41c2-9e1e-9672ef78ea65-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "canvas|orchestration|Canvas CSV submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
-          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
-          "status": "failed"
-        },
-        {
           "config": "canvas|orchestration|Canvas ELC Above Average txt",
-          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m6\u001b[39m Received: \u001b[31m3\u001b[39m",
+          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m5\u001b[39m Received: \u001b[31m3\u001b[39m",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Above Average txt",
-          "resultFile": "b142be23-9365-45c1-b1be-9f0f588c4bcf-result.json",
+          "resultFile": "12738926-a41b-4b49-9389-6b6386f400e8-result.json",
           "status": "failed"
         },
         {
-          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "config": "canvas|orchestration|Canvas Code Easy",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3671\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3671\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
+          "resultFile": "1da477d9-f31c-4a89-8541-0c86d9c196ea-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "failed"
         },
         {
@@ -213,15 +181,39 @@
           "error": "Error: Orchestration failed (2 failures): - SBERT: ❌ DRIFT DETECTED: criteriaFeedback:Big O has 100.0% drift. - C75529: Due date label is not visible on grading page expect(locator).toBeVisible() failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: - Due date label is not visible on grading page with timeout 10000ms - waiting for getByText('Due:')",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Medium",
-          "resultFile": "d819eb16-05f0-4f8c-be24-32c51b5a9b38-result.json",
+          "resultFile": "56f0d04c-0ed7-4295-b8dd-acd8f1a44285-result.json",
           "status": "not_reached"
         },
         {
-          "config": "canvas|orchestration|Canvas Code Easy",
-          "error": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m Expected: \u001b[32m5\u001b[39m Received: \u001b[31m4\u001b[39m",
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3674\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3674\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
-          "resultFile": "eed7452b-9059-45ca-988c-ea3468a03493-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "a86ca263-49ff-4512-b383-e6140f980e14-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3675\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3675\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
+          "resultFile": "a912903f-05ba-4d1b-ad60-facb7516ceb9-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Canvas Code Hard",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3673\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3673\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
+          "resultFile": "f5ed09ad-f840-4243-9d31-57865ddb5fed-result.json",
           "status": "failed"
         }
       ]
@@ -238,26 +230,18 @@
     {
       "caseId": "C69039",
       "caseName": "POW: Teacher should be able to add pre-existing rubric",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas CSV submission",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Easy",
+        "canvas|orchestration|Canvas ELC Poor docx",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Hard"
       ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "failed"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C69041",
@@ -268,27 +252,27 @@
       ],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "not_reached"
-        },
-        {
           "config": "canvas|orchestration|Canvas ELC Above Average txt",
-          "error": "Rubric criterion order in PowerGrader should match criteriaOrder from assignment config \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m \u001b[32m- Expected - 3\u001b[39m \u001b[31m+ Received + 6\u001b[39m \u001b[2m Array [\u001b[22m \u001b[32m- \"Text Type\",\u001b[39m \u001b[32m- \"Content\",\u001b[39m \u001b[32m- \"Accuracy\",\u001b[39m \u001b[31m+ \"Analysis of Immediate and Long-term Consequences\",\u001b[39m \u001b[31m+ \"Explanation of Benefits to Peers\",\u001b[39m \u001b[31m+ \"Identification of a Relevant City Improvement\",\u001b[39m \u001b[31m+ \"Language Use and Mechanics\",\u001b[39m \u001b[31m+ \"Organization and Clarity\",\u001b[39m \u001b[31m+ \"Use of Specific Reasoning and Examples\",\u001b[39m \u001b[2m ]\u001b[22m",
+          "error": "Rubric criterion order in PowerGrader should match criteriaOrder from assignment config \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m \u001b[32m- Expected - 3\u001b[39m \u001b[31m+ Received + 5\u001b[39m \u001b[2m Array [\u001b[22m \u001b[32m- \"Text Type\",\u001b[39m \u001b[32m- \"Content\",\u001b[39m \u001b[32m- \"Accuracy\",\u001b[39m \u001b[31m+ \"Explanation of Immediate and Long-Term Consequences\",\u001b[39m \u001b[31m+ \"Language Use and Writing Mechanics\",\u001b[39m \u001b[31m+ \"Organization and Logical Flow\",\u001b[39m \u001b[31m+ \"Relevance and Clarity of the Chosen Improvement\",\u001b[39m \u001b[31m+ \"Supporting Reasons and Examples\",\u001b[39m \u001b[2m ]\u001b[22m",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Above Average txt",
-          "resultFile": "b142be23-9365-45c1-b1be-9f0f588c4bcf-result.json",
+          "resultFile": "12738926-a41b-4b49-9389-6b6386f400e8-result.json",
           "status": "failed"
         },
         {
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
+          "status": "not_reached"
+        },
+        {
           "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
           "status": "not_reached"
         }
       ]
@@ -298,50 +282,34 @@
       "caseName": "POW - Canvas student should be able to submit assignment",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas CSV submission",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Easy",
+        "canvas|orchestration|Canvas ELC Poor docx",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas XLSX No Rubric submission",
+        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Hard"
       ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "not_reached"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C69074",
       "caseName": "POW - Canvas all assignments in QA instance should show submission details",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas CSV submission",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Easy",
+        "canvas|orchestration|Canvas ELC Poor docx",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas XLSX No Rubric submission",
+        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Hard"
       ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "failed"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C69092",
@@ -357,49 +325,33 @@
       "caseName": "All LMS: Student submits files (.docx/.txt/.pdf) with comments",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas CSV submission",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas Code Easy",
+        "canvas|orchestration|Canvas ELC Poor docx",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas XLSX No Rubric submission",
+        "canvas|orchestration|Canvas Code Hard"
       ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "not_reached"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C69100",
       "caseName": "On-time submission (before due date) is accepted and gradable",
-      "status": "partially_passed",
+      "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas CSV submission",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Easy",
+        "canvas|orchestration|Canvas ELC Poor docx",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas XLSX No Rubric submission",
+        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Hard"
       ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "failed"
-        }
-      ]
+      "failedConfigs": []
     },
     {
       "caseId": "C69138",
@@ -409,10 +361,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "not_reached"
         }
       ]
@@ -437,18 +389,18 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "failed"
         },
         {
           "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
           "status": "failed"
         }
       ]
@@ -462,51 +414,27 @@
       ],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3633\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3633\"",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
-          "resultFile": "61fae6d9-990f-40db-83d3-2f78f9313405-result.json",
-          "status": "not_reached"
-        },
-        {
-          "config": "canvas|orchestration|Canvas Code Hard",
-          "error": "Due date label is not visible on grading page \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: \u001b[2m - Due date label is not visible on grading page with timeout 10000ms\u001b[22m \u001b[2m - waiting for getByText('Due:')\u001b[22m",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
-          "resultFile": "7b0b2b45-c8d9-41c2-9e1e-9672ef78ea65-result.json",
-          "status": "failed"
-        },
-        {
-          "config": "canvas|orchestration|Canvas CSV submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
-          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
-          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
-          "status": "not_reached"
-        },
-        {
           "config": "canvas|orchestration|Canvas ELC Above Average txt",
           "error": "Due date label is not visible on grading page \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: \u001b[2m - Due date label is not visible on grading page with timeout 10000ms\u001b[22m \u001b[2m - waiting for getByText('Due:')\u001b[22m",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Above Average txt",
-          "resultFile": "b142be23-9365-45c1-b1be-9f0f588c4bcf-result.json",
+          "resultFile": "12738926-a41b-4b49-9389-6b6386f400e8-result.json",
           "status": "failed"
         },
         {
-          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "config": "canvas|orchestration|Canvas Code Easy",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3671\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3671\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
+          "resultFile": "1da477d9-f31c-4a89-8541-0c86d9c196ea-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas ELC Poor docx",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "not_reached"
         },
         {
@@ -514,34 +442,51 @@
           "error": "Due date label is not visible on grading page \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: \u001b[2m - Due date label is not visible on grading page with timeout 10000ms\u001b[22m \u001b[2m - waiting for getByText('Due:')\u001b[22m",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Medium",
-          "resultFile": "d819eb16-05f0-4f8c-be24-32c51b5a9b38-result.json",
+          "resultFile": "56f0d04c-0ed7-4295-b8dd-acd8f1a44285-result.json",
           "status": "failed"
         },
         {
-          "config": "canvas|orchestration|Canvas Code Easy",
-          "error": "Due date label is not visible on grading page \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed Locator: getByText('Due:') Expected: visible Timeout: 10000ms Error: element(s) not found Call log: \u001b[2m - Due date label is not visible on grading page with timeout 10000ms\u001b[22m \u001b[2m - waiting for getByText('Due:')\u001b[22m",
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3674\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3674\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
-          "resultFile": "eed7452b-9059-45ca-988c-ea3468a03493-result.json",
-          "status": "failed"
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "a86ca263-49ff-4512-b383-e6140f980e14-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3675\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3675\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
+          "resultFile": "a912903f-05ba-4d1b-ad60-facb7516ceb9-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas Code Hard",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3673\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3673\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
+          "resultFile": "f5ed09ad-f840-4243-9d31-57865ddb5fed-result.json",
+          "status": "not_reached"
         }
       ]
     },
     {
       "caseId": "C75645",
       "caseName": "Verify the docx file is ingested and graded",
-      "status": "failed",
-      "passedConfigs": [],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "failed"
-        }
-      ]
+      "status": "passed",
+      "passedConfigs": [
+        "canvas|orchestration|Canvas ELC Poor docx"
+      ],
+      "failedConfigs": []
     },
     {
       "caseId": "C75673",
@@ -557,36 +502,50 @@
       "caseName": "Verify Logout works",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas Code Hard",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas XLSX No Rubric submission"
       ],
       "failedConfigs": [
         {
+          "config": "canvas|orchestration|Canvas Code Easy",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3671\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3671\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
+          "resultFile": "1da477d9-f31c-4a89-8541-0c86d9c196ea-result.json",
+          "status": "not_reached"
+        },
+        {
           "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "not_reached"
         },
         {
           "config": "canvas|orchestration|Canvas CSV submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3674\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3674\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
-          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
+          "resultFile": "a86ca263-49ff-4512-b383-e6140f980e14-result.json",
           "status": "not_reached"
         },
         {
           "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas Code Hard",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3673\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3673\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
+          "resultFile": "f5ed09ad-f840-4243-9d31-57865ddb5fed-result.json",
           "status": "not_reached"
         }
       ]
@@ -607,19 +566,19 @@
       "passedConfigs": [],
       "failedConfigs": [
         {
-          "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3633\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3633\"",
+          "config": "canvas|orchestration|Canvas CSV submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3674\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3674\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
-          "resultFile": "61fae6d9-990f-40db-83d3-2f78f9313405-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
+          "resultFile": "a86ca263-49ff-4512-b383-e6140f980e14-result.json",
           "status": "not_reached"
         },
         {
-          "config": "canvas|orchestration|Canvas CSV submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "config": "canvas|orchestration|Canvas XLSX No Rubric submission",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3675\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3675\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
-          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas XLSX No Rubric submission",
+          "resultFile": "a912903f-05ba-4d1b-ad60-facb7516ceb9-result.json",
           "status": "not_reached"
         }
       ]
@@ -634,10 +593,10 @@
       "failedConfigs": [
         {
           "config": "canvas|orchestration|Canvas CSV submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3674\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3674\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
-          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
+          "resultFile": "a86ca263-49ff-4512-b383-e6140f980e14-result.json",
           "status": "not_reached"
         }
       ]
@@ -647,36 +606,50 @@
       "caseName": "Verify Submission Review Page new UI",
       "status": "partially_passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas Code Hard",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas XLSX No Rubric submission"
       ],
       "failedConfigs": [
         {
+          "config": "canvas|orchestration|Canvas Code Easy",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3671\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3671\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
+          "resultFile": "1da477d9-f31c-4a89-8541-0c86d9c196ea-result.json",
+          "status": "failed"
+        },
+        {
           "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "failed"
         },
         {
           "config": "canvas|orchestration|Canvas CSV submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3674\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3674\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
-          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
+          "resultFile": "a86ca263-49ff-4512-b383-e6140f980e14-result.json",
           "status": "failed"
         },
         {
           "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
+          "status": "failed"
+        },
+        {
+          "config": "canvas|orchestration|Canvas Code Hard",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3673\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3673\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
+          "resultFile": "f5ed09ad-f840-4243-9d31-57865ddb5fed-result.json",
           "status": "failed"
         }
       ]
@@ -686,36 +659,50 @@
       "caseName": "Verify Back button is present in grading page to go back to submissions list page",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas Code Hard",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas XLSX No Rubric submission"
       ],
       "failedConfigs": [
         {
+          "config": "canvas|orchestration|Canvas Code Easy",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3671\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3671\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Easy",
+          "resultFile": "1da477d9-f31c-4a89-8541-0c86d9c196ea-result.json",
+          "status": "not_reached"
+        },
+        {
           "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3666\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3666\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
+          "resultFile": "468dfb98-8624-4b7d-ad62-8a7f5d1f2980-result.json",
           "status": "not_reached"
         },
         {
           "config": "canvas|orchestration|Canvas CSV submission",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3632\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3632\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3674\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3674\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas CSV submission",
-          "resultFile": "9885c5ea-210a-4a1f-bb1a-267a9a15d8e6-result.json",
+          "resultFile": "a86ca263-49ff-4512-b383-e6140f980e14-result.json",
           "status": "not_reached"
         },
         {
           "config": "canvas|orchestration|Canvas ELC Excellent Text Entry",
-          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3628\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3628\"",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3669\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3669\"",
           "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
           "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Excellent Text Entry",
-          "resultFile": "ca24f358-6ecd-4214-9e8c-5aa2f0d73735-result.json",
+          "resultFile": "a93e46b5-91ef-4afb-a9e4-50d50cc1d1bd-result.json",
+          "status": "not_reached"
+        },
+        {
+          "config": "canvas|orchestration|Canvas Code Hard",
+          "error": "Error: expect(locator).toBeVisible() failed Locator: getByRole('dialog', { name: 'Warning' }) Expected: visible Timeout: 3000ms Error: element(s) not found Call log: - Expect \"toBeVisible\" with timeout 3000ms - waiting for getByRole('dialog', { name: 'Warning' }) - waiting for\" https://apporto.instructure.com/courses/312/assignments/3673\" navigation to finish... - navigated to \"https://apporto.instructure.com/courses/312/assignments/3673\"",
+          "failedStep": "Expect \"toBeVisible\" getByRole('dialog', { name: 'Warning' })",
+          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas Code Hard",
+          "resultFile": "f5ed09ad-f840-4243-9d31-57865ddb5fed-result.json",
           "status": "not_reached"
         }
       ]
@@ -725,25 +712,17 @@
       "caseName": "Verify ALL LMS can launch QA instance",
       "status": "passed",
       "passedConfigs": [
-        "canvas|orchestration|Canvas XLSX No Rubric submission",
-        "canvas|orchestration|Canvas Code Hard",
-        "canvas|orchestration|Canvas CSV submission",
         "canvas|orchestration|Canvas ELC Above Average txt",
-        "canvas|orchestration|Canvas ELC Average pdf",
-        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Easy",
+        "canvas|orchestration|Canvas ELC Poor docx",
         "canvas|orchestration|Canvas Code Medium",
-        "canvas|orchestration|Canvas Code Easy"
+        "canvas|orchestration|Canvas ELC Average pdf",
+        "canvas|orchestration|Canvas CSV submission",
+        "canvas|orchestration|Canvas XLSX No Rubric submission",
+        "canvas|orchestration|Canvas ELC Excellent Text Entry",
+        "canvas|orchestration|Canvas Code Hard"
       ],
-      "failedConfigs": [
-        {
-          "config": "canvas|orchestration|Canvas ELC Poor docx",
-          "error": "Error: expect(locator).toBeEnabled() failed Locator: getByTestId('save-rubric-assessment-button') Expected: enabled Received: disabled Timeout: 10000ms Call log: - Expect \"toBeEnabled\" with timeout 10000ms - waiting for getByTestId('save-rubric-assessment-button') 23 × locator resolved to <button disabled dir=\"ltr\" type=\"button\" cursor=\"not-allowed\" data-cid=\"BaseButton Button\" data-testid=\"save-rubric-assessment-button\" class=\"css-8sf8rr-view--inlineBlock-baseButton\">…</button> - unexpected value \"disabled\"",
-          "failedStep": "Create assignment in Canvas",
-          "test": "features/canvas/canvas-orchestration.spec.ts#Canvas Orchestration @canvas @orchestration Canvas Orchestration: Canvas ELC Poor docx",
-          "resultFile": "0e0c134f-f2dc-4e2d-922d-8aa34d80c985-result.json",
-          "status": "not_reached"
-        }
-      ]
+      "failedConfigs": []
     }
   ]
 }

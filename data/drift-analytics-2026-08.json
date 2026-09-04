@@ -348,5 +348,208 @@
     },
     "grade_time_mins": "1.75",
     "status": "failed"
+  },
+  {
+    "run_date": "2026-08-04T17:35:02.892Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Average pdf [1785864734902]",
+    "sbert_similarity": 0.6951305802508763,
+    "drift": {
+      "sbert_similarity": 0.6951305802508763,
+      "score_delta": 1
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 10,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 4,
+          "feedback": "You included an introduction, body paragraphs, and a short conclusion, but your essay is mostly organized at the paragraph level and lacks clear, logical flow and transitions. Focus on connecting your main ideas more smoothly and using clear topic sentences or transitions to improve overall essay organization."
+        },
+        {
+          "name": "Content",
+          "score": 4,
+          "feedback": "Your response provides some detailed examples about living in Santiago, but does not identify a specific improvement or discuss its benefits and consequences for people your age as the prompt requests. To improve, focus on clearly proposing one change, explain why it matters, and use supporting examples to show its impact."
+        },
+        {
+          "name": "Accuracy",
+          "score": 2,
+          "feedback": "Frequent grammar, vocabulary, and spelling errors (such as incorrect verb forms, articles, and prepositions) make your writing hard to understand at times, but you show that you can write simple and some compound sentences—keep working on correct sentence structure and verb forms to improve accuracy."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 11,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 5,
+          "feedback": "Your essay contains multiple paragraphs with a clear introduction and conclusion, showing some essay-level organization, but to improve, try developing each idea into a fuller paragraph and use clearer transitions between sections to strengthen your structure."
+        },
+        {
+          "name": "Content",
+          "score": 3,
+          "feedback": "Your response provides reasons why Santiago is already good for people your age, but to fully meet the assignment you needed to suggest a specific improvement and discuss its immediate and long-term effects. In the future, focus on identifying one change you would make and explain how it would benefit people your age."
+        },
+        {
+          "name": "Accuracy",
+          "score": 3,
+          "feedback": "You used some simple and a few compound sentences, and most of your ideas can be understood, but frequent grammar and word choice errors often make your meaning unclear. To improve, focus on using correct verb tenses, subject-verb agreement, and word order."
+        }
+      ]
+    },
+    "grade_time_mins": "1.76",
+    "status": "passed"
+  },
+  {
+    "run_date": "2026-08-04T17:47:33.849Z",
+    "lms": "canvas",
+    "student_file": "Canvas ELC Above Average txt [1785865358732]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": 51
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 20,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Text Type",
+          "score": 7,
+          "feedback": "Your essay is very well organized, with a clear introduction, well-developed body paragraphs, and a strong conclusion connected by logical transitions. This structure makes your writing easy to follow and demonstrates mastery of essay organization for this task."
+        },
+        {
+          "name": "Content",
+          "score": 7,
+          "feedback": "Your essay gives a clear, well-supported city improvement with strong examples and thoughtful discussion of both immediate and long-term impacts; to achieve a perfect score, aim for even deeper analysis and more nuanced details in your explanations."
+        },
+        {
+          "name": "Accuracy",
+          "score": 6,
+          "feedback": "Your argument is clearly explained and logically sound, with relevant examples and reasonable connections between your ideas, though adding more nuance and avoiding oversimplification could further strengthen your work."
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 71,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Explanation of Immediate and Long-Term Consequences",
+          "score": 10,
+          "feedback": "You identified both immediate and long-term consequences of introducing technology—like faster learning and better preparation for societal changes—but your explanations would be stronger with more specific details and deeper cause-effect analysis."
+        },
+        {
+          "name": "Language Use and Writing Mechanics",
+          "score": 5,
+          "feedback": "Your writing communicates your ideas clearly, but there are frequent spelling, grammar, and sentence structure errors (like verb tense and word choice) that can distract the reader; reviewing your work for these issues would improve your score."
+        },
+        {
+          "name": "Organization and Logical Flow",
+          "score": 15,
+          "feedback": "Your essay is well-organized, with a clear introduction, logical transitions between focused body paragraphs, and a strong conclusion that ties your points together."
+        },
+        {
+          "name": "Relevance and Clarity of the Chosen Improvement",
+          "score": 23,
+          "feedback": "Your improvement—bringing new technology to your city—is clear and relevant to people your age, with strong reasons and examples. To earn a higher score in the future, try to be more specific about what kind of technology or programs would help most."
+        },
+        {
+          "name": "Supporting Reasons and Examples",
+          "score": 18,
+          "feedback": "Your reasons for supporting new technology—improving education and increasing job opportunities—are clear, and you offer relevant, specific examples, but your argument would be even stronger with greater detail, especially in explaining how job opportunities would be affected."
+        }
+      ]
+    },
+    "grade_time_mins": "3.88",
+    "status": "failed"
+  },
+  {
+    "run_date": "2026-08-04T18:25:49.049Z",
+    "lms": "canvas",
+    "student_file": "Canvas Code Medium [1785867714529]",
+    "sbert_similarity": 0,
+    "drift": {
+      "sbert_similarity": 0,
+      "score_delta": 88
+    },
+    "baseline": {
+      "instruction": "N/A",
+      "total_score": 12,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Big O",
+          "score": 3,
+          "feedback": "Your solution efficiently solves the problem in O(N) time using a single loop and only a constant number of variables, achieving the optimal approach for both time and space complexity."
+        },
+        {
+          "name": "Validity",
+          "score": 2,
+          "feedback": "Your solution correctly handles all required cases—including empty input, single values, and all-negative lists—demonstrating robust and valid logic throughout."
+        },
+        {
+          "name": "Organization",
+          "score": 3,
+          "feedback": "Your function is excellently organized, with clearly separated blocks for edge cases, initialization, and the main DP loop, making your code easy to read and follow."
+        },
+        {
+          "name": "Comments",
+          "score": 2,
+          "feedback": "You included a clear comment for the edge case handling, but the main dynamic programming logic is left uncommented; adding comments to clarify your approach, especially around the key steps of your algorithm, would strengthen your submission and help achieve a higher score."
+        },
+        {
+          "name": "Documentation",
+          "score": 0,
+          "feedback": "Your submission does not include a function-level docstring, which is required for documentation credit. To improve, add a docstring under your function that explains its purpose, parameters, return value, and assumptions."
+        },
+        {
+          "name": "Naming",
+          "score": 2,
+          "feedback": "All functions and variables are named clearly and appropriately for this problem, making your logic easy to follow. Excellent use of descriptive and standard naming throughout!"
+        }
+      ]
+    },
+    "current": {
+      "instruction": "N/A",
+      "total_score": 100,
+      "criterion_feedback": "No overall feedback recorded.",
+      "criteria": [
+        {
+          "name": "Algorithmic Efficiency (Time and Space Complexity)",
+          "score": 30,
+          "feedback": "Your solution is optimally efficient: it processes the list in O(N) time using only a constant number of variables, exactly as required by the prompt and rubric. Excellent work meeting all efficiency criteria for full credit."
+        },
+        {
+          "name": "Code Quality and Readability",
+          "score": 15,
+          "feedback": "Your code is extremely clear and well-organized, with meaningful variable and function names, logical structure, and concise, helpful comments—making the logic easy to follow throughout."
+        },
+        {
+          "name": "Correctness and Handling of Edge Cases",
+          "score": 45,
+          "feedback": "Your solution produces correct results for all test cases, including tricky edge cases like empty lists, all-negative values, and single-item lists, meeting all requirements for full credit."
+        },
+        {
+          "name": "Minor Stylistic and Formatting Issues",
+          "score": 5,
+          "feedback": "Your code is consistently and cleanly formatted, with appropriate indentation, spacing, and line lengths, making it visually clear and easy to read. Excellent work maintaining high formatting standards throughout your submission."
+        },
+        {
+          "name": "Use of Pythonic Constructs and Idiomatic Style",
+          "score": 5,
+          "feedback": "Your code is clean and mostly idiomatic, with an effective function definition and concise logic. To reach full marks, consider using tuple unpacking when updating your rolling variables for an even more Pythonic approach."
+        }
+      ]
+    },
+    "grade_time_mins": "2.81",
+    "status": "failed"
   }
 ]
