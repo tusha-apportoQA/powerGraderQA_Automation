@@ -434,14 +434,13 @@ test.describe('Moodle Orchestration @moodle @orchestration', () => {
         });
 
         await AllureHelper.step(`Submit assignment (${submissionType})`, async () => {
-          const { credentials } = getMoodleConfig();
-          const commentMeta = { uniqueTitle, studentLabel: credentials.studentUsername };
           await student.navigateToAssignmentDetails(uniqueTitle, courseName);
           if (submissionType === 'Text Entry') {
             await student.verifyFileTypeAndSubmit('Text Entry', undefined, getSubmissionText());
           } else {
             const filePath = getSubmissionFilePath(submissionFile);
-            await student.verifyFileTypeAndSubmit(submissionType, filePath, undefined, commentMeta);
+            // POW922 disabled for Moodle: omit commentMeta so it stays not_reached in Allure.
+            await student.verifyFileTypeAndSubmit(submissionType, filePath);
           }
           AllureHelper.label('caseStatus', `${POW903.split(':')[0]}:reached`);
         });

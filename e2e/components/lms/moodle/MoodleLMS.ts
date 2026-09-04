@@ -210,7 +210,8 @@ export class MoodleLMS implements LmsTeacher {
                 });
 
                 await AllureHelper.step(`Navigate to grading page for student "${studentDisplayName}"`, async () => {
-                    const studentRow = this.page.locator('tr').filter({ hasText: studentDisplayName }).first();
+                    const studentCell = this.page.getByRole('cell', { name: studentDisplayName, exact: true });
+                    const studentRow = studentCell.locator('xpath=ancestor::tr[1]');
                     const gradeButton = studentRow.getByRole('link', { name: 'Grade' });
                     await gradeButton.click();
                     await this.moodleGradingPage.expectMoodleGradingPageLoaded();
