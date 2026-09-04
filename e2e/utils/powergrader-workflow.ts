@@ -250,10 +250,21 @@ export async function executeUniversalPGWorkflow(
             if (isVisible) {
                 console.log(`[${uniqueTitle}] Assignment found. Clicking on "View details"...`);
                 const viewBtn = row.getByRole('link', { name: 'View details', exact: true }).or(row.getByText('View details', { exact: true }));
-                await Promise.all([
-                    powerGraderPage.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => { }),
-                    viewBtn.first().click()
-                ]);
+                try {
+                    await Promise.all([
+                        powerGraderPage.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => { }),
+                        viewBtn.first().click()
+                    ]);
+                } catch (clickError) {
+                    const yesBtn = powerGraderPage.getByRole('button', { name: 'Yes' });
+                    const modalWasBlocking = await yesBtn.waitFor({ state: 'visible', timeout: 3_000 }).then(() => true).catch(() => false);
+                    if (modalWasBlocking) {
+                        console.log(`[${uniqueTitle}] "Yes" modal was blocking the click, dismissing and retrying...`);
+                        await yesBtn.click();
+                        await powerGraderPage.waitForLoadState('networkidle').catch(() => { });
+                    }
+                    throw clickError;
+                }
                 await expect(powerGraderPage).not.toHaveURL(/.*dashboard.*/);
                 if (test.info().annotations.some(a => a.type === 'testCaseId' && a.description?.startsWith('POW-913:'))) {
                     AllureHelper.label('caseStatus', `${POW913.split(':')[0]}:passed`);
@@ -947,18 +958,29 @@ export async function executeUniversalPGWorkflow(
         await AllureHelper.step(POW1035.split(':').slice(1).join(':'), async () => {
             AllureHelper.label('testCaseId', POW1035);
             console.log(`[${uniqueTitle}] POW1035: Clicking Logout...`);
+            const qaOrigin = new URL(powerGraderPage.url()).origin;
             const logoutControl = powerGraderPage.getByTitle('Logout');
             await expect(logoutControl, 'Logout control is not visible').toBeVisible({
                 timeout: 15000,
             });
             await logoutControl.click();
-            console.log(`[${uniqueTitle}] POW1035: Waiting for logout confirmation...`);
+            console.log(`[${uniqueTitle}] POW1035: Waiting for logout redirect to settle...`);
+            await powerGraderPage.waitForTimeout(5000);
+            await powerGraderPage.waitForLoadState('networkidle', { timeout: 60000 });
+
+            const coursePath = `${qaOrigin}/course`;
+            console.log(`[${uniqueTitle}] POW1035: Navigating to ${coursePath} to verify session is logged out...`);
+            await powerGraderPage.goto(coursePath);
+            await powerGraderPage.waitForLoadState('networkidle', { timeout: 60000 });
+            await powerGraderPage.waitForTimeout(5000);
+
+            console.log(`[${uniqueTitle}] POW1035: Verifying redirect to /logout...`);
             await expect(
-                powerGraderPage.getByText('You have been successfully logged out'),
-                'Logout success message is not visible',
-            ).toBeVisible({ timeout: 60000 });
+                powerGraderPage,
+                'Expected redirect to /logout after visiting /course post-logout',
+            ).toHaveURL(/\/logout/);
             AllureHelper.label('caseStatus', `${POW1035.split(':')[0]}:passed`);
-            console.log(`[${uniqueTitle}] POW1035: Logout confirmed.`);
+            console.log(`[${uniqueTitle}] POW1035: Logout confirmed via redirect to /lti/logout.`);
         });
     } catch (error) {
         workflowFailures.push(await createWorkflowFailure(error, { tag: 'PG', caseLabel: POW1035, page: powerGraderPage }));

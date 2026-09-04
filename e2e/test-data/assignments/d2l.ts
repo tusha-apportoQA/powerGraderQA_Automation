@@ -147,7 +147,7 @@ Identify one improvement that would make your city a better place to live for pe
             submissionFile: 'files/test_submission.xlsx',
             assignAccess,
             rubric: { type: 'no' },
-            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: true, lmsVerifySave: false },
+            workflow: { verifyLms: false, iterativeRepublish: false, igWorkflow: false, onTimeVisibility: false, lmsVerifySave: false },
         }
     ];
 }

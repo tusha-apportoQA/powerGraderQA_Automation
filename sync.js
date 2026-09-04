@@ -32,7 +32,7 @@ async function getAgileStats() {
             return data.count || 0;
         };
 
-        const baseJql = `project = "${JIRA_PROJECT_KEY}" AND issuetype = "${JIRA_TEST_CASE_ISSUE_TYPE}" AND status != "Invalid"`;
+        const baseJql = `project = "${JIRA_PROJECT_KEY}" AND issuetype = "${JIRA_TEST_CASE_ISSUE_TYPE}" AND status != "Invalid" AND labels = "regression"`;
 
         const [total, automated, not_automatable, automation_in_progress, yet_to_automate] = await Promise.all([
             getCount(baseJql),
